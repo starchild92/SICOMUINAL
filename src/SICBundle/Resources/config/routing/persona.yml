@@ -1,0 +1,24 @@
+personas_index:
+    path:     /
+    defaults: { _controller: "SICBundle:Persona:index" }
+    methods:  GET
+
+personas_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:Persona:show" }
+    methods:  GET
+
+personas_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:Persona:new" }
+    methods:  [GET, POST]
+
+personas_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:Persona:edit" }
+    methods:  [GET, POST]
+
+personas_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:Persona:delete" }
+    methods:  DELETE

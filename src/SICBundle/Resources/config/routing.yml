@@ -1,0 +1,7 @@
+sic_usuarios:
+    resource: "@SICBundle/Resources/config/routing/usuario.yml"
+    prefix:   /usuarios
+
+sic_personas:
+    resource: "@SICBundle/Resources/config/routing/persona.yml"
+    prefix:   /personas

@@ -1,7 +1,5 @@
 sic:
-    resource: "@SICBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    resource: "@SICBundle/Resources/config/routing.yml"
 
 #app:
 #    resource: "@AppBundle/Controller/"

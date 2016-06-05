@@ -1,0 +1,24 @@
+usuarios_index:
+    path:     /
+    defaults: { _controller: "SICBundle:Usuario:index" }
+    methods:  GET
+
+usuarios_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:Usuario:show" }
+    methods:  GET
+
+usuarios_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:Usuario:new" }
+    methods:  [GET, POST]
+
+usuarios_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:Usuario:edit" }
+    methods:  [GET, POST]
+
+usuarios_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:Usuario:delete" }
+    methods:  DELETE

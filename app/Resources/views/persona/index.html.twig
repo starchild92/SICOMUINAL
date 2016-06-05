@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Persona list</h1>
+
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Sexo</th>
+                <th>Cedula</th>
+                <th>Fechanacimiento</th>
+                <th>Edad</th>
+                <th>Parentezco</th>
+                <th>Gradoinstruccion</th>
+                <th>Profesion</th>
+                <th>Cne</th>
+                <th>Embarazotemprano</th>
+                <th>Incapacitado</th>
+                <th>Incapacitadotipo</th>
+                <th>Pensionado</th>
+                <th>Pensionadoinstitucion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for persona in personas %}
+            <tr>
+                <td><a href="{{ path('personas_show', { 'id': persona.id }) }}">{{ persona.id }}</a></td>
+                <td>{{ persona.nombre }}</td>
+                <td>{{ persona.apellido }}</td>
+                <td>{{ persona.sexo }}</td>
+                <td>{{ persona.cedula }}</td>
+                <td>{% if persona.fechaNacimiento %}{{ persona.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ persona.edad }}</td>
+                <td>{{ persona.parentezco }}</td>
+                <td>{{ persona.gradoInstruccion }}</td>
+                <td>{{ persona.profesion }}</td>
+                <td>{{ persona.cne }}</td>
+                <td>{{ persona.embarazoTemprano }}</td>
+                <td>{{ persona.incapacitado }}</td>
+                <td>{{ persona.incapacitadoTipo }}</td>
+                <td>{{ persona.pensionado }}</td>
+                <td>{{ persona.pensionadoInstitucion }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('personas_show', { 'id': persona.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('personas_edit', { 'id': persona.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('personas_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

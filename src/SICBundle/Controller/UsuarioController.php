@@ -4,23 +4,19 @@ namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 use SICBundle\Entity\Usuario;
 use SICBundle\Form\UsuarioType;
 
 /**
  * Usuario controller.
  *
- * @Route("/usuarios")
  */
 class UsuarioController extends Controller
 {
     /**
      * Lists all Usuario entities.
      *
-     * @Route("/", name="usuarios_index")
-     * @Method("GET")
      */
     public function indexAction()
     {
@@ -36,8 +32,6 @@ class UsuarioController extends Controller
     /**
      * Creates a new Usuario entity.
      *
-     * @Route("/new", name="usuarios_new")
-     * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
@@ -62,8 +56,6 @@ class UsuarioController extends Controller
     /**
      * Finds and displays a Usuario entity.
      *
-     * @Route("/{id}", name="usuarios_show")
-     * @Method("GET")
      */
     public function showAction(Usuario $usuario)
     {
@@ -78,8 +70,6 @@ class UsuarioController extends Controller
     /**
      * Displays a form to edit an existing Usuario entity.
      *
-     * @Route("/{id}/edit", name="usuarios_edit")
-     * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Usuario $usuario)
     {
@@ -105,8 +95,6 @@ class UsuarioController extends Controller
     /**
      * Deletes a Usuario entity.
      *
-     * @Route("/{id}", name="usuarios_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, Usuario $usuario)
     {
