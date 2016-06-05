@@ -27,7 +27,7 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
+						<li><a href="{{ path('sic_homepage') }}">Inicio</a></li>
 						<li><a href="#about">About</a></li>
 						<li><a href="#contact">Contact</a></li>
 						<li class="dropdown">
@@ -38,6 +38,7 @@
 								<li><a href="#">Something else here</a></li>
 								<li role="separator" class="divider"></li>
 								<li class="dropdown-header">CRUD</li>
+								<li><a href="{{ path('comunidades_index') }}">Comunidades</a></li>
 								<li><a href="{{ path('usuarios_index') }}">Usuarios</a></li>
 								<li><a href="{{ path('personas_index') }}">Personas</a></li>
 							</ul>

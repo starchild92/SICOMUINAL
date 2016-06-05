@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Comunidad list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Estado</th>
+                <th>Municipio</th>
+                <th>Parroquia</th>
+                <th>Sector</th>
+                <th>Comunidad</th>
+                <th>Direccion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comunidad in comunidads %}
+            <tr>
+                <td><a href="{{ path('comunidades_show', { 'id': comunidad.id }) }}">{{ comunidad.id }}</a></td>
+                <td>{{ comunidad.estado }}</td>
+                <td>{{ comunidad.municipio }}</td>
+                <td>{{ comunidad.parroquia }}</td>
+                <td>{{ comunidad.sector }}</td>
+                <td>{{ comunidad.comunidad }}</td>
+                <td>{{ comunidad.direccion }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('comunidades_show', { 'id': comunidad.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('comunidades_edit', { 'id': comunidad.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('comunidades_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

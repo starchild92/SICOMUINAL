@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Comunidad</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comunidad.id }}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{{ comunidad.estado }}</td>
+            </tr>
+            <tr>
+                <th>Municipio</th>
+                <td>{{ comunidad.municipio }}</td>
+            </tr>
+            <tr>
+                <th>Parroquia</th>
+                <td>{{ comunidad.parroquia }}</td>
+            </tr>
+            <tr>
+                <th>Sector</th>
+                <td>{{ comunidad.sector }}</td>
+            </tr>
+            <tr>
+                <th>Comunidad</th>
+                <td>{{ comunidad.comunidad }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ comunidad.direccion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('comunidades_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('comunidades_edit', { 'id': comunidad.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
