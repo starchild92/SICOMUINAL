@@ -1,0 +1,30 @@
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-5 col-sm-5 offer" style="float: none; margin: 117px auto; text-align: center;">
+        <div class="page-header blanco" style="text-align: center;">
+            <img src="{{ asset('images/logo.png') }}" >
+        </div>
+        <div class="blanco">
+            <h3><p style="font-family: 'Open Sans';">Le hemos enviado un correo electrónico con el cual fue registrad@ en el sistema para que pueda restablecer su contraseña.</p></h3>
+            <small>Si no recuerda la dirección de correo, comuniquese con el administrador.</small>
+            <a class="btn btn-login btn-lg btn-block btn-password-already" href="{{ path('inicio') }}">IR AL INICIO DE SESIÓN</a>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    body{
+        background-color: black;
+        background-image: url("{{ asset('images/bg_gpscaracas.jpg') }}");
+    }
+    .blanco{ color: white; }
+    .page-header{
+        border-bottom: none;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}

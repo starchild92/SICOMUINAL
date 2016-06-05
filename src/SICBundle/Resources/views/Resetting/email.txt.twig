@@ -1,0 +1,55 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+    {% block subject %}
+    	{% autoescape false %}
+    	Sistema de Información Comunal
+    	{% endautoescape %}
+    {% endblock %}
+
+{% block body_html %}
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+        .text-center { text-align: center; }
+        .imagen{
+            height: 75px;
+            width: 270px;
+            background-image: url("{{ asset('images/logo.png') }}");
+            background-color: gray;
+        }
+        .cuerpo{
+            padding: 10px;
+        }
+        .cabecera_mail{
+            padding-bottom: 30px;
+        }
+        .pie_mail{
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td colspan="2" class="text-center cabecera_mail">GPS Caracas</td>
+        </tr>
+        <tr>
+            <td>
+                <div class="cuerpo">
+                    <p>Estimado, {{ user.username }} ha recibido este mensaje porque ha solicitado que su contraseña de acceso al sistema sea restablecida. Para continuar, por favor haga clic en el siguiente enlace.</p>
+
+                    <a href="{{ confirmationUrl }}" class="text-center">Enlace para restablecer la contraseña</a><br>
+                </div>
+            </td>
+            <td width="40%"><div class="imagen"></div></td>
+        </tr>
+        <tr>
+            <td class="pie_mail" colspan="2">
+            <small>Si usted no ha solicitado el restablecimiento de su contraseña comuniquese con el administrador.</small>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+{% endblock %}

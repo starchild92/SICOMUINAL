@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block body %}
+<style type="text/css">
+    label{ color: white; }
+</style>
+<div class="row">
+    <div class="col-lg-6 col-sm-6 offer" style="float: none; margin: 117px auto; text-align: center;">
+        <div class="page-header blanco" style="text-align: center;">
+            <img src="{{ asset('images/logo.png') }}" >
+        </div>
+        {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'form-group' } }) }}
+
+                {{ form_row(form.plainPassword.first, {'label':'Contraseña Nueva'}) }}
+                {{ form_row(form.plainPassword.second, {'label':'Repetir Contraseña Nueva'}) }}
+        <div>
+            <input class="btn btn-login btn-lg btn-block" type="submit" value="RESTABLECER CONTRASEÑA" />
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock body %}
