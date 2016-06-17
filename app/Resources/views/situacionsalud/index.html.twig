@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SituacionSalud list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Enfermedad</th>
+                <th>Ayudaespecial</th>
+                <th>Situacionexclusion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for situacionSalud in situacionSaluds %}
+            <tr>
+                <td><a href="{{ path('situacionsalud_show', { 'id': situacionSalud.id }) }}">{{ situacionSalud.id }}</a></td>
+                <td>{{ situacionSalud.enfermedad }}</td>
+                <td>{{ situacionSalud.ayudaEspecial }}</td>
+                <td>{{ situacionSalud.situacionExclusion }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('situacionsalud_show', { 'id': situacionSalud.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('situacionsalud_edit', { 'id': situacionSalud.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('situacionsalud_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

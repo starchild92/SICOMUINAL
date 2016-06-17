@@ -1,0 +1,24 @@
+situacionsalud_index:
+    path:     /
+    defaults: { _controller: "SICBundle:SituacionSalud:index" }
+    methods:  GET
+
+situacionsalud_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:SituacionSalud:show" }
+    methods:  GET
+
+situacionsalud_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:SituacionSalud:new" }
+    methods:  [GET, POST]
+
+situacionsalud_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:SituacionSalud:edit" }
+    methods:  [GET, POST]
+
+situacionsalud_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:SituacionSalud:delete" }
+    methods:  DELETE

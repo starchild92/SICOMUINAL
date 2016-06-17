@@ -33,3 +33,7 @@ sic_situacioneconomica:
 sic_situacionvivienda:
     resource: "@SICBundle/Resources/config/routing/situacionvivienda.yml"
     prefix:   /situacionvivienda
+
+sic_situacionsalud:
+    resource: "@SICBundle/Resources/config/routing/situacionsalud.yml"
+    prefix:   /situacionsalud
