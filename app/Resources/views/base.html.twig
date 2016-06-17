@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 		<title>{% block title %}Sistema de Información Comunal{% endblock %}</title>
 		
 		{% block stylesheets %}{% endblock %}
@@ -41,6 +43,7 @@
 								<li><a href="{{ path('comunidades_index') }}">Comunidades</a></li>
 								<li><a href="{{ path('usuarios_index') }}">Usuarios</a></li>
 								<li><a href="{{ path('personas_index') }}">Personas</a></li>
+								<li><a href="{{ path('consejocomunal_index') }}">Consejo Comunal</a></li>
 							</ul>
 						</li>
 					</ul>

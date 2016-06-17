@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ConsejoComunal</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ consejoComunal.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ consejoComunal.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Codigo</th>
+                <td>{{ consejoComunal.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Rif</th>
+                <td>{{ consejoComunal.rif }}</td>
+            </tr>
+            <tr>
+                <th>Numerocuenta</th>
+                <td>{{ consejoComunal.numeroCuenta }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('consejocomunal_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('consejocomunal_edit', { 'id': consejoComunal.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -14,3 +14,7 @@ sic_personas:
 sic_comunidades:
     resource: "@SICBundle/Resources/config/routing/comunidad.yml"
     prefix:   /comunidades
+
+sic_consejocomunal:
+    resource: "@SICBundle/Resources/config/routing/consejocomunal.yml"
+    prefix:   /consejocomunal

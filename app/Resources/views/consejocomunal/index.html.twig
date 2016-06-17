@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ConsejoComunal list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Codigo</th>
+                <th>Rif</th>
+                <th>Numerocuenta</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for consejoComunal in consejoComunals %}
+            <tr>
+                <td><a href="{{ path('consejocomunal_show', { 'id': consejoComunal.id }) }}">{{ consejoComunal.id }}</a></td>
+                <td>{{ consejoComunal.nombre }}</td>
+                <td>{{ consejoComunal.codigo }}</td>
+                <td>{{ consejoComunal.rif }}</td>
+                <td>{{ consejoComunal.numeroCuenta }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('consejocomunal_show', { 'id': consejoComunal.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('consejocomunal_edit', { 'id': consejoComunal.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('consejocomunal_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
