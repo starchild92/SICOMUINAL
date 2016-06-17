@@ -21,3 +21,7 @@ sic_consejocomunal:
 sic_grupofamiliar:
     resource: "@SICBundle/Resources/config/routing/grupofamiliar.yml"
     prefix:   /grupofamiliar
+
+sic_jefegrupofamiliar:
+    resource: "@SICBundle/Resources/config/routing/jefegrupofamiliar.yml"
+    prefix:   /jefegrupofamiliar
