@@ -16,4 +16,9 @@ class InicioController extends Controller
     {
         return $this->redirect($this->generateUrl('fos_user_security_login'));
     }
+
+    public function administrarEntidadesAction()
+    {
+        return $this->render('administracion/administrar_entidades.html.twig');
+    }
 }

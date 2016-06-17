@@ -39,6 +39,7 @@
              url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.svg#OpenSans")}}') format('svg');
 }
 html, body{ font-family: "Open Sans", sans-serif; }
+body { margin-top: 60px !important; }
 
 html {
   font-family: sans-serif;

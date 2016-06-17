@@ -1,4 +1,14 @@
 sic_homepage:
+    path:     /
+    defaults: { _controller: "SICBundle:Inicio:inicio" }
+    methods:  GET
+
+sic_homepage:
     path:     /inicio
     defaults: { _controller: "SICBundle:Inicio:inicio" }
+    methods:  GET
+
+sic_administacion_entidades:
+    path:     /administrar/parametros/entidades
+    defaults: { _controller: "SICBundle:Inicio:administrarEntidades"}
     methods:  GET

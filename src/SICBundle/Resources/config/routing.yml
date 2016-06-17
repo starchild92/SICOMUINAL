@@ -6,6 +6,10 @@ sic_rutas_extras:
     resource: "@SICBundle/Resources/config/routing/rutas_extras.yml"
     prefix:   /
 
+sic_rutas_fosuser:
+    resource: "@SICBundle/Resources/config/routing/security.yml"
+    prefix:   /
+
 sic_personas:
     resource: "@SICBundle/Resources/config/routing/persona.yml"
     prefix:   /personas

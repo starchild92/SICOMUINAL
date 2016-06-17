@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+		<title>{% block title %}Sistema de Información Comunal{% endblock %}</title>
+		
+		{% block stylesheets %}{% endblock %}
+
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/darkly-bootstrap.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/ie10-viewport-bug-workaround.css') }}">
+		
+		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+	</head>
+	<body>
+		<div class="container-fluid">
+			{% block body %}{% endblock %}
+		</div> <!-- /container -->
+
+		<script src="{{ asset('js/jquery2.1.4.js') }}"></script>
+		<script src="{{ asset('js/bootstrap.js') }}"></script>
+		<script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
+		<script>
+			$(function () {
+				$('[data-toggle="tooltip"]').tooltip()
+			})
+		</script>
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>
