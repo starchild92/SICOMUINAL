@@ -29,3 +29,7 @@ sic_jefegrupofamiliar:
 sic_situacioneconomica:
     resource: "@SICBundle/Resources/config/routing/situacioneconomica.yml"
     prefix:   /situacioneconomica
+
+sic_situacionvivienda:
+    resource: "@SICBundle/Resources/config/routing/situacionvivienda.yml"
+    prefix:   /situacionvivienda
