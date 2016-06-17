@@ -1,0 +1,24 @@
+situacioncomunidad_index:
+    path:     /
+    defaults: { _controller: "SICBundle:SituacionComunidad:index" }
+    methods:  GET
+
+situacioncomunidad_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:SituacionComunidad:show" }
+    methods:  GET
+
+situacioncomunidad_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:SituacionComunidad:new" }
+    methods:  [GET, POST]
+
+situacioncomunidad_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:SituacionComunidad:edit" }
+    methods:  [GET, POST]
+
+situacioncomunidad_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:SituacionComunidad:delete" }
+    methods:  DELETE
