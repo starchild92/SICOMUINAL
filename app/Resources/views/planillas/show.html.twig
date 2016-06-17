@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Planillas</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ planilla.id }}</td>
+            </tr>
+            <tr>
+                <th>Empadronador</th>
+                <td>{{ planilla.empadronador }}</td>
+            </tr>
+            <tr>
+                <th>Jefegrupofamiliar</th>
+                <td>{{ planilla.jefeGrupoFamiliar }}</td>
+            </tr>
+            <tr>
+                <th>Miembrosgrupofamiliar</th>
+                <td>{{ planilla.miembrosGrupoFamiliar }}</td>
+            </tr>
+            <tr>
+                <th>Situacioneconomica</th>
+                <td>{{ planilla.situacionEconomica }}</td>
+            </tr>
+            <tr>
+                <th>Situacionvivienda</th>
+                <td>{{ planilla.situacionVivienda }}</td>
+            </tr>
+            <tr>
+                <th>Situacionsalud</th>
+                <td>{{ planilla.situacionSalud }}</td>
+            </tr>
+            <tr>
+                <th>Situacionservicios</th>
+                <td>{{ planilla.situacionServicios }}</td>
+            </tr>
+            <tr>
+                <th>Participacioncomunitaria</th>
+                <td>{{ planilla.participacionComunitaria }}</td>
+            </tr>
+            <tr>
+                <th>Situacioncomunidad</th>
+                <td>{{ planilla.situacionComunidad }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('planillas_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('planillas_edit', { 'id': planilla.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

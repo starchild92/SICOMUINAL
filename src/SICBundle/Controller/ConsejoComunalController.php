@@ -1,0 +1,128 @@
+<?php
+
+namespace SICBundle\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use SICBundle\Entity\ConsejoComunal;
+use SICBundle\Form\ConsejoComunalType;
+
+/**
+ * ConsejoComunal controller.
+ *
+ */
+class ConsejoComunalController extends Controller
+{
+    /**
+     * Lists all ConsejoComunal entities.
+     *
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $consejoComunals = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+
+        return $this->render('consejocomunal/index.html.twig', array(
+            'consejoComunals' => $consejoComunals,
+        ));
+    }
+
+    /**
+     * Creates a new ConsejoComunal entity.
+     *
+     */
+    public function newAction(Request $request)
+    {
+        $consejoComunal = new ConsejoComunal();
+        $form = $this->createForm('SICBundle\Form\ConsejoComunalType', $consejoComunal);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($consejoComunal);
+            $em->flush();
+
+            return $this->redirectToRoute('consejocomunal_show', array('id' => $consejoComunal->getId()));
+        }
+
+        return $this->render('consejocomunal/new.html.twig', array(
+            'consejoComunal' => $consejoComunal,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a ConsejoComunal entity.
+     *
+     */
+    public function showAction(ConsejoComunal $consejoComunal)
+    {
+        $deleteForm = $this->createDeleteForm($consejoComunal);
+
+        return $this->render('consejocomunal/show.html.twig', array(
+            'consejoComunal' => $consejoComunal,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing ConsejoComunal entity.
+     *
+     */
+    public function editAction(Request $request, ConsejoComunal $consejoComunal)
+    {
+        $deleteForm = $this->createDeleteForm($consejoComunal);
+        $editForm = $this->createForm('SICBundle\Form\ConsejoComunalType', $consejoComunal);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($consejoComunal);
+            $em->flush();
+
+            return $this->redirectToRoute('consejocomunal_edit', array('id' => $consejoComunal->getId()));
+        }
+
+        return $this->render('consejocomunal/edit.html.twig', array(
+            'consejoComunal' => $consejoComunal,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a ConsejoComunal entity.
+     *
+     */
+    public function deleteAction(Request $request, ConsejoComunal $consejoComunal)
+    {
+        $form = $this->createDeleteForm($consejoComunal);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($consejoComunal);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('consejocomunal_index');
+    }
+
+    /**
+     * Creates a form to delete a ConsejoComunal entity.
+     *
+     * @param ConsejoComunal $consejoComunal The ConsejoComunal entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(ConsejoComunal $consejoComunal)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('consejocomunal_delete', array('id' => $consejoComunal->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
+}

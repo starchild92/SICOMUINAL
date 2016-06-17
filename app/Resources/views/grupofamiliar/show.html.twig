@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>GrupoFamiliar</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ grupoFamiliar.id }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ grupoFamiliar.apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ grupoFamiliar.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Cantidadmiembros</th>
+                <td>{{ grupoFamiliar.cantidadMiembros }}</td>
+            </tr>
+            <tr>
+                <th>Vivienda</th>
+                <td>{{ grupoFamiliar.vivienda }}</td>
+            </tr>
+            <tr>
+                <th>Numerocasa</th>
+                <td>{{ grupoFamiliar.numeroCasa }}</td>
+            </tr>
+            <tr>
+                <th>Sector</th>
+                <td>{{ grupoFamiliar.sector }}</td>
+            </tr>
+            <tr>
+                <th>Tiemporesidencia</th>
+                <td>{{ grupoFamiliar.tiempoResidencia }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('grupofamiliar_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('grupofamiliar_edit', { 'id': grupoFamiliar.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

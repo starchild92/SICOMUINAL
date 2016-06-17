@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SituacionServicios</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ situacionServicio.id }}</td>
+            </tr>
+            <tr>
+                <th>Aguasblancas</th>
+                <td>{{ situacionServicio.aguasBlancas }}</td>
+            </tr>
+            <tr>
+                <th>Aguasservidas</th>
+                <td>{{ situacionServicio.aguasServidas }}</td>
+            </tr>
+            <tr>
+                <th>Gas</th>
+                <td>{{ situacionServicio.gas }}</td>
+            </tr>
+            <tr>
+                <th>Sistemaelectrico</th>
+                <td>{{ situacionServicio.sistemaElectrico }}</td>
+            </tr>
+            <tr>
+                <th>Recoleccionbasura</th>
+                <td>{{ situacionServicio.recoleccionBasura }}</td>
+            </tr>
+            <tr>
+                <th>Telefonia</th>
+                <td>{{ situacionServicio.telefonia }}</td>
+            </tr>
+            <tr>
+                <th>Transporte</th>
+                <td>{{ situacionServicio.transporte }}</td>
+            </tr>
+            <tr>
+                <th>Mecanismoinformacion</th>
+                <td>{{ situacionServicio.mecanismoInformacion }}</td>
+            </tr>
+            <tr>
+                <th>Servicioscomunales</th>
+                <td>{{ situacionServicio.serviciosComunales }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('situacionservicios_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('situacionservicios_edit', { 'id': situacionServicio.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

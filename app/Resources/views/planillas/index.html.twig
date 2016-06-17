@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Planillas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Empadronador</th>
+                <th>Jefegrupofamiliar</th>
+                <th>Miembrosgrupofamiliar</th>
+                <th>Situacioneconomica</th>
+                <th>Situacionvivienda</th>
+                <th>Situacionsalud</th>
+                <th>Situacionservicios</th>
+                <th>Participacioncomunitaria</th>
+                <th>Situacioncomunidad</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for planilla in planillas %}
+            <tr>
+                <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">{{ planilla.id }}</a></td>
+                <td>{{ planilla.empadronador }}</td>
+                <td>{{ planilla.jefeGrupoFamiliar }}</td>
+                <td>{{ planilla.miembrosGrupoFamiliar }}</td>
+                <td>{{ planilla.situacionEconomica }}</td>
+                <td>{{ planilla.situacionVivienda }}</td>
+                <td>{{ planilla.situacionSalud }}</td>
+                <td>{{ planilla.situacionServicios }}</td>
+                <td>{{ planilla.participacionComunitaria }}</td>
+                <td>{{ planilla.situacionComunidad }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('planillas_show', { 'id': planilla.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('planillas_edit', { 'id': planilla.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('planillas_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

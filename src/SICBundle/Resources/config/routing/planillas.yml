@@ -1,0 +1,24 @@
+planillas_index:
+    path:     /
+    defaults: { _controller: "SICBundle:Planillas:index" }
+    methods:  GET
+
+planillas_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:Planillas:show" }
+    methods:  GET
+
+planillas_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:Planillas:new" }
+    methods:  [GET, POST]
+
+planillas_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:Planillas:edit" }
+    methods:  [GET, POST]
+
+planillas_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:Planillas:delete" }
+    methods:  DELETE

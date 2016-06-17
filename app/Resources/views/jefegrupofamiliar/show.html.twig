@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>JefeGrupoFamiliar</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ jefeGrupoFamiliar.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombres</th>
+                <td>{{ jefeGrupoFamiliar.nombres }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ jefeGrupoFamiliar.apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Cedula</th>
+                <td>{{ jefeGrupoFamiliar.cedula }}</td>
+            </tr>
+            <tr>
+                <th>Nacionalidad</th>
+                <td>{{ jefeGrupoFamiliar.nacionalidad }}</td>
+            </tr>
+            <tr>
+                <th>Fechanacimiento</th>
+                <td>{% if jefeGrupoFamiliar.fechaNacimiento %}{{ jefeGrupoFamiliar.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Edad</th>
+                <td>{{ jefeGrupoFamiliar.edad }}</td>
+            </tr>
+            <tr>
+                <th>Cne</th>
+                <td>{{ jefeGrupoFamiliar.cne }}</td>
+            </tr>
+            <tr>
+                <th>Tiempoencomunidad</th>
+                <td>{{ jefeGrupoFamiliar.tiempoEnComunidad }}</td>
+            </tr>
+            <tr>
+                <th>Sexo</th>
+                <td>{{ jefeGrupoFamiliar.sexo }}</td>
+            </tr>
+            <tr>
+                <th>Incapacitado</th>
+                <td>{{ jefeGrupoFamiliar.incapacitado }}</td>
+            </tr>
+            <tr>
+                <th>Incapacitadotipo</th>
+                <td>{{ jefeGrupoFamiliar.incapacitadoTipo }}</td>
+            </tr>
+            <tr>
+                <th>Pensionado</th>
+                <td>{{ jefeGrupoFamiliar.pensionado }}</td>
+            </tr>
+            <tr>
+                <th>Pensionadoinstitucion</th>
+                <td>{{ jefeGrupoFamiliar.pensionadoInstitucion }}</td>
+            </tr>
+            <tr>
+                <th>Estadocivil</th>
+                <td>{{ jefeGrupoFamiliar.estadoCivil }}</td>
+            </tr>
+            <tr>
+                <th>Nivelinstruccion</th>
+                <td>{{ jefeGrupoFamiliar.nivelInstruccion }}</td>
+            </tr>
+            <tr>
+                <th>Profesion</th>
+                <td>{{ jefeGrupoFamiliar.profesion }}</td>
+            </tr>
+            <tr>
+                <th>Trabajaactualmente</th>
+                <td>{{ jefeGrupoFamiliar.trabajaActualmente }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ jefeGrupoFamiliar.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ jefeGrupoFamiliar.email }}</td>
+            </tr>
+            <tr>
+                <th>Ingresofamiliar</th>
+                <td>{{ jefeGrupoFamiliar.ingresoFamiliar }}</td>
+            </tr>
+            <tr>
+                <th>Ingresomensual</th>
+                <td>{{ jefeGrupoFamiliar.ingresoMensual }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('jefegrupofamiliar_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('jefegrupofamiliar_edit', { 'id': jefeGrupoFamiliar.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,24 @@
+situacionvivienda_index:
+    path:     /
+    defaults: { _controller: "SICBundle:SituacionVivienda:index" }
+    methods:  GET
+
+situacionvivienda_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:SituacionVivienda:show" }
+    methods:  GET
+
+situacionvivienda_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:SituacionVivienda:new" }
+    methods:  [GET, POST]
+
+situacionvivienda_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:SituacionVivienda:edit" }
+    methods:  [GET, POST]
+
+situacionvivienda_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:SituacionVivienda:delete" }
+    methods:  DELETE

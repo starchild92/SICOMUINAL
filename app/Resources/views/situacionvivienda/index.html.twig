@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SituacionVivienda list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Tenencia</th>
+                <th>Terrenopropio</th>
+                <th>Habitaciones</th>
+                <th>Cantidadhabitaciones</th>
+                <th>Paredes</th>
+                <th>Techo</th>
+                <th>Enseres</th>
+                <th>Salubridad</th>
+                <th>Presenciainsectos</th>
+                <th>Mascota</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for situacionVivienda in situacionViviendas %}
+            <tr>
+                <td><a href="{{ path('situacionvivienda_show', { 'id': situacionVivienda.id }) }}">{{ situacionVivienda.id }}</a></td>
+                <td>{{ situacionVivienda.tipo }}</td>
+                <td>{{ situacionVivienda.tenencia }}</td>
+                <td>{{ situacionVivienda.terrenoPropio }}</td>
+                <td>{{ situacionVivienda.habitaciones }}</td>
+                <td>{{ situacionVivienda.cantidadHabitaciones }}</td>
+                <td>{{ situacionVivienda.paredes }}</td>
+                <td>{{ situacionVivienda.techo }}</td>
+                <td>{{ situacionVivienda.enseres }}</td>
+                <td>{{ situacionVivienda.salubridad }}</td>
+                <td>{{ situacionVivienda.presenciaInsectos }}</td>
+                <td>{{ situacionVivienda.mascota }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('situacionvivienda_show', { 'id': situacionVivienda.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('situacionvivienda_edit', { 'id': situacionVivienda.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('situacionvivienda_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

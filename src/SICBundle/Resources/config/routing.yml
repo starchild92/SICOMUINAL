@@ -2,6 +2,54 @@ sic_usuarios:
     resource: "@SICBundle/Resources/config/routing/usuario.yml"
     prefix:   /usuarios
 
+sic_rutas_extras:
+    resource: "@SICBundle/Resources/config/routing/rutas_extras.yml"
+    prefix:   /
+
 sic_personas:
     resource: "@SICBundle/Resources/config/routing/persona.yml"
     prefix:   /personas
+
+sic_comunidades:
+    resource: "@SICBundle/Resources/config/routing/comunidad.yml"
+    prefix:   /comunidades
+
+sic_consejocomunal:
+    resource: "@SICBundle/Resources/config/routing/consejocomunal.yml"
+    prefix:   /consejocomunal
+
+sic_grupofamiliar:
+    resource: "@SICBundle/Resources/config/routing/grupofamiliar.yml"
+    prefix:   /grupofamiliar
+
+sic_jefegrupofamiliar:
+    resource: "@SICBundle/Resources/config/routing/jefegrupofamiliar.yml"
+    prefix:   /jefegrupofamiliar
+
+sic_situacioneconomica:
+    resource: "@SICBundle/Resources/config/routing/situacioneconomica.yml"
+    prefix:   /situacioneconomica
+
+sic_situacionvivienda:
+    resource: "@SICBundle/Resources/config/routing/situacionvivienda.yml"
+    prefix:   /situacionvivienda
+
+sic_situacionsalud:
+    resource: "@SICBundle/Resources/config/routing/situacionsalud.yml"
+    prefix:   /situacionsalud
+
+sic_situacionservicios:
+    resource: "@SICBundle/Resources/config/routing/situacionservicios.yml"
+    prefix:   /situacionservicios
+
+sic_participacioncomunitaria:
+    resource: "@SICBundle/Resources/config/routing/participacioncomunitaria.yml"
+    prefix:   /participacioncomunitaria
+
+sic_situacioncomunidad:
+    resource: "@SICBundle/Resources/config/routing/situacioncomunidad.yml"
+    prefix:   /situacioncomunidad
+
+sic_planillas:
+    resource: "@SICBundle/Resources/config/routing/planillas.yml"
+    prefix:   /planillas
