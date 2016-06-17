@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SituacionEconomica</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ situacionEconomica.id }}</td>
+            </tr>
+            <tr>
+                <th>Dondetrabaja</th>
+                <td>{{ situacionEconomica.dondeTrabaja }}</td>
+            </tr>
+            <tr>
+                <th>Actividadcomercialenvivienda</th>
+                <td>{{ situacionEconomica.actividadComercialenVivienda }}</td>
+            </tr>
+            <tr>
+                <th>Ingresofamiliarespecifico</th>
+                <td>{{ situacionEconomica.ingresoFamiliarEspecifico }}</td>
+            </tr>
+            <tr>
+                <th>Ingresofamiliar</th>
+                <td>{{ situacionEconomica.ingresoFamiliar }}</td>
+            </tr>
+            <tr>
+                <th>Poseevehiculo</th>
+                <td>{{ situacionEconomica.poseeVehiculo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('situacioneconomica_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('situacioneconomica_edit', { 'id': situacionEconomica.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,24 @@
+situacioneconomica_index:
+    path:     /
+    defaults: { _controller: "SICBundle:SituacionEconomica:index" }
+    methods:  GET
+
+situacioneconomica_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:SituacionEconomica:show" }
+    methods:  GET
+
+situacioneconomica_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:SituacionEconomica:new" }
+    methods:  [GET, POST]
+
+situacioneconomica_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:SituacionEconomica:edit" }
+    methods:  [GET, POST]
+
+situacioneconomica_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:SituacionEconomica:delete" }
+    methods:  DELETE
