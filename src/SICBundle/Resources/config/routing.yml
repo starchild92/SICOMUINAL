@@ -49,3 +49,7 @@ sic_participacioncomunitaria:
 sic_situacioncomunidad:
     resource: "@SICBundle/Resources/config/routing/situacioncomunidad.yml"
     prefix:   /situacioncomunidad
+
+sic_planillas:
+    resource: "@SICBundle/Resources/config/routing/planillas.yml"
+    prefix:   /planillas
