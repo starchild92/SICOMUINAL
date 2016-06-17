@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ParticipacionComunitaria</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ participacionComunitarium.id }}</td>
+            </tr>
+            <tr>
+                <th>Existenorganizaciones</th>
+                <td>{{ participacionComunitarium.existenOrganizaciones }}</td>
+            </tr>
+            <tr>
+                <th>Participaorganizacion</th>
+                <td>{{ participacionComunitarium.participaOrganizacion }}</td>
+            </tr>
+            <tr>
+                <th>Participamiembroorganizacion</th>
+                <td>{{ participacionComunitarium.participaMiembroOrganizacion }}</td>
+            </tr>
+            <tr>
+                <th>Misionescomunidad</th>
+                <td>{{ participacionComunitarium.misionesComunidad }}</td>
+            </tr>
+            <tr>
+                <th>Preguntasparticipacioncomunitaria</th>
+                <td>{{ participacionComunitarium.preguntasParticipacionComunitaria }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('participacioncomunitaria_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('participacioncomunitaria_edit', { 'id': participacionComunitarium.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

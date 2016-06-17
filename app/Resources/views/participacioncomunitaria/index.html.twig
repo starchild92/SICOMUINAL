@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ParticipacionComunitaria list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Existenorganizaciones</th>
+                <th>Participaorganizacion</th>
+                <th>Participamiembroorganizacion</th>
+                <th>Misionescomunidad</th>
+                <th>Preguntasparticipacioncomunitaria</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for participacionComunitarium in participacionComunitarias %}
+            <tr>
+                <td><a href="{{ path('participacioncomunitaria_show', { 'id': participacionComunitarium.id }) }}">{{ participacionComunitarium.id }}</a></td>
+                <td>{{ participacionComunitarium.existenOrganizaciones }}</td>
+                <td>{{ participacionComunitarium.participaOrganizacion }}</td>
+                <td>{{ participacionComunitarium.participaMiembroOrganizacion }}</td>
+                <td>{{ participacionComunitarium.misionesComunidad }}</td>
+                <td>{{ participacionComunitarium.preguntasParticipacionComunitaria }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('participacioncomunitaria_show', { 'id': participacionComunitarium.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('participacioncomunitaria_edit', { 'id': participacionComunitarium.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('participacioncomunitaria_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
