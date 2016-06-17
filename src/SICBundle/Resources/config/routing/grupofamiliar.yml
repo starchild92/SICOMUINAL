@@ -1,0 +1,24 @@
+grupofamiliar_index:
+    path:     /
+    defaults: { _controller: "SICBundle:GrupoFamiliar:index" }
+    methods:  GET
+
+grupofamiliar_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:GrupoFamiliar:show" }
+    methods:  GET
+
+grupofamiliar_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:GrupoFamiliar:new" }
+    methods:  [GET, POST]
+
+grupofamiliar_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:GrupoFamiliar:edit" }
+    methods:  [GET, POST]
+
+grupofamiliar_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:GrupoFamiliar:delete" }
+    methods:  DELETE

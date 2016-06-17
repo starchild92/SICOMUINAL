@@ -1,0 +1,4 @@
+sic_homepage:
+    path:     /inicio
+    defaults: { _controller: "SICBundle:Inicio:inicio" }
+    methods:  GET

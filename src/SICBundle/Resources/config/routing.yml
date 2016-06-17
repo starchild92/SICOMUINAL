@@ -1,11 +1,10 @@
-sic_homepage:
-    path:     /inicio
-    defaults: { _controller: "SICBundle:Inicio:inicio" }
-    methods:  GET
-
 sic_usuarios:
     resource: "@SICBundle/Resources/config/routing/usuario.yml"
     prefix:   /usuarios
+
+sic_rutas_extras:
+    resource: "@SICBundle/Resources/config/routing/rutas_extras.yml"
+    prefix:   /
 
 sic_personas:
     resource: "@SICBundle/Resources/config/routing/persona.yml"
@@ -18,3 +17,7 @@ sic_comunidades:
 sic_consejocomunal:
     resource: "@SICBundle/Resources/config/routing/consejocomunal.yml"
     prefix:   /consejocomunal
+
+sic_grupofamiliar:
+    resource: "@SICBundle/Resources/config/routing/grupofamiliar.yml"
+    prefix:   /grupofamiliar
