@@ -1,6 +1,5 @@
 sic:
     resource: "@SICBundle/Resources/config/routing.yml"
 
-# Les estoy haciendo override por los nombres
-# fos_user:
-#     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

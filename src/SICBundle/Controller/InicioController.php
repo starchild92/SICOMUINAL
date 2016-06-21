@@ -9,7 +9,13 @@ class InicioController extends Controller
 {
     public function inicioAction()
     {
-        return $this->render('inicio/inicio.html.twig');
+        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
+        {
+            return $this->render('inicio/inicio.html.twig');
+        }else{
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
+        
     }
 
     public function loginAction()

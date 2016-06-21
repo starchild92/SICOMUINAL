@@ -4,8 +4,8 @@ sic_homepage:
     methods:  GET
 
 sic_homepage:
-    path:     /inicio
-    defaults: { _controller: "SICBundle:Inicio:inicio" }
+    path:     /login
+    defaults: { _controller: "SICBundle:Inicio:login" }
     methods:  GET
 
 sic_administacion_entidades:
