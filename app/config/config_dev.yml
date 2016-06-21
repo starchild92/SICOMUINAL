@@ -30,6 +30,13 @@ monolog:
         #chromephp:
         #    type:   chromephp
         #    level:  info
-
-#swiftmailer:
-#    delivery_address: me@example.com
+        
+swiftmailer:
+    transport:  smtp
+    encryption: ssl
+    auth_mode:  login
+    host:       server32.hostwhitelabel.com
+    port:       465
+    username:   gpscaracas@registro1991.com.ve
+    password:   gpscaracas2016
+    delivery_address: 'mainstr3ammusic@gmail.com' #Direccion para enviar mensajes mientras estoy en desarrollo
