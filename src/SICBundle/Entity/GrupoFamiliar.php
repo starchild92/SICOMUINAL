@@ -24,13 +24,6 @@ class GrupoFamiliar
     /**
      * @var string
      *
-     * @ORM\Column(name="nombres", type="string", length=255)
-     */
-    private $nombres;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="apellidos", type="string", length=255)
      */
     private $apellidos;
@@ -247,28 +240,5 @@ class GrupoFamiliar
     public function getTiempoResidencia()
     {
         return $this->tiempoResidencia;
-    }
-
-    /**
-     * Set nombres
-     *
-     * @param string $nombres
-     * @return GrupoFamiliar
-     */
-    public function setNombres($nombres)
-    {
-        $this->nombres = $nombres;
-
-        return $this;
-    }
-
-    /**
-     * Get nombres
-     *
-     * @return string 
-     */
-    public function getNombres()
-    {
-        return $this->nombres;
     }
 }

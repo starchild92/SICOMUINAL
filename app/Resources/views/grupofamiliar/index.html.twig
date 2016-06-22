@@ -7,7 +7,6 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Direccion</th>
                 <th>Cantidadmiembros</th>
@@ -22,7 +21,6 @@
         {% for grupoFamiliar in grupoFamiliars %}
             <tr>
                 <td><a href="{{ path('grupofamiliar_show', { 'id': grupoFamiliar.id }) }}">{{ grupoFamiliar.id }}</a></td>
-                <td>{{ grupoFamiliar.nombres }}</td>
                 <td>{{ grupoFamiliar.apellidos }}</td>
                 <td>{{ grupoFamiliar.direccion }}</td>
                 <td>{{ grupoFamiliar.cantidadMiembros }}</td>

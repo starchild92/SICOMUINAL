@@ -15,7 +15,6 @@ class GrupoFamiliarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombres')
             ->add('apellidos')
             ->add('direccion')
             ->add('cantidadMiembros')
