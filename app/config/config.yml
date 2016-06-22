@@ -10,9 +10,10 @@ parameters:
     locale: es
 
 # Para inyectar
+# parameters:
     generos:
-        m: Mujer
-        h: Homrbre
+        Femenino: Femenino
+        Masculino: Masculino
 
 framework:
     #esi:             ~

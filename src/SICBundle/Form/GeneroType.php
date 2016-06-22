@@ -18,10 +18,7 @@ class GeneroType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'choices' => array(
-                'Hombre' => 'Hombre',
-                'Mujer' => 'Mujer',
-            )
+            'choices' => $this->generosChoices,
         ));
     }
 
