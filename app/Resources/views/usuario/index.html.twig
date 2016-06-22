@@ -1,45 +1,53 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Usuario list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Primernombre</th>
-                <th>Segundonombre</th>
-                <th>Primerapellido</th>
-                <th>Segundoapellido</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for usuario in usuarios %}
-            <tr>
-                <td><a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>
-                <td>{{ usuario.primerNombre }}</td>
-                <td>{{ usuario.segundoNombre }}</td>
-                <td>{{ usuario.primerApellido }}</td>
-                <td>{{ usuario.segundoApellido }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('usuarios_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+    <h2>Usuarios del Sistema</h2>
+    <hr>
+    <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
+            <div id="sidebar" class="sidebar-nav">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a class="button-line" href="{{ path('usuarios_new') }}"><i class="fa fa-plus"></i> Agregar Usuario</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="panel panel-info">
+                <table class="table table-bordered">
+                    <thead class="thead-info">
+                        <tr>
+                            <th>Id</th>
+                            <th>Primernombre</th>
+                            <th>Segundonombre</th>
+                            <th>Primerapellido</th>
+                            <th>Segundoapellido</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td><a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>
+                            <td>{{ usuario.primerNombre }}</td>
+                            <td>{{ usuario.segundoNombre }}</td>
+                            <td>{{ usuario.primerApellido }}</td>
+                            <td>{{ usuario.segundoApellido }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">show</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">edit</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,14 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<h2>Cabecera</h2>
+	<h2>Administración</h2>
 	<hr>
 	<div class="col-lg-6">
 		<div class="panel panel-primary">
 			<div class="panel-body">
-				<h3>Consejo Comunal</h3>
-				<hr>
-				{{ dump(consejo) }}
+				<h3>Consejo Comunal</h3>			
+				{% for cc in consejo %}
+				<p class="bottom-line negritas text-info">Nombre</p>
+				<p>{{ cc.nombre }}</p>
+				<p class="bottom-line negritas text-info">Código</p>
+				<p>{{ cc.codigo }}</p>
+				<p class="bottom-line negritas text-info">RIF</p>
+				<p>{{ cc.rif }}</p>
+				<p class="bottom-line negritas text-info">Número Cuenta</p>
+				<p>{{ cc.numeroCuenta }}</p>
+
+				<a id="btn-edit" href="#" data-action="{{ path('consejocomunal_edit', {'id': cc.id }) }}" data-title="Modificar Datos del Consejo Comunal" class="btn btn-default btn-sm pull-right">Modificar Datos del Consejo Comunal</a>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
@@ -16,8 +26,41 @@
 		<div class="panel panel-primary">
 			<div class="panel-body">
 				<h3>Comunidad</h3>
-				<hr>
-				{{ dump(comunidad) }}
+				{% for com in comunidad %}
+				<p class="bottom-line negritas text-info">Estado</p>
+				<p>{{ com.estado }}</p>
+				<p class="bottom-line negritas text-info">Municipio</p>
+				<p>{{ com.municipio }}</p>
+				<p class="bottom-line negritas text-info">Parroquia</p>
+				<p>{{ com.parroquia }}</p>
+				<p class="bottom-line negritas text-info">Sector</p>
+				<p>{{ com.sector }}</p>
+				<p class="bottom-line negritas text-info">Comunidad</p>
+				<p>{{ com.comunidad }}</p>
+				<p class="bottom-line negritas text-info">Direccion</p>
+				<p>{{ com.direccion }}</p>
+
+				<a id="btn-edit" href="#" data-action="{{ path('comunidades_edit', {'id': com.id }) }}" data-title="Modificar Datos de la Comunidad" class="btn btn-default btn-sm pull-right">Modificar Datos de la Comunidad</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalCC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="modalTitle">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<span id="modalCuerpo"></span>
+				</div>
+				{# <div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div> #}
 			</div>
 		</div>
 	</div>
@@ -26,41 +69,27 @@
 {% block javascripts %}
 <script type="text/javascript">
 	jQuery(document).ready(function() {
-		// function cargando(){
-		// 	$('#loader').modal('show');
-		// };
+		// Para los editar
+		$('body').on('click', '#btn-edit', function() {
+			url = $(this).data('action');
+			title = $(this).data('title');
 
-		// // Para los editar
-		// $('body').on('click', '#btn-edit-recursorss', function() {
-		//     url = $(this).data('action');
-		// 	$('#modalRecurso').modal('show');
-		// 	$.ajax({
-		// 		url: url,
-		// 		type: "GET",
-		// 		success: function(data, textStatus, xhr){
-		// 			$('#modalCuerpo').replaceWith($(data).find('#modalCuerpo'));
-		// 			$('#modalCuerpo').children().attr('action', url)
-		// 		},
-		// 	});
-		// });
+			$('#modalCC').modal('show');
+			$('#modalTitle').text(title);
 
-		// // Para agregar nuevo
-		// $('body').on('click', '#btn-agregar-recursorss', function() {		
-		//     url = $(this).data('accion');
-		// 	$('#modalRecurso').modal('toggle');
-		// 	$.ajax({
-		// 		url: url,
-		// 		type: "GET",
-		// 		success: function(data, textStatus, xhr){
-		// 			$('#modalCuerpo').replaceWith($(data).find('#modalCuerpo'));
-		// 			$('#modalCuerpo').children().attr('action', url)
-		// 		},
-		// 	});
-		// });
+			$.ajax({
+				url: url,
+				type: "GET",
+				success: function(data, textStatus, xhr){
+					$('#modalCuerpo').replaceWith($(data).find('#modalCuerpo'));
+					$('#modalCuerpo').children().attr('action', url)
+				},
+			});
+		});
 
-		// $('#modalRecurso').on('hidden.bs.modal', function (e) {
-		// 	$('#modalCuerpo').children().replaceWith("<div class='well well-sm'>Obteniendo formulario ... espere!</div>")
-		// });
+		$('#modalCC').on('hidden.bs.modal', function (e) {
+			$('#modalCuerpo').children().replaceWith("<div class='well well-sm'>Obteniendo formulario ... espere!</div>")
+		});
 	});
 </script>
 {% endblock %}
