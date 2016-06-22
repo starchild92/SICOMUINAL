@@ -9,6 +9,11 @@ imports:
 parameters:
     locale: es
 
+# Para inyectar
+    generos:
+        m: Mujer
+        h: Homrbre
+
 framework:
     #esi:             ~
     translator:      { fallbacks: ["%locale%"] }

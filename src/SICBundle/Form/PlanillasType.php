@@ -24,6 +24,7 @@ class PlanillasType extends AbstractType
             ->add('situacionServicios')
             ->add('participacionComunitaria')
             ->add('situacionComunidad')
+            ->add('observaciones')
         ;
     }
     

@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use SICBundle\Form\GeneroType;
+
 class PersonaType extends AbstractType
 {
     /**
@@ -17,7 +19,8 @@ class PersonaType extends AbstractType
         $builder
             ->add('nombre')
             ->add('apellido')
-            ->add('sexo')
+            ->add('sexo', GeneroType::class, array(
+                'placeholder' => 'Elija uno'))
             ->add('cedula')
             ->add('fechaNacimiento', 'date')
             ->add('edad')

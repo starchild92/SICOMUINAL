@@ -2,3 +2,10 @@ services:
 #    sic.example:
 #        class: SICBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
+
+    app.form.type.genero:
+        class: SICBundle\Form\GeneroType
+        arguments:
+            - '%generos%'
+        tags:
+            - { name: form.type }
