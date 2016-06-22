@@ -3,6 +3,7 @@
 namespace SICBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ConsejoComunal
@@ -38,14 +39,19 @@ class ConsejoComunal
     /**
      * @var string
      *
-     * @ORM\Column(name="rif", type="string", length=255)
+     * @ORM\Column(name="rif", type="string", length=9)
      */
     private $rif;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="numeroCuenta", type="string", length=255)
+     * @Assert\Length(
+     *      min = 20,
+     *      max = 20,
+     *      minMessage = "Deben ser {{ limit }} números",
+     *      maxMessage = "Deben ser {{ limit }} números"
+     * )
+     * @ORM\Column(name="numeroCuenta", type="string", length=20)
      */
     private $numeroCuenta;
 

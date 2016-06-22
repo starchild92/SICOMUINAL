@@ -25,6 +25,13 @@ class InicioController extends Controller
 
     public function administrarEntidadesAction()
     {
-        return $this->render('administracion/administrar_entidades.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $cc = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+
+        return $this->render('administracion/administrar_entidades.html.twig', 
+            array(
+                'comunidad' =>  $comunidad,
+                'consejo'   =>  $cc));
     }
 }

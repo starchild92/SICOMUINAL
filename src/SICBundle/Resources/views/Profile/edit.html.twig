@@ -3,19 +3,17 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {% block title %}Modificar {{ app.user.username }}{% endblock %}
 {% block body %}
-    <div class="page-header">
-        <h1>Modificar Datos <i class="fa fa-edit fa-x2 pull-left"></i></h1>
-    </div>
+    <h2>Modificar Datos <i class="fa fa-edit fa-x2 pull-left"></i></h2><hr>
 
     <div class="well well-sm text-center">Aqui puedes modificar su dirección de correo electronico o nombre de usuario. Para completar cualquier cambio debe ingresar su contraseña actual.</div>
-
+    
     {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
         {{ form_row(form.username ,{'label':'Nombre de Usuario'}) }}
         {{ form_row(form.email ,{'label':'Correo Electronico'}) }}
         {{ form_row(form.current_password ,{'label':'Contraseña Actual'}) }}
         
-        <div class="col-lg-6 col-lg-offset-2">
-            <input class="btn btn-gpsc-azul btn-block" type="submit" value="GUARDAR CAMBIOS" />
+        <div class="col-lg-offset-2">
+            <input class="btn btn-default col-lg-3" type="submit" value="GUARDAR CAMBIOS" />
         </div>
     {{ form_end(form) }}
 {% endblock body %}

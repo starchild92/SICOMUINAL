@@ -1,5 +1,66 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Aqui voy a agregar todos los parametros para que las tablas de las cuales dependen los droplist de todo el sistema sean auto administrables
+	<h2>Cabecera</h2>
+	<hr>
+	<div class="col-lg-6">
+		<div class="panel panel-primary">
+			<div class="panel-body">
+				<h3>Consejo Comunal</h3>
+				<hr>
+				{{ dump(consejo) }}
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="panel panel-primary">
+			<div class="panel-body">
+				<h3>Comunidad</h3>
+				<hr>
+				{{ dump(comunidad) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		// function cargando(){
+		// 	$('#loader').modal('show');
+		// };
+
+		// // Para los editar
+		// $('body').on('click', '#btn-edit-recursorss', function() {
+		//     url = $(this).data('action');
+		// 	$('#modalRecurso').modal('show');
+		// 	$.ajax({
+		// 		url: url,
+		// 		type: "GET",
+		// 		success: function(data, textStatus, xhr){
+		// 			$('#modalCuerpo').replaceWith($(data).find('#modalCuerpo'));
+		// 			$('#modalCuerpo').children().attr('action', url)
+		// 		},
+		// 	});
+		// });
+
+		// // Para agregar nuevo
+		// $('body').on('click', '#btn-agregar-recursorss', function() {		
+		//     url = $(this).data('accion');
+		// 	$('#modalRecurso').modal('toggle');
+		// 	$.ajax({
+		// 		url: url,
+		// 		type: "GET",
+		// 		success: function(data, textStatus, xhr){
+		// 			$('#modalCuerpo').replaceWith($(data).find('#modalCuerpo'));
+		// 			$('#modalCuerpo').children().attr('action', url)
+		// 		},
+		// 	});
+		// });
+
+		// $('#modalRecurso').on('hidden.bs.modal', function (e) {
+		// 	$('#modalCuerpo').children().replaceWith("<div class='well well-sm'>Obteniendo formulario ... espere!</div>")
+		// });
+	});
+</script>
 {% endblock %}
