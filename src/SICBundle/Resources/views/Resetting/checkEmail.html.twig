@@ -1,4 +1,4 @@
-{% extends "base_login.html.twig" %}
+{% extends "::base.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
@@ -11,7 +11,7 @@
         <div class="blanco">
             <h3><p style="font-family: 'Open Sans';">Le hemos enviado un correo electrónico con el cual fue registrad@ en el sistema para que pueda restablecer su contraseña.</p></h3>
             <small>Si no recuerda la dirección de correo, comuniquese con el administrador.</small>
-            <a class="btn btn-login btn-lg btn-block btn-password-already" href="{{ path('sic_homepage') }}">IR AL INICIO DE SESIÓN</a>
+            <a class="btn btn-login btn-lg btn-block btn-password-already" href="{{ path('inicio') }}">IR AL INICIO DE SESIÓN</a>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
 <style type="text/css">
     body{
         background-color: black;
-        /*background-image: url("{{ asset('images/bg_gpscaracas.jpg') }}");*/
+        background-image: url("{{ asset('images/bg_gpscaracas.jpg') }}");
     }
     .blanco{ color: white; }
     .page-header{

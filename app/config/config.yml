@@ -83,22 +83,3 @@ fos_user:
     registration:
         form:
             type: SICBundle\Form\UsuarioType
-
-        confirmation:
-            enabled: true
-            from_email:
-                address:        gpscaracas@registro1991.com.ve
-                sender_name:    Sistema de Información Comunal
-
-    resetting:
-        email:
-            from_email:
-                address:        gpscaracas@registro1991.com.ve
-                sender_name:    Sistema de Información Comunal
-        
-    from_email:
-        address:        gpscaracas@registro1991.com.ve
-        sender_name:    Sistema de Información Comunal
-
-    service:
-        mailer: fos_user.mailer.twig_swift
