@@ -3,6 +3,8 @@
 namespace SICBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Persona
@@ -126,6 +128,18 @@ class Persona
      */
     private $pensionadoInstitucion;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Telefono", mappedBy="cliente", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid
+     **/
+    private $telefonos;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->telefonos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -414,6 +428,29 @@ class Persona
     }
 
     /**
+     * Set incapacitadoTipo
+     *
+     * @param string $incapacitadoTipo
+     * @return Persona
+     */
+    public function setIncapacitadoTipo($incapacitadoTipo)
+    {
+        $this->incapacitadoTipo = $incapacitadoTipo;
+
+        return $this;
+    }
+
+    /**
+     * Get incapacitadoTipo
+     *
+     * @return string 
+     */
+    public function getIncapacitadoTipo()
+    {
+        return $this->incapacitadoTipo;
+    }
+
+    /**
      * Set pensionado
      *
      * @param string $pensionado
@@ -460,25 +497,35 @@ class Persona
     }
 
     /**
-     * Set incapacitadoTipo
+     * Add telefonos
      *
-     * @param string $incapacitadoTipo
+     * @param \SICBundle\Entity\Telefono $telefonos
      * @return Persona
      */
-    public function setIncapacitadoTipo($incapacitadoTipo)
+    public function addTelefono(\SICBundle\Entity\Telefono $telefonos)
     {
-        $this->incapacitadoTipo = $incapacitadoTipo;
+        $this->telefonos[] = $telefonos;
 
         return $this;
     }
 
     /**
-     * Get incapacitadoTipo
+     * Remove telefonos
      *
-     * @return string 
+     * @param \SICBundle\Entity\Telefono $telefonos
      */
-    public function getIncapacitadoTipo()
+    public function removeTelefono(\SICBundle\Entity\Telefono $telefonos)
     {
-        return $this->incapacitadoTipo;
+        $this->telefonos->removeElement($telefonos);
+    }
+
+    /**
+     * Get telefonos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTelefonos()
+    {
+        return $this->telefonos;
     }
 }

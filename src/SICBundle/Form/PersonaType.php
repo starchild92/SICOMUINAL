@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use SICBundle\Form\GeneroType;
+use SICBundle\Form\TelefonoType;
 
 class PersonaType extends AbstractType
 {
@@ -33,6 +34,19 @@ class PersonaType extends AbstractType
             ->add('incapacitadoTipo')
             ->add('pensionado')
             ->add('pensionadoInstitucion')
+
+            ->add('telefonos',
+                    'collection',array(
+                        'required' => false,
+                        'type' => new TelefonoType(),
+                        'cascade_validation' => true,
+                        'attr' => array('class' => 'tags'),
+                        'allow_add'=>'true',
+                        'by_reference'=>'false',
+                        'allow_delete' =>'true',
+                        'data_class' => null,
+                        'label' => 'Número(s) teléfonicos',
+                        ))
         ;
     }
     
