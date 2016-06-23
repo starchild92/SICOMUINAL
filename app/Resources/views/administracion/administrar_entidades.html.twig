@@ -8,18 +8,16 @@
 			<div class="panel-body">
 				<h3>Consejo Comunal</h3>
 				{% if consejo|length > 0 %}
-				{% for cc in consejo %}
 				<p class="bottom-line negritas text-info">Nombre</p>
-				<p>{{ cc.nombre }}</p>
+				<p>{{ consejo.nombre }}</p>
 				<p class="bottom-line negritas text-info">Código</p>
-				<p>{{ cc.codigo }}</p>
+				<p>{{ consejo.codigo }}</p>
 				<p class="bottom-line negritas text-info">RIF</p>
-				<p>{{ cc.rif }}</p>
+				<p>{{ consejo.rif }}</p>
 				<p class="bottom-line negritas text-info">Número Cuenta</p>
-				<p>{{ cc.numeroCuenta }}</p>
+				<p>{{ consejo.numeroCuenta }}</p>
 
-				<a id="btn-edit" href="#" data-action="{{ path('consejocomunal_edit', {'id': cc.id }) }}" data-title="Modificar Datos del Consejo Comunal" class="btn btn-default btn-sm pull-right">Modificar Datos del Consejo Comunal</a>
-				{% endfor %}
+				<a id="btn-edit" href="#" data-action="{{ path('consejocomunal_edit', {'id': consejo.id }) }}" data-title="Modificar Datos del Consejo Comunal" class="btn btn-default btn-sm pull-right">Modificar Datos del Consejo Comunal</a>
 				{% else %}
 					<a id="btn-edit" href="#" data-action="{{ path('consejocomunal_new') }}" data-title="Datos Consejo Comunal" class="btn btn-primary btn-block">Agregue los Datos del Consejo Comunal</a>
 				{% endif %}
@@ -31,22 +29,20 @@
 			<div class="panel-body">
 				<h3>Comunidad</h3>
 				{% if comunidad|length > 0 %}
-				{% for com in comunidad %}
 				<p class="bottom-line negritas text-info">Estado</p>
-				<p>{{ com.estado }}</p>
+				<p>{{ comunidad.estado }}</p>
 				<p class="bottom-line negritas text-info">Municipio</p>
-				<p>{{ com.municipio }}</p>
+				<p>{{ comunidad.municipio }}</p>
 				<p class="bottom-line negritas text-info">Parroquia</p>
-				<p>{{ com.parroquia }}</p>
+				<p>{{ comunidad.parroquia }}</p>
 				<p class="bottom-line negritas text-info">Sector</p>
-				<p>{{ com.sector }}</p>
+				<p>{{ comunidad.sector }}</p>
 				<p class="bottom-line negritas text-info">Comunidad</p>
-				<p>{{ com.comunidad }}</p>
+				<p>{{ comunidad.comunidad }}</p>
 				<p class="bottom-line negritas text-info">Direccion</p>
-				<p>{{ com.direccion }}</p>
+				<p>{{ comunidad.direccion }}</p>
 
-				<a id="btn-edit" href="#" data-action="{{ path('comunidades_edit', {'id': com.id }) }}" data-title="Modificar Datos de la Comunidad" class="btn btn-default btn-sm pull-right">Modificar Datos de la Comunidad</a>
-				{% endfor %}
+				<a id="btn-edit" href="#" data-action="{{ path('comunidades_edit', {'id': comunidad.id }) }}" data-title="Modificar Datos de la Comunidad" class="btn btn-default btn-sm pull-right">Modificar Datos de la Comunidad</a>
 				{% else %}
 					<a id="btn-edit" href="#" data-action="{{ path('comunidades_new') }}" data-title="Datos de la Comunidad" class="btn btn-primary btn-block">Agregue los Datos de la Comunidad</a>
 				{% endif %}
