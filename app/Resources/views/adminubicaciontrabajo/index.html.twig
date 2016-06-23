@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminUbicacionTrabajo list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminUbicacionTrabajo in adminUbicacionTrabajos %}
+            <tr>
+                <td><a href="{{ path('configurable_ubicacion-trabajo_show', { 'id': adminUbicacionTrabajo.id }) }}">{{ adminUbicacionTrabajo.id }}</a></td>
+                <td>{{ adminUbicacionTrabajo.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_ubicacion-trabajo_show', { 'id': adminUbicacionTrabajo.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_ubicacion-trabajo_edit', { 'id': adminUbicacionTrabajo.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_ubicacion-trabajo_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

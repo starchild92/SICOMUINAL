@@ -87,3 +87,15 @@ sic_configurable_profesiones:
 sic_configurable_clasificacion_ingreso_familiar:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminclasingresofamiliar.yml"
     prefix:   /configurable/clasificacion/ingreso_familiar
+
+sic_configurable_ubicacion-trabajo:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminubicaciontrabajo.yml"
+    prefix:   /configurable/ubicacion-trabajo
+
+sic_configurable_venta_vivenda:
+        resource: "@SICBundle/Resources/config/routing/Configurables/adminventavivienda.yml"
+        prefix:   /configurable/venta_vivenda
+
+sic_configurable_tipos_ingresos:
+        resource: "@SICBundle/Resources/config/routing/Configurables/admintipoingresos.yml"
+        prefix:   /configurable/tipos/ingresos
