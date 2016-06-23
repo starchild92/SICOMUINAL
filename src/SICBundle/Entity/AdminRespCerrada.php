@@ -29,10 +29,10 @@ class AdminRespCerrada
     private $respuesta;
 
 
-    // public function __toString()
-    // {
-    //     return $this->respuesta;
-    // }
+    public function __toString()
+    {
+        return $this->respuesta;
+    }
 
     /**
      * Get id

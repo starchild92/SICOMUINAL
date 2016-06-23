@@ -28,6 +28,11 @@ class AdminNacionalidad
      */
     private $nacionalidad;
 
+    public function __toString()
+    {
+        return $this->nacionalidad;
+    }
+
     /**
      * Get id
      *

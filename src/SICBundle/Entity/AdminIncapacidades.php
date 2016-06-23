@@ -28,6 +28,11 @@ class AdminIncapacidades
      */
     private $incapacidad;
 
+    public function __toString()
+    {
+        return $this->incapacidad;
+    }
+
     /**
      * Get id
      *

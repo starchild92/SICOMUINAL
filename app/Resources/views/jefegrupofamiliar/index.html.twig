@@ -1,76 +1,79 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>JefeGrupoFamiliar list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Cedula</th>
-                <th>Nacionalidad</th>
-                <th>Fechanacimiento</th>
-                <th>Edad</th>
-                <th>Cne</th>
-                <th>Tiempoencomunidad</th>
-                <th>Sexo</th>
-                <th>Incapacitado</th>
-                <th>Incapacitadotipo</th>
-                <th>Pensionado</th>
-                <th>Pensionadoinstitucion</th>
-                <th>Estadocivil</th>
-                <th>Nivelinstruccion</th>
-                <th>Profesion</th>
-                <th>Trabajaactualmente</th>
-                <th>Telefono</th>
-                <th>Email</th>
-                <th>Ingresofamiliar</th>
-                <th>Ingresomensual</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for jefeGrupoFamiliar in jefeGrupoFamiliars %}
-            <tr>
-                <td><a href="{{ path('jefegrupofamiliar_show', { 'id': jefeGrupoFamiliar.id }) }}">{{ jefeGrupoFamiliar.id }}</a></td>
-                <td>{{ jefeGrupoFamiliar.nombres }}</td>
-                <td>{{ jefeGrupoFamiliar.apellidos }}</td>
-                <td>{{ jefeGrupoFamiliar.cedula }}</td>
-                <td>{{ jefeGrupoFamiliar.nacionalidad }}</td>
-                <td>{% if jefeGrupoFamiliar.fechaNacimiento %}{{ jefeGrupoFamiliar.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ jefeGrupoFamiliar.edad }}</td>
-                <td>{{ jefeGrupoFamiliar.cne }}</td>
-                <td>{{ jefeGrupoFamiliar.tiempoEnComunidad }}</td>
-                <td>{{ jefeGrupoFamiliar.sexo }}</td>
-                <td>{{ jefeGrupoFamiliar.incapacitado }}</td>
-                <td>{{ jefeGrupoFamiliar.incapacitadoTipo }}</td>
-                <td>{{ jefeGrupoFamiliar.pensionado }}</td>
-                <td>{{ jefeGrupoFamiliar.pensionadoInstitucion }}</td>
-                <td>{{ jefeGrupoFamiliar.estadoCivil }}</td>
-                <td>{{ jefeGrupoFamiliar.nivelInstruccion }}</td>
-                <td>{{ jefeGrupoFamiliar.profesion }}</td>
-                <td>{{ jefeGrupoFamiliar.trabajaActualmente }}</td>
-                <td>{{ jefeGrupoFamiliar.telefono }}</td>
-                <td>{{ jefeGrupoFamiliar.email }}</td>
-                <td>{{ jefeGrupoFamiliar.ingresoFamiliar }}</td>
-                <td>{{ jefeGrupoFamiliar.ingresoMensual }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('jefegrupofamiliar_show', { 'id': jefeGrupoFamiliar.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('jefegrupofamiliar_edit', { 'id': jefeGrupoFamiliar.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+    <h2>JefeGrupoFamiliar list</h2>
+    <hr>
+    <div class="panel panel-primary">
+        <div class="panerl-body table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-info">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Cedula</th>
+                        <th>Nacionalidad</th>
+                        <th>Fechanacimiento</th>
+                        <th>Edad</th>
+                        <th>Cne</th>
+                        <th>Tiempoencomunidad</th>
+                        <th>Sexo</th>
+                        <th>Incapacitado</th>
+                        <th>Incapacitadotipo</th>
+                        <th>Pensionado</th>
+                        <th>Pensionadoinstitucion</th>
+                        <th>Estadocivil</th>
+                        <th>Nivelinstruccion</th>
+                        <th>Profesion</th>
+                        <th>Trabajaactualmente</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Ingresofamiliar</th>
+                        <th>Ingresomensual</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for jefeGrupoFamiliar in jefeGrupoFamiliars %}
+                    <tr>
+                        <td><a href="{{ path('jefegrupofamiliar_show', { 'id': jefeGrupoFamiliar.id }) }}">{{ jefeGrupoFamiliar.id }}</a></td>
+                        <td>{{ jefeGrupoFamiliar.nombres }}</td>
+                        <td>{{ jefeGrupoFamiliar.apellidos }}</td>
+                        <td>{{ jefeGrupoFamiliar.cedula }}</td>
+                        <td>{{ jefeGrupoFamiliar.nacionalidad }}</td>
+                        <td>{% if jefeGrupoFamiliar.fechaNacimiento %}{{ jefeGrupoFamiliar.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+                        <td>{{ jefeGrupoFamiliar.edad }}</td>
+                        <td>{{ jefeGrupoFamiliar.cne }}</td>
+                        <td>{{ jefeGrupoFamiliar.tiempoEnComunidad }}</td>
+                        <td>{{ jefeGrupoFamiliar.sexo }}</td>
+                        <td>{{ jefeGrupoFamiliar.incapacitado }}</td>
+                        <td>{{ jefeGrupoFamiliar.incapacitadoTipo }}</td>
+                        <td>{{ jefeGrupoFamiliar.pensionado }}</td>
+                        <td>{{ jefeGrupoFamiliar.pensionadoInstitucion }}</td>
+                        <td>{{ jefeGrupoFamiliar.estadoCivil }}</td>
+                        <td>{{ jefeGrupoFamiliar.nivelInstruccion }}</td>
+                        <td>{{ jefeGrupoFamiliar.profesion }}</td>
+                        <td>{{ jefeGrupoFamiliar.trabajaActualmente }}</td>
+                        <td>{{ jefeGrupoFamiliar.telefono }}</td>
+                        <td>{{ jefeGrupoFamiliar.email }}</td>
+                        <td>{{ jefeGrupoFamiliar.ingresoFamiliar }}</td>
+                        <td>{{ jefeGrupoFamiliar.ingresoMensual }}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('jefegrupofamiliar_show', { 'id': jefeGrupoFamiliar.id }) }}">show</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('jefegrupofamiliar_edit', { 'id': jefeGrupoFamiliar.id }) }}">edit</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
     <ul>
         <li>
             <a href="{{ path('jefegrupofamiliar_new') }}">Create a new entry</a>
