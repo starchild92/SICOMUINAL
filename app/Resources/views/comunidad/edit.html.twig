@@ -10,14 +10,8 @@
     {{ form_end(edit_form) }}
     </span>
     
-    <ul>
-        <li>
-            <a href="{{ path('comunidades_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <a class="btn btn-default" href="{{ path('comunidades_index') }}">Back to the list</a>
+    {{ form_start(delete_form) }}
+        <input class="btn btn-danger" type="submit" value="Delete">
+    {{ form_end(delete_form) }}
 {% endblock %}

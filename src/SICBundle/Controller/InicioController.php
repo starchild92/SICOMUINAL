@@ -3,7 +3,6 @@
 namespace SICBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class InicioController extends Controller
 {
@@ -29,9 +28,20 @@ class InicioController extends Controller
         $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
         $cc = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
 
+        // Solo una sola instancia de esta entidad
+        if (count($comunidad) > 0 && count($cc) > 0) {
+            $comunidad = $comunidad[0];
+            $cc = $cc[0];
+        }
+
         return $this->render('administracion/administrar_entidades.html.twig', 
             array(
                 'comunidad' =>  $comunidad,
                 'consejo'   =>  $cc));
+    }
+
+    public function administrarParametrosAction()
+    {
+        return $this->render('administracion/parametros.html.twig');
     }
 }

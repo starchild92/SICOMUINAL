@@ -43,9 +43,8 @@ class JefeGrupoFamiliar
     private $cedula;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nacionalidad", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminNacionalidad", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $nacionalidad;
 
@@ -64,9 +63,8 @@ class JefeGrupoFamiliar
     private $edad;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cne", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="respC_id_0", referencedColumnName="id", onDelete="CASCADE")
      */
     private $cne;
 
@@ -85,58 +83,50 @@ class JefeGrupoFamiliar
     private $sexo;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="incapacitado", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="respC_id_1", referencedColumnName="id", onDelete="CASCADE")
      */
     private $incapacitado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="incapacitadoTipo", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminIncapacidades", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $incapacitadoTipo;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pensionado", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="respC_id_2", referencedColumnName="id", onDelete="CASCADE")
      */
     private $pensionado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pensionadoInstitucion", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminPensionadoInstitucion", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $pensionadoInstitucion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="estadoCivil", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminEstadoCivil", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="edoCivil_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $estadoCivil;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nivelInstruccion", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminNivelInstruccion", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="nivelIns_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $nivelInstruccion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="profesion", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminProfesion", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $profesion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="trabajaActualmente", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="respC_id_3", referencedColumnName="id", onDelete="CASCADE")
      */
     private $trabajaActualmente;
 
@@ -155,9 +145,8 @@ class JefeGrupoFamiliar
     private $email;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ingresoFamiliar", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AdminClasIngresoFamiliar", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $ingresoFamiliar;
 
@@ -167,7 +156,6 @@ class JefeGrupoFamiliar
      * @ORM\Column(name="ingresoMensual", type="float")
      */
     private $ingresoMensual;
-
 
     /**
      * Get id
@@ -246,29 +234,6 @@ class JefeGrupoFamiliar
     public function getCedula()
     {
         return $this->cedula;
-    }
-
-    /**
-     * Set nacionalidad
-     *
-     * @param string $nacionalidad
-     * @return JefeGrupoFamiliar
-     */
-    public function setNacionalidad($nacionalidad)
-    {
-        $this->nacionalidad = $nacionalidad;
-
-        return $this;
-    }
-
-    /**
-     * Get nacionalidad
-     *
-     * @return string 
-     */
-    public function getNacionalidad()
-    {
-        return $this->nacionalidad;
     }
 
     /**
@@ -660,5 +625,28 @@ class JefeGrupoFamiliar
     public function getIngresoMensual()
     {
         return $this->ingresoMensual;
+    }
+
+    /**
+     * Set nacionalidad
+     *
+     * @param \SICBundle\Entity\AdminNacionalidad $nacionalidad
+     * @return JefeGrupoFamiliar
+     */
+    public function setNacionalidad(\SICBundle\Entity\AdminNacionalidad $nacionalidad = null)
+    {
+        $this->nacionalidad = $nacionalidad;
+
+        return $this;
+    }
+
+    /**
+     * Get nacionalidad
+     *
+     * @return \SICBundle\Entity\AdminNacionalidad 
+     */
+    public function getNacionalidad()
+    {
+        return $this->nacionalidad;
     }
 }

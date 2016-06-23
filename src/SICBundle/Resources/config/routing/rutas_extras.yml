@@ -12,3 +12,8 @@ sic_administacion_entidades:
     path:     /administrar/parametros/entidades
     defaults: { _controller: "SICBundle:Inicio:administrarEntidades"}
     methods:  GET
+
+sic_administacion_parametros_planilla:
+    path:     /administrar/parametros/planilla
+    defaults: { _controller: "SICBundle:Inicio:administrarParametros"}
+    methods:  GET

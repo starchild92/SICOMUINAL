@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminNivelInstruccion list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminNivelInstruccion in adminNivelInstruccions %}
+            <tr>
+                <td><a href="{{ path('configurable_nivel_instruccion_show', { 'id': adminNivelInstruccion.id }) }}">{{ adminNivelInstruccion.id }}</a></td>
+                <td>{{ adminNivelInstruccion.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_nivel_instruccion_show', { 'id': adminNivelInstruccion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_nivel_instruccion_edit', { 'id': adminNivelInstruccion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_nivel_instruccion_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

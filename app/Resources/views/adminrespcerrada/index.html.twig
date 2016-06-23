@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminRespCerrada list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Respuesta</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminRespCerrada in adminRespCerradas %}
+            <tr>
+                <td><a href="{{ path('configurable_respuesta_cerrada_show', { 'id': adminRespCerrada.id }) }}">{{ adminRespCerrada.id }}</a></td>
+                <td>{{ adminRespCerrada.respuesta }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_respuesta_cerrada_show', { 'id': adminRespCerrada.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_respuesta_cerrada_edit', { 'id': adminRespCerrada.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_respuesta_cerrada_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

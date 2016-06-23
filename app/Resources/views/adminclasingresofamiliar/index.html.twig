@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminClasIngresoFamiliar list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminClasIngresoFamiliar in adminClasIngresoFamiliars %}
+            <tr>
+                <td><a href="{{ path('configurable_clasificacion_ingreso_familiar_show', { 'id': adminClasIngresoFamiliar.id }) }}">{{ adminClasIngresoFamiliar.id }}</a></td>
+                <td>{{ adminClasIngresoFamiliar.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_clasificacion_ingreso_familiar_show', { 'id': adminClasIngresoFamiliar.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_clasificacion_ingreso_familiar_edit', { 'id': adminClasIngresoFamiliar.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_clasificacion_ingreso_familiar_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,38 @@
+.negritas{ font-weight: bold; }
+
+/*Primary Color For Table + Headers*/
+.thead-primary { background-color: #375A7F !important; }
+.thead-success { background-color: #00BC8C !important; }
+.thead-warning { background-color: #F39C12 !important; }
+.thead-danger  { background-color: #E74C3C !important; }
+.thead-info    { background-color: #3498DB !important; }
+
+.btn { white-space: normal; }
+
+.button-line {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border: 1px solid #464545;
+  border-radius: 4px;
+}
+
+p.bottom-line {
+  border-bottom: 1px solid #464545;
+  margin-bottom: 2px;
+}
+
+.navbar-flat{
+    padding-top: 17px;
+    padding-bottom: 17px;
+    border-radius: 0px;
+}
+
+div.panel-body > h1,
+div.panel-body > .h1,
+div.panel-body > h2,
+div.panel-body > .h2,
+div.panel-body > h3,
+div.panel-body > .h3,
+div.panel-body > h4,
+div.panel-body > .h4,
+{ margin-top: 10.5px !important; }

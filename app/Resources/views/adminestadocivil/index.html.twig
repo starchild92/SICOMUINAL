@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminEstadoCivil list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminEstadoCivil in adminEstadoCivils %}
+            <tr>
+                <td><a href="{{ path('configurable_estado_civil_show', { 'id': adminEstadoCivil.id }) }}">{{ adminEstadoCivil.id }}</a></td>
+                <td>{{ adminEstadoCivil.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_estado_civil_show', { 'id': adminEstadoCivil.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_estado_civil_edit', { 'id': adminEstadoCivil.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_estado_civil_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

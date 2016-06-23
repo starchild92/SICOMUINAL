@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminNacionalidad list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nacionalidad</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminNacionalidad in adminNacionalidads %}
+            <tr>
+                <td><a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">{{ adminNacionalidad.id }}</a></td>
+                <td>{{ adminNacionalidad.nacionalidad }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_nacionalidad_edit', { 'id': adminNacionalidad.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_nacionalidad_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

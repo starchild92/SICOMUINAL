@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminPensionadoInstitucion list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminPensionadoInstitucion in adminPensionadoInstitucions %}
+            <tr>
+                <td><a href="{{ path('configurable_pensionados_instituciones_show', { 'id': adminPensionadoInstitucion.id }) }}">{{ adminPensionadoInstitucion.id }}</a></td>
+                <td>{{ adminPensionadoInstitucion.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_pensionados_instituciones_show', { 'id': adminPensionadoInstitucion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_pensionados_instituciones_edit', { 'id': adminPensionadoInstitucion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_pensionados_instituciones_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -53,3 +53,37 @@ sic_situacioncomunidad:
 sic_planillas:
     resource: "@SICBundle/Resources/config/routing/planillas.yml"
     prefix:   /planillas
+
+# ----------------------------------------------------------------------------
+
+sic_admin_nacionalidad:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminnacionalidad.yml"
+    prefix:   /configurable/nacionalidad
+
+sic_configurable_respuesta_cerrada:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminrespcerrada.yml"
+    prefix:   /configurable/respuesta/cerrada
+
+sic_configurable_incapacidades:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminincapacidades.yml"
+    prefix:   /configurable/incapacidades
+
+sic_configurable_pensionados_instituciones:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminpensionadoinstitucion.yml"
+    prefix:   /configurable/pensionados/instituciones
+
+sic_configurable_estado_civil:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminestadocivil.yml"
+    prefix:   /configurable/estado_civil
+
+sic_configurable_nivel_instruccion:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminnivelinstruccion.yml"
+    prefix:   /configurable/nivel_instruccion
+
+sic_configurable_profesiones:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminprofesion.yml"
+    prefix:   /configurable/profesiones
+
+sic_configurable_clasificacion_ingreso_familiar:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminclasingresofamiliar.yml"
+    prefix:   /configurable/clasificacion/ingreso_familiar
