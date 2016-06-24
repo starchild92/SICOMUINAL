@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoParedes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminTipoParede in adminTipoParedes %}
+            <tr>
+                <td><a href="{{ path('configurable_tipo_paredes_show', { 'id': adminTipoParede.id }) }}">{{ adminTipoParede.id }}</a></td>
+                <td>{{ adminTipoParede.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_tipo_paredes_show', { 'id': adminTipoParede.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_tipo_paredes_edit', { 'id': adminTipoParede.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_tipo_paredes_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

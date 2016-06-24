@@ -16,35 +16,38 @@
                     <li><a class="button-line" href="{{ path('configurable_nivel_instruccion_index') }}">{# <i class="fa fa-plus"></i> #}Niveles de Instrucción</a></li>
                     <li><a class="button-line" href="{{ path('configurable_profesiones_index') }}">{# <i class="fa fa-plus"></i> #}Profesiones</a></li>
                     <li><a class="button-line" href="{{ path('configurable_clasificacion_ingreso_familiar_index') }}">{# <i class="fa fa-plus"></i> #}Ingreso Familiar</a></li>
-                    <hr>
+                </ul>
+            </div>
+        </div>
+        {# ----- #}
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
+            <div id="sidebar" class="sidebar-nav">
+                <ul class="nav nav-pills nav-stacked">
                     <li><a class="button-line" href="{{ path('configurable_ubicacion-trabajo_index') }}">{# <i class="fa fa-plus"></i> #}Ubicaciones Trabajo</a></li>
                     <li><a class="button-line" href="{{ path('configurable_venta_vivenda_index') }}">{# <i class="fa fa-plus"></i> #}Articulos Venta Vienda</a></li>
                     <li><a class="button-line" href="{{ path('configurable_tipos_ingresos_index') }}">{# <i class="fa fa-plus"></i> #}Cantidades Tipos de Ingreso</a></li>
                 </ul>
             </div>
         </div>
-        <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
-            <div class="panel panel-info">
-                <table class="table table-bordered">
-                    <thead class="thead-info">
-                        <tr>
-                            <th>Id</th>
-                            <th>Primernombre</th>
-                            <th>Segundonombre</th>
-                            <th>Primerapellido</th>
-                            <th>Segundoapellido</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {# {% for usuario in usuarios %} #}
-                        <tr>
-                            <td>No</td>
-                        </tr>
-                    {# {% endfor %} #}
-                    </tbody>
-                </table>
+        {# ----- #}
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
+            <div id="sidebar" class="sidebar-nav">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a class="button-line" href="{{ path('configurable_tipo_vivienda_index') }}">{# <i class="fa fa-plus"></i> #}Tipos de Vivienda</a></li>
+                    <li><a class="button-line" href="{{ path('configurable_tipo_tenencia_index') }}">{# <i class="fa fa-plus"></i> #}Forma de Tenencia</a></li>
+                    <li><a class="button-line" href="{{ path('configurable_tipo_habitaciones_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Habitaciones Vivienda</a></li>
+                    <li><a class="button-line" href="{{ path('configurable_tipo_paredes_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Paredes</a></li>
+                    <li><a class="button-line" href="{{ path('configurable_tipo_techo_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Techos</a></li>
+                    <li><a class="button-line" href="{{ path('configurable_tipo_enseres_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Enseres</a></li>
+                    <li><a class="button-line" href="{{ path('configurable_tipo_salubridad_index') }}">{# <i class="fa fa-plus"></i> #}Salubridad Vivienda</a></li>
+                    <li><a class="button-line" href="{{ path('configurables_tipo_plagas_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Plagas</a></li>
+                    <li><a class="button-line" href="{{ path('configurable_tipo_mascotas_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Mascotas</a></li>
+
+                </ul>
             </div>
         </div>
+        {# <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12"></div> #}
     </div>
 {% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoMascotas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminTipoMascota in adminTipoMascotas %}
+            <tr>
+                <td><a href="{{ path('configurable_tipo_mascotas_show', { 'id': adminTipoMascota.id }) }}">{{ adminTipoMascota.id }}</a></td>
+                <td>{{ adminTipoMascota.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_tipo_mascotas_show', { 'id': adminTipoMascota.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_tipo_mascotas_edit', { 'id': adminTipoMascota.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_tipo_mascotas_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

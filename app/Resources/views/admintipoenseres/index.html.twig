@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoEnseres list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminTipoEnsere in adminTipoEnseres %}
+            <tr>
+                <td><a href="{{ path('configurable_tipo_enseres_show', { 'id': adminTipoEnsere.id }) }}">{{ adminTipoEnsere.id }}</a></td>
+                <td>{{ adminTipoEnsere.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_tipo_enseres_show', { 'id': adminTipoEnsere.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_tipo_enseres_edit', { 'id': adminTipoEnsere.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_tipo_enseres_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

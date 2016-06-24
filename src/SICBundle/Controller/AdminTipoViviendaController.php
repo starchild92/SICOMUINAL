@@ -1,0 +1,128 @@
+<?php
+
+namespace SICBundle\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use SICBundle\Entity\AdminTipoVivienda;
+use SICBundle\Form\AdminTipoViviendaType;
+
+/**
+ * AdminTipoVivienda controller.
+ *
+ */
+class AdminTipoViviendaController extends Controller
+{
+    /**
+     * Lists all AdminTipoVivienda entities.
+     *
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $adminTipoViviendas = $em->getRepository('SICBundle:AdminTipoVivienda')->findAll();
+
+        return $this->render('admintipovivienda/index.html.twig', array(
+            'adminTipoViviendas' => $adminTipoViviendas,
+        ));
+    }
+
+    /**
+     * Creates a new AdminTipoVivienda entity.
+     *
+     */
+    public function newAction(Request $request)
+    {
+        $adminTipoVivienda = new AdminTipoVivienda();
+        $form = $this->createForm('SICBundle\Form\AdminTipoViviendaType', $adminTipoVivienda);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($adminTipoVivienda);
+            $em->flush();
+
+            return $this->redirectToRoute('configurable_tipo_vivienda_show', array('id' => $adminTipoVivienda->getId()));
+        }
+
+        return $this->render('admintipovivienda/new.html.twig', array(
+            'adminTipoVivienda' => $adminTipoVivienda,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a AdminTipoVivienda entity.
+     *
+     */
+    public function showAction(AdminTipoVivienda $adminTipoVivienda)
+    {
+        $deleteForm = $this->createDeleteForm($adminTipoVivienda);
+
+        return $this->render('admintipovivienda/show.html.twig', array(
+            'adminTipoVivienda' => $adminTipoVivienda,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing AdminTipoVivienda entity.
+     *
+     */
+    public function editAction(Request $request, AdminTipoVivienda $adminTipoVivienda)
+    {
+        $deleteForm = $this->createDeleteForm($adminTipoVivienda);
+        $editForm = $this->createForm('SICBundle\Form\AdminTipoViviendaType', $adminTipoVivienda);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($adminTipoVivienda);
+            $em->flush();
+
+            return $this->redirectToRoute('configurable_tipo_vivienda_edit', array('id' => $adminTipoVivienda->getId()));
+        }
+
+        return $this->render('admintipovivienda/edit.html.twig', array(
+            'adminTipoVivienda' => $adminTipoVivienda,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a AdminTipoVivienda entity.
+     *
+     */
+    public function deleteAction(Request $request, AdminTipoVivienda $adminTipoVivienda)
+    {
+        $form = $this->createDeleteForm($adminTipoVivienda);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($adminTipoVivienda);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('configurable_tipo_vivienda_index');
+    }
+
+    /**
+     * Creates a form to delete a AdminTipoVivienda entity.
+     *
+     * @param AdminTipoVivienda $adminTipoVivienda The AdminTipoVivienda entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(AdminTipoVivienda $adminTipoVivienda)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('configurable_tipo_vivienda_delete', array('id' => $adminTipoVivienda->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
+}

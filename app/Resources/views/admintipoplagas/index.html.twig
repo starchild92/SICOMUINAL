@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoPlagas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminTipoPlaga in adminTipoPlagas %}
+            <tr>
+                <td><a href="{{ path('configurables_tipo_plagas_show', { 'id': adminTipoPlaga.id }) }}">{{ adminTipoPlaga.id }}</a></td>
+                <td>{{ adminTipoPlaga.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurables_tipo_plagas_show', { 'id': adminTipoPlaga.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurables_tipo_plagas_edit', { 'id': adminTipoPlaga.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipo_plagas_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -28,19 +28,19 @@ sic_jefegrupofamiliar:
 
 sic_situacioneconomica:
     resource: "@SICBundle/Resources/config/routing/situacioneconomica.yml"
-    prefix:   /situacioneconomica
+    prefix:   /situacion/economica
 
 sic_situacionvivienda:
     resource: "@SICBundle/Resources/config/routing/situacionvivienda.yml"
-    prefix:   /situacionvivienda
+    prefix:   /situacion/vivienda
 
 sic_situacionsalud:
     resource: "@SICBundle/Resources/config/routing/situacionsalud.yml"
-    prefix:   /situacionsalud
+    prefix:   /situacion/salud
 
 sic_situacionservicios:
     resource: "@SICBundle/Resources/config/routing/situacionservicios.yml"
-    prefix:   /situacionservicios
+    prefix:   /situacion/servicios
 
 sic_participacioncomunitaria:
     resource: "@SICBundle/Resources/config/routing/participacioncomunitaria.yml"
@@ -48,7 +48,7 @@ sic_participacioncomunitaria:
 
 sic_situacioncomunidad:
     resource: "@SICBundle/Resources/config/routing/situacioncomunidad.yml"
-    prefix:   /situacioncomunidad
+    prefix:   /situacion/comunidad
 
 sic_planillas:
     resource: "@SICBundle/Resources/config/routing/planillas.yml"
@@ -93,9 +93,45 @@ sic_configurable_ubicacion-trabajo:
     prefix:   /configurable/ubicacion-trabajo
 
 sic_configurable_venta_vivenda:
-        resource: "@SICBundle/Resources/config/routing/Configurables/adminventavivienda.yml"
-        prefix:   /configurable/venta_vivenda
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminventavivienda.yml"
+    prefix:   /configurable/venta_vivenda
 
 sic_configurable_tipos_ingresos:
-        resource: "@SICBundle/Resources/config/routing/Configurables/admintipoingresos.yml"
-        prefix:   /configurable/tipos/ingresos
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipoingresos.yml"
+    prefix:   /configurable/tipos/ingresos
+
+sic_configurable_tipo_tenencia:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipotenencia.yml"
+    prefix:   /configurable/tipo/tenencia
+
+sic_configurable_tipo_vivienda:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipovivienda.yml"
+    prefix:   /configurable/tipo/vivienda
+
+sic_configurable_tipo_habitaciones:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipohabitacionesvivienda.yml"
+    prefix:   /configurable/tipo/habitaciones
+
+sic_configurable_tipo_paredes:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipoparedes.yml"
+    prefix:   /configurable/tipo/paredes
+
+sic_configurable_tipo_techo:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipotecho.yml"
+    prefix:   /configurable/tipo/techo
+
+sic_configurable_tipo_enseres:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipoenseres.yml"
+    prefix:   /configurable/tipo/enseres
+
+sic_configurable_tipo_salubridad:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminsalubridadvivienda.yml"
+    prefix:   /configurable/tipo/salubridad
+
+sic_configurables_tipo_plagas:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipoplagas.yml"
+    prefix:   /configurables/tipo/plagas
+
+sic_configurable_tipo_mascotas:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipomascotas.yml"
+    prefix:   /configurable/tipo/mascotas    

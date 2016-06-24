@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoVivienda list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminTipoVivienda in adminTipoViviendas %}
+            <tr>
+                <td><a href="{{ path('configurable_tipo_vivienda_show', { 'id': adminTipoVivienda.id }) }}">{{ adminTipoVivienda.id }}</a></td>
+                <td>{{ adminTipoVivienda.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_tipo_vivienda_show', { 'id': adminTipoVivienda.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_tipo_vivienda_edit', { 'id': adminTipoVivienda.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_tipo_vivienda_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
