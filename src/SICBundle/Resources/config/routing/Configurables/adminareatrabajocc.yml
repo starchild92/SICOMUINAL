@@ -1,0 +1,24 @@
+configurables_tipos_areas_trabajo_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:index" }
+    methods:  GET
+
+configurables_tipos_areas_trabajo_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:show" }
+    methods:  GET
+
+configurables_tipos_areas_trabajo_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:new" }
+    methods:  [GET, POST]
+
+configurables_tipos_areas_trabajo_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:edit" }
+    methods:  [GET, POST]
+
+configurables_tipos_areas_trabajo_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:delete" }
+    methods:  DELETE

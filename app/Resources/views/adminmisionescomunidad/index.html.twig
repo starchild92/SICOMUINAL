@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminMisionesComunidad list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminMisionesComunidad in adminMisionesComunidads %}
+            <tr>
+                <td><a href="{{ path('configurables_tipos_misiones_comunidad_show', { 'id': adminMisionesComunidad.id }) }}">{{ adminMisionesComunidad.id }}</a></td>
+                <td>{{ adminMisionesComunidad.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurables_tipos_misiones_comunidad_show', { 'id': adminMisionesComunidad.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurables_tipos_misiones_comunidad_edit', { 'id': adminMisionesComunidad.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipos_misiones_comunidad_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

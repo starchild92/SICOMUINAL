@@ -1,0 +1,24 @@
+configurables_tipo_telefonia_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminTipoTelefonia:index" }
+    methods:  GET
+
+configurables_tipo_telefonia_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminTipoTelefonia:show" }
+    methods:  GET
+
+configurables_tipo_telefonia_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminTipoTelefonia:new" }
+    methods:  [GET, POST]
+
+configurables_tipo_telefonia_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminTipoTelefonia:edit" }
+    methods:  [GET, POST]
+
+configurables_tipo_telefonia_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminTipoTelefonia:delete" }
+    methods:  DELETE

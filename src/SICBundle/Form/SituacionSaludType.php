@@ -15,7 +15,7 @@ class SituacionSaludType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('enfermedad')
+            ->add('padecencia')
             ->add('ayudaEspecial')
             ->add('situacionExclusion')
         ;

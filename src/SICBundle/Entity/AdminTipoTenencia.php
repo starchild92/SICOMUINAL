@@ -28,6 +28,7 @@ class AdminTipoTenencia
      */
     private $forma;
 
+    public function __toString() { return $this->forma; }
 
     /**
      * Get id

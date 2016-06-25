@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoTransporte list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminTipoTransporte in adminTipoTransportes %}
+            <tr>
+                <td><a href="{{ path('configurables_tipo_transporte_show', { 'id': adminTipoTransporte.id }) }}">{{ adminTipoTransporte.id }}</a></td>
+                <td>{{ adminTipoTransporte.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurables_tipo_transporte_show', { 'id': adminTipoTransporte.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurables_tipo_transporte_edit', { 'id': adminTipoTransporte.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipo_transporte_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

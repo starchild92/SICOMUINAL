@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminAreaTrabajoCC list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminAreaTrabajoCC in adminAreaTrabajoCCs %}
+            <tr>
+                <td><a href="{{ path('configurables_tipos_areas_trabajo_show', { 'id': adminAreaTrabajoCC.id }) }}">{{ adminAreaTrabajoCC.id }}</a></td>
+                <td>{{ adminAreaTrabajoCC.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurables_tipos_areas_trabajo_show', { 'id': adminAreaTrabajoCC.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurables_tipos_areas_trabajo_edit', { 'id': adminAreaTrabajoCC.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipos_areas_trabajo_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

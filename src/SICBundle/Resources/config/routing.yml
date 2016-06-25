@@ -58,75 +58,75 @@ sic_planillas:
 
 sic_admin_nacionalidad:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminnacionalidad.yml"
-    prefix:   /configurable/nacionalidad
+    prefix:   /configurables/nacionalidad
 
 sic_configurable_respuesta_cerrada:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminrespcerrada.yml"
-    prefix:   /configurable/respuesta/cerrada
+    prefix:   /configurables/respuesta/cerrada
 
 sic_configurable_incapacidades:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminincapacidades.yml"
-    prefix:   /configurable/incapacidades
+    prefix:   /configurables/incapacidades
 
 sic_configurable_pensionados_instituciones:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminpensionadoinstitucion.yml"
-    prefix:   /configurable/pensionados/instituciones
+    prefix:   /configurables/pensionados/instituciones
 
 sic_configurable_estado_civil:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminestadocivil.yml"
-    prefix:   /configurable/estado_civil
+    prefix:   /configurables/estado_civil
 
 sic_configurable_nivel_instruccion:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminnivelinstruccion.yml"
-    prefix:   /configurable/nivel_instruccion
+    prefix:   /configurables/nivel_instruccion
 
 sic_configurable_profesiones:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminprofesion.yml"
-    prefix:   /configurable/profesiones
+    prefix:   /configurables/profesiones
 
 sic_configurable_clasificacion_ingreso_familiar:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminclasingresofamiliar.yml"
-    prefix:   /configurable/clasificacion/ingreso_familiar
+    prefix:   /configurables/clasificacion/ingreso_familiar
 
 sic_configurable_ubicacion-trabajo:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminubicaciontrabajo.yml"
-    prefix:   /configurable/ubicacion-trabajo
+    prefix:   /configurables/ubicacion-trabajo
 
 sic_configurable_venta_vivenda:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminventavivienda.yml"
-    prefix:   /configurable/venta_vivenda
+    prefix:   /configurables/venta_vivenda
 
 sic_configurable_tipos_ingresos:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipoingresos.yml"
-    prefix:   /configurable/tipos/ingresos
+    prefix:   /configurables/tipos/ingresos
 
 sic_configurable_tipo_tenencia:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipotenencia.yml"
-    prefix:   /configurable/tipo/tenencia
+    prefix:   /configurables/tipo/tenencia
 
 sic_configurable_tipo_vivienda:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipovivienda.yml"
-    prefix:   /configurable/tipo/vivienda
+    prefix:   /configurables/tipo/vivienda
 
 sic_configurable_tipo_habitaciones:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipohabitacionesvivienda.yml"
-    prefix:   /configurable/tipo/habitaciones
+    prefix:   /configurables/tipo/habitaciones
 
 sic_configurable_tipo_paredes:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipoparedes.yml"
-    prefix:   /configurable/tipo/paredes
+    prefix:   /configurables/tipo/paredes
 
 sic_configurable_tipo_techo:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipotecho.yml"
-    prefix:   /configurable/tipo/techo
+    prefix:   /configurables/tipo/techo
 
 sic_configurable_tipo_enseres:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipoenseres.yml"
-    prefix:   /configurable/tipo/enseres
+    prefix:   /configurables/tipo/enseres
 
 sic_configurable_tipo_salubridad:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminsalubridadvivienda.yml"
-    prefix:   /configurable/tipo/salubridad
+    prefix:   /configurables/tipo/salubridad
 
 sic_configurables_tipo_plagas:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipoplagas.yml"
@@ -134,4 +134,70 @@ sic_configurables_tipo_plagas:
 
 sic_configurable_tipo_mascotas:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipomascotas.yml"
-    prefix:   /configurable/tipo/mascotas    
+    prefix:   /configurables/tipo/mascotas
+
+sic_configurable_tipo_padecencia:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipopadecencia.yml"
+    prefix:   /configurables/tipo/padecencia
+
+sic_configurable_tipo_ayuda_especial:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipoayudaespecial.yml"
+    prefix:   /configurables/tipo/ayuda_especial
+
+sic_configurable_tipo_situacion_exclusion:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintiposituacionexclusion.yml"
+    prefix:   /configurables/tipo/situacion_exclusion
+
+sic_configurables_tipos_aguas_blancas:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminaguasblancas.yml"
+    prefix:   /configurables/tipos/aguas_blancas
+
+sic_configurables_tipos_aguas_servidas:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminaguasservidas.yml"
+    prefix:   /configurables/tipos/aguas_servidas
+
+sic_configurables_tipos_gas:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipogas.yml"
+    prefix:   /configurables/tipos/gas
+
+sic_configurables_tipo_sistema_electrico:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminsistemaelectrico.yml"
+    prefix:   /configurables/tipo/sistema_electrico
+
+sic_configurables_tipo_recoleccion_basura:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminrecoleccionbasura.yml"
+    prefix:   /configurables/tipo/recoleccion_basura
+
+sic_configurables_tipo_telefonia:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipotelefonia.yml"
+    prefix:   /configurables/tipo/telefonia
+
+sic_configurables_tipo_transporte:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipotransporte.yml"
+    prefix:   /configurables/tipo/transporte
+
+sic_configurables_tipo_mecanismo_informacion:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminmecanismoinformacion.yml"
+    prefix:   /configurables/tipo/mecanismo_informacion
+
+sic_configurables_tipos_servicios_comunales:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminservicioscomunales.yml"
+    prefix:   /configurables/tipos/servicios_comunales
+
+# --------------------------------------------------------------------
+
+sic_configurables_tipos_organizaciones_comunitarias:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminorgcomunitaria.yml"
+    prefix:   /configurables/tipos/organizaciones/comunitarias
+
+sic_configurables_tipos_misiones_comunidad:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminmisionescomunidad.yml"
+    prefix:   /configurables/tipos/misiones_comunidad
+
+sic_configurables_preguntas_participacion_comunitaria:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminpreguntasparticipacioncomunitaria.yml"
+    prefix:   /configurables/preguntas/participacion_comunitaria
+
+sic_configurables_tipos_areas_trabajo:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminareatrabajocc.yml"
+    prefix:   /configurables/tipos/areas_trabajo

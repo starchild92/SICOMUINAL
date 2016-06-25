@@ -1,0 +1,24 @@
+configurables_tipo_mecanismo_informacion_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminMecanismoInformacion:index" }
+    methods:  GET
+
+configurables_tipo_mecanismo_informacion_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminMecanismoInformacion:show" }
+    methods:  GET
+
+configurables_tipo_mecanismo_informacion_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminMecanismoInformacion:new" }
+    methods:  [GET, POST]
+
+configurables_tipo_mecanismo_informacion_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminMecanismoInformacion:edit" }
+    methods:  [GET, POST]
+
+configurables_tipo_mecanismo_informacion_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminMecanismoInformacion:delete" }
+    methods:  DELETE

@@ -15,11 +15,12 @@ class SituacionViviendaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('cantidadHabitaciones')
             ->add('tipo')
             ->add('tenencia')
             ->add('terrenoPropio')
+            ->add('ovc')
             ->add('habitaciones')
-            ->add('cantidadHabitaciones')
             ->add('paredes')
             ->add('techo')
             ->add('enseres')

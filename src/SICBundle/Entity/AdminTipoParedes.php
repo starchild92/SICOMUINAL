@@ -28,6 +28,7 @@ class AdminTipoParedes
      */
     private $nombre;
 
+    public function __toString() { return $this->nombre; }
 
     /**
      * Get id

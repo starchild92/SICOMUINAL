@@ -5,12 +5,12 @@ namespace SICBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AdminTipoMascotas
+ * AdminTipoTransporte
  *
- * @ORM\Table(name="admin_tipo_mascotas")
- * @ORM\Entity(repositoryClass="SICBundle\Repository\AdminTipoMascostaRepository")
+ * @ORM\Table(name="admin_tipo_transporte")
+ * @ORM\Entity(repositoryClass="SICBundle\Repository\AdminTipoTransporteRepository")
  */
-class AdminTipoMascotas
+class AdminTipoTransporte
 {
     /**
      * @var int
@@ -28,6 +28,7 @@ class AdminTipoMascotas
      */
     private $nombre;
 
+    public function __toString(){ return $this->nombre; }
 
     /**
      * Get id
@@ -43,7 +44,7 @@ class AdminTipoMascotas
      * Set nombre
      *
      * @param string $nombre
-     * @return AdminTipoMascostas
+     * @return AdminTipoTransporte
      */
     public function setNombre($nombre)
     {

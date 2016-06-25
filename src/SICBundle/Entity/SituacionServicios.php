@@ -22,65 +22,56 @@ class SituacionServicios
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="aguasBlancas", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminAguasBlancas", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="aguasBlancas", referencedColumnName="id", onDelete="CASCADE")
      */
     private $aguasBlancas;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="aguasServidas", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminAguasServidas", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="aguasServidas", referencedColumnName="id", onDelete="CASCADE")
      */
     private $aguasServidas;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="gas", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoGas", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="gas", referencedColumnName="id", onDelete="CASCADE")
      */
     private $gas;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="sistemaElectrico", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminSistemaElectrico", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sistemaElectrico", referencedColumnName="id", onDelete="CASCADE")
      */
     private $sistemaElectrico;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="recoleccionBasura", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRecoleccionBasura", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="recoleccionBasura", referencedColumnName="id", onDelete="CASCADE")
      */
     private $recoleccionBasura;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="telefonia", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoTelefonia", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="telefonia", referencedColumnName="id", onDelete="CASCADE")
      */
     private $telefonia;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="transporte", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoTransporte", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="transporte", referencedColumnName="id", onDelete="CASCADE")
      */
     private $transporte;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mecanismoInformacion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminMecanismoInformacion", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="mecanismoInformacion", referencedColumnName="id", onDelete="CASCADE")
      */
     private $mecanismoInformacion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="serviciosComunales", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminServiciosComunales", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="serviciosComunales", referencedColumnName="id", onDelete="CASCADE")
      */
     private $serviciosComunales;
 

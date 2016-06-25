@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminServiciosComunales list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminServiciosComunale in adminServiciosComunales %}
+            <tr>
+                <td><a href="{{ path('configurables_tipos_servicios_comunales_show', { 'id': adminServiciosComunale.id }) }}">{{ adminServiciosComunale.id }}</a></td>
+                <td>{{ adminServiciosComunale.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurables_tipos_servicios_comunales_show', { 'id': adminServiciosComunale.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurables_tipos_servicios_comunales_edit', { 'id': adminServiciosComunale.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipos_servicios_comunales_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

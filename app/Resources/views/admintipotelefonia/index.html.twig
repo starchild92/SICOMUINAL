@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoTelefonia list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminTipoTelefonium in adminTipoTelefonias %}
+            <tr>
+                <td><a href="{{ path('configurables_tipo_telefonia_show', { 'id': adminTipoTelefonium.id }) }}">{{ adminTipoTelefonium.id }}</a></td>
+                <td>{{ adminTipoTelefonium.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurables_tipo_telefonia_show', { 'id': adminTipoTelefonium.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurables_tipo_telefonia_edit', { 'id': adminTipoTelefonium.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipo_telefonia_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

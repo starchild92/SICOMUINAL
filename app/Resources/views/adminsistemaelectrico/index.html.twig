@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminSistemaElectrico list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminSistemaElectrico in adminSistemaElectricos %}
+            <tr>
+                <td><a href="{{ path('configurables_tipo_sistema_electrico_show', { 'id': adminSistemaElectrico.id }) }}">{{ adminSistemaElectrico.id }}</a></td>
+                <td>{{ adminSistemaElectrico.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurables_tipo_sistema_electrico_show', { 'id': adminSistemaElectrico.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurables_tipo_sistema_electrico_edit', { 'id': adminSistemaElectrico.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipo_sistema_electrico_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

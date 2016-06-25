@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoSituacionExclusion list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Situacion</th>
+                <th>Cantidad</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminTipoSituacionExclusion in adminTipoSituacionExclusions %}
+            <tr>
+                <td><a href="{{ path('configurable_tipo_situacion_exclusion_show', { 'id': adminTipoSituacionExclusion.id }) }}">{{ adminTipoSituacionExclusion.id }}</a></td>
+                <td>{{ adminTipoSituacionExclusion.situacion }}</td>
+                <td>{{ adminTipoSituacionExclusion.cantidad }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_tipo_situacion_exclusion_show', { 'id': adminTipoSituacionExclusion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_tipo_situacion_exclusion_edit', { 'id': adminTipoSituacionExclusion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_tipo_situacion_exclusion_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -22,23 +22,20 @@ class SituacionSalud
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="enfermedad", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoPadecencia", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="tipoPadecencia", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $enfermedad;
+    private $padecencia;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ayudaEspecial", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoAyudaEspecial", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="tipoAyuEsp", referencedColumnName="id", onDelete="CASCADE")
      */
     private $ayudaEspecial;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionExclusion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoSituacionExclusion", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="tipoSitExcl", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionExclusion;
 
@@ -54,35 +51,35 @@ class SituacionSalud
     }
 
     /**
-     * Set enfermedad
+     * Set padecencia
      *
-     * @param string $enfermedad
+     * @param \SICBundle\Entity\AdminTipoPadecencia $padecencia
      * @return SituacionSalud
      */
-    public function setEnfermedad($enfermedad)
+    public function setPadecencia(\SICBundle\Entity\AdminTipoPadecencia $padecencia = null)
     {
-        $this->enfermedad = $enfermedad;
+        $this->padecencia = $padecencia;
 
         return $this;
     }
 
     /**
-     * Get enfermedad
+     * Get padecencia
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminTipoPadecencia 
      */
-    public function getEnfermedad()
+    public function getPadecencia()
     {
-        return $this->enfermedad;
+        return $this->padecencia;
     }
 
     /**
      * Set ayudaEspecial
      *
-     * @param string $ayudaEspecial
+     * @param \SICBundle\Entity\AdminTipoAyudaEspecial $ayudaEspecial
      * @return SituacionSalud
      */
-    public function setAyudaEspecial($ayudaEspecial)
+    public function setAyudaEspecial(\SICBundle\Entity\AdminTipoAyudaEspecial $ayudaEspecial = null)
     {
         $this->ayudaEspecial = $ayudaEspecial;
 
@@ -92,7 +89,7 @@ class SituacionSalud
     /**
      * Get ayudaEspecial
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminTipoAyudaEspecial 
      */
     public function getAyudaEspecial()
     {
@@ -102,10 +99,10 @@ class SituacionSalud
     /**
      * Set situacionExclusion
      *
-     * @param string $situacionExclusion
+     * @param \SICBundle\Entity\AdminTipoSituacionExclusion $situacionExclusion
      * @return SituacionSalud
      */
-    public function setSituacionExclusion($situacionExclusion)
+    public function setSituacionExclusion(\SICBundle\Entity\AdminTipoSituacionExclusion $situacionExclusion = null)
     {
         $this->situacionExclusion = $situacionExclusion;
 
@@ -115,7 +112,7 @@ class SituacionSalud
     /**
      * Get situacionExclusion
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminTipoSituacionExclusion 
      */
     public function getSituacionExclusion()
     {

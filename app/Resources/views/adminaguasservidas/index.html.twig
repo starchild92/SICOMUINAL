@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminAguasServidas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminAguasServida in adminAguasServidas %}
+            <tr>
+                <td><a href="{{ path('configurables_tipos_aguas_servidas_show', { 'id': adminAguasServida.id }) }}">{{ adminAguasServida.id }}</a></td>
+                <td>{{ adminAguasServida.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurables_tipos_aguas_servidas_show', { 'id': adminAguasServida.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurables_tipos_aguas_servidas_edit', { 'id': adminAguasServida.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipos_aguas_servidas_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

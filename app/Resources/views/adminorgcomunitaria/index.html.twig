@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminOrgComunitaria list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminOrgComunitarium in adminOrgComunitarias %}
+            <tr>
+                <td><a href="{{ path('configurables_tipos_organizaciones_comunitarias_show', { 'id': adminOrgComunitarium.id }) }}">{{ adminOrgComunitarium.id }}</a></td>
+                <td>{{ adminOrgComunitarium.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurables_tipos_organizaciones_comunitarias_show', { 'id': adminOrgComunitarium.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurables_tipos_organizaciones_comunitarias_edit', { 'id': adminOrgComunitarium.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipos_organizaciones_comunitarias_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

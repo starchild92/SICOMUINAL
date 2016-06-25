@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoAyudaEspecial creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_tipo_ayuda_especial_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoAyudaEspecial list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adminTipoAyudaEspecial in adminTipoAyudaEspecials %}
+            <tr>
+                <td><a href="{{ path('configurable_tipo_ayuda_especial_show', { 'id': adminTipoAyudaEspecial.id }) }}">{{ adminTipoAyudaEspecial.id }}</a></td>
+                <td>{{ adminTipoAyudaEspecial.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configurable_tipo_ayuda_especial_show', { 'id': adminTipoAyudaEspecial.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configurable_tipo_ayuda_especial_edit', { 'id': adminTipoAyudaEspecial.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_tipo_ayuda_especial_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

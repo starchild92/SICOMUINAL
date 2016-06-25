@@ -1,0 +1,128 @@
+<?php
+
+namespace SICBundle\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use SICBundle\Entity\AdminTipoGas;
+use SICBundle\Form\AdminTipoGasType;
+
+/**
+ * AdminTipoGas controller.
+ *
+ */
+class AdminTipoGasController extends Controller
+{
+    /**
+     * Lists all AdminTipoGas entities.
+     *
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $adminTipoGas = $em->getRepository('SICBundle:AdminTipoGas')->findAll();
+
+        return $this->render('admintipogas/index.html.twig', array(
+            'adminTipoGas' => $adminTipoGas,
+        ));
+    }
+
+    /**
+     * Creates a new AdminTipoGas entity.
+     *
+     */
+    public function newAction(Request $request)
+    {
+        $adminTipoGa = new AdminTipoGas();
+        $form = $this->createForm('SICBundle\Form\AdminTipoGasType', $adminTipoGa);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($adminTipoGa);
+            $em->flush();
+
+            return $this->redirectToRoute('configurables_tipos_gas_show', array('id' => $adminTipoGa->getId()));
+        }
+
+        return $this->render('admintipogas/new.html.twig', array(
+            'adminTipoGa' => $adminTipoGa,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a AdminTipoGas entity.
+     *
+     */
+    public function showAction(AdminTipoGas $adminTipoGa)
+    {
+        $deleteForm = $this->createDeleteForm($adminTipoGa);
+
+        return $this->render('admintipogas/show.html.twig', array(
+            'adminTipoGa' => $adminTipoGa,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing AdminTipoGas entity.
+     *
+     */
+    public function editAction(Request $request, AdminTipoGas $adminTipoGa)
+    {
+        $deleteForm = $this->createDeleteForm($adminTipoGa);
+        $editForm = $this->createForm('SICBundle\Form\AdminTipoGasType', $adminTipoGa);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($adminTipoGa);
+            $em->flush();
+
+            return $this->redirectToRoute('configurables_tipos_gas_edit', array('id' => $adminTipoGa->getId()));
+        }
+
+        return $this->render('admintipogas/edit.html.twig', array(
+            'adminTipoGa' => $adminTipoGa,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a AdminTipoGas entity.
+     *
+     */
+    public function deleteAction(Request $request, AdminTipoGas $adminTipoGa)
+    {
+        $form = $this->createDeleteForm($adminTipoGa);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($adminTipoGa);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('configurables_tipos_gas_index');
+    }
+
+    /**
+     * Creates a form to delete a AdminTipoGas entity.
+     *
+     * @param AdminTipoGas $adminTipoGa The AdminTipoGas entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(AdminTipoGas $adminTipoGa)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('configurables_tipos_gas_delete', array('id' => $adminTipoGa->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
+}
