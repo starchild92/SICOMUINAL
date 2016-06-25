@@ -20,6 +20,7 @@ class ParticipacionComunitariaType extends AbstractType
             ->add('participaMiembroOrganizacion')
             ->add('misionesComunidad')
             ->add('preguntasParticipacionComunitaria')
+            ->add('areaTabajoCC')
         ;
     }
     

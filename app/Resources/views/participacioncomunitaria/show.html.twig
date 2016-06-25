@@ -3,31 +3,33 @@
 {% block body %}
     <h1>ParticipacionComunitaria</h1>
 
-    <table>
+    <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ participacionComunitarium.id }}</td>
             </tr>
             <tr>
-                <th>Existenorganizaciones</th>
+                <th>Misiones en la Comunidad</th>
+                <td>{% for cc in participacionComunitarium.misionesComunidad %}
+                    {{ cc }},
+                {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Existen Organizaciones</th>
                 <td>{{ participacionComunitarium.existenOrganizaciones }}</td>
             </tr>
             <tr>
-                <th>Participaorganizacion</th>
+                <th>Participa Organizacion</th>
                 <td>{{ participacionComunitarium.participaOrganizacion }}</td>
             </tr>
             <tr>
-                <th>Participamiembroorganizacion</th>
-                <td>{{ participacionComunitarium.participaMiembroOrganizacion }}</td>
-            </tr>
-            <tr>
-                <th>Misionescomunidad</th>
-                <td>{{ participacionComunitarium.misionesComunidad }}</td>
-            </tr>
-            <tr>
-                <th>Preguntasparticipacioncomunitaria</th>
+                <th>Preguntas participacion comunitaria</th>
                 <td>{{ participacionComunitarium.preguntasParticipacionComunitaria }}</td>
+            </tr>
+            <tr>
+                <th>Area Trabajo</th>
+                <td>{{ participacionComunitarium.areaTabajoCC }}</td>
             </tr>
         </tbody>
     </table>

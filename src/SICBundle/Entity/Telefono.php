@@ -35,7 +35,6 @@ class Telefono
      */
     private $numero;
 
-
     /**
      * Get id
      *

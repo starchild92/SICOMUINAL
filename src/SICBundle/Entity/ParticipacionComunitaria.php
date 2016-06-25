@@ -40,8 +40,11 @@ class ParticipacionComunitaria
     private $participaMiembroOrganizacion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminMisionesComunidad", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="misionesComunidad", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="AdminMisionesComunidad")
+     * @ORM\JoinTable(name="partCom_Misiones",
+     *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="mision_id", referencedColumnName="id")}
+     *      )
      */
     private $misionesComunidad;
 
@@ -138,29 +141,6 @@ class ParticipacionComunitaria
     }
 
     /**
-     * Set misionesComunidad
-     *
-     * @param \SICBundle\Entity\AdminMisionesComunidad $misionesComunidad
-     * @return ParticipacionComunitaria
-     */
-    public function setMisionesComunidad(\SICBundle\Entity\AdminMisionesComunidad $misionesComunidad = null)
-    {
-        $this->misionesComunidad = $misionesComunidad;
-
-        return $this;
-    }
-
-    /**
-     * Get misionesComunidad
-     *
-     * @return \SICBundle\Entity\AdminMisionesComunidad 
-     */
-    public function getMisionesComunidad()
-    {
-        return $this->misionesComunidad;
-    }
-
-    /**
      * Set preguntasParticipacionComunitaria
      *
      * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria
@@ -204,5 +184,45 @@ class ParticipacionComunitaria
     public function getAreaTabajoCC()
     {
         return $this->areaTabajoCC;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->misionesComunidad = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add misionesComunidad
+     *
+     * @param \SICBundle\Entity\AdminMisionesComunidad $misionesComunidad
+     * @return ParticipacionComunitaria
+     */
+    public function addMisionesComunidad(\SICBundle\Entity\AdminMisionesComunidad $misionesComunidad)
+    {
+        $this->misionesComunidad[] = $misionesComunidad;
+
+        return $this;
+    }
+
+    /**
+     * Remove misionesComunidad
+     *
+     * @param \SICBundle\Entity\AdminMisionesComunidad $misionesComunidad
+     */
+    public function removeMisionesComunidad(\SICBundle\Entity\AdminMisionesComunidad $misionesComunidad)
+    {
+        $this->misionesComunidad->removeElement($misionesComunidad);
+    }
+
+    /**
+     * Get misionesComunidad
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMisionesComunidad()
+    {
+        return $this->misionesComunidad;
     }
 }

@@ -3,15 +3,15 @@
 {% block body %}
     <h1>ParticipacionComunitaria list</h1>
 
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Existenorganizaciones</th>
-                <th>Participaorganizacion</th>
-                <th>Participamiembroorganizacion</th>
-                <th>Misionescomunidad</th>
-                <th>Preguntasparticipacioncomunitaria</th>
+                <th>Misiones en la Comunidad</th>
+                <th>Existen Organizaciones</th>
+                <th>Participa Organizacion</th>
+                <th>Preguntas participacion comunitaria</th>
+                <th>Area Trabajo</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,11 +19,13 @@
         {% for participacionComunitarium in participacionComunitarias %}
             <tr>
                 <td><a href="{{ path('participacioncomunitaria_show', { 'id': participacionComunitarium.id }) }}">{{ participacionComunitarium.id }}</a></td>
+                <td>{% for cc in participacionComunitarium.misionesComunidad %}
+                    <li>{{ cc }}</li>
+                {% endfor %}</td>
                 <td>{{ participacionComunitarium.existenOrganizaciones }}</td>
                 <td>{{ participacionComunitarium.participaOrganizacion }}</td>
-                <td>{{ participacionComunitarium.participaMiembroOrganizacion }}</td>
-                <td>{{ participacionComunitarium.misionesComunidad }}</td>
                 <td>{{ participacionComunitarium.preguntasParticipacionComunitaria }}</td>
+                <td>{{ participacionComunitarium.areaTabajoCC }}</td>
                 <td>
                     <ul>
                         <li>

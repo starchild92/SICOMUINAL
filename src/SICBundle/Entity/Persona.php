@@ -129,10 +129,14 @@ class Persona
     private $pensionadoInstitucion;
 
     /**
-     * @ORM\OneToMany(targetEntity="Telefono", mappedBy="cliente", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid
-     **/
+     * @ORM\ManyToMany(targetEntity="Telefono")
+     * @ORM\JoinTable(name="persona_telefonos",
+     *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
     private $telefonos;
+
     /**
      * Constructor
      */
