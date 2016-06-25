@@ -35,6 +35,11 @@ class Telefono
      */
     private $numero;
 
+    public function __toString()
+    {
+        return '('.$this->codigo.') - '.$this->numero;
+    }
+
     /**
      * Get id
      *

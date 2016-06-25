@@ -82,7 +82,18 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
             ))
-            ->add('telefono')
+            ->add('telefono',
+                    'collection',array(
+                        'required' => false,
+                        'type' => new TelefonoType(),
+                        'cascade_validation' => true,
+                        'attr' => array('class' => 'telefonos'),
+                        'allow_add'=>'true',
+                        'by_reference'=>'false',
+                        'allow_delete' =>'true',
+                        'data_class' => null,
+                        'label' => 'Número(s) teléfonicos',
+                        ))
             ->add('email')
             ->add('ingresoFamiliar', EntityType::class, array(
                 'class' => 'SICBundle:AdminClasIngresoFamiliar',

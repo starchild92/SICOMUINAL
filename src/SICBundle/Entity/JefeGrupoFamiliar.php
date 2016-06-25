@@ -131,9 +131,11 @@ class JefeGrupoFamiliar
     private $trabajaActualmente;
 
     /**
-     * @var \stdClass
-     *
-     * @ORM\Column(name="telefono", type="object", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Telefono")
+     * @ORM\JoinTable(name="jgf_telefonos",
+     *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}
+     *      )
      */
     private $telefono;
 
@@ -536,29 +538,6 @@ class JefeGrupoFamiliar
     }
 
     /**
-     * Set telefono
-     *
-     * @param \stdClass $telefono
-     * @return JefeGrupoFamiliar
-     */
-    public function setTelefono($telefono)
-    {
-        $this->telefono = $telefono;
-
-        return $this;
-    }
-
-    /**
-     * Get telefono
-     *
-     * @return \stdClass 
-     */
-    public function getTelefono()
-    {
-        return $this->telefono;
-    }
-
-    /**
      * Set email
      *
      * @param string $email
@@ -648,5 +627,45 @@ class JefeGrupoFamiliar
     public function getNacionalidad()
     {
         return $this->nacionalidad;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->telefono = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add telefono
+     *
+     * @param \SICBundle\Entity\Telefono $telefono
+     * @return JefeGrupoFamiliar
+     */
+    public function addTelefono(\SICBundle\Entity\Telefono $telefono)
+    {
+        $this->telefono[] = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Remove telefono
+     *
+     * @param \SICBundle\Entity\Telefono $telefono
+     */
+    public function removeTelefono(\SICBundle\Entity\Telefono $telefono)
+    {
+        $this->telefono->removeElement($telefono);
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
     }
 }

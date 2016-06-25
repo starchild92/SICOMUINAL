@@ -29,16 +29,17 @@ class Planillas
     private $empadronador;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="jefeGrupoFamiliar", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="JefeGrupoFamiliar", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="jefegFam", referencedColumnName="id", onDelete="CASCADE")
      */
     private $jefeGrupoFamiliar;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="miembrosGrupoFamiliar", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="Planillas")
+     * @ORM\JoinTable(name="planilla_grupoFamiliar",
+     *      joinColumns={@ORM\JoinColumn(name="planilla_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="miembros_id", referencedColumnName="id", unique=true)}
+     *      )
      */
     private $miembrosGrupoFamiliar;
 
@@ -90,7 +91,13 @@ class Planillas
      * @ORM\Column(name="observaciones", type="text")
      */
     private $observaciones;
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->miembrosGrupoFamiliar = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -123,52 +130,6 @@ class Planillas
     public function getEmpadronador()
     {
         return $this->empadronador;
-    }
-
-    /**
-     * Set jefeGrupoFamiliar
-     *
-     * @param string $jefeGrupoFamiliar
-     * @return Planillas
-     */
-    public function setJefeGrupoFamiliar($jefeGrupoFamiliar)
-    {
-        $this->jefeGrupoFamiliar = $jefeGrupoFamiliar;
-
-        return $this;
-    }
-
-    /**
-     * Get jefeGrupoFamiliar
-     *
-     * @return string 
-     */
-    public function getJefeGrupoFamiliar()
-    {
-        return $this->jefeGrupoFamiliar;
-    }
-
-    /**
-     * Set miembrosGrupoFamiliar
-     *
-     * @param string $miembrosGrupoFamiliar
-     * @return Planillas
-     */
-    public function setMiembrosGrupoFamiliar($miembrosGrupoFamiliar)
-    {
-        $this->miembrosGrupoFamiliar = $miembrosGrupoFamiliar;
-
-        return $this;
-    }
-
-    /**
-     * Get miembrosGrupoFamiliar
-     *
-     * @return string 
-     */
-    public function getMiembrosGrupoFamiliar()
-    {
-        return $this->miembrosGrupoFamiliar;
     }
 
     /**
@@ -330,5 +291,61 @@ class Planillas
     public function getObservaciones()
     {
         return $this->observaciones;
+    }
+
+    /**
+     * Set jefeGrupoFamiliar
+     *
+     * @param \SICBundle\Entity\JefeGrupoFamiliar $jefeGrupoFamiliar
+     * @return Planillas
+     */
+    public function setJefeGrupoFamiliar(\SICBundle\Entity\JefeGrupoFamiliar $jefeGrupoFamiliar = null)
+    {
+        $this->jefeGrupoFamiliar = $jefeGrupoFamiliar;
+
+        return $this;
+    }
+
+    /**
+     * Get jefeGrupoFamiliar
+     *
+     * @return \SICBundle\Entity\JefeGrupoFamiliar 
+     */
+    public function getJefeGrupoFamiliar()
+    {
+        return $this->jefeGrupoFamiliar;
+    }
+
+    /**
+     * Add miembrosGrupoFamiliar
+     *
+     * @param \SICBundle\Entity\Planillas $miembrosGrupoFamiliar
+     * @return Planillas
+     */
+    public function addMiembrosGrupoFamiliar(\SICBundle\Entity\Planillas $miembrosGrupoFamiliar)
+    {
+        $this->miembrosGrupoFamiliar[] = $miembrosGrupoFamiliar;
+
+        return $this;
+    }
+
+    /**
+     * Remove miembrosGrupoFamiliar
+     *
+     * @param \SICBundle\Entity\Planillas $miembrosGrupoFamiliar
+     */
+    public function removeMiembrosGrupoFamiliar(\SICBundle\Entity\Planillas $miembrosGrupoFamiliar)
+    {
+        $this->miembrosGrupoFamiliar->removeElement($miembrosGrupoFamiliar);
+    }
+
+    /**
+     * Get miembrosGrupoFamiliar
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMiembrosGrupoFamiliar()
+    {
+        return $this->miembrosGrupoFamiliar;
     }
 }

@@ -54,7 +54,9 @@
                         <td>{{ jefeGrupoFamiliar.nivelInstruccion }}</td>
                         <td>{{ jefeGrupoFamiliar.profesion }}</td>
                         <td>{{ jefeGrupoFamiliar.trabajaActualmente }}</td>
-                        <td>{{ jefeGrupoFamiliar.telefono }}</td>
+                        <td>{% for tlf in jefeGrupoFamiliar.telefono %}
+                            <li>{{ tlf }}</li>
+                        {% endfor %}</td>
                         <td>{{ jefeGrupoFamiliar.email }}</td>
                         <td>{{ jefeGrupoFamiliar.ingresoFamiliar }}</td>
                         <td>{{ jefeGrupoFamiliar.ingresoMensual }}</td>

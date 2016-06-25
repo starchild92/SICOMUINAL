@@ -16,8 +16,19 @@ class PlanillasType extends AbstractType
     {
         $builder
             ->add('empadronador')
-            ->add('jefeGrupoFamiliar')
-            ->add('miembrosGrupoFamiliar')
+            ->add('jefeGrupoFamiliar', new JefeGrupoFamiliarType())
+            ->add('miembrosGrupoFamiliar',
+                    'collection',array(
+                        'required' => false,
+                        'type' => new PersonaType(),
+                        'cascade_validation' => true,
+                        'attr' => array('class' => 'miembrosGrupoFam'),
+                        'allow_add'=>'true',
+                        'by_reference'=>'false',
+                        'allow_delete' =>'true',
+                        'data_class' => null,
+                        'label' => 'Miembros Grupo Familiar',
+                        ))
             ->add('situacionEconomica')
             ->add('situacionVivienda')
             ->add('situacionSalud')

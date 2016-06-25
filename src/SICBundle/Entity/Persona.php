@@ -129,15 +129,6 @@ class Persona
     private $pensionadoInstitucion;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Telefono")
-     * @ORM\JoinTable(name="persona_telefonos",
-     *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}
-     *      )
-     */
-    private $telefonos;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -498,38 +489,5 @@ class Persona
     public function getPensionadoInstitucion()
     {
         return $this->pensionadoInstitucion;
-    }
-
-    /**
-     * Add telefonos
-     *
-     * @param \SICBundle\Entity\Telefono $telefonos
-     * @return Persona
-     */
-    public function addTelefono(\SICBundle\Entity\Telefono $telefonos)
-    {
-        $this->telefonos[] = $telefonos;
-
-        return $this;
-    }
-
-    /**
-     * Remove telefonos
-     *
-     * @param \SICBundle\Entity\Telefono $telefonos
-     */
-    public function removeTelefono(\SICBundle\Entity\Telefono $telefonos)
-    {
-        $this->telefonos->removeElement($telefonos);
-    }
-
-    /**
-     * Get telefonos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTelefonos()
-    {
-        return $this->telefonos;
     }
 }
