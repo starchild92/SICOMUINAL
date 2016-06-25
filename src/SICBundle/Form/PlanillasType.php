@@ -29,12 +29,12 @@ class PlanillasType extends AbstractType
                         'data_class' => null,
                         'label' => 'Miembros Grupo Familiar',
                         ))
-            ->add('situacionEconomica')
-            ->add('situacionVivienda')
-            ->add('situacionSalud')
-            ->add('situacionServicios')
-            ->add('participacionComunitaria')
-            ->add('situacionComunidad')
+            ->add('situacionEconomica', new SituacionEconomicaType())
+            ->add('situacionVivienda', new SituacionViviendaType())
+            ->add('situacionSalud', new SituacionSaludType())
+            ->add('situacionServicios', new SituacionServiciosType())
+            ->add('participacionComunitaria', new ParticipacionComunitariaType())
+            ->add('situacionComunidad', new SituacionComunidadType())
             ->add('observaciones')
         ;
     }

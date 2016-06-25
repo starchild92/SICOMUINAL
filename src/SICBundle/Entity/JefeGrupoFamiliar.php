@@ -131,7 +131,7 @@ class JefeGrupoFamiliar
     private $trabajaActualmente;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Telefono")
+     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="jgf_telefonos",
      *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}

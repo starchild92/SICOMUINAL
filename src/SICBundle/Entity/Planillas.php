@@ -44,44 +44,38 @@ class Planillas
     private $miembrosGrupoFamiliar;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionEconomica", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionEconomica", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitEco", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionEconomica;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionVivienda", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionVivienda", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionVivienda;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionSalud", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionSalud", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitSal", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionSalud;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionServicios", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionServicios", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitServ", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionServicios;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="participacionComunitaria", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="ParticipacionComunitaria", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="partCom", referencedColumnName="id", onDelete="CASCADE")
      */
     private $participacionComunitaria;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionComunidad", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionComunidad", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitCom", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionComunidad;
 
@@ -91,6 +85,8 @@ class Planillas
      * @ORM\Column(name="observaciones", type="text")
      */
     private $observaciones;
+
+
     /**
      * Constructor
      */
@@ -130,144 +126,6 @@ class Planillas
     public function getEmpadronador()
     {
         return $this->empadronador;
-    }
-
-    /**
-     * Set situacionEconomica
-     *
-     * @param string $situacionEconomica
-     * @return Planillas
-     */
-    public function setSituacionEconomica($situacionEconomica)
-    {
-        $this->situacionEconomica = $situacionEconomica;
-
-        return $this;
-    }
-
-    /**
-     * Get situacionEconomica
-     *
-     * @return string 
-     */
-    public function getSituacionEconomica()
-    {
-        return $this->situacionEconomica;
-    }
-
-    /**
-     * Set situacionVivienda
-     *
-     * @param string $situacionVivienda
-     * @return Planillas
-     */
-    public function setSituacionVivienda($situacionVivienda)
-    {
-        $this->situacionVivienda = $situacionVivienda;
-
-        return $this;
-    }
-
-    /**
-     * Get situacionVivienda
-     *
-     * @return string 
-     */
-    public function getSituacionVivienda()
-    {
-        return $this->situacionVivienda;
-    }
-
-    /**
-     * Set situacionSalud
-     *
-     * @param string $situacionSalud
-     * @return Planillas
-     */
-    public function setSituacionSalud($situacionSalud)
-    {
-        $this->situacionSalud = $situacionSalud;
-
-        return $this;
-    }
-
-    /**
-     * Get situacionSalud
-     *
-     * @return string 
-     */
-    public function getSituacionSalud()
-    {
-        return $this->situacionSalud;
-    }
-
-    /**
-     * Set situacionServicios
-     *
-     * @param string $situacionServicios
-     * @return Planillas
-     */
-    public function setSituacionServicios($situacionServicios)
-    {
-        $this->situacionServicios = $situacionServicios;
-
-        return $this;
-    }
-
-    /**
-     * Get situacionServicios
-     *
-     * @return string 
-     */
-    public function getSituacionServicios()
-    {
-        return $this->situacionServicios;
-    }
-
-    /**
-     * Set participacionComunitaria
-     *
-     * @param string $participacionComunitaria
-     * @return Planillas
-     */
-    public function setParticipacionComunitaria($participacionComunitaria)
-    {
-        $this->participacionComunitaria = $participacionComunitaria;
-
-        return $this;
-    }
-
-    /**
-     * Get participacionComunitaria
-     *
-     * @return string 
-     */
-    public function getParticipacionComunitaria()
-    {
-        return $this->participacionComunitaria;
-    }
-
-    /**
-     * Set situacionComunidad
-     *
-     * @param string $situacionComunidad
-     * @return Planillas
-     */
-    public function setSituacionComunidad($situacionComunidad)
-    {
-        $this->situacionComunidad = $situacionComunidad;
-
-        return $this;
-    }
-
-    /**
-     * Get situacionComunidad
-     *
-     * @return string 
-     */
-    public function getSituacionComunidad()
-    {
-        return $this->situacionComunidad;
     }
 
     /**
@@ -347,5 +205,143 @@ class Planillas
     public function getMiembrosGrupoFamiliar()
     {
         return $this->miembrosGrupoFamiliar;
+    }
+
+    /**
+     * Set situacionEconomica
+     *
+     * @param \SICBundle\Entity\SituacionEconomica $situacionEconomica
+     * @return Planillas
+     */
+    public function setSituacionEconomica(\SICBundle\Entity\SituacionEconomica $situacionEconomica = null)
+    {
+        $this->situacionEconomica = $situacionEconomica;
+
+        return $this;
+    }
+
+    /**
+     * Get situacionEconomica
+     *
+     * @return \SICBundle\Entity\SituacionEconomica 
+     */
+    public function getSituacionEconomica()
+    {
+        return $this->situacionEconomica;
+    }
+
+    /**
+     * Set situacionVivienda
+     *
+     * @param \SICBundle\Entity\SituacionVivienda $situacionVivienda
+     * @return Planillas
+     */
+    public function setSituacionVivienda(\SICBundle\Entity\SituacionVivienda $situacionVivienda = null)
+    {
+        $this->situacionVivienda = $situacionVivienda;
+
+        return $this;
+    }
+
+    /**
+     * Get situacionVivienda
+     *
+     * @return \SICBundle\Entity\SituacionVivienda 
+     */
+    public function getSituacionVivienda()
+    {
+        return $this->situacionVivienda;
+    }
+
+    /**
+     * Set situacionSalud
+     *
+     * @param \SICBundle\Entity\SituacionSalud $situacionSalud
+     * @return Planillas
+     */
+    public function setSituacionSalud(\SICBundle\Entity\SituacionSalud $situacionSalud = null)
+    {
+        $this->situacionSalud = $situacionSalud;
+
+        return $this;
+    }
+
+    /**
+     * Get situacionSalud
+     *
+     * @return \SICBundle\Entity\SituacionSalud 
+     */
+    public function getSituacionSalud()
+    {
+        return $this->situacionSalud;
+    }
+
+    /**
+     * Set situacionServicios
+     *
+     * @param \SICBundle\Entity\SituacionServicios $situacionServicios
+     * @return Planillas
+     */
+    public function setSituacionServicios(\SICBundle\Entity\SituacionServicios $situacionServicios = null)
+    {
+        $this->situacionServicios = $situacionServicios;
+
+        return $this;
+    }
+
+    /**
+     * Get situacionServicios
+     *
+     * @return \SICBundle\Entity\SituacionServicios 
+     */
+    public function getSituacionServicios()
+    {
+        return $this->situacionServicios;
+    }
+
+    /**
+     * Set participacionComunitaria
+     *
+     * @param \SICBundle\Entity\ParticipacionComunitaria $participacionComunitaria
+     * @return Planillas
+     */
+    public function setParticipacionComunitaria(\SICBundle\Entity\ParticipacionComunitaria $participacionComunitaria = null)
+    {
+        $this->participacionComunitaria = $participacionComunitaria;
+
+        return $this;
+    }
+
+    /**
+     * Get participacionComunitaria
+     *
+     * @return \SICBundle\Entity\ParticipacionComunitaria 
+     */
+    public function getParticipacionComunitaria()
+    {
+        return $this->participacionComunitaria;
+    }
+
+    /**
+     * Set situacionComunidad
+     *
+     * @param \SICBundle\Entity\SituacionComunidad $situacionComunidad
+     * @return Planillas
+     */
+    public function setSituacionComunidad(\SICBundle\Entity\SituacionComunidad $situacionComunidad = null)
+    {
+        $this->situacionComunidad = $situacionComunidad;
+
+        return $this;
+    }
+
+    /**
+     * Get situacionComunidad
+     *
+     * @return \SICBundle\Entity\SituacionComunidad 
+     */
+    public function getSituacionComunidad()
+    {
+        return $this->situacionComunidad;
     }
 }
