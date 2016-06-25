@@ -20,6 +20,18 @@ class UsuarioType extends AbstractType
             ->add('segundoNombre')
             ->add('primerApellido')
             ->add('segundoApellido')
+            ->add('telefono',
+                    'collection',array(
+                        'required' => false,
+                        'type' => new TelefonoType(),
+                        'cascade_validation' => true,
+                        'attr' => array('class' => 'telefonos'),
+                        'allow_add'=>'true',
+                        'by_reference'=>'false',
+                        'allow_delete' =>'true',
+                        'data_class' => null,
+                        'label' => 'Número(s) teléfonicos',
+                        ))
         ;
     }
     

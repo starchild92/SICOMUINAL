@@ -1,7 +1,7 @@
 var $collectionTelefonos;
 var $cantHijos;
 // setup an "add a tag" link
-var $addTagLinkTelefonos = $('<button style="margin-top: 10px;" class="btn btn-success btn-sm" type="button" href="#" class="add_tag_link"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Agregue un Telefono</button>');
+var $addTagLinkTelefonos = $('<button style="margin-top: 10px;" class="btn btn-success" type="button" href="#" class="add_tag_link"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Agregue un Teléfono</button>');
 var $newLinkLiTelefonos = $('<div></div>').append($addTagLinkTelefonos);
 
 jQuery(document).ready(function() {
@@ -9,8 +9,8 @@ jQuery(document).ready(function() {
     $collectionTelefonos = $('div.telefonos');
 
     //Para en el editar quitar un almacen
-    $collectionTelefonos.children().append(
-        '<a href="#" class="remove-tag-telf btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Quitar Telefono</a>');
+
+    $collectionTelefonos.children().append('<div class="col-sm-2"><a href="#" class="remove-tag-telf btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Quitar Telefono</a></div>');
 
     $removerTelf = $collectionTelefonos.find('.remove-tag-telf');
     $cantHijos = $removerTelf.length;
@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 
     $removerTelf.click(function(e) {
         e.preventDefault();
-        $(this).parent().remove();
+        $(this).parent().parent().remove();
         if($cantHijos > 0){ $cantHijos--; }
 
         return false;
@@ -66,7 +66,7 @@ function addTagFormTelefono($collectionTelefonos, $newLinkLiTelefonos) {
     //$newLinkLiTelefonos.before($newFormLiTelefonos);
 
     // also add a remove button, just for this example
-    $newFormLiTelefonos.append('<a href="#" class="remove-tag-telf btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Quitar Telefono</a>');
+    $newFormLiTelefonos.children('.form-group').append('<div class="col-sm-2"><a href="#" class="remove-tag-telf btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Quitar Teléfono</a></div>');
     
     $newLinkLiTelefonos.before($newFormLiTelefonos);
     
@@ -74,7 +74,7 @@ function addTagFormTelefono($collectionTelefonos, $newLinkLiTelefonos) {
     $('.remove-tag-telf').click(function(e) {
         e.preventDefault();
         if($cantHijos > 0){ $cantHijos--; }
-        $(this).parent().remove();
+        $(this).parent().parent().remove();
         return false;
     });
 }

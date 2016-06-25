@@ -9,12 +9,13 @@
 		{% block stylesheets %}{% endblock %}
 
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
-		{# <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-theme.css') }}"> #}
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/darkly-bootstrap.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-theme.css') }}">
+		{# <link rel="stylesheet" type="text/css" href="{{ asset('css/darkly-bootstrap.css') }}"> #}
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/estilos.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/ie10-viewport-bug-workaround.css') }}">
 
+		{# Clases de Semantic UI #}
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/dropdown.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/transition.css') }}">
 		<style>
@@ -76,11 +77,13 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="{{ path('sic_homepage') }}" class="btn-primary"><i class="fa fa-home fa-lg"></i><span class="visible-xs">Página Inicio</span></a></li>
+					<ul class="nav navbar-nav">
+						<li class="btn-success"><a href="{{ path('sic_homepage') }}"><i class="fa fa-home fa-lg"></i><span class="visible-xs">Página Inicio</span></a></li>
+					</ul>
 
+					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDs <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDs <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="{{ path('consejocomunal_index') }}">Consejo Comunal</a></li>
 								<li><a href="{{ path('comunidades_index') }}">Comunidades</a></li>
@@ -100,7 +103,7 @@
 						</li>
 
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administar <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administar <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="{{ path('sic_administacion_entidades') }}">Datos Consejo Comunal</a></li>
 								<li><a href="{{ path('usuarios_index') }}">Usuarios del Consejo</a></li>
@@ -109,7 +112,7 @@
 						</li>
 
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Perfil <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Perfil <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li>
 								<li><a href="{{ path('fos_user_profile_edit') }}">Editar perfil</a></li>
@@ -117,20 +120,23 @@
 							</ul>
 						</li>
 
-						<li><a class="btn-danger" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i>  <span class="visible-xs">Cerrar Sesión</span></a></li>
+						<li class="btn-danger"><a  href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i>  <span class="visible-xs">Cerrar Sesión</span></a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
 		</nav>
 
 		<div class="container-fluid">
+			<span id="cuerpo">
 			{% block body %}{% endblock %}
+			</span>
 		</div> <!-- /container -->
 
 		<script src="{{ asset('js/jquery2.1.4.js') }}"></script>
 		<script src="{{ asset('js/bootstrap.js') }}"></script>
 		<script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
 		
+		{# JS de Semantic UI #}
 		<script src="{{ asset('js/dropdown.js') }}"></script>
 		<script src="{{ asset('js/package.js') }}"></script>
 		<script src="{{ asset('js/index.js') }}"></script>

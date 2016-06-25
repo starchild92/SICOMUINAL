@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Planillas list</h1>
+    <h1>Registros: "Estudio Demográfico y Socioeconomico"</h1>
 
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -33,14 +33,8 @@
                 <td>{{ planilla.participacionComunitaria }}</td>
                 <td>{{ planilla.situacionComunidad }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('planillas_show', { 'id': planilla.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('planillas_edit', { 'id': planilla.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('planillas_show', { 'id': planilla.id }) }}">show</a>
+                    <a href="{{ path('planillas_edit', { 'id': planilla.id }) }}">edit</a>
                 </td>
             </tr>
         {% endfor %}

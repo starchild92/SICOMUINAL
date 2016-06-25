@@ -24,14 +24,14 @@ class Telefono
     /**
      * @var int
      *
-     * @ORM\Column(name="codigo", type="integer")
+     * @ORM\Column(name="codigo", type="string", length=225)
      */
     private $codigo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="numero", type="integer")
+     * @ORM\Column(name="numero", type="string", length=225)
      */
     private $numero;
 
@@ -53,7 +53,7 @@ class Telefono
     /**
      * Set codigo
      *
-     * @param integer $codigo
+     * @param string $codigo
      * @return Telefono
      */
     public function setCodigo($codigo)
@@ -66,7 +66,7 @@ class Telefono
     /**
      * Get codigo
      *
-     * @return integer 
+     * @return string 
      */
     public function getCodigo()
     {
@@ -76,7 +76,7 @@ class Telefono
     /**
      * Set numero
      *
-     * @param integer $numero
+     * @param string $numero
      * @return Telefono
      */
     public function setNumero($numero)
@@ -89,7 +89,7 @@ class Telefono
     /**
      * Get numero
      *
-     * @return integer 
+     * @return string 
      */
     public function getNumero()
     {

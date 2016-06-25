@@ -15,8 +15,12 @@ class TelefonoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('codigo')
-            ->add('numero')
+            ->add('codigo', 'text', array(
+                'label' => 'Código',
+                'attr'  => array('placeholder' => '0***')))
+            ->add('numero', 'text', array(
+                'label' => 'Número',
+                'attr'  => array('placeholder' => '1234567')))
         ;
     }
     

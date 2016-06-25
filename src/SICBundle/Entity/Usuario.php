@@ -50,6 +50,14 @@ class Usuario extends BaseUser
      */
     private $segundoApellido;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="usuario_telefonos",
+     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $telefono;
 
     /**
      * Get id
@@ -151,5 +159,38 @@ class Usuario extends BaseUser
     public function getSegundoApellido()
     {
         return $this->segundoApellido;
+    }
+
+    /**
+     * Add telefono
+     *
+     * @param \SICBundle\Entity\Telefono $telefono
+     * @return Usuario
+     */
+    public function addTelefono(\SICBundle\Entity\Telefono $telefono)
+    {
+        $this->telefono[] = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Remove telefono
+     *
+     * @param \SICBundle\Entity\Telefono $telefono
+     */
+    public function removeTelefono(\SICBundle\Entity\Telefono $telefono)
+    {
+        $this->telefono->removeElement($telefono);
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
     }
 }

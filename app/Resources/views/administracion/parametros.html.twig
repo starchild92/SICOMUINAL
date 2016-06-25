@@ -1,93 +1,164 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/sidebar-parametros.css') }}">
+{% endblock %}
 {% block body %}
-    <h2>Parámetros del Sistema <small>modifique las opciones que aparecen en el formulario</small></h2>
-    <hr>
-    <div class="row">
-        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
-            <div id="sidebar" class="sidebar-nav">
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a class="button-line" href="{{ path('admin_nacionalidad_index') }}">{# <i class="fa fa-plus"></i> #}Nacionalidad</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_respuesta_cerrada_index') }}">{# <i class="fa fa-plus"></i> #}Respuestas Cerradas</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_incapacidades_index') }}">{# <i class="fa fa-plus"></i> #}Incapacidades</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_pensionados_instituciones_index') }}">{# <i class="fa fa-plus"></i> #}Pensionados Instituciones</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_estado_civil_index') }}">{# <i class="fa fa-plus"></i> #}Estado Civil</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_nivel_instruccion_index') }}">{# <i class="fa fa-plus"></i> #}Niveles de Instrucción</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_profesiones_index') }}">{# <i class="fa fa-plus"></i> #}Profesiones</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_clasificacion_ingreso_familiar_index') }}">{# <i class="fa fa-plus"></i> #}Ingreso Familiar</a></li>
-                </ul>
-            </div>
-        </div>
-        {# ----- #}
-        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
-            <div id="sidebar" class="sidebar-nav">
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a class="button-line" href="{{ path('configurable_ubicacion-trabajo_index') }}">{# <i class="fa fa-plus"></i> #}Ubicaciones Trabajo</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_venta_vivenda_index') }}">{# <i class="fa fa-plus"></i> #}Articulos Venta Vienda</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipos_ingresos_index') }}">{# <i class="fa fa-plus"></i> #}Cantidades Tipos de Ingreso</a></li>
-                </ul>
-            </div>
-        </div>
-        {# ----- #}
-        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
-            <div id="sidebar" class="sidebar-nav">
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a class="button-line" href="{{ path('configurable_tipo_vivienda_index') }}">{# <i class="fa fa-plus"></i> #}Tipos de Vivienda</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipo_tenencia_index') }}">{# <i class="fa fa-plus"></i> #}Forma de Tenencia</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipo_habitaciones_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Habitaciones Vivienda</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipo_paredes_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Paredes</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipo_techo_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Techos</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipo_enseres_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Enseres</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipo_salubridad_index') }}">{# <i class="fa fa-plus"></i> #}Salubridad Vivienda</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipo_plagas_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Plagas</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipo_mascotas_index') }}">{# <i class="fa fa-plus"></i> #}Tipos Mascotas</a></li>
+	<div class="row">
+		<div class="col-lg-2">
+			<div class="nav-side-menu">
+			    <div class="brand">Brand Logo</div>
+			    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+			  
+			        <div class="menu-list">
+			  
+			            <ul id="menu-content" class="menu-content collapse out">
+			                <li id="li-menu"  data-toggle="collapse" data-target="#uno" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-lg"></i> Datos Jefe Grupo Familiar <span class="arrow"></span></a>
+			                </li>
+			                <ul class="sub-menu collapse" id="uno">
+			                    <li><a id="btnTabla" class="primero" data-url="{{ path('admin_nacionalidad_index') }}">Nacionalidad</a></li>
+								<li><a id="btnTabla" data-url="{{ path('configurable_respuesta_cerrada_index') }}">Respuestas Cerradas</a></li>
+								<li><a id="btnTabla" data-url="{{ path('configurable_incapacidades_index') }}">Incapacidades</a></li>
+								<li><a id="btnTabla" data-url="{{ path('configurable_pensionados_instituciones_index') }}">Pensionados Instituciones</a></li>
+								<li><a id="btnTabla" data-url="{{ path('configurable_estado_civil_index') }}">Estado Civil</a></li>
+								<li><a id="btnTabla" data-url="{{ path('configurable_nivel_instruccion_index') }}">Niveles de Instrucción</a></li>
+								<li><a id="btnTabla" data-url="{{ path('configurable_profesiones_index') }}">Profesiones</a></li>
+								<li><a id="btnTabla" data-url="{{ path('configurable_clasificacion_ingreso_familiar_index') }}">Ingreso Familiar</a></li>
+			                </ul>
 
-                </ul>
+			                <li id="li-menu"  data-toggle="collapse" data-target="#dos" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-lg"></i> Situación Economica <span class="arrow"></span></a>
+			                </li>
+			                <ul class="sub-menu collapse" id="dos">
+			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurable_ubicacion-trabajo_index') }}">Ubicaciones Trabajo</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_venta_vivenda_index') }}">Articulos Venta Vienda</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipos_ingresos_index') }}">Cantidades Tipos de Ingreso</a></li>
+			                </ul>
+
+			                <li data-toggle="collapse" data-target="#tres" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-lg"></i> Situación Vivienda <span class="arrow"></span></a>
+			                </li>
+			                <ul class="sub-menu collapse" id="tres">
+			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_vivienda_index') }}">Tipos de Vivienda</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_tenencia_index') }}">Forma de Tenencia</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_habitaciones_index') }}">Tipos Habitaciones Vivienda</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_paredes_index') }}">Tipos Paredes</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_techo_index') }}">Tipos Techos</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_enseres_index') }}">Tipos Enseres</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_salubridad_index') }}">Salubridad Vivienda</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_plagas_index') }}">Tipos Plagas</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_mascotas_index') }}">Tipos Mascotas</a></li>
+			                </ul>
+
+			                <li id="li-menu"  data-toggle="collapse" data-target="#cuatro" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-lg"></i> Salud <span class="arrow"></span></a>
+			                </li>
+			                <ul class="sub-menu collapse" id="cuatro">
+			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_padecencia_index') }}">Tipos de Padecencias</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_ayuda_especial_index') }}">Ayudas Especiales</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_situacion_exclusion_index') }}">Situacion de Exclusion</a></li>
+			                </ul>
+
+			                <li id="li-menu"  data-toggle="collapse" data-target="#cinco" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-lg"></i> Servicios <span class="arrow"></span></a>
+			                </li>
+			                <ul class="sub-menu collapse" id="cinco">
+			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_aguas_blancas_index') }}">Tipos de Aguas Blancas</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_aguas_servidas_index') }}">Tipos de Aguas Servidas</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_gas_index') }}">Tipos de Gas</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_sistema_electrico_index') }}">Sistema Electrico</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_recoleccion_basura_index') }}">Recolección de Basura</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_telefonia_index') }}">Telefonia</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_transporte_index') }}">Transporte</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_mecanismo_informacion_index') }}">Mecanismo de Información</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_servicios_comunales_index') }}">Servicio Comunales</a></li>
+			                </ul>
+
+			                <li id="li-menu"  data-toggle="collapse" data-target="#seis" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-lg"></i> Participación Comunitaria <span class="arrow"></span></a>
+			                </li>
+			                <ul class="sub-menu collapse" id="seis">
+			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_organizaciones_comunitarias_index') }}">Organizaciones Comunitarias</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_misiones_comunidad_index') }}">Misiones en la Comunidad</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_preguntas_participacion_comunitaria_index') }}">Preguntas</a></li>
+								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_areas_trabajo_index') }}">Areas de Trabajo CC</a></li>
+			                </ul>
+
+			            </ul>
+			     </div>
+			</div>
+		</div>
+		<div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
+			<h2>Parámetros del Sistema <small>modifique las opciones que aparecen en el formulario</small></h2>
+			<hr>
+			<span id="cuerpoGrupo1">Cargando Tabla...</span>
+		</div>
+	</div>
+
+	<!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="modal-body"></span>
+                </div>
+                {# <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> #}
             </div>
         </div>
-        {# ----- #}
-        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
-            <div id="sidebar" class="sidebar-nav">
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a class="button-line" href="{{ path('configurable_tipo_padecencia_index') }}">{# <i class="fa fa-plus"></i> #}Tipos de Padecencias</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipo_ayuda_especial_index') }}">{# <i class="fa fa-plus"></i> #}Ayudas Especiales</a></li>
-                    <li><a class="button-line" href="{{ path('configurable_tipo_situacion_exclusion_index') }}">{# <i class="fa fa-plus"></i> #}Situacion de Exclusion</a></li>
-                </ul>
-            </div>
-        </div>
-        {# ----- #}
-        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
-            <div id="sidebar" class="sidebar-nav">
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a class="button-line" href="{{ path('configurables_tipos_aguas_blancas_index') }}">{# <i class="fa fa-plus"></i> #}Tipos de Aguas Blancas</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipos_aguas_servidas_index') }}">{# <i class="fa fa-plus"></i> #}Tipos de Aguas Servidas</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipos_gas_index') }}">{# <i class="fa fa-plus"></i> #}Tipos de Gas</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipo_sistema_electrico_index') }}">{# <i class="fa fa-plus"></i> #}Sistema Electrico</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipo_recoleccion_basura_index') }}">{# <i class="fa fa-plus"></i> #}Recolección de Basura</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipo_telefonia_index') }}">{# <i class="fa fa-plus"></i> #}Telefonia</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipo_transporte_index') }}">{# <i class="fa fa-plus"></i> #}Transporte</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipo_mecanismo_informacion_index') }}">{# <i class="fa fa-plus"></i> #}Mecanismo de Información</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipos_servicios_comunales_index') }}">{# <i class="fa fa-plus"></i> #}Servicio Comunales</a></li>
-                </ul>
-            </div>
-        </div>
-        {# ----- #}
-        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
-            <div id="sidebar" class="sidebar-nav">
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a class="button-line" href="{{ path('configurables_tipos_organizaciones_comunitarias_index') }}">{# <i class="fa fa-plus"></i> #}Organizaciones Comunitarias</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipos_misiones_comunidad_index') }}">{# <i class="fa fa-plus"></i> #}Misiones en la Comunidad</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_preguntas_participacion_comunitaria_index') }}">{# <i class="fa fa-plus"></i> #}Preguntas</a></li>
-                    <li><a class="button-line" href="{{ path('configurables_tipos_areas_trabajo_index') }}">{# <i class="fa fa-plus"></i> #}Areas de Trabajo CC</a></li>
-                </ul>
-            </div>
-        </div>
-        {# <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12"></div> #}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+	jQuery(document).ready(function() {
+		//Para el control de las tablas
+		$('body').on('click', '#btnTabla', function() {
+			url = $(this).data('url');
+			$.ajax({
+				url: url,
+				type: "GET",
+				success: function(data, textStatus, xhr){
+					cuerpo = $(data).find('#cuerpo').attr('id', 'cuerpoGrupo1');
+					$('#cuerpoGrupo1').replaceWith(cuerpo);
+				},
+				complete: function(){
+					//Preparando el boton para el modal
+					$('body').find('#forModal').attr('data-toggle', 'modal');
+					$('body').find('#forModal').attr('data-target', '#myModal');
+					url = $('body').find('#forModal').attr('href');
+					$('body').find('#forModal').attr('href', '#');
+					$('body').find('#forModal').attr('data-url', url);
+				},
+			});
+		});
+
+		//Para el control de modal
+		$('#myModal').on('show.bs.modal', function(){
+			url = $('#forModal').data('url');
+			$.ajax({
+				url: url,
+				type: "GET",
+				success: function(data, textStatus, xhr){
+					cuerpo = $(data).find('#cuerpo form').attr('id', 'modal-body');
+					cuerpo = cuerpo.attr('action', url);
+					$('#modal-body').replaceWith(cuerpo);
+				},
+			});
+		});
+
+		$('#myModal').on('hidden.bs.modal', function(){
+			html = "<div class='modal-body'><span id='modal-body'>Cargando por favor espere... </span></div>";
+			$('.modal-body').replaceWith(html);
+		});
+
+		$('.primero').click();
+	});
+</script>
 {% endblock %}
