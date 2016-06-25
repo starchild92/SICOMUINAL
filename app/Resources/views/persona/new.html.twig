@@ -13,4 +13,14 @@
             <a href="{{ path('personas_index') }}">Back to the list</a>
         </li>
     </ul>
+    
+{% endblock %}
+{% block javascripts %}
+<script>
+    $(document).ready(function() {
+        $('.ui.dropdown')
+          .dropdown()
+        ;
+    })
+    </script>
 {% endblock %}

@@ -21,7 +21,8 @@ class PersonaType extends AbstractType
             ->add('nombre')
             ->add('apellido')
             ->add('sexo', GeneroType::class, array(
-                'placeholder' => 'Elija uno'))
+                'placeholder' => 'Elija uno',
+                'attr' => array('class' => 'ui dropdown')))
             ->add('cedula')
             ->add('fechaNacimiento', 'date')
             ->add('edad')
