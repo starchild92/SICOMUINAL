@@ -31,14 +31,12 @@
 					<a class="navbar-brand" href="{{ path('sic_homepage') }}"><img src="{{ asset('images/logo.png') }}" alt="logo" class="img-responsive"></a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li><a href="{{ path('sic_homepage') }}">Inicio</a></li>
-						{# <li><a href="#contact">Contact</a></li> #}
-					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
+						<li><a href="{{ path('sic_homepage') }}" class="btn-primary"><i class="fa fa-home fa-lg"></i><span class="visible-xs">Página Inicio</span></a></li>
+
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDs <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDs <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="{{ path('consejocomunal_index') }}">Consejo Comunal</a></li>
 								<li><a href="{{ path('comunidades_index') }}">Comunidades</a></li>
@@ -57,41 +55,25 @@
 							</ul>
 						</li>
 
-						<!-- <li><a href="../navbar/">Default</a></li>
-						<li><a href="../navbar-static-top/">Static top</a></li> -->
-
-						<li>
-						<div class="btn-group">
-							<a type="button" href="#" class="btn btn-default navbar-flat">Administar</a>
-							<button type="button" class="btn btn-default dropdown-toggle navbar-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="caret"></span>
-								<span class="sr-only">Toggle Dropdown</span>
-							</button>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administar <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="{{ path('sic_administacion_entidades') }}">Datos Consejo Comunal</a></li>
 								<li><a href="{{ path('usuarios_index') }}">Usuarios del Consejo</a></li>
 								<li><a href="{{ path('sic_administacion_parametros_planilla') }}">Parámetros Planilla</a></li>
 							</ul>
-						</div>
 						</li>
 
-						<li>
-						<div class="btn-group">
-							<a type="button" href="#" class="btn btn-default navbar-flat">Perfil</a>
-							<button type="button" class="btn btn-default dropdown-toggle navbar-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="caret"></span>
-								<span class="sr-only">Toggle Dropdown</span>
-							</button>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Perfil <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li>
 								<li><a href="{{ path('fos_user_profile_edit') }}">Editar perfil</a></li>
 								<li><a href="{{ path('fos_user_profile_show') }}">Ver perfil</a></li>
 							</ul>
-						</div>
 						</li>
 
-						<li><a class="btn-danger" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i></a></li>
-
+						<li><a class="btn-danger" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i>  <span class="visible-xs">Cerrar Sesión</span></a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>

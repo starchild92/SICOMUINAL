@@ -22,39 +22,40 @@ class ParticipacionComunitaria
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="existenOrganizaciones", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminOrgComunitaria", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="existenOrganizaciones", referencedColumnName="id", onDelete="CASCADE")
      */
     private $existenOrganizaciones;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="participaOrganizacion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="respCerrada_1", referencedColumnName="id", onDelete="CASCADE")
      */
     private $participaOrganizacion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="participaMiembroOrganizacion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="respCerrada_2", referencedColumnName="id", onDelete="CASCADE")
      */
     private $participaMiembroOrganizacion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="misionesComunidad", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminMisionesComunidad", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="misionesComunidad", referencedColumnName="id", onDelete="CASCADE")
      */
     private $misionesComunidad;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="preguntasParticipacionComunitaria", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminPreguntasParticipacionComunitaria", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="preguntasParticipacionComunitaria", referencedColumnName="id", onDelete="CASCADE")
      */
     private $preguntasParticipacionComunitaria;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminAreaTrabajoCC", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="areaTabajoCC", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $areaTabajoCC;
 
 
     /**
@@ -70,10 +71,10 @@ class ParticipacionComunitaria
     /**
      * Set existenOrganizaciones
      *
-     * @param string $existenOrganizaciones
+     * @param \SICBundle\Entity\AdminOrgComunitaria $existenOrganizaciones
      * @return ParticipacionComunitaria
      */
-    public function setExistenOrganizaciones($existenOrganizaciones)
+    public function setExistenOrganizaciones(\SICBundle\Entity\AdminOrgComunitaria $existenOrganizaciones = null)
     {
         $this->existenOrganizaciones = $existenOrganizaciones;
 
@@ -83,7 +84,7 @@ class ParticipacionComunitaria
     /**
      * Get existenOrganizaciones
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminOrgComunitaria 
      */
     public function getExistenOrganizaciones()
     {
@@ -93,10 +94,10 @@ class ParticipacionComunitaria
     /**
      * Set participaOrganizacion
      *
-     * @param string $participaOrganizacion
+     * @param \SICBundle\Entity\AdminRespCerrada $participaOrganizacion
      * @return ParticipacionComunitaria
      */
-    public function setParticipaOrganizacion($participaOrganizacion)
+    public function setParticipaOrganizacion(\SICBundle\Entity\AdminRespCerrada $participaOrganizacion = null)
     {
         $this->participaOrganizacion = $participaOrganizacion;
 
@@ -106,7 +107,7 @@ class ParticipacionComunitaria
     /**
      * Get participaOrganizacion
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminRespCerrada 
      */
     public function getParticipaOrganizacion()
     {
@@ -116,10 +117,10 @@ class ParticipacionComunitaria
     /**
      * Set participaMiembroOrganizacion
      *
-     * @param string $participaMiembroOrganizacion
+     * @param \SICBundle\Entity\AdminRespCerrada $participaMiembroOrganizacion
      * @return ParticipacionComunitaria
      */
-    public function setParticipaMiembroOrganizacion($participaMiembroOrganizacion)
+    public function setParticipaMiembroOrganizacion(\SICBundle\Entity\AdminRespCerrada $participaMiembroOrganizacion = null)
     {
         $this->participaMiembroOrganizacion = $participaMiembroOrganizacion;
 
@@ -129,7 +130,7 @@ class ParticipacionComunitaria
     /**
      * Get participaMiembroOrganizacion
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminRespCerrada 
      */
     public function getParticipaMiembroOrganizacion()
     {
@@ -139,10 +140,10 @@ class ParticipacionComunitaria
     /**
      * Set misionesComunidad
      *
-     * @param string $misionesComunidad
+     * @param \SICBundle\Entity\AdminMisionesComunidad $misionesComunidad
      * @return ParticipacionComunitaria
      */
-    public function setMisionesComunidad($misionesComunidad)
+    public function setMisionesComunidad(\SICBundle\Entity\AdminMisionesComunidad $misionesComunidad = null)
     {
         $this->misionesComunidad = $misionesComunidad;
 
@@ -152,7 +153,7 @@ class ParticipacionComunitaria
     /**
      * Get misionesComunidad
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminMisionesComunidad 
      */
     public function getMisionesComunidad()
     {
@@ -162,10 +163,10 @@ class ParticipacionComunitaria
     /**
      * Set preguntasParticipacionComunitaria
      *
-     * @param string $preguntasParticipacionComunitaria
+     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria
      * @return ParticipacionComunitaria
      */
-    public function setPreguntasParticipacionComunitaria($preguntasParticipacionComunitaria)
+    public function setPreguntasParticipacionComunitaria(\SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria = null)
     {
         $this->preguntasParticipacionComunitaria = $preguntasParticipacionComunitaria;
 
@@ -175,10 +176,33 @@ class ParticipacionComunitaria
     /**
      * Get preguntasParticipacionComunitaria
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminPreguntasParticipacionComunitaria 
      */
     public function getPreguntasParticipacionComunitaria()
     {
         return $this->preguntasParticipacionComunitaria;
+    }
+
+    /**
+     * Set areaTabajoCC
+     *
+     * @param \SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC
+     * @return ParticipacionComunitaria
+     */
+    public function setAreaTabajoCC(\SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC = null)
+    {
+        $this->areaTabajoCC = $areaTabajoCC;
+
+        return $this;
+    }
+
+    /**
+     * Get areaTabajoCC
+     *
+     * @return \SICBundle\Entity\AdminAreaTrabajoCC 
+     */
+    public function getAreaTabajoCC()
+    {
+        return $this->areaTabajoCC;
     }
 }

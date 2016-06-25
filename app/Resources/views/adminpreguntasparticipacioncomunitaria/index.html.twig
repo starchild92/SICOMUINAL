@@ -7,7 +7,6 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Pregunta</th>
                 <th>Interrogante</th>
                 <th>Respuesta</th>
                 <th>Actions</th>
@@ -17,7 +16,6 @@
         {% for adminPreguntasParticipacionComunitarium in adminPreguntasParticipacionComunitarias %}
             <tr>
                 <td><a href="{{ path('configurables_preguntas_participacion_comunitaria_show', { 'id': adminPreguntasParticipacionComunitarium.id }) }}">{{ adminPreguntasParticipacionComunitarium.id }}</a></td>
-                <td>{{ adminPreguntasParticipacionComunitarium.pregunta }}</td>
                 <td>{{ adminPreguntasParticipacionComunitarium.interrogante }}</td>
                 <td>{{ adminPreguntasParticipacionComunitarium.respuesta }}</td>
                 <td>

@@ -24,24 +24,17 @@ class AdminPreguntasParticipacionComunitaria
     /**
      * @var string
      *
-     * @ORM\Column(name="pregunta", type="string", length=255)
-     */
-    private $pregunta;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="interrogante", type="text")
      */
     private $interrogante;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="respuesta", type="text")
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="respCerrada", referencedColumnName="id", onDelete="CASCADE")
      */
     private $respuesta;
 
+    public function __toString(){ return $this->interrogante; }
 
     /**
      * Get id
@@ -51,29 +44,6 @@ class AdminPreguntasParticipacionComunitaria
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set pregunta
-     *
-     * @param string $pregunta
-     * @return AdminPreguntasParticipacionComunitaria
-     */
-    public function setPregunta($pregunta)
-    {
-        $this->pregunta = $pregunta;
-
-        return $this;
-    }
-
-    /**
-     * Get pregunta
-     *
-     * @return string 
-     */
-    public function getPregunta()
-    {
-        return $this->pregunta;
     }
 
     /**

@@ -15,7 +15,6 @@ class AdminPreguntasParticipacionComunitariaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pregunta')
             ->add('interrogante')
             ->add('respuesta')
         ;
