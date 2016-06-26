@@ -1,27 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Nacionalidad</h2>
-
-    <table class="table table-bordered table-striped">
-        <thead class="thead-primary">
-            <tr>
-                <th>Id</th>
-                <th>Nacionalidad</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminNacionalidad in adminNacionalidads %}
-            <tr>
-                <td><a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">{{ adminNacionalidad.id }}</a></td>
-                <td>{{ adminNacionalidad.nacionalidad }}</td>
-                <td>
-                    <a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">show</a> <a href="{{ path('admin_nacionalidad_edit', { 'id': adminNacionalidad.id }) }}">edit</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a class="btn btn-primary" href="{{ path('admin_nacionalidad_new') }}" id="forModal">Agregar Nueva</a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Nacionalidad</div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nacionalidad</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminNacionalidad in adminNacionalidads %}
+                <tr>
+                    <td><a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">{{ adminNacionalidad.id }}</a></td>
+                    <td>{{ adminNacionalidad.nacionalidad }}</td>
+                    <td>
+                        <a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">show</a> <a href="{{ path('admin_nacionalidad_edit', { 'id': adminNacionalidad.id }) }}">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="panel-footer">
+            <a class="btn btn-primary btn-sm" href="{{ path('admin_nacionalidad_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Nueva</a>
+        </div>
+    </div>
 {% endblock %}

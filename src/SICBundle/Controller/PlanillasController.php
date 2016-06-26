@@ -41,6 +41,10 @@ class PlanillasController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            //Colocando el empadronador
+            $planilla->setEmpadronador($this->getUser());
+
             $em->persist($planilla);
             $em->flush();
 

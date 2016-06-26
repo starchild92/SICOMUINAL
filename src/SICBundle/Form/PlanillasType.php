@@ -15,7 +15,7 @@ class PlanillasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('empadronador')
+            // ->add('empadronador') //es colocado en el controllador
             ->add('jefeGrupoFamiliar', new JefeGrupoFamiliarType())
             ->add('miembrosGrupoFamiliar',
                     'collection',array(
