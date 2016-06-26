@@ -105,3 +105,5 @@ div.panel-body > .h4,
 .navbar-inverse .navbar-nav > li > a {
   color: #fff;
 }
+
+.ui.multiple.dropdown > .label { color: #000; }

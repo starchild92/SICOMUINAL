@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Planillas creation</h1>
+	<h2>Estudio Demografico y Socioeconomico</h2>
+	<hr>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+	{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<input type="submit" value="Create" />
+	{{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('planillas_index') }}">Back to the list</a>
-        </li>
-    </ul>
+	<ul>
+		<li>
+			<a href="{{ path('planillas_index') }}">Back to the list</a>
+		</li>
+	</ul>
+
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('js/formTelefono.js') }}"></script>
+	<script src="{{ asset('js/formTelefono.js') }}"></script>
+	<script>
+		$(document).ready(function() {
+			$('.ui.dropdown')
+			  .dropdown();
+		})
+	</script>
 {% endblock %}

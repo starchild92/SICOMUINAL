@@ -18,12 +18,19 @@ class ParticipacionComunitariaType extends AbstractType
             ->add('existenOrganizaciones')
             ->add('participaOrganizacion')
             ->add('participaMiembroOrganizacion')
-            ->add('misionesComunidad')
+
+            ->add('misionesComunidad','entity', array(
+                'class' => 'SICBundle:AdminMisionesComunidad',
+                'multiple' => true,
+                'attr'  =>  array(
+                    'multiple' => '',
+                    'class' => 'ui dropdown')))
+            
             ->add('preguntasParticipacionComunitaria')
             ->add('areaTabajoCC')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

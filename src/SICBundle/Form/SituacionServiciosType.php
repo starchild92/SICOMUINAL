@@ -15,7 +15,11 @@ class SituacionServiciosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('aguasBlancas')
+            ->add('aguasBlancas','entity', array(
+                'class' => 'SICBundle:AdminAguasBlancas',
+                'attr'  =>  array(
+                    'class' => 'ui dropdown')))
+
             ->add('aguasServidas')
             ->add('gas')
             ->add('sistemaElectrico')
