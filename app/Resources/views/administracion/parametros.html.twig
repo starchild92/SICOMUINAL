@@ -1,6 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/sidebar-parametros.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/sidebar-parametros.css') }}">
+	<style type="text/css">
+        .loader {
+            display:    none;
+            position:   fixed;
+            z-index:    1090;
+            top:        0;
+            left:       0;
+            height:     100%;
+            width:      100%;
+            background: rgba( 0, 0, 0, .3 ) 
+            url("{{ asset('images/ball.svg') }}") 50% 50% no-repeat;
+        }
+        body.loading { overflow: hidden; }
+        body.loading .loader { display: block; }
+        .badge{ cursor: pointer; }
+        .badge:hover{ color: black; background-color: #4C9ED9; }
+    </style>
 {% endblock %}
 {% block body %}
 	<div class="row">
@@ -105,6 +122,8 @@
         	</div>
         </div>
     </div>
+
+    <div class="loader" id="loader"></div>
 {% endblock %}
 
 {% block javascripts %}
@@ -112,6 +131,7 @@
 	jQuery(document).ready(function() {
 		//Para el control de las tablas
 		$('body').on('click', '#btnTabla', function() {
+			$('#loader').show();
 			url = $(this).data('url');
 			$.ajax({
 				url: url,
@@ -127,6 +147,7 @@
 					url = $('body').find('#forModal').attr('href');
 					$('body').find('#forModal').attr('href', '#');
 					$('body').find('#forModal').attr('data-url', url);
+					$('#loader').hide();
 				},
 			});
 		});
