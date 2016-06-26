@@ -43,7 +43,7 @@ class JefeGrupoFamiliar
     private $cedula;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist"})
      * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $nacionalidad;
@@ -63,7 +63,7 @@ class JefeGrupoFamiliar
     private $edad;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
      * @ORM\JoinColumn(name="respC_id_0", referencedColumnName="id", onDelete="CASCADE")
      */
     private $cne;
@@ -83,55 +83,57 @@ class JefeGrupoFamiliar
     private $sexo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="respC_id_1", referencedColumnName="id", onDelete="CASCADE")
+     * @var string
+     *
+     * @ORM\Column(name="incapacitado", type="string", length=255)
      */
     private $incapacitado;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminIncapacidades", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminIncapacidades", cascade={"persist"})
      * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $incapacitadoTipo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="respC_id_2", referencedColumnName="id", onDelete="CASCADE")
+     * @var string
+     *
+     * @ORM\Column(name="pensionado", type="string", length=255)
      */
     private $pensionado;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminPensionadoInstitucion", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminPensionadoInstitucion", cascade={"persist"})
      * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $pensionadoInstitucion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminEstadoCivil", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminEstadoCivil", cascade={"persist"})
      * @ORM\JoinColumn(name="edoCivil_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $estadoCivil;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminNivelInstruccion", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminNivelInstruccion", cascade={"persist"})
      * @ORM\JoinColumn(name="nivelIns_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $nivelInstruccion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminProfesion", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminProfesion", cascade={"persist"})
      * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $profesion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
      * @ORM\JoinColumn(name="respC_id_3", referencedColumnName="id", onDelete="CASCADE")
      */
     private $trabajaActualmente;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist"})
      * @ORM\JoinTable(name="jgf_telefonos",
      *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}
@@ -147,7 +149,7 @@ class JefeGrupoFamiliar
     private $email;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminClasIngresoFamiliar", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminClasIngresoFamiliar", cascade={"persist"})
      * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $ingresoFamiliar;

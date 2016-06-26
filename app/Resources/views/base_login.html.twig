@@ -9,13 +9,45 @@
 		{% block stylesheets %}{% endblock %}
 
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/darkly-bootstrap.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-theme.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/estilo.css') }}">
+		{# <link rel="stylesheet" type="text/css" href="{{ asset('css/darkly-bootstrap.css') }}"> #}
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/ie10-viewport-bug-workaround.css') }}">
+    	<link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}">
 		
 		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+		<style>
+		@font-face {
+		    font-family: 'Open Sans';
+		    font-weight: 400;
+		    font-style: normal;
+		    src: url('{{ asset("fonts/Open-Sans-regular.eot")}}');
+		    src: url('{{ asset("fonts/Open-Sans-regular.eot?#iefix")}}') format('embedded-opentype'),
+		             local('Open Sans'),
+		             local('Open-Sans-regular'),
+		             url("{{ asset('fonts/Open-Sans-regular.woff2')}}") format('woff2'),
+		             url('{{ asset("fonts/Open-Sans-regular.woff")}}') format('woff'),
+		             url('{{ asset("fonts/Open-Sans-regular.ttf")}}') format('truetype'),
+		             url('{{ asset("fonts/Open-Sans-regular.svg#OpenSans")}}') format('svg');
+		}
+		@font-face {
+		    font-family: 'Open Sans';
+		    font-weight: 400;
+		    font-style: italic;
+		    src: url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.eot")}}');
+		    src: url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.eot?#iefix")}}') format('embedded-opentype'),
+		             local('Open Sans Italic'),
+		             local('Open-Sans-italic'),
+		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.woff2")}}') format('woff2'),
+		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.woff")}}') format('woff'),
+		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.ttf")}}') format('truetype'),
+		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.svg#OpenSans")}}') format('svg');
+		}
+		html, body{ font-family: "Open Sans", sans-serif; }
+		</style>
 	</head>
-	<body>
+	<body style="background-color: #eee !important;">
 		<div class="container-fluid">
 			{% block body %}{% endblock %}
 		</div>

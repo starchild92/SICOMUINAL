@@ -1,24 +1,77 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    <h1>JefeGrupoFamiliar edit</h1>
-
+    <h2>Modificar Datos del Jefe Grupo Familiar</h2>
+    
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(edit_form.nombres) }}</div>
+            <div class="col-sm-6">{{ form_row(edit_form.apellidos) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">{{ form_row(edit_form.cedula) }}</div>
+            <div class="col-sm-4">{{ form_row(edit_form.nacionalidad) }}</div>
+            <div class="col-sm-4">{{ form_row(edit_form.estadoCivil) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">{{ form_row(edit_form.sexo) }}</div>
+            <div class="col-sm-3">{{ form_row(edit_form.fechaNacimiento) }}</div>
+            <div class="col-sm-3">{{ form_row(edit_form.edad) }}</div>
+            <div class="col-sm-3">{{ form_row(edit_form.cne) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">{{ form_row(edit_form.incapacitado) }}</div>
+            <div class="col-sm-4">{{ form_row(edit_form.incapacitadoTipo) }}</div>
+            <div class="col-sm-2">{{ form_row(edit_form.pensionado) }}</div>
+            <div class="col-sm-4">{{ form_row(edit_form.pensionadoInstitucion) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(edit_form.trabajaActualmente) }}</div>
+            <div class="col-sm-6">{{ form_row(edit_form.profesion) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">{{ form_row(edit_form.tiempoEnComunidad) }}</div>
+            <div class="col-sm-4">{{ form_row(edit_form.nivelInstruccion) }}</div>
+            <div class="col-sm-4">{{ form_row(edit_form.email) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(edit_form.ingresoFamiliar) }}</div>
+            <div class="col-sm-6">{{ form_row(edit_form.ingresoMensual) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(edit_form.telefono) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6"><input class="btn btn-success btn-block" type="submit" value="Guardar Datos" /></div>
+            <div class="col-sm-6"><a class="btn btn-default btn-block" href="{{ path('jefegrupofamiliar_index') }}">Ver todos</a></div>
+        </div>
+        
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('jefegrupofamiliar_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        
+    {{ form_start(delete_form) }}
+        <input class="btn btn-danger" type="submit" value="Eliminar Datos">
+    {{ form_end(delete_form) }}
 {% endblock %}
 {% block javascripts %}
-<script src="{{ asset('js/formTelefono.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/formTelefono.js') }}"></script>
+    <script src="{{ asset('js/funcionesExtras.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+            $('.js-datepicker')
+                .datepicker({ format: 'yyyy-mm-dd' })
+                    .on('hide', function() {
+                        var birthDay = document.getElementById("jefe_grupo_familiar_fechaNacimiento").value;
+                        var DOB = new Date(birthDay);
+                        var today = new Date();
+                        var age = today.getTime() - DOB.getTime();
+                        age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+
+                        document.getElementById('jefe_grupo_familiar_edad').value = age;
+                    });
+
+            AexcluyeB('jefe_grupo_familiar_incapacitado', 'jefe_grupo_familiar_incapacitadoTipo');
+            AexcluyeB('jefe_grupo_familiar_pensionado', 'jefe_grupo_familiar_pensionadoInstitucion');
+        })
+    </script>
 {% endblock %}

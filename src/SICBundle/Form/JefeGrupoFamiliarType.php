@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 use SICBundle\Form\GeneroType;
 
@@ -31,7 +33,12 @@ class JefeGrupoFamiliarType extends AbstractType
                  // 'multiple' => true,
                  // 'expanded' => true,
             ))
-            ->add('fechaNacimiento', 'date')
+            ->add('fechaNacimiento', DateType::class, array(
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker'],
+            ))
+
             ->add('edad') //Se calcula automaticamente
             ->add('cne', EntityType::class, array(
                 // query choices from this entity
@@ -42,25 +49,40 @@ class JefeGrupoFamiliarType extends AbstractType
             ->add('tiempoEnComunidad')
             ->add('sexo', GeneroType::class, array(
                 'placeholder' => 'Elija uno'))
-            ->add('incapacitado', EntityType::class, array(
-                'class' => 'SICBundle:AdminRespCerrada',
-                'placeholder' => 'Selecciona una',
-                'choice_label' => 'respuesta',
+
+            ->add('incapacitado', ChoiceType::class, array(
+                'choices'  => array(
+                    'Seleccione' => '',
+                    'Si' => 'si',
+                    'No' => 'no',
+                    // 'Otro' => 'otro'
+                ),
+                'choices_as_values' => true,
             ))
             ->add('incapacitadoTipo', EntityType::class, array(
                 'class' => 'SICBundle:AdminIncapacidades',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'incapacidad',
+                'attr'      => array(
+                    // 'class' => 'ui dropdown',
+                    'required'  => false)
             ))
-            ->add('pensionado', EntityType::class, array(
-                'class' => 'SICBundle:AdminRespCerrada',
-                'placeholder' => 'Selecciona una',
-                'choice_label' => 'respuesta',
+            ->add('pensionado', ChoiceType::class, array(
+                'choices'  => array(
+                    'Seleccione' => '',
+                    'Si' => 'si',
+                    'No' => 'no',
+                    // 'Otro' => 'otro'
+                ),
+                'choices_as_values' => true,
             ))
             ->add('pensionadoInstitucion', EntityType::class, array(
                 'class' => 'SICBundle:AdminPensionadoInstitucion',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
+                'attr'      => array(
+                    // 'class' => 'ui dropdown',
+                    'required'  => false)
             ))
             ->add('estadoCivil', EntityType::class, array(
                 'class' => 'SICBundle:AdminEstadoCivil',

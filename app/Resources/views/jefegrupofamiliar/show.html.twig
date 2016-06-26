@@ -3,7 +3,7 @@
 {% block body %}
     <h1>JefeGrupoFamiliar</h1>
 
-    <table>
+    <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -79,7 +79,7 @@
             </tr>
             <tr>
                 <th>Telefono</th>
-                <td>{{ jefeGrupoFamiliar.telefono }}</td>
+                <td>{% for tlf in jefeGrupoFamiliar.telefono %}{{tlf.codigo}} {{ tlf.numero }}<br>{% endfor %}</td>
             </tr>
             <tr>
                 <th>Email</th>
