@@ -16,12 +16,11 @@ class GrupoFamiliarType extends AbstractType
     {
         $builder
             ->add('apellidos')
-            ->add('direccion')
             ->add('cantidadMiembros')
-            ->add('vivienda')
-            ->add('numeroCasa')
-            ->add('sector')
             ->add('tiempoResidencia')
+            ->add('sector')
+            ->add('numeroCasa')
+            ->add('direccion')
         ;
     }
     

@@ -43,13 +43,6 @@ class GrupoFamiliar
     private $cantidadMiembros;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="vivienda", type="string", length=255)
-     */
-    private $vivienda;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="numeroCasa", type="integer")
@@ -148,29 +141,6 @@ class GrupoFamiliar
     public function getCantidadMiembros()
     {
         return $this->cantidadMiembros;
-    }
-
-    /**
-     * Set vivienda
-     *
-     * @param string $vivienda
-     * @return GrupoFamiliar
-     */
-    public function setVivienda($vivienda)
-    {
-        $this->vivienda = $vivienda;
-
-        return $this;
-    }
-
-    /**
-     * Get vivienda
-     *
-     * @return string 
-     */
-    public function getVivienda()
-    {
-        return $this->vivienda;
     }
 
     /**

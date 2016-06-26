@@ -1,16 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>GrupoFamiliar creation</h1>
+    <div class="row">
+        <div class="col-xs-6"><small class="text-info">ant. Jefe Grupo Familiar</small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Económica</small></div>
+    </div>
+    <div class="progress">
+      <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+        Paso 3 de 9
+      </div>
+    </div>
+
+    <h2>Datos del Grupo Familiar</h2>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-primary btn-block" type="submit" value="Registrar Datos del Grupo Familiar y Continuar" />
     {{ form_end(form) }}
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('grupofamiliar_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown')
+              .dropdown();
+        })
+    </script>
 {% endblock %}
