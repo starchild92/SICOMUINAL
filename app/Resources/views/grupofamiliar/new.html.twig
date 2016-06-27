@@ -12,9 +12,33 @@
     </div>
 
     <h2>Datos del Grupo Familiar</h2>
-
+    
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(form.apellidos) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(form.tiempoResidencia) }}
+                    {{ form_row(form.sector) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(form.direccion) }}
+                    {{ form_row(form.numeroCasa) }}
+                </div>
+            </div>
+        </div>
+    </div>
         <input class="btn btn-primary btn-block" type="submit" value="Registrar Datos del Grupo Familiar y Continuar" />
     {{ form_end(form) }}
 {% endblock %}

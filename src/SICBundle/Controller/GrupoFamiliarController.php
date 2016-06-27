@@ -41,6 +41,7 @@ class GrupoFamiliarController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $grupoFamiliar->setCantidadMiembros(0);
             $em->persist($grupoFamiliar);
             $em->flush();
 

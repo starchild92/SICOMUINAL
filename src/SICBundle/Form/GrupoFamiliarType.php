@@ -15,12 +15,17 @@ class GrupoFamiliarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('apellidos')
-            ->add('cantidadMiembros')
-            ->add('tiempoResidencia')
-            ->add('sector')
-            ->add('numeroCasa')
-            ->add('direccion')
+            ->add('apellidos','text', array(
+                'label'     => 'Apellidos del Grupo Familiar'))
+            // ->add('cantidadMiembros') //Se calcula a medida que se agregan nuevos miembros
+            ->add('tiempoResidencia','text', array(
+                'label'     => 'Tiempo de Residencia'))
+            ->add('sector','text', array(
+                'label'     => 'Sector'))
+            ->add('direccion','text', array(
+                'label'     => 'Calle o Avenida'))
+            ->add('numeroCasa','text', array(
+                'label'     => 'Número de Casa'))
         ;
     }
     
