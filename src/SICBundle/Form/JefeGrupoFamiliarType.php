@@ -22,7 +22,9 @@ class JefeGrupoFamiliarType extends AbstractType
         $builder
             ->add('nombres')
             ->add('apellidos')
-            ->add('cedula')
+            ->add('cedula','text', array(
+                'label' => 'Cédula'))
+            
             ->add('nacionalidad', EntityType::class, array(
                 // query choices from this entity
                 'class' => 'SICBundle:AdminNacionalidad',
