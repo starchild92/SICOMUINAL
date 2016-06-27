@@ -28,12 +28,6 @@ class SituacionEconomica
     private $dondeTrabaja;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="respC_id_0", referencedColumnName="id", onDelete="CASCADE")
-     */
-    private $actividadComercial;
-
-    /**
      * @ORM\ManyToOne(targetEntity="AdminVentaVivienda", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="ventaV_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -51,12 +45,6 @@ class SituacionEconomica
      * @ORM\Column(name="ingresoFamiliar", type="string", length=255)
      */
     private $ingresoFamiliar;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="respC_id_1", referencedColumnName="id", onDelete="CASCADE")
-     */
-    private $poseeVehiculo;
 
     /**
      * @var string
@@ -145,29 +133,6 @@ class SituacionEconomica
     }
 
     /**
-     * Set actividadComercial
-     *
-     * @param \SICBundle\Entity\AdminRespCerrada $actividadComercial
-     * @return SituacionEconomica
-     */
-    public function setActividadComercial(\SICBundle\Entity\AdminRespCerrada $actividadComercial = null)
-    {
-        $this->actividadComercial = $actividadComercial;
-
-        return $this;
-    }
-
-    /**
-     * Get actividadComercial
-     *
-     * @return \SICBundle\Entity\AdminRespCerrada 
-     */
-    public function getActividadComercial()
-    {
-        return $this->actividadComercial;
-    }
-
-    /**
      * Set actividadComercialenVivienda
      *
      * @param \SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda
@@ -211,28 +176,5 @@ class SituacionEconomica
     public function getIngresoFamiliarEspecifico()
     {
         return $this->ingresoFamiliarEspecifico;
-    }
-
-    /**
-     * Set poseeVehiculo
-     *
-     * @param \SICBundle\Entity\AdminRespCerrada $poseeVehiculo
-     * @return SituacionEconomica
-     */
-    public function setPoseeVehiculo(\SICBundle\Entity\AdminRespCerrada $poseeVehiculo = null)
-    {
-        $this->poseeVehiculo = $poseeVehiculo;
-
-        return $this;
-    }
-
-    /**
-     * Get poseeVehiculo
-     *
-     * @return \SICBundle\Entity\AdminRespCerrada 
-     */
-    public function getPoseeVehiculo()
-    {
-        return $this->poseeVehiculo;
     }
 }
