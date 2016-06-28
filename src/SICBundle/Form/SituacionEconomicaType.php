@@ -18,18 +18,20 @@ class SituacionEconomicaType extends AbstractType
             ->add('dondeTrabaja', 'entity', array(
                 'class'     => 'SICBundle:AdminUbicacionTrabajo',
                 'label'     => '¿Dónde Trabaja?',
+                'placeholder' => 'Selecciona una',
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))
 
-            ->add('actividadComercial', 'entity', array(
+            /*->add('actividadComercial', 'entity', array(
                 'class'     => 'SICBundle:AdminRespCerrada',
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'attr'  =>  array(
-                    'class' => 'ui fluid dropdown')))
+                    'class' => 'ui fluid dropdown')))*/
 
             ->add('actividadComercialenVivienda', 'entity', array(
                 'class'     => 'SICBundle:AdminVentaVivienda',
                 'label'     => 'Ventas De',
+                'placeholder' => 'Selecciona una',
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))
 
@@ -40,16 +42,20 @@ class SituacionEconomicaType extends AbstractType
             ->add('ingresoFamiliarEspecifico', 'entity', array(
                 'class'     => 'SICBundle:AdminTipoIngresos',
                 'label'     => 'Ingreso estimado',
+                'placeholder' => 'Selecciona una',
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))
 
-            ->add('poseeVehiculo', 'entity', array(
+            /*->add('poseeVehiculo', 'entity', array(
                 'class'     => 'SICBundle:AdminRespCerrada',
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'attr'  =>  array(
-                    'class' => 'ui fluid dropdown')))
+                    'class' => 'ui fluid dropdown')))*/
             
-            ->add('placa')
+            ->add('placa','text',array(
+                'label'     => 'Si posee vehículo(s), Ingrese la(s) placa(s)',
+                'attr'        => array(
+                'placeholder'   => 'AAA000,BBB111,....')))
         ;
     }
     

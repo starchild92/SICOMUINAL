@@ -68,9 +68,9 @@ class Persona
     /**
      * @var string
      *
-     * @ORM\Column(name="parentezco", type="string", length=255)
+     * @ORM\Column(name="parentesco", type="string", length=255)
      */
-    private $parentezco;
+    private $parentesco;
 
     /**
      * @var string
@@ -80,9 +80,8 @@ class Persona
     private $gradoInstruccion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="profesion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminProfesion", cascade={"persist"})
+     * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $profesion;
 
@@ -108,9 +107,8 @@ class Persona
     private $incapacitado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="incapacitadoTipo", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminIncapacidades", cascade={"persist"})
+     * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $incapacitadoTipo;
 
@@ -122,9 +120,8 @@ class Persona
     private $pensionado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pensionadoInstitucion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminPensionadoInstitucion", cascade={"persist"})
+     * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $pensionadoInstitucion;
 
@@ -285,26 +282,26 @@ class Persona
     }
 
     /**
-     * Set parentezco
+     * Set parentesco
      *
-     * @param string $parentezco
+     * @param string $parentesco
      * @return Persona
      */
-    public function setParentezco($parentezco)
+    public function setParentesco($parentesco)
     {
-        $this->parentezco = $parentezco;
+        $this->parentesco = $parentesco;
 
         return $this;
     }
 
     /**
-     * Get parentezco
+     * Get parentesco
      *
      * @return string 
      */
-    public function getParentezco()
+    public function getParentesco()
     {
-        return $this->parentezco;
+        return $this->parentesco;
     }
 
     /**
@@ -328,29 +325,6 @@ class Persona
     public function getGradoInstruccion()
     {
         return $this->gradoInstruccion;
-    }
-
-    /**
-     * Set profesion
-     *
-     * @param string $profesion
-     * @return Persona
-     */
-    public function setProfesion($profesion)
-    {
-        $this->profesion = $profesion;
-
-        return $this;
-    }
-
-    /**
-     * Get profesion
-     *
-     * @return string 
-     */
-    public function getProfesion()
-    {
-        return $this->profesion;
     }
 
     /**
@@ -423,29 +397,6 @@ class Persona
     }
 
     /**
-     * Set incapacitadoTipo
-     *
-     * @param string $incapacitadoTipo
-     * @return Persona
-     */
-    public function setIncapacitadoTipo($incapacitadoTipo)
-    {
-        $this->incapacitadoTipo = $incapacitadoTipo;
-
-        return $this;
-    }
-
-    /**
-     * Get incapacitadoTipo
-     *
-     * @return string 
-     */
-    public function getIncapacitadoTipo()
-    {
-        return $this->incapacitadoTipo;
-    }
-
-    /**
      * Set pensionado
      *
      * @param string $pensionado
@@ -469,12 +420,58 @@ class Persona
     }
 
     /**
-     * Set pensionadoInstitucion
+     * Set profesion
      *
-     * @param string $pensionadoInstitucion
+     * @param \SICBundle\Entity\AdminProfesion $profesion
      * @return Persona
      */
-    public function setPensionadoInstitucion($pensionadoInstitucion)
+    public function setProfesion(\SICBundle\Entity\AdminProfesion $profesion = null)
+    {
+        $this->profesion = $profesion;
+
+        return $this;
+    }
+
+    /**
+     * Get profesion
+     *
+     * @return \SICBundle\Entity\AdminProfesion 
+     */
+    public function getProfesion()
+    {
+        return $this->profesion;
+    }
+
+    /**
+     * Set incapacitadoTipo
+     *
+     * @param \SICBundle\Entity\AdminIncapacidades $incapacitadoTipo
+     * @return Persona
+     */
+    public function setIncapacitadoTipo(\SICBundle\Entity\AdminIncapacidades $incapacitadoTipo = null)
+    {
+        $this->incapacitadoTipo = $incapacitadoTipo;
+
+        return $this;
+    }
+
+    /**
+     * Get incapacitadoTipo
+     *
+     * @return \SICBundle\Entity\AdminIncapacidades 
+     */
+    public function getIncapacitadoTipo()
+    {
+        return $this->incapacitadoTipo;
+    }
+
+    /**
+     * Set pensionadoInstitucion
+     *
+     * @param \SICBundle\Entity\AdminPensionadoInstitucion $pensionadoInstitucion
+     * @return Persona
+     */
+    public function setPensionadoInstitucion(\SICBundle\Entity\AdminPensionadoInstitucion $pensionadoInstitucion = null)
     {
         $this->pensionadoInstitucion = $pensionadoInstitucion;
 
@@ -484,7 +481,7 @@ class Persona
     /**
      * Get pensionadoInstitucion
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminPensionadoInstitucion 
      */
     public function getPensionadoInstitucion()
     {

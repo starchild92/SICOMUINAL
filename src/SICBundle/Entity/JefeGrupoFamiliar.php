@@ -38,7 +38,7 @@ class JefeGrupoFamiliar
     /**
      * @var string
      *
-     * @ORM\Column(name="cedula", type="string", length=255)
+     * @ORM\Column(name="cedula", type="string", length=255, unique=true)
      */
     private $cedula;
 
