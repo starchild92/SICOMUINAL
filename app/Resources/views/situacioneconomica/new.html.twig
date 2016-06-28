@@ -12,8 +12,26 @@
     </div>
 
     <h2>Situación Económica</h2>
-
+	
     {{ form_start(form) }}
+    	<div class="col-sm-6">
+    		<div class="panel panel-primary">
+    			<div class="panel-body">
+    				{{ form_row(form.dondeTrabaja) }}
+	    			{{ form_row(form.actividadComercialenVivienda) }}
+				    {{ form_row(form.placa) }}
+    			</div>
+    		</div>
+    	</div>
+    	<div class="col-sm-6">
+    		<div class="panel panel-primary">
+    			<div class="panel-body">
+    				{{ form_row(form.ingresoFamiliar) }}
+				    {{ form_row(form.ingresoFamiliarEspecifico) }}
+    			</div>
+    		</div>
+    	</div>
+
         {{ form_widget(form) }}
         <input class="btn btn-primary btn-block" type="submit" value="Registrar Sitación Económica y Continuar" />
     {{ form_end(form) }}
