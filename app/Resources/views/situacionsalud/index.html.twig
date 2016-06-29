@@ -17,9 +17,9 @@
         {% for situacionSalud in situacionSaluds %}
             <tr>
                 <td><a href="{{ path('situacionsalud_show', { 'id': situacionSalud.id }) }}">{{ situacionSalud.id }}</a></td>
-                <td>{{ situacionSalud.enfermedad }}</td>
-                <td>{{ situacionSalud.ayudaEspecial }}</td>
-                <td>{{ situacionSalud.situacionExclusion }}</td>
+                <td>{% for padecencia in situacionSalud.padecencia %}{{ padecencia.nombre }}{% endfor %}</td>
+                <td>{% for ayudas in situacionSalud.ayudaEspecial %}{{ ayudas.nombre }}{% endfor %}</td>
+                <td>{% for exclusion in situacionSalud.situacionExclusion %}{{ exclusion.situacion }} ({{ exclusion.cantidad }}){% endfor %}</td>
                 <td>
                     <ul>
                         <li>

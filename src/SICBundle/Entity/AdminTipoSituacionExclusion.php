@@ -24,7 +24,7 @@ class AdminTipoSituacionExclusion
     /**
      * @var string
      *
-     * @ORM\Column(name="situacion", type="string", length=255, unique=true)
+     * @ORM\Column(name="situacion", type="string", length=255)
      */
     private $situacion;
 

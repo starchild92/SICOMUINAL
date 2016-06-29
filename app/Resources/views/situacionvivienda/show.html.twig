@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <th>Habitaciones</th>
-                <td>{{ situacionVivienda.habitaciones }}</td>
+                <td>{% for habitacion in situacionVivienda.habitaciones %}{{ habitacion.nombre }}{% endfor %}</td>
             </tr>
             <tr>
                 <th>Cantidadhabitaciones</th>
@@ -39,7 +39,7 @@
             </tr>
             <tr>
                 <th>Enseres</th>
-                <td>{{ situacionVivienda.enseres }}</td>
+                <td>{% for enseres in situacionVivienda.enseres %}{{ enseres.nombre }}{% endfor %}</td>
             </tr>
             <tr>
                 <th>Salubridad</th>
@@ -47,11 +47,11 @@
             </tr>
             <tr>
                 <th>Presenciainsectos</th>
-                <td>{{ situacionVivienda.presenciaInsectos }}</td>
+                <td>{% for ins in situacionVivienda.presenciaInsectos %}{{ ins.nombre }}{% endfor %}</td>
             </tr>
             <tr>
                 <th>Mascota</th>
-                <td>{{ situacionVivienda.mascota }}</td>
+                <td>{% for mas in situacionVivienda.mascota %}{{ mas.nombre }}{% endfor %}</td>
             </tr>
         </tbody>
     </table>
