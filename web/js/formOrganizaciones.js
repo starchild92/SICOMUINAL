@@ -1,7 +1,7 @@
 var $collectionOrganizaciones;
 var $cantOrgs;
 // setup an "add a tag" link
-var $addTagLinkOrgs = $('<button style="margin-top: 10px;" class="btn btn-success btn-block" type="button" href="#" class="add_tag_link"><i class="fa fa-plus fa-fw"></i> Agregue una Situación de Exclusión</button>');
+var $addTagLinkOrgs = $('<button style="margin-top: 10px;" class="btn btn-success btn-block" type="button" href="#" class="add_tag_link"><i class="fa fa-plus fa-fw"></i> Agregue una Organización Comunitaria</button>');
 var $newLinkLiOrg = $('<div></div>').append($addTagLinkOrgs);
 
 jQuery(document).ready(function() {
@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 
     //Para en el editar quitar un almacen
 
-    $collectionOrganizaciones.children().append('<a href="#" class="remove-tag-telf btn btn-danger btn-block"><i class="fa fa-times fa-fw"></i> Quitar Situación de Exclusión</a>');
+    $collectionOrganizaciones.children().append('<a href="#" class="remove-tag-telf btn btn-danger btn-block"><i class="fa fa-times fa-fw"></i> Quitar Organización Comunitaria</a>');
 
     $removerTelf = $collectionOrganizaciones.find('.remove-tag-telf');
     $cantOrgs = $removerTelf.length;
@@ -66,7 +66,7 @@ function addTagFormOrgs($collectionOrganizaciones, $newLinkLiOrg) {
     //$newLinkLiOrg.before($newFormLiTelefonos);
 
     // also add a remove button, just for this example
-    $newFormLiTelefonos.children('.form-group').append('<a href="#" class="remove-tag-telf btn btn-danger btn-block"><i class="fa fa-times fa-fw"></i> Quitar Situación de Exclusión</a>');
+    $newFormLiTelefonos.children('.form-group').append('<a href="#" class="remove-tag-telf btn btn-danger btn-block"><i class="fa fa-times fa-fw"></i> Quitar Organización Comunitaria</a>');
     
     $newLinkLiOrg.before($newFormLiTelefonos);
     

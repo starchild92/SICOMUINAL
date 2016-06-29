@@ -72,7 +72,13 @@ class ParticipacionComunitariaType extends AbstractType
                     'label'     => '¿Existen organizaciones comunitarias? - ¿Cuál(es)?'
                 ))
 
-            ->add('areaTabajoCC')
+            ->add('areaTabajoCC','entity', array(
+                'class' => 'SICBundle:AdminAreaTrabajoCC',
+                'multiple' => true,
+                'label'     => '¿De crearse un consejo comunal en su comunidad, en cual área de trabajo le gustaría participar?',
+                'attr'  =>  array(
+                    'multiple' => '',
+                    'class' => 'ui dropdown')))
         ;
     }
 

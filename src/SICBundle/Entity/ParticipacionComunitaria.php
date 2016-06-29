@@ -63,11 +63,13 @@ class ParticipacionComunitaria
     private $preguntasParticipacionComunitaria;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminAreaTrabajoCC", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="areaTabajoCC", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="AdminAreaTrabajoCC")
+     * @ORM\JoinTable(name="partCom_areaTrabajo",
+     *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="areacc_id", referencedColumnName="id")}
+     *      )
      */
     private $areaTabajoCC;
-    
     
     /**
      * Constructor
@@ -76,6 +78,8 @@ class ParticipacionComunitaria
     {
         $this->existenOrganizaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->misionesComunidad = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->preguntasParticipacionComunitaria = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->areaTabajoCC = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -201,22 +205,32 @@ class ParticipacionComunitaria
     }
 
     /**
-     * Set preguntasParticipacionComunitaria
+     * Add preguntasParticipacionComunitaria
      *
-     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria
+     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitarias $preguntasParticipacionComunitaria
      * @return ParticipacionComunitaria
      */
-    public function setPreguntasParticipacionComunitaria(\SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria = null)
+    public function addPreguntasParticipacionComunitarium(\SICBundle\Entity\AdminPreguntasParticipacionComunitarias $preguntasParticipacionComunitaria)
     {
-        $this->preguntasParticipacionComunitaria = $preguntasParticipacionComunitaria;
+        $this->preguntasParticipacionComunitaria[] = $preguntasParticipacionComunitaria;
 
         return $this;
     }
 
     /**
+     * Remove preguntasParticipacionComunitaria
+     *
+     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitarias $preguntasParticipacionComunitaria
+     */
+    public function removePreguntasParticipacionComunitarium(\SICBundle\Entity\AdminPreguntasParticipacionComunitarias $preguntasParticipacionComunitaria)
+    {
+        $this->preguntasParticipacionComunitaria->removeElement($preguntasParticipacionComunitaria);
+    }
+
+    /**
      * Get preguntasParticipacionComunitaria
      *
-     * @return \SICBundle\Entity\AdminPreguntasParticipacionComunitaria 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getPreguntasParticipacionComunitaria()
     {
@@ -224,22 +238,32 @@ class ParticipacionComunitaria
     }
 
     /**
-     * Set areaTabajoCC
+     * Add areaTabajoCC
      *
-     * @param \SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC
+     * @param \SICBundle\Entity\AdminAreatrabajoCC $areaTabajoCC
      * @return ParticipacionComunitaria
      */
-    public function setAreaTabajoCC(\SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC = null)
+    public function addAreaTabajoCC(\SICBundle\Entity\AdminAreatrabajoCC $areaTabajoCC)
     {
-        $this->areaTabajoCC = $areaTabajoCC;
+        $this->areaTabajoCC[] = $areaTabajoCC;
 
         return $this;
     }
 
     /**
+     * Remove areaTabajoCC
+     *
+     * @param \SICBundle\Entity\AdminAreatrabajoCC $areaTabajoCC
+     */
+    public function removeAreaTabajoCC(\SICBundle\Entity\AdminAreatrabajoCC $areaTabajoCC)
+    {
+        $this->areaTabajoCC->removeElement($areaTabajoCC);
+    }
+
+    /**
      * Get areaTabajoCC
      *
-     * @return \SICBundle\Entity\AdminAreaTrabajoCC 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getAreaTabajoCC()
     {
