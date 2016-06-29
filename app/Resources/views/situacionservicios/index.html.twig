@@ -29,9 +29,9 @@
                 <td>{{ situacionServicio.sistemaElectrico }}</td>
                 <td>{{ situacionServicio.recoleccionBasura }}</td>
                 <td>{{ situacionServicio.telefonia }}</td>
-                <td>{{ situacionServicio.transporte }}</td>
-                <td>{{ situacionServicio.mecanismoInformacion }}</td>
-                <td>{{ situacionServicio.serviciosComunales }}</td>
+                <td>{% for transp in situacionServicio.transporte %}{{ transp.nombre }}<br>{% endfor %}</td>
+                <td>{% for mecInfo in situacionServicio.mecanismoInformacion %}{{ mecInfo.nombre }}<br>{% endfor %}</td>
+                <td>{% for servCom in situacionServicio.serviciosComunales %}{{ servCom.nombre }}<br>{% endfor %}</td>
                 <td>
                     <ul>
                         <li>

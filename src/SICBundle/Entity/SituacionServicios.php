@@ -22,59 +22,77 @@ class SituacionServicios
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminAguasBlancas", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminAguasBlancas", cascade={"persist"})
      * @ORM\JoinColumn(name="aguasBlancas", referencedColumnName="id", onDelete="CASCADE")
      */
     private $aguasBlancas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminAguasServidas", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminAguasServidas", cascade={"persist"})
      * @ORM\JoinColumn(name="aguasServidas", referencedColumnName="id", onDelete="CASCADE")
      */
     private $aguasServidas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminTipoGas", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminTipoGas", cascade={"persist"})
      * @ORM\JoinColumn(name="gas", referencedColumnName="id", onDelete="CASCADE")
      */
     private $gas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminSistemaElectrico", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminSistemaElectrico", cascade={"persist"})
      * @ORM\JoinColumn(name="sistemaElectrico", referencedColumnName="id", onDelete="CASCADE")
      */
     private $sistemaElectrico;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminRecoleccionBasura", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminRecoleccionBasura", cascade={"persist"})
      * @ORM\JoinColumn(name="recoleccionBasura", referencedColumnName="id", onDelete="CASCADE")
      */
     private $recoleccionBasura;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminTipoTelefonia", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminTipoTelefonia", cascade={"persist"})
      * @ORM\JoinColumn(name="telefonia", referencedColumnName="id", onDelete="CASCADE")
      */
     private $telefonia;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminTipoTransporte", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="transporte", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="AdminTipoTransporte", cascade={"persist"})
+     * @ORM\JoinTable(name="sitServ_tipTrans",
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tipTrans_id", referencedColumnName="id")}
+     *      )
      */
     private $transporte;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminMecanismoInformacion", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="mecanismoInformacion", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="AdminMecanismoInformacion", cascade={"persist"})
+     * @ORM\JoinTable(name="sitServ_mecInf",
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="mecInf_id", referencedColumnName="id")}
+     *      )
      */
     private $mecanismoInformacion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminServiciosComunales", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="serviciosComunales", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="AdminServiciosComunales", cascade={"persist"})
+     * @ORM\JoinTable(name="sitServ_servCom",
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="servCom_id", referencedColumnName="id")}
+     *      )
      */
     private $serviciosComunales;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->transporte = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mecanismoInformacion = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->serviciosComunales = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -89,10 +107,10 @@ class SituacionServicios
     /**
      * Set aguasBlancas
      *
-     * @param string $aguasBlancas
+     * @param \SICBundle\Entity\AdminAguasBlancas $aguasBlancas
      * @return SituacionServicios
      */
-    public function setAguasBlancas($aguasBlancas)
+    public function setAguasBlancas(\SICBundle\Entity\AdminAguasBlancas $aguasBlancas = null)
     {
         $this->aguasBlancas = $aguasBlancas;
 
@@ -102,7 +120,7 @@ class SituacionServicios
     /**
      * Get aguasBlancas
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminAguasBlancas 
      */
     public function getAguasBlancas()
     {
@@ -112,10 +130,10 @@ class SituacionServicios
     /**
      * Set aguasServidas
      *
-     * @param string $aguasServidas
+     * @param \SICBundle\Entity\AdminAguasServidas $aguasServidas
      * @return SituacionServicios
      */
-    public function setAguasServidas($aguasServidas)
+    public function setAguasServidas(\SICBundle\Entity\AdminAguasServidas $aguasServidas = null)
     {
         $this->aguasServidas = $aguasServidas;
 
@@ -125,7 +143,7 @@ class SituacionServicios
     /**
      * Get aguasServidas
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminAguasServidas 
      */
     public function getAguasServidas()
     {
@@ -135,10 +153,10 @@ class SituacionServicios
     /**
      * Set gas
      *
-     * @param string $gas
+     * @param \SICBundle\Entity\AdminTipoGas $gas
      * @return SituacionServicios
      */
-    public function setGas($gas)
+    public function setGas(\SICBundle\Entity\AdminTipoGas $gas = null)
     {
         $this->gas = $gas;
 
@@ -148,7 +166,7 @@ class SituacionServicios
     /**
      * Get gas
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminTipoGas 
      */
     public function getGas()
     {
@@ -158,10 +176,10 @@ class SituacionServicios
     /**
      * Set sistemaElectrico
      *
-     * @param string $sistemaElectrico
+     * @param \SICBundle\Entity\AdminSistemaElectrico $sistemaElectrico
      * @return SituacionServicios
      */
-    public function setSistemaElectrico($sistemaElectrico)
+    public function setSistemaElectrico(\SICBundle\Entity\AdminSistemaElectrico $sistemaElectrico = null)
     {
         $this->sistemaElectrico = $sistemaElectrico;
 
@@ -171,7 +189,7 @@ class SituacionServicios
     /**
      * Get sistemaElectrico
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminSistemaElectrico 
      */
     public function getSistemaElectrico()
     {
@@ -181,10 +199,10 @@ class SituacionServicios
     /**
      * Set recoleccionBasura
      *
-     * @param string $recoleccionBasura
+     * @param \SICBundle\Entity\AdminRecoleccionBasura $recoleccionBasura
      * @return SituacionServicios
      */
-    public function setRecoleccionBasura($recoleccionBasura)
+    public function setRecoleccionBasura(\SICBundle\Entity\AdminRecoleccionBasura $recoleccionBasura = null)
     {
         $this->recoleccionBasura = $recoleccionBasura;
 
@@ -194,7 +212,7 @@ class SituacionServicios
     /**
      * Get recoleccionBasura
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminRecoleccionBasura 
      */
     public function getRecoleccionBasura()
     {
@@ -204,10 +222,10 @@ class SituacionServicios
     /**
      * Set telefonia
      *
-     * @param string $telefonia
+     * @param \SICBundle\Entity\AdminTipoTelefonia $telefonia
      * @return SituacionServicios
      */
-    public function setTelefonia($telefonia)
+    public function setTelefonia(\SICBundle\Entity\AdminTipoTelefonia $telefonia = null)
     {
         $this->telefonia = $telefonia;
 
@@ -217,7 +235,7 @@ class SituacionServicios
     /**
      * Get telefonia
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminTipoTelefonia 
      */
     public function getTelefonia()
     {
@@ -225,22 +243,32 @@ class SituacionServicios
     }
 
     /**
-     * Set transporte
+     * Add transporte
      *
-     * @param string $transporte
+     * @param \SICBundle\Entity\AdminTipoTransporte $transporte
      * @return SituacionServicios
      */
-    public function setTransporte($transporte)
+    public function addTransporte(\SICBundle\Entity\AdminTipoTransporte $transporte)
     {
-        $this->transporte = $transporte;
+        $this->transporte[] = $transporte;
 
         return $this;
     }
 
     /**
+     * Remove transporte
+     *
+     * @param \SICBundle\Entity\AdminTipoTransporte $transporte
+     */
+    public function removeTransporte(\SICBundle\Entity\AdminTipoTransporte $transporte)
+    {
+        $this->transporte->removeElement($transporte);
+    }
+
+    /**
      * Get transporte
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getTransporte()
     {
@@ -248,22 +276,32 @@ class SituacionServicios
     }
 
     /**
-     * Set mecanismoInformacion
+     * Add mecanismoInformacion
      *
-     * @param string $mecanismoInformacion
+     * @param \SICBundle\Entity\AdminMecanismoInformacion $mecanismoInformacion
      * @return SituacionServicios
      */
-    public function setMecanismoInformacion($mecanismoInformacion)
+    public function addMecanismoInformacion(\SICBundle\Entity\AdminMecanismoInformacion $mecanismoInformacion)
     {
-        $this->mecanismoInformacion = $mecanismoInformacion;
+        $this->mecanismoInformacion[] = $mecanismoInformacion;
 
         return $this;
     }
 
     /**
+     * Remove mecanismoInformacion
+     *
+     * @param \SICBundle\Entity\AdminMecanismoInformacion $mecanismoInformacion
+     */
+    public function removeMecanismoInformacion(\SICBundle\Entity\AdminMecanismoInformacion $mecanismoInformacion)
+    {
+        $this->mecanismoInformacion->removeElement($mecanismoInformacion);
+    }
+
+    /**
      * Get mecanismoInformacion
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getMecanismoInformacion()
     {
@@ -271,22 +309,32 @@ class SituacionServicios
     }
 
     /**
-     * Set serviciosComunales
+     * Add serviciosComunales
      *
-     * @param string $serviciosComunales
+     * @param \SICBundle\Entity\AdminServiciosComunales $serviciosComunales
      * @return SituacionServicios
      */
-    public function setServiciosComunales($serviciosComunales)
+    public function addServiciosComunale(\SICBundle\Entity\AdminServiciosComunales $serviciosComunales)
     {
-        $this->serviciosComunales = $serviciosComunales;
+        $this->serviciosComunales[] = $serviciosComunales;
 
         return $this;
     }
 
     /**
+     * Remove serviciosComunales
+     *
+     * @param \SICBundle\Entity\AdminServiciosComunales $serviciosComunales
+     */
+    public function removeServiciosComunale(\SICBundle\Entity\AdminServiciosComunales $serviciosComunales)
+    {
+        $this->serviciosComunales->removeElement($serviciosComunales);
+    }
+
+    /**
      * Get serviciosComunales
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getServiciosComunales()
     {

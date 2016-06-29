@@ -17,7 +17,9 @@
             </tr>
             <tr>
                 <th>Existen Organizaciones</th>
-                <td>{{ participacionComunitarium.existenOrganizaciones }}</td>
+                <td>{% for orgs in participacionComunitarium.existenOrganizaciones %}
+                    {{ orgs.nombre }}<br>
+                {% endfor %}</td>
             </tr>
             <tr>
                 <th>Participa Organizacion</th>

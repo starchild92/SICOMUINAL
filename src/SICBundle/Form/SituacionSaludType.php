@@ -22,6 +22,7 @@ class SituacionSaludType extends AbstractType
                 'multiple' => true,
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
+            
             ->add('ayudaEspecial','collection',array(
                     'required' => false,
                     'type' => new AdminTipoAyudaEspecialType(),

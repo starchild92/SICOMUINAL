@@ -22,7 +22,7 @@
                 <td>{% for cc in participacionComunitarium.misionesComunidad %}
                     <li>{{ cc }}</li>
                 {% endfor %}</td>
-                <td>{{ participacionComunitarium.existenOrganizaciones }}</td>
+                <td>{% for orgs in participacionComunitarium.existenOrganizaciones %}{{ orgs.nombre }}<br>{% endfor %}</td>
                 <td>{{ participacionComunitarium.participaOrganizacion }}</td>
                 <td>{{ participacionComunitarium.preguntasParticipacionComunitaria }}</td>
                 <td>{{ participacionComunitarium.areaTabajoCC }}</td>
