@@ -44,7 +44,8 @@ class AdminRespCerradaController extends Controller
             $em->persist($adminRespCerrada);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_respuesta_cerrada_show', array('id' => $adminRespCerrada->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'respcerrada'));
+            // return $this->redirectToRoute('configurable_respuesta_cerrada_show', array('id' => $adminRespCerrada->getId()));
         }
 
         return $this->render('adminrespcerrada/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminRespCerradaController extends Controller
             $em->persist($adminRespCerrada);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_respuesta_cerrada_edit', array('id' => $adminRespCerrada->getId()));
+            // return $this->redirectToRoute('configurable_respuesta_cerrada_edit', array('id' => $adminRespCerrada->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'respcerrada'));
         }
 
         return $this->render('adminrespcerrada/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminRespCerradaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_respuesta_cerrada_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'respcerrada'));
+        // return $this->redirectToRoute('configurable_respuesta_cerrada_index');
     }
 
     /**

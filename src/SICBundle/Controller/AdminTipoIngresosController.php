@@ -44,7 +44,8 @@ class AdminTipoIngresosController extends Controller
             $em->persist($adminTipoIngreso);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipos_ingresos_show', array('id' => $adminTipoIngreso->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoingresos'));
+            // return $this->redirectToRoute('configurable_tipos_ingresos_show', array('id' => $adminTipoIngreso->getId()));
         }
 
         return $this->render('admintipoingresos/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoIngresosController extends Controller
             $em->persist($adminTipoIngreso);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipos_ingresos_edit', array('id' => $adminTipoIngreso->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoingresos'));
+            // return $this->redirectToRoute('configurable_tipos_ingresos_edit', array('id' => $adminTipoIngreso->getId()));
         }
 
         return $this->render('admintipoingresos/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoIngresosController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipos_ingresos_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoingresos'));
+        // return $this->redirectToRoute('configurable_tipos_ingresos_index');
     }
 
     /**

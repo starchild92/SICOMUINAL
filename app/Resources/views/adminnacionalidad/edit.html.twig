@@ -1,21 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminNacionalidad edit</h1>
+    <h3 class="text-center">Modificar Nacionalidad</h3>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Modificar" class="btn btn-success btn-block" />
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_nacionalidad_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    {{ form_start(delete_form) }}
+        <input type="submit" value="Eliminar" class="btn btn-danger btn-block">
+    {{ form_end(delete_form) }}
 {% endblock %}

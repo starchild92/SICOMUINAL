@@ -1,21 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminRespCerrada edit</h1>
+    <h3 class="text-center">Nueva Respuesta Cerrada</h3>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input class="btn btn-success btn-block" type="submit" value="Modificar" />
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('configurable_respuesta_cerrada_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    {{ form_start(delete_form) }}
+        <input class="btn btn-danger btn-block" type="submit" value="Eliminar">
+    {{ form_end(delete_form) }}
 {% endblock %}

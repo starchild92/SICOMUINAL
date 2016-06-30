@@ -44,7 +44,8 @@ class AdminNivelInstruccionController extends Controller
             $em->persist($adminNivelInstruccion);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_nivel_instruccion_show', array('id' => $adminNivelInstruccion->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'nivelinstruccion'));
+            // return $this->redirectToRoute('configurable_nivel_instruccion_show', array('id' => $adminNivelInstruccion->getId()));
         }
 
         return $this->render('adminnivelinstruccion/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminNivelInstruccionController extends Controller
             $em->persist($adminNivelInstruccion);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_nivel_instruccion_edit', array('id' => $adminNivelInstruccion->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'nivelinstruccion'));
+            // return $this->redirectToRoute('configurable_nivel_instruccion_edit', array('id' => $adminNivelInstruccion->getId()));
         }
 
         return $this->render('adminnivelinstruccion/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminNivelInstruccionController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_nivel_instruccion_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'nivelinstruccion'));
+        // return $this->redirectToRoute('configurable_nivel_instruccion_index');
     }
 
     /**

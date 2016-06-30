@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminEstadoCivil list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Estado Civil</div>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Estado Civil</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminEstadoCivil in adminEstadoCivils %}
+                <tr>
+                    <td>{{ adminEstadoCivil.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_estado_civil_edit', { 'id': adminEstadoCivil.id }) }}"><i class="fa fa-edit fa-fw"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminEstadoCivil in adminEstadoCivils %}
-            <tr>
-                <td><a href="{{ path('configurable_estado_civil_show', { 'id': adminEstadoCivil.id }) }}">{{ adminEstadoCivil.id }}</a></td>
-                <td>{{ adminEstadoCivil.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurable_estado_civil_show', { 'id': adminEstadoCivil.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurable_estado_civil_edit', { 'id': adminEstadoCivil.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurable_estado_civil_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <a class="btn btn-primary" href="{{ path('configurable_estado_civil_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Estado Civil</a>
 {% endblock %}

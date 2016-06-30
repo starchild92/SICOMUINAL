@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminNivelInstruccion list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminNivelInstruccion in adminNivelInstruccions %}
-            <tr>
-                <td><a href="{{ path('configurable_nivel_instruccion_show', { 'id': adminNivelInstruccion.id }) }}">{{ adminNivelInstruccion.id }}</a></td>
-                <td>{{ adminNivelInstruccion.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurable_nivel_instruccion_show', { 'id': adminNivelInstruccion.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurable_nivel_instruccion_edit', { 'id': adminNivelInstruccion.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurable_nivel_instruccion_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Nivel Instruccion</div>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminNivelInstruccion in adminNivelInstruccions %}
+                <tr>
+                    <td>{{ adminNivelInstruccion.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_nivel_instruccion_edit', { 'id': adminNivelInstruccion.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <a class="btn btn-primary" href="{{ path('configurable_nivel_instruccion_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nivel de Instrucción</a>
 {% endblock %}

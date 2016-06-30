@@ -44,7 +44,8 @@ class AdminClasIngresoFamiliarController extends Controller
             $em->persist($adminClasIngresoFamiliar);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_clasificacion_ingreso_familiar_show', array('id' => $adminClasIngresoFamiliar->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ingresofamiliar'));
+            // return $this->redirectToRoute('configurable_clasificacion_ingreso_familiar_show', array('id' => $adminClasIngresoFamiliar->getId()));
         }
 
         return $this->render('adminclasingresofamiliar/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminClasIngresoFamiliarController extends Controller
             $em->persist($adminClasIngresoFamiliar);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_clasificacion_ingreso_familiar_edit', array('id' => $adminClasIngresoFamiliar->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ingresofamiliar'));
+            // return $this->redirectToRoute('configurable_clasificacion_ingreso_familiar_edit', array('id' => $adminClasIngresoFamiliar->getId()));
         }
 
         return $this->render('adminclasingresofamiliar/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminClasIngresoFamiliarController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_clasificacion_ingreso_familiar_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ingresofamiliar'));
+        // return $this->redirectToRoute('configurable_clasificacion_ingreso_familiar_index');
     }
 
     /**

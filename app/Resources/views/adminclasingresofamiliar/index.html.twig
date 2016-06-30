@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminClasIngresoFamiliar list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Clasificación Ingreso Familiar</div>
+        <table class="table-bordered table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminClasIngresoFamiliar in adminClasIngresoFamiliars %}
+                <tr>
+                    <td>{{ adminClasIngresoFamiliar.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_clasificacion_ingreso_familiar_edit', { 'id': adminClasIngresoFamiliar.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminClasIngresoFamiliar in adminClasIngresoFamiliars %}
-            <tr>
-                <td><a href="{{ path('configurable_clasificacion_ingreso_familiar_show', { 'id': adminClasIngresoFamiliar.id }) }}">{{ adminClasIngresoFamiliar.id }}</a></td>
-                <td>{{ adminClasIngresoFamiliar.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurable_clasificacion_ingreso_familiar_show', { 'id': adminClasIngresoFamiliar.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurable_clasificacion_ingreso_familiar_edit', { 'id': adminClasIngresoFamiliar.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurable_clasificacion_ingreso_familiar_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <a class="btn btn-primary" href="{{ path('configurable_clasificacion_ingreso_familiar_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Clasificación Ingreso Familiar</a>
 {% endblock %}

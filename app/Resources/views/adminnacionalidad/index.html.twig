@@ -6,26 +6,23 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    {# <th>Id</th> #}
                     <th>Nacionalidad</th>
-                    <th>Actions</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
             {% for adminNacionalidad in adminNacionalidads %}
                 <tr>
-                    <td><a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">{{ adminNacionalidad.id }}</a></td>
+                    {# <td><a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">{{ adminNacionalidad.id }}</a></td> #}
                     <td>{{ adminNacionalidad.nacionalidad }}</td>
-                    <td>
-                        <a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">show</a>
-                        <a id="forModalEdit" href="{{ path('admin_nacionalidad_edit', { 'id': adminNacionalidad.id }) }}">edit</a>
+                    <td><a id="forModalEdit" href="{{ path('admin_nacionalidad_edit', { 'id': adminNacionalidad.id }) }}"><i class="fa fa-edit fa-fw"></i> Editar</a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
-        </table>
-        <div class="panel-footer">
-            <a class="btn btn-primary" href="{{ path('admin_nacionalidad_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Nueva</a>
-        </div>
+        </table>    
     </div>
+
+    <a class="btn btn-primary" href="{{ path('admin_nacionalidad_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Nueva</a>
 {% endblock %}

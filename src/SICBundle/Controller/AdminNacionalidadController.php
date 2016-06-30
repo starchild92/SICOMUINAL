@@ -44,7 +44,8 @@ class AdminNacionalidadController extends Controller
             $em->persist($adminNacionalidad);
             $em->flush();
 
-            return $this->redirectToRoute('admin_nacionalidad_show', array('id' => $adminNacionalidad->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'nacionalidad'));
+            /*return $this->redirectToRoute('admin_nacionalidad_show', array('id' => $adminNacionalidad->getId()));*/
         }
 
         return $this->render('adminnacionalidad/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminNacionalidadController extends Controller
             $em->persist($adminNacionalidad);
             $em->flush();
 
-            return $this->redirectToRoute('admin_nacionalidad_edit', array('id' => $adminNacionalidad->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'nacionalidad'));
+            // return $this->redirectToRoute('admin_nacionalidad_edit', array('id' => $adminNacionalidad->getId()));
         }
 
         return $this->render('adminnacionalidad/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminNacionalidadController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_nacionalidad_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'nacionalidad'));
+        // return $this->redirectToRoute('admin_nacionalidad_index');
     }
 
     /**

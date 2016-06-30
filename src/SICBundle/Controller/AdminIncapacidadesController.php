@@ -44,7 +44,7 @@ class AdminIncapacidadesController extends Controller
             $em->persist($adminIncapacidade);
             $em->flush();
 
-            return $this->indexAction(); 
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'incapacidades'));
             // return $this->redirectToRoute('configurable_incapacidades_show', array('id' => $adminIncapacidade->getId()));
         }
 
@@ -83,7 +83,8 @@ class AdminIncapacidadesController extends Controller
             $em->persist($adminIncapacidade);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_incapacidades_edit', array('id' => $adminIncapacidade->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'incapacidades'));
+            // return $this->redirectToRoute('configurable_incapacidades_edit', array('id' => $adminIncapacidade->getId()));
         }
 
         return $this->render('adminincapacidades/edit.html.twig', array(
@@ -108,7 +109,8 @@ class AdminIncapacidadesController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_incapacidades_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'incapacidades'));
+        // return $this->redirectToRoute('configurable_incapacidades_index');
     }
 
     /**

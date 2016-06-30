@@ -44,7 +44,8 @@ class AdminEstadoCivilController extends Controller
             $em->persist($adminEstadoCivil);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_estado_civil_show', array('id' => $adminEstadoCivil->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'estadocivil'));
+            // return $this->redirectToRoute('configurable_estado_civil_show', array('id' => $adminEstadoCivil->getId()));
         }
 
         return $this->render('adminestadocivil/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminEstadoCivilController extends Controller
             $em->persist($adminEstadoCivil);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_estado_civil_edit', array('id' => $adminEstadoCivil->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'estadocivil'));
+            // return $this->redirectToRoute('configurable_estado_civil_edit', array('id' => $adminEstadoCivil->getId()));
         }
 
         return $this->render('adminestadocivil/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminEstadoCivilController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_estado_civil_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'estadocivil'));
+        // return $this->redirectToRoute('configurable_estado_civil_index');
     }
 
     /**

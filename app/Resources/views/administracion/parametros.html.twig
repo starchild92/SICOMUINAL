@@ -29,8 +29,8 @@
 			        <div class="menu-list">
 			  
 			            <ul id="menu-content" class="menu-content collapse out">
-			                <li id="li-menu"  data-toggle="collapse" data-target="#uno" class="collapsed">
-			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Datos Jefe Grupo Familiar <span class="arrow"></span></a>
+			                <li id="li-menu" data-toggle="collapse" data-target="#uno" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Datos Jefe Grupo Familiar</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="uno">
 			                    <li><a id="btnTabla" class="primero" data-url="{{ path('admin_nacionalidad_index') }}">Nacionalidad</a></li>
@@ -43,8 +43,8 @@
 								<li><a id="btnTabla" data-url="{{ path('configurable_clasificacion_ingreso_familiar_index') }}">Ingreso Familiar</a></li>
 			                </ul>
 
-			                <li id="li-menu"  data-toggle="collapse" data-target="#dos" class="collapsed">
-			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Económica <span class="arrow"></span></a>
+			                <li id="li-menu" data-toggle="collapse" data-target="#dos" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Económica</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="dos">
 			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurable_ubicacion-trabajo_index') }}">Ubicaciones Trabajo</a></li>
@@ -53,7 +53,7 @@
 			                </ul>
 
 			                <li data-toggle="collapse" data-target="#tres" class="collapsed">
-			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Vivienda <span class="arrow"></span></a>
+			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Vivienda</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="tres">
 			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_vivienda_index') }}">Tipos de Vivienda</a></li>
@@ -67,8 +67,8 @@
 								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_mascotas_index') }}">Tipos Mascotas</a></li>
 			                </ul>
 
-			                <li id="li-menu"  data-toggle="collapse" data-target="#cuatro" class="collapsed">
-			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Salud <span class="arrow"></span></a>
+			                <li id="li-menu" data-toggle="collapse" data-target="#cuatro" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Salud</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="cuatro">
 			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_padecencia_index') }}">Tipos de Padecencias</a></li>
@@ -76,8 +76,8 @@
 								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_situacion_exclusion_index') }}">Situacion de Exclusion</a></li>
 			                </ul>
 
-			                <li id="li-menu"  data-toggle="collapse" data-target="#cinco" class="collapsed">
-			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Servicios <span class="arrow"></span></a>
+			                <li id="li-menu" data-toggle="collapse" data-target="#cinco" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Servicios</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="cinco">
 			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_aguas_blancas_index') }}">Tipos de Aguas Blancas</a></li>
@@ -91,8 +91,8 @@
 								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_servicios_comunales_index') }}">Servicio Comunales</a></li>
 			                </ul>
 
-			                <li id="li-menu"  data-toggle="collapse" data-target="#seis" class="collapsed">
-			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Participación Comunitaria <span class="arrow"></span></a>
+			                <li id="li-menu" data-toggle="collapse" data-target="#seis" class="collapsed">
+			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Participación Comunitaria</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="seis">
 			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_organizaciones_comunitarias_index') }}">Organizaciones Comunitarias</a></li>
@@ -118,7 +118,9 @@
         	<div class="panel panel-primary">
         		<div class="panel-heading"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Nuevo Elemento</h4></div>
-        		<div class="panel-body"><span id="modal-body" class="negritas text-center">Cargando por favor espere... </span></div>
+        		<div class="panel-body">
+        			<span id="modal-body" class="negritas text-center">Cargando por favor espere... </span>
+        		</div>
         	</div>
         </div>
     </div>
@@ -142,7 +144,6 @@
 					$('#loader').hide();
 				},
 				complete: function(){
-					//Preparando el boton para el modal
 					$('body').find('#forModal').attr('data-toggle', 'modal');
 					$('body').find('#forModal').attr('data-target', '#myModal');
 					url = $('body').find('#forModal').attr('href');
@@ -151,26 +152,34 @@
 					$('#loader').hide();
 
 					$('body').on('click', '#forModalEdit', function(e) {
-						href = $(this).attr('href');
-						$(this).attr('href', '#');
-						$.ajax({
-							url: href,
-							type: "GET",
-							success: function(data, textStatus, xhr){
-								cuerpo = $(data).find('#cuerpo form').attr('id', 'modal-body');
-								cuerpo = cuerpo.attr('action', href);
-								$('#modal-body').replaceWith(cuerpo);
-							},
-							complete: function(){
-								$('#myModal').show();
-							},
-						});
+						$('#loader').show();
+							href = $(this).attr('href');
+							if (href != '#') {
+								$(this).attr('href', '#');
+								$(this).attr('data-href', href);
+							}else{
+								href = $(this).data('href');
+							}
+
+							$.ajax({
+								url: href,
+								type: "GET",
+								success: function(data, textStatus, xhr){
+									cuerpo = $(data).find('#cuerpo').attr('id', 'modal-body');
+									$('#modal-body').replaceWith(cuerpo);
+									console.log($('#modal-body').find('form').first())
+									$('#modal-body').find('form').first().attr('action', href);
+								},
+								complete: function(){
+									$('#myModal').modal('show');
+									$('#loader').hide();
+								},
+							});
 					});
 				},
 			});
 		});
 
-		//Para el control de modal
 		$('body').on('click', '#forModal', function(){
 			url = $('#forModal').data('url');
 			$.ajax({
@@ -182,14 +191,14 @@
 					$('#modal-body').replaceWith(cuerpo);
 				},
 				complete: function(){
-					$('#myModal').show();
+					$('#myModal').modal('show');
 				}
 			});
 		});
 
 		$('#myModal').on('hidden.bs.modal', function(){
-			html = "<div class='modal-body'><span id='modal-body'>Cargando por favor espere... </span></div>";
-			$('.modal-body').replaceWith(html);
+			html = "<div class='panel-body'><span id='modal-body'>Cargando por favor espere... </span></div>";
+			$('.panel-body').replaceWith(html);
 		});
 
 		$('.primero').click();

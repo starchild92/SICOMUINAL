@@ -20,5 +20,5 @@ sic_administacion_parametros_planilla:
 
 sic_volver_parametros:
     path:     /administrar/parametros/{index}
-    defaults: { _controller: "SICBundle:Inicio:vovlerParametros"}
+    defaults: { _controller: "SICBundle:Inicio:volverParametros"}
     methods:  GET

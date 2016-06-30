@@ -44,7 +44,8 @@ class AdminProfesionController extends Controller
             $em->persist($adminProfesion);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_profesiones_show', array('id' => $adminProfesion->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'profesiones'));
+            // return $this->redirectToRoute('configurable_profesiones_show', array('id' => $adminProfesion->getId()));
         }
 
         return $this->render('adminprofesion/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminProfesionController extends Controller
             $em->persist($adminProfesion);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_profesiones_edit', array('id' => $adminProfesion->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'profesiones'));
+            // return $this->redirectToRoute('configurable_profesiones_edit', array('id' => $adminProfesion->getId()));
         }
 
         return $this->render('adminprofesion/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminProfesionController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_profesiones_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'profesiones'));
+        // return $this->redirectToRoute('configurable_profesiones_index');
     }
 
     /**
