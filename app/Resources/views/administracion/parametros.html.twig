@@ -52,7 +52,7 @@
 								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipos_ingresos_index') }}">Cantidades Tipos de Ingreso</a></li>
 			                </ul>
 
-			                <li data-toggle="collapse" data-target="#tres" class="collapsed">
+			                <li id="li-menu" data-toggle="collapse" data-target="#tres" class="collapsed">
 			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Vivienda</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="tres">
@@ -202,6 +202,16 @@
 		});
 
 		$('.primero').click();
+
+		$('body').on('click', '#li-menu', function(){
+			alert($(this).data('target'))
+			lis = $('.collapse .in')
+			for (var i = 0; i < lis.length; i++){
+				if($(lis[i]).data('target') != $(this).data('target')){
+					$(lis[i]).collapse('hide')
+				}
+			}
+		});
 	});
 </script>
 {% endblock %}
