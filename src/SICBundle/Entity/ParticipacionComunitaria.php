@@ -54,7 +54,7 @@ class ParticipacionComunitaria
     private $misionesComunidad;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminPreguntasParticipacionComunitarias", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AdminPreguntasParticipacionComunitaria", cascade={"persist"})
      * @ORM\JoinTable(name="partCom_pregPart",
      *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="pregPart_id", referencedColumnName="id")}

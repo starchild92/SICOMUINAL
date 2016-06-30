@@ -27,11 +27,15 @@
             </tr>
             <tr>
                 <th>Preguntas participacion comunitaria</th>
-                <td>{{ participacionComunitarium.preguntasParticipacionComunitaria }}</td>
+                <td>{% for preg in participacionComunitarium.preguntasParticipacionComunitaria %}{{ preg.interrogante }}<br>{% endfor %}</td>
+
+                <td>{% for areatrab in participacionComunitarium.areaTabajoCC %}{{ areatrab.nombre }}<br>{% endfor %}</td>
             </tr>
             <tr>
                 <th>Area Trabajo</th>
-                <td>{{ participacionComunitarium.areaTabajoCC }}</td>
+                <td>{% for preg in participacionComunitarium.preguntasParticipacionComunitaria %}{{ preg.interrogante }}<br>{% endfor %}</td>
+
+                <td>{% for areatrab in participacionComunitarium.areaTabajoCC %}{{ areatrab.nombre }}<br>{% endfor %}</td>
             </tr>
         </tbody>
     </table>

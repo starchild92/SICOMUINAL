@@ -44,7 +44,8 @@ class AdminIncapacidadesController extends Controller
             $em->persist($adminIncapacidade);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_incapacidades_show', array('id' => $adminIncapacidade->getId()));
+            return $this->indexAction(); 
+            // return $this->redirectToRoute('configurable_incapacidades_show', array('id' => $adminIncapacidade->getId()));
         }
 
         return $this->render('adminincapacidades/new.html.twig', array(

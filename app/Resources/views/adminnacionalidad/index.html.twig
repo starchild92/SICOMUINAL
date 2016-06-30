@@ -17,7 +17,8 @@
                     <td><a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">{{ adminNacionalidad.id }}</a></td>
                     <td>{{ adminNacionalidad.nacionalidad }}</td>
                     <td>
-                        <a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">show</a> <a href="{{ path('admin_nacionalidad_edit', { 'id': adminNacionalidad.id }) }}">edit</a>
+                        <a href="{{ path('admin_nacionalidad_show', { 'id': adminNacionalidad.id }) }}">show</a>
+                        <a id="forModalEdit" href="{{ path('admin_nacionalidad_edit', { 'id': adminNacionalidad.id }) }}">edit</a>
                     </td>
                 </tr>
             {% endfor %}

@@ -23,7 +23,7 @@ class JefeGrupoFamiliarType extends AbstractType
             ->add('nombres')
             ->add('apellidos')
             ->add('cedula','text', array(
-                'label' => 'Cédula'))
+                'label' => 'Cédula de Identidad'))
             
             ->add('nacionalidad', EntityType::class, array(
                 // query choices from this entity
@@ -38,12 +38,14 @@ class JefeGrupoFamiliarType extends AbstractType
             ->add('fechaNacimiento', DateType::class, array(
                 'widget' => 'single_text',
                 'html5' => false,
+                'label' => 'Fecha de Nacimiento',
                 'attr' => ['class' => 'js-datepicker'],
             ))
 
             ->add('edad') //Se calcula automaticamente
+
             ->add('cne', EntityType::class, array(
-                // query choices from this entity
+                'label'     => '¿Está inscrito en el CNE?',
                 'class' => 'SICBundle:AdminRespCerrada',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
@@ -53,6 +55,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Elija uno'))
 
             ->add('incapacitado', ChoiceType::class, array(
+                'label' => '¿Es Incapacitado?',
                 'choices'  => array(
                     'Seleccione' => '',
                     'Si' => 'si',
@@ -62,6 +65,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'choices_as_values' => true,
             ))
             ->add('incapacitadoTipo', EntityType::class, array(
+                'label' => '¿Cúal es la incapacidad que padece?',
                 'class' => 'SICBundle:AdminIncapacidades',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'incapacidad',
@@ -70,6 +74,7 @@ class JefeGrupoFamiliarType extends AbstractType
                     'required'  => false)
             ))
             ->add('pensionado', ChoiceType::class, array(
+                'label' => '¿Es pensionado?',
                 'choices'  => array(
                     'Seleccione' => '',
                     'Si' => 'si',
@@ -80,6 +85,7 @@ class JefeGrupoFamiliarType extends AbstractType
             ))
             ->add('pensionadoInstitucion', EntityType::class, array(
                 'class' => 'SICBundle:AdminPensionadoInstitucion',
+                'label' => 'Institución Pensionado',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'attr'      => array(
@@ -88,21 +94,25 @@ class JefeGrupoFamiliarType extends AbstractType
             ))
             ->add('estadoCivil', EntityType::class, array(
                 'class' => 'SICBundle:AdminEstadoCivil',
+                'label' => 'Estado Civil',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
             ))
             ->add('nivelInstruccion', EntityType::class, array(
+                'label' => '¿Cúal es el Nivel de Instrucción?',
                 'class' => 'SICBundle:AdminNivelInstruccion',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
             ))
             ->add('profesion', EntityType::class, array(
                 'class' => 'SICBundle:AdminProfesion',
+                'label' => 'Profesión',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
             ))
             ->add('trabajaActualmente', EntityType::class, array(
                 'class' => 'SICBundle:AdminRespCerrada',
+                'label' => '¿Trabaja actualmente?',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
             ))
@@ -117,13 +127,17 @@ class JefeGrupoFamiliarType extends AbstractType
                     'data_class' => null,
                     'label' => 'Número(s) teléfonicos',
                     ))
-            ->add('email')
+            ->add('email','text',array(
+                'label'     => 'Correo Electronico'))
             ->add('ingresoFamiliar', EntityType::class, array(
+                'label' => 'Clasificación del Ingreso Familiar',
                 'class' => 'SICBundle:AdminClasIngresoFamiliar',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
             ))
-            ->add('ingresoMensual')
+            ->add('ingresoMensual','text', array(
+                'label' => 'Estimado de Ingreso Mensual',
+                ))
         ;
     }
     

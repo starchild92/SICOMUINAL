@@ -44,4 +44,9 @@ class InicioController extends Controller
     {
         return $this->render('administracion/parametros.html.twig');
     }
+
+    public function volverParametrosAction($index)
+    {
+        return $this->render('administracion/parametros.html.twig');
+    }
 }
