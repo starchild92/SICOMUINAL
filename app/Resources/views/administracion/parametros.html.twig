@@ -204,11 +204,12 @@
 		$('.primero').click();
 
 		$('body').on('click', '#li-menu', function(){
-			alert($(this).data('target'))
+			$(this).attr('style', "background-color: #CDDC39 !important;")
 			lis = $('.collapse .in')
 			for (var i = 0; i < lis.length; i++){
 				if($(lis[i]).data('target') != $(this).data('target')){
 					$(lis[i]).collapse('hide')
+					$(lis[i]).attr('style', "background-color: #FFF !important;")
 				}
 			}
 		});
