@@ -86,7 +86,14 @@
 					</ul> #}
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="{{ path('planillas_new') }}"><i class="fa fa-clipboard fa-lg"></i> Iniciar Encuesta</a></li>
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Encuestas <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="{{ path('planillas_new') }}"><i class="fa fa-clipboard"></i> Nueva Encuesta</a></li>
+								<li><a href="#">Modificar Encuesta</a></li>
+							</ul>
+						</li>
 
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDs <span class="caret"></span></a>
@@ -113,8 +120,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="{{ path('sic_administacion_entidades') }}">Datos Consejo Comunal</a></li>
 								<li><a href="{{ path('usuarios_index') }}">Usuarios del Consejo</a></li>
-								<li><a href="{{ path('sic_administacion_parametros_planilla') }}">Parámetros Planilla</a></li>
-								<li><a href="{{ path('planillas_index') }}">Ver Planillas Registradas</a></li>
+								<li><a href="{{ path('sic_administacion_parametros_planilla') }}">Parámetros de Configuración de las Encuestas</a></li>
 							</ul>
 						</li>
 

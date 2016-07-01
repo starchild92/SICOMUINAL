@@ -44,7 +44,8 @@ class AdminTipoPlagasController extends Controller
             $em->persist($adminTipoPlaga);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_plagas_show', array('id' => $adminTipoPlaga->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoplagas'));
+            // return $this->redirectToRoute('configurables_tipo_plagas_show', array('id' => $adminTipoPlaga->getId()));
         }
 
         return $this->render('admintipoplagas/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoPlagasController extends Controller
             $em->persist($adminTipoPlaga);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_plagas_edit', array('id' => $adminTipoPlaga->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoplagas'));
+            // return $this->redirectToRoute('configurables_tipo_plagas_edit', array('id' => $adminTipoPlaga->getId()));
         }
 
         return $this->render('admintipoplagas/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoPlagasController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipo_plagas_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoplagas'));
+        // return $this->redirectToRoute('configurables_tipo_plagas_index');
     }
 
     /**

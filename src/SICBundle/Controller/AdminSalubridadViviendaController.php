@@ -44,7 +44,8 @@ class AdminSalubridadViviendaController extends Controller
             $em->persist($adminSalubridadVivienda);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_salubridad_show', array('id' => $adminSalubridadVivienda->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'salubridadvivienda'));
+            // return $this->redirectToRoute('configurable_tipo_salubridad_show', array('id' => $adminSalubridadVivienda->getId()));
         }
 
         return $this->render('adminsalubridadvivienda/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminSalubridadViviendaController extends Controller
             $em->persist($adminSalubridadVivienda);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_salubridad_edit', array('id' => $adminSalubridadVivienda->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'salubridadvivienda'));
+            // return $this->redirectToRoute('configurable_tipo_salubridad_edit', array('id' => $adminSalubridadVivienda->getId()));
         }
 
         return $this->render('adminsalubridadvivienda/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminSalubridadViviendaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_salubridad_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'salubridadvivienda'));
+        // return $this->redirectToRoute('configurable_tipo_salubridad_index');
     }
 
     /**

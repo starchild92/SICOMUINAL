@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminSalubridadVivienda list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Salubridad Vivienda</div>
+        <table class="table table-bordered table-stripped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminSalubridadVivienda in adminSalubridadViviendas %}
+                <tr>
+                    <td>{{ adminSalubridadVivienda.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_tipo_salubridad_edit', { 'id': adminSalubridadVivienda.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminSalubridadVivienda in adminSalubridadViviendas %}
-            <tr>
-                <td><a href="{{ path('configurable_tipo_salubridad_show', { 'id': adminSalubridadVivienda.id }) }}">{{ adminSalubridadVivienda.id }}</a></td>
-                <td>{{ adminSalubridadVivienda.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurable_tipo_salubridad_show', { 'id': adminSalubridadVivienda.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurable_tipo_salubridad_edit', { 'id': adminSalubridadVivienda.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurable_tipo_salubridad_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <a class="btn btn-primary" href="{{ path('configurable_tipo_salubridad_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nueva</a>
 {% endblock %}
