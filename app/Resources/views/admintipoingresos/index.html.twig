@@ -2,30 +2,27 @@
 
 {% block body %}
     <div class="panel panel-primary">
-        <div class="panel-heading">Tipos de Ingresos</div>
+        <div class="panel-heading">Cantidad Tipos de Ingresos</div>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Nombre</th>
-                    <th>Actions</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
             {% for adminTipoIngreso in adminTipoIngresos %}
                 <tr>
-                    <td><a href="{{ path('configurable_tipos_ingresos_show', { 'id': adminTipoIngreso.id }) }}">{{ adminTipoIngreso.id }}</a></td>
                     <td>{{ adminTipoIngreso.nombre }}</td>
                     <td>
-                        <a href="{{ path('configurable_tipos_ingresos_show', { 'id': adminTipoIngreso.id }) }}">show</a>
-                        <a href="{{ path('configurable_tipos_ingresos_edit', { 'id': adminTipoIngreso.id }) }}">edit</a>
+                        <a id="forModalEdit" href="{{ path('configurable_tipos_ingresos_edit', { 'id': adminTipoIngreso.id }) }}"><i class="fa fa-edit"></i> Editar</a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
         <div class="panel-footer">
-            <a class="btn btn-primary btn-sm" href="{{ path('configurable_tipos_ingresos_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Nuevo</a>
+            <a class="btn btn-primary" href="{{ path('configurable_tipos_ingresos_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Nuevo</a>
         </div>
     </div>
 {% endblock %}

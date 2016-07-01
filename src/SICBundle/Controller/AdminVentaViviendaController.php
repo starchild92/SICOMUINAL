@@ -44,7 +44,8 @@ class AdminVentaViviendaController extends Controller
             $em->persist($adminVentaVivienda);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_venta_vivenda_show', array('id' => $adminVentaVivienda->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ventavivienda'));
+            // return $this->redirectToRoute('configurable_venta_vivenda_show', array('id' => $adminVentaVivienda->getId()));
         }
 
         return $this->render('adminventavivienda/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminVentaViviendaController extends Controller
             $em->persist($adminVentaVivienda);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_venta_vivenda_edit', array('id' => $adminVentaVivienda->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ventavivienda'));
+            // return $this->redirectToRoute('configurable_venta_vivenda_edit', array('id' => $adminVentaVivienda->getId()));
         }
 
         return $this->render('adminventavivienda/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminVentaViviendaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_venta_vivenda_index');
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ventavivienda'));
+        // return $this->redirectToRoute('configurable_venta_vivenda_index');
     }
 
     /**

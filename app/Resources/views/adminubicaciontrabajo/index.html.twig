@@ -1,35 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminUbicacionTrabajo list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipo Trabajo</div>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminUbicacionTrabajo in adminUbicacionTrabajos %}
+                <tr>
+                    <td>{{ adminUbicacionTrabajo.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_ubicacion-trabajo_edit', { 'id': adminUbicacionTrabajo.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminUbicacionTrabajo in adminUbicacionTrabajos %}
-            <tr>
-                <td><a href="{{ path('configurable_ubicacion-trabajo_show', { 'id': adminUbicacionTrabajo.id }) }}">{{ adminUbicacionTrabajo.id }}</a></td>
-                <td>{{ adminUbicacionTrabajo.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurable_ubicacion-trabajo_show', { 'id': adminUbicacionTrabajo.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurable_ubicacion-trabajo_edit', { 'id': adminUbicacionTrabajo.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('configurable_ubicacion-trabajo_new') }}" id="forModal">Agregar Nueva</a>
+    <a class="btn btn-primary" href="{{ path('configurable_ubicacion-trabajo_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nueva</a>
 {% endblock %}

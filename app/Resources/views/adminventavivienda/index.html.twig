@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminVentaVivienda list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipo Articulo Venta Vivienda</div>
+        <table class="table-striped table-bordered table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminVentaVivienda in adminVentaViviendas %}
+                <tr>
+                    <td>{{ adminVentaVivienda.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_venta_vivenda_edit', { 'id': adminVentaVivienda.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminVentaVivienda in adminVentaViviendas %}
-            <tr>
-                <td><a href="{{ path('configurable_venta_vivenda_show', { 'id': adminVentaVivienda.id }) }}">{{ adminVentaVivienda.id }}</a></td>
-                <td>{{ adminVentaVivienda.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurable_venta_vivenda_show', { 'id': adminVentaVivienda.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurable_venta_vivenda_edit', { 'id': adminVentaVivienda.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurable_venta_vivenda_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <a class="btn-primary btn" href="{{ path('configurable_venta_vivenda_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Articulo Venta Vivienda</a>
 {% endblock %}

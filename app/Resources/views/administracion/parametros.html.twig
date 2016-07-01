@@ -150,32 +150,6 @@
 					$('body').find('#forModal').attr('href', '#');
 					$('body').find('#forModal').attr('data-url', url);
 					$('#loader').hide();
-
-					$('body').on('click', '#forModalEdit', function(e) {
-						$('#loader').show();
-							href = $(this).attr('href');
-							if (href != '#') {
-								$(this).attr('href', '#');
-								$(this).attr('data-href', href);
-							}else{
-								href = $(this).data('href');
-							}
-
-							$.ajax({
-								url: href,
-								type: "GET",
-								success: function(data, textStatus, xhr){
-									cuerpo = $(data).find('#cuerpo').attr('id', 'modal-body');
-									$('#modal-body').replaceWith(cuerpo);
-									console.log($('#modal-body').find('form').first())
-									$('#modal-body').find('form').first().attr('action', href);
-								},
-								complete: function(){
-									$('#myModal').modal('show');
-									$('#loader').hide();
-								},
-							});
-					});
 				},
 			});
 		});
@@ -212,6 +186,32 @@
 					$(lis[i]).attr('style', "background-color: #FFF !important;")
 				}
 			}
+		});
+
+		$('body').on('click', '#forModalEdit', function(e) {
+			$('#loader').show();
+				href = $(this).attr('href');
+				if (href != '#') {
+					$(this).attr('href', '#');
+					$(this).attr('data-href', href);
+				}else{
+					href = $(this).data('href');
+				}
+
+				$.ajax({
+					url: href,
+					type: "GET",
+					success: function(data, textStatus, xhr){
+						cuerpo = $(data).find('#cuerpo').attr('id', 'modal-body');
+						$('#modal-body').replaceWith(cuerpo);
+						console.log($('#modal-body').find('form').first())
+						$('#modal-body').find('form').first().attr('action', href);
+					},
+					complete: function(){
+						$('#myModal').modal('show');
+						$('#loader').hide();
+					},
+				});
 		});
 	});
 </script>
