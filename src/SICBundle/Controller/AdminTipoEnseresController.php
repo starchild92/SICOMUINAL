@@ -44,7 +44,8 @@ class AdminTipoEnseresController extends Controller
             $em->persist($adminTipoEnsere);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_enseres_show', array('id' => $adminTipoEnsere->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoenseres'));
+            // return $this->redirectToRoute('configurable_tipo_enseres_show', array('id' => $adminTipoEnsere->getId()));
         }
 
         return $this->render('admintipoenseres/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoEnseresController extends Controller
             $em->persist($adminTipoEnsere);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_enseres_edit', array('id' => $adminTipoEnsere->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoenseres'));
+            // return $this->redirectToRoute('configurable_tipo_enseres_edit', array('id' => $adminTipoEnsere->getId()));
         }
 
         return $this->render('admintipoenseres/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoEnseresController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_enseres_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoenseres'));
+        // return $this->redirectToRoute('configurable_tipo_enseres_index');
     }
 
     /**

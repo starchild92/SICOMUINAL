@@ -48,7 +48,8 @@ class PlanillasController extends Controller
             $em->persist($planilla);
             $em->flush();
 
-            return $this->redirectToRoute('planillas_show', array('id' => $planilla->getId()));
+            // redirigir a (Datos Personales del Jefe Grupo Familiar)
+            return $this->redirectToRoute('jefegrupofamiliar_new', array('id_planilla' => $planilla->getId()));
         }
 
         return $this->render('planillas/new.html.twig', array(

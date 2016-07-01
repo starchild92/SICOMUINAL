@@ -33,7 +33,7 @@ class SituacionServiciosController extends Controller
      * Creates a new SituacionServicios entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
         $situacionServicio = new SituacionServicios();
         $form = $this->createForm('SICBundle\Form\SituacionServiciosType', $situacionServicio);
@@ -42,9 +42,13 @@ class SituacionServiciosController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionServicio);
+            $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+            $p = $planilla[0];
+            $p->setSituacionServicios($situacionServicio);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('situacionservicios_show', array('id' => $situacionServicio->getId()));
+            return $this->redirectToRoute('situacioncomunidad_new', array('id_planilla' => $id_planilla));
         }
 
         return $this->render('situacionservicios/new.html.twig', array(

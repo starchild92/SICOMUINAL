@@ -22,9 +22,8 @@ class Planillas
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="empadronador", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="Usuario", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="Empadr", referencedColumnName="id", onDelete="CASCADE")
      */
     private $empadronador;
 
@@ -35,13 +34,10 @@ class Planillas
     private $jefeGrupoFamiliar;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Planillas")
-     * @ORM\JoinTable(name="planilla_grupoFamiliar",
-     *      joinColumns={@ORM\JoinColumn(name="planilla_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="miembros_id", referencedColumnName="id", unique=true)}
-     *      )
+     * @ORM\OneToOne(targetEntity="GrupoFamiliar", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="grupoFam", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $miembrosGrupoFamiliar;
+    private $grupoFamiliar;
 
     /**
      * @ORM\OneToOne(targetEntity="SituacionEconomica", cascade={"persist", "remove"})
@@ -82,18 +78,11 @@ class Planillas
     /**
      * @var string
      *
-     * @ORM\Column(name="observaciones", type="text")
+     * @ORM\Column(name="observaciones", type="text", nullable=true)
      */
     private $observaciones;
-
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->miembrosGrupoFamiliar = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    
+    
 
     /**
      * Get id
@@ -103,29 +92,6 @@ class Planillas
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set empadronador
-     *
-     * @param string $empadronador
-     * @return Planillas
-     */
-    public function setEmpadronador($empadronador)
-    {
-        $this->empadronador = $empadronador;
-
-        return $this;
-    }
-
-    /**
-     * Get empadronador
-     *
-     * @return string 
-     */
-    public function getEmpadronador()
-    {
-        return $this->empadronador;
     }
 
     /**
@@ -152,6 +118,29 @@ class Planillas
     }
 
     /**
+     * Set empadronador
+     *
+     * @param \SICBundle\Entity\Usuario $empadronador
+     * @return Planillas
+     */
+    public function setEmpadronador(\SICBundle\Entity\Usuario $empadronador = null)
+    {
+        $this->empadronador = $empadronador;
+
+        return $this;
+    }
+
+    /**
+     * Get empadronador
+     *
+     * @return \SICBundle\Entity\Usuario 
+     */
+    public function getEmpadronador()
+    {
+        return $this->empadronador;
+    }
+
+    /**
      * Set jefeGrupoFamiliar
      *
      * @param \SICBundle\Entity\JefeGrupoFamiliar $jefeGrupoFamiliar
@@ -175,36 +164,26 @@ class Planillas
     }
 
     /**
-     * Add miembrosGrupoFamiliar
+     * Set grupoFamiliar
      *
-     * @param \SICBundle\Entity\Planillas $miembrosGrupoFamiliar
+     * @param \SICBundle\Entity\GrupoFamiliar $grupoFamiliar
      * @return Planillas
      */
-    public function addMiembrosGrupoFamiliar(\SICBundle\Entity\Planillas $miembrosGrupoFamiliar)
+    public function setGrupoFamiliar(\SICBundle\Entity\GrupoFamiliar $grupoFamiliar = null)
     {
-        $this->miembrosGrupoFamiliar[] = $miembrosGrupoFamiliar;
+        $this->grupoFamiliar = $grupoFamiliar;
 
         return $this;
     }
 
     /**
-     * Remove miembrosGrupoFamiliar
+     * Get grupoFamiliar
      *
-     * @param \SICBundle\Entity\Planillas $miembrosGrupoFamiliar
+     * @return \SICBundle\Entity\GrupoFamiliar 
      */
-    public function removeMiembrosGrupoFamiliar(\SICBundle\Entity\Planillas $miembrosGrupoFamiliar)
+    public function getGrupoFamiliar()
     {
-        $this->miembrosGrupoFamiliar->removeElement($miembrosGrupoFamiliar);
-    }
-
-    /**
-     * Get miembrosGrupoFamiliar
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMiembrosGrupoFamiliar()
-    {
-        return $this->miembrosGrupoFamiliar;
+        return $this->grupoFamiliar;
     }
 
     /**

@@ -44,7 +44,8 @@ class AdminTipoTenenciaController extends Controller
             $em->persist($adminTipoTenencium);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_tenencia_show', array('id' => $adminTipoTenencium->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotenencia'));
+            // return $this->redirectToRoute('configurable_tipo_tenencia_show', array('id' => $adminTipoTenencium->getId()));
         }
 
         return $this->render('admintipotenencia/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoTenenciaController extends Controller
             $em->persist($adminTipoTenencium);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_tenencia_edit', array('id' => $adminTipoTenencium->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotenencia'));
+            // return $this->redirectToRoute('configurable_tipo_tenencia_edit', array('id' => $adminTipoTenencium->getId()));
         }
 
         return $this->render('admintipotenencia/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoTenenciaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_tenencia_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotenencia'));
+        // return $this->redirectToRoute('configurable_tipo_tenencia_index');
     }
 
     /**

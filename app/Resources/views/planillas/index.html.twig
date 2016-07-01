@@ -24,14 +24,14 @@
             <tr>
                 <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">{{ planilla.id }}</a></td>
                 <td>{{ planilla.empadronador }}</td>
-                <td>{{ planilla.jefeGrupoFamiliar }}</td>
-                <td>{{ planilla.miembrosGrupoFamiliar }}</td>
-                <td>{{ planilla.situacionEconomica }}</td>
-                <td>{{ planilla.situacionVivienda }}</td>
-                <td>{{ planilla.situacionSalud }}</td>
-                <td>{{ planilla.situacionServicios }}</td>
-                <td>{{ planilla.participacionComunitaria }}</td>
-                <td>{{ planilla.situacionComunidad }}</td>
+                <td>{{ planilla.jefeGrupoFamiliar.id }}</td>
+                <td>{{ planilla.grupoFamiliar.id }} con {{ planilla.grupoFamiliar.miembros|length }} miembros</td>
+                <td>{{ planilla.situacionEconomica.id }}</td>
+                <td>{{ planilla.situacionVivienda.id }}</td>
+                <td>{{ planilla.situacionSalud.id }}</td>
+                <td>{{ planilla.situacionServicios.id }}</td>
+                <td>{{ planilla.participacionComunitaria.id }}</td>
+                <td>{{ planilla.situacionComunidad.id }}</td>
                 <td>
                     <a href="{{ path('planillas_show', { 'id': planilla.id }) }}">show</a>
                     <a href="{{ path('planillas_edit', { 'id': planilla.id }) }}">edit</a>

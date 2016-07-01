@@ -33,7 +33,7 @@ class GrupoFamiliarController extends Controller
      * Creates a new GrupoFamiliar entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
         $grupoFamiliar = new GrupoFamiliar();
         $form = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
@@ -42,10 +42,17 @@ class GrupoFamiliarController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $grupoFamiliar->setCantidadMiembros(0);
+            $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+            $p = $planilla[0];
+            $p->setGrupoFamiliar($grupoFamiliar);
             $em->persist($grupoFamiliar);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('grupofamiliar_show', array('id' => $grupoFamiliar->getId()));
+            return $this->redirectToRoute('personas_new', array(
+                'id_planilla' => $id_planilla,
+                'id_grupofamiliar' => $grupoFamiliar->getId()));
+            // return $this->redirectToRoute('grupofamiliar_show', array('id' => $grupoFamiliar->getId()));
         }
 
         return $this->render('grupofamiliar/new.html.twig', array(

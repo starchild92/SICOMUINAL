@@ -33,14 +33,14 @@ class ParticipacionComunitaria
     /**
      * @var string
      *
-     * @ORM\Column(name="participaOrganizacion", type="string", length=255, unique=true)
+     * @ORM\Column(name="participaOrganizacion", type="string", length=255)
      */
     private $participaOrganizacion;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="participaMiembroOrganizacion", type="string", length=255, unique=true)
+     * @ORM\Column(name="participaMiembroOrganizacion", type="string", length=255)
      */
     private $participaMiembroOrganizacion;
 
@@ -207,10 +207,10 @@ class ParticipacionComunitaria
     /**
      * Add preguntasParticipacionComunitaria
      *
-     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitarias $preguntasParticipacionComunitaria
+     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria
      * @return ParticipacionComunitaria
      */
-    public function addPreguntasParticipacionComunitarium(\SICBundle\Entity\AdminPreguntasParticipacionComunitarias $preguntasParticipacionComunitaria)
+    public function addPreguntasParticipacionComunitarium(\SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria)
     {
         $this->preguntasParticipacionComunitaria[] = $preguntasParticipacionComunitaria;
 
@@ -220,9 +220,9 @@ class ParticipacionComunitaria
     /**
      * Remove preguntasParticipacionComunitaria
      *
-     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitarias $preguntasParticipacionComunitaria
+     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria
      */
-    public function removePreguntasParticipacionComunitarium(\SICBundle\Entity\AdminPreguntasParticipacionComunitarias $preguntasParticipacionComunitaria)
+    public function removePreguntasParticipacionComunitarium(\SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria)
     {
         $this->preguntasParticipacionComunitaria->removeElement($preguntasParticipacionComunitaria);
     }
@@ -240,10 +240,10 @@ class ParticipacionComunitaria
     /**
      * Add areaTabajoCC
      *
-     * @param \SICBundle\Entity\AdminAreatrabajoCC $areaTabajoCC
+     * @param \SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC
      * @return ParticipacionComunitaria
      */
-    public function addAreaTabajoCC(\SICBundle\Entity\AdminAreatrabajoCC $areaTabajoCC)
+    public function addAreaTabajoCC(\SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC)
     {
         $this->areaTabajoCC[] = $areaTabajoCC;
 
@@ -253,9 +253,9 @@ class ParticipacionComunitaria
     /**
      * Remove areaTabajoCC
      *
-     * @param \SICBundle\Entity\AdminAreatrabajoCC $areaTabajoCC
+     * @param \SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC
      */
-    public function removeAreaTabajoCC(\SICBundle\Entity\AdminAreatrabajoCC $areaTabajoCC)
+    public function removeAreaTabajoCC(\SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC)
     {
         $this->areaTabajoCC->removeElement($areaTabajoCC);
     }

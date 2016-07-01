@@ -33,7 +33,7 @@ class SituacionViviendaController extends Controller
      * Creates a new SituacionVivienda entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
         $situacionVivienda = new SituacionVivienda();
         $form = $this->createForm('SICBundle\Form\SituacionViviendaType', $situacionVivienda);
@@ -42,9 +42,14 @@ class SituacionViviendaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionVivienda);
+            $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+            $p = $planilla[0];
+            $p->setSituacionVivienda($situacionVivienda);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('situacionvivienda_show', array('id' => $situacionVivienda->getId()));
+            return $this->redirectToRoute('situacionsalud_new', array('id_planilla' => $id_planilla));
+            // return $this->redirectToRoute('situacionvivienda_show', array('id' => $situacionVivienda->getId()));
         }
 
         return $this->render('situacionvivienda/new.html.twig', array(

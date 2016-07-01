@@ -44,7 +44,8 @@ class AdminTipoTechoController extends Controller
             $em->persist($adminTipoTecho);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_techo_show', array('id' => $adminTipoTecho->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotecho'));
+            // return $this->redirectToRoute('configurable_tipo_techo_show', array('id' => $adminTipoTecho->getId()));
         }
 
         return $this->render('admintipotecho/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoTechoController extends Controller
             $em->persist($adminTipoTecho);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_techo_edit', array('id' => $adminTipoTecho->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotecho'));
+            // return $this->redirectToRoute('configurable_tipo_techo_edit', array('id' => $adminTipoTecho->getId()));
         }
 
         return $this->render('admintipotecho/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoTechoController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_techo_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotecho'));
+        // return $this->redirectToRoute('configurable_tipo_techo_index');
     }
 
     /**

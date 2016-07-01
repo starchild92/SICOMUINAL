@@ -33,7 +33,7 @@ class ParticipacionComunitariaController extends Controller
      * Creates a new ParticipacionComunitaria entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
         $participacionComunitarium = new ParticipacionComunitaria();
         $form = $this->createForm('SICBundle\Form\ParticipacionComunitariaType', $participacionComunitarium);
@@ -42,9 +42,13 @@ class ParticipacionComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($participacionComunitarium);
+            $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+            $p = $planilla[0];
+            $p->setParticipacionComunitaria($participacionComunitarium);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('participacioncomunitaria_show', array('id' => $participacionComunitarium->getId()));
+            return $this->redirectToRoute('situacioncomunidad_new', array('id_planilla' => $id_planilla));
         }
 
         return $this->render('participacioncomunitaria/new.html.twig', array(

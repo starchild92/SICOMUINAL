@@ -109,6 +109,9 @@ class JefeGrupoFamiliarType extends AbstractType
                 'label' => 'Profesión',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
+                'attr'      => array(
+                    'class' => 'ui dropdown',
+                    'required'  => false)
             ))
             ->add('trabajaActualmente', EntityType::class, array(
                 'class' => 'SICBundle:AdminRespCerrada',

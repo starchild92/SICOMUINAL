@@ -1,16 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminTipoTenencia creation</h1>
+    <h3 class="text-center">Tipo Tenencia</h3>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-primary btn-block" type="submit" value="Agregar" />
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('configurable_tipo_tenencia_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

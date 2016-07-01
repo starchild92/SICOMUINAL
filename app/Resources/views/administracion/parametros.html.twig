@@ -178,13 +178,11 @@
 		$('.primero').click();
 
 		$('body').on('click', '#li-menu', function(){
-			$(this).attr('style', "background-color: #CDDC39 !important;")
-			lis = $('.collapse .in')
+			$(this).attr('style', "background-color: #81C784 !important;")
+			lis = $('.collapse .in') // siempre es uno
+			$('[data-target="#'+$(lis[0]).attr('id')+'"]').attr('style', "background-color: #FFF !important;")
 			for (var i = 0; i < lis.length; i++){
-				if($(lis[i]).data('target') != $(this).data('target')){
-					$(lis[i]).collapse('hide')
-					$(lis[i]).attr('style', "background-color: #FFF !important;")
-				}
+				if($(lis[i]).attr('id') != $(this).attr('id')){ $(lis[i]).collapse('hide') }
 			}
 		});
 

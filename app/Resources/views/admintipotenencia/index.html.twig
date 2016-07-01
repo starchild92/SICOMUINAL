@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminTipoTenencia list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Forma</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminTipoTenencium in adminTipoTenencias %}
-            <tr>
-                <td><a href="{{ path('configurable_tipo_tenencia_show', { 'id': adminTipoTenencium.id }) }}">{{ adminTipoTenencium.id }}</a></td>
-                <td>{{ adminTipoTenencium.forma }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurable_tipo_tenencia_show', { 'id': adminTipoTenencium.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurable_tipo_tenencia_edit', { 'id': adminTipoTenencium.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurable_tipo_tenencia_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipos Tenencia</div>
+        <table class="table-bordered table-striped table">
+            <thead>
+                <tr>
+                    <th>Forma</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminTipoTenencium in adminTipoTenencias %}
+                <tr>
+                    <td>{{ adminTipoTenencium.forma }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_tipo_tenencia_edit', { 'id': adminTipoTenencium.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        
+    <a class="btn btn-primary" href="{{ path('configurable_tipo_tenencia_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Tipo Tenencia</a>
 {% endblock %}

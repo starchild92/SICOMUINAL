@@ -65,6 +65,16 @@ class GrupoFamiliar
 
 
     /**
+     * @ORM\ManyToMany(targetEntity="Persona", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="miembros_grupo",
+     *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="miembro_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $miembros;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -210,5 +220,45 @@ class GrupoFamiliar
     public function getTiempoResidencia()
     {
         return $this->tiempoResidencia;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->miembros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add miembros
+     *
+     * @param \SICBundle\Entity\Persona $miembros
+     * @return GrupoFamiliar
+     */
+    public function addMiembro(\SICBundle\Entity\Persona $miembros)
+    {
+        $this->miembros[] = $miembros;
+
+        return $this;
+    }
+
+    /**
+     * Remove miembros
+     *
+     * @param \SICBundle\Entity\Persona $miembros
+     */
+    public function removeMiembro(\SICBundle\Entity\Persona $miembros)
+    {
+        $this->miembros->removeElement($miembros);
+    }
+
+    /**
+     * Get miembros
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMiembros()
+    {
+        return $this->miembros;
     }
 }

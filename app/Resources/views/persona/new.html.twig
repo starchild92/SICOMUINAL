@@ -46,9 +46,10 @@
             </div>
         </div>
 
-        <input class="btn btn-primary btn-block" type="submit" value="Agregar Miembro al Grupo Familiar y Continuar" />
+        <input class="btn btn-primary btn-block" type="submit" value="Agregar Miembro al Grupo Familiar" />
     {{ form_end(form) }}
-    
+    <br>
+    <a class="btn-block btn btn-success" href="{{ path('situacioneconomica_new', {'id_planilla':id_planilla}) }}">No hay más miembros, Continuar</a>
 {% endblock %}
 
 {% block javascripts %}

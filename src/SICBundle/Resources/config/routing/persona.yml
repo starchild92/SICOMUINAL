@@ -9,7 +9,7 @@ personas_show:
     methods:  GET
 
 personas_new:
-    path:     /new
+    path:     /paso/3/agregar_miembros/{id_planilla}/{id_grupofamiliar}
     defaults: { _controller: "SICBundle:Persona:new" }
     methods:  [GET, POST]
 

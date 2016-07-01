@@ -33,7 +33,7 @@ class SituacionEconomicaController extends Controller
      * Creates a new SituacionEconomica entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
         $situacionEconomica = new SituacionEconomica();
         $form = $this->createForm('SICBundle\Form\SituacionEconomicaType', $situacionEconomica);
@@ -42,9 +42,13 @@ class SituacionEconomicaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionEconomica);
+            $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+            $p = $planilla[0];
+            $p->setSituacionEconomica($situacionEconomica);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('situacioneconomica_show', array('id' => $situacionEconomica->getId()));
+            return $this->redirectToRoute('situacionvivienda_new', array('id_planilla' => $id_planilla));
         }
 
         return $this->render('situacioneconomica/new.html.twig', array(

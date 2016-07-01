@@ -44,7 +44,8 @@ class AdminTipoHabitacionesViviendaController extends Controller
             $em->persist($adminTipoHabitacionesVivienda);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_habitaciones_show', array('id' => $adminTipoHabitacionesVivienda->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipohabitacionesvivienda'));
+            // return $this->redirectToRoute('configurable_tipo_habitaciones_show', array('id' => $adminTipoHabitacionesVivienda->getId()));
         }
 
         return $this->render('admintipohabitacionesvivienda/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoHabitacionesViviendaController extends Controller
             $em->persist($adminTipoHabitacionesVivienda);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_habitaciones_edit', array('id' => $adminTipoHabitacionesVivienda->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipohabitacionesvivienda'));
+            // return $this->redirectToRoute('configurable_tipo_habitaciones_edit', array('id' => $adminTipoHabitacionesVivienda->getId()));
         }
 
         return $this->render('admintipohabitacionesvivienda/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoHabitacionesViviendaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_habitaciones_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipohabitacionesvivienda'));
+        // return $this->redirectToRoute('configurable_tipo_habitaciones_index');
     }
 
     /**

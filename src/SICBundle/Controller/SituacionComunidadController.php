@@ -33,7 +33,7 @@ class SituacionComunidadController extends Controller
      * Creates a new SituacionComunidad entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
         $situacionComunidad = new SituacionComunidad();
         $form = $this->createForm('SICBundle\Form\SituacionComunidadType', $situacionComunidad);
@@ -42,9 +42,13 @@ class SituacionComunidadController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionComunidad);
+            $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+            $p = $planilla[0];
+            $p->setSituacionComunidad($situacionComunidad);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('situacioncomunidad_show', array('id' => $situacionComunidad->getId()));
+            return $this->redirectToRoute('planillas_index');
         }
 
         return $this->render('situacioncomunidad/new.html.twig', array(

@@ -16,26 +16,26 @@ class PlanillasType extends AbstractType
     {
         $builder
             // ->add('empadronador') //es colocado en el controllador
-            ->add('jefeGrupoFamiliar', new JefeGrupoFamiliarType())
-            ->add('miembrosGrupoFamiliar',
-                    'collection',array(
-                        'required' => false,
-                        'type' => new PersonaType(),
-                        'cascade_validation' => true,
-                        'attr' => array('class' => 'miembrosGrupoFam'),
-                        'allow_add'=>'true',
-                        'by_reference'=>'false',
-                        'allow_delete' =>'true',
-                        'data_class' => null,
-                        'label' => 'Miembros Grupo Familiar',
-                        ))
-            ->add('situacionEconomica', new SituacionEconomicaType())
-            ->add('situacionVivienda', new SituacionViviendaType())
-            ->add('situacionSalud', new SituacionSaludType())
-            ->add('situacionServicios', new SituacionServiciosType())
-            ->add('participacionComunitaria', new ParticipacionComunitariaType())
-            ->add('situacionComunidad', new SituacionComunidadType())
-            ->add('observaciones')
+            // ->add('jefeGrupoFamiliar', new JefeGrupoFamiliarType())
+            // ->add('miembrosGrupoFamiliar',
+            //         'collection',array(
+            //             'required' => false,
+            //             'type' => new PersonaType(),
+            //             'cascade_validation' => true,
+            //             'attr' => array('class' => 'miembrosGrupoFam'),
+            //             'allow_add'=>'true',
+            //             'by_reference'=>'false',
+            //             'allow_delete' =>'true',
+            //             'data_class' => null,
+            //             'label' => 'Miembros Grupo Familiar',
+            //             ))
+            // ->add('situacionEconomica', new SituacionEconomicaType())
+            // ->add('situacionVivienda', new SituacionViviendaType())
+            // ->add('situacionSalud', new SituacionSaludType())
+            // ->add('situacionServicios', new SituacionServiciosType())
+            // ->add('participacionComunitaria', new ParticipacionComunitariaType())
+            // ->add('situacionComunidad', new SituacionComunidadType())
+            // ->add('observaciones')
         ;
     }
     

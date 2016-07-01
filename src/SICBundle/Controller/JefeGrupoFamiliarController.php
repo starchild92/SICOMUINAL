@@ -33,7 +33,7 @@ class JefeGrupoFamiliarController extends Controller
      * Creates a new JefeGrupoFamiliar entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
         $jefeGrupoFamiliar = new JefeGrupoFamiliar();
         $form = $this->createForm('SICBundle\Form\JefeGrupoFamiliarType', $jefeGrupoFamiliar);
@@ -41,10 +41,15 @@ class JefeGrupoFamiliarController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+            $p = $planilla[0];
+            $p->setJefeGrupoFamiliar($jefeGrupoFamiliar);
             $em->persist($jefeGrupoFamiliar);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('jefegrupofamiliar_show', array('id' => $jefeGrupoFamiliar->getId()));
+            // redirigir a (Caracteristicas Grupo Familiar)
+            return $this->redirectToRoute('grupofamiliar_new', array('id_planilla' => $id_planilla, 'id_grupofamiliar' => 0));
         }
 
         return $this->render('jefegrupofamiliar/new.html.twig', array(

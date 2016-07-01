@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminTipoVivienda list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipos de Viviendas</div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminTipoVivienda in adminTipoViviendas %}
+                <tr>
+                    <td>{{ adminTipoVivienda.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_tipo_vivienda_edit', { 'id': adminTipoVivienda.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminTipoVivienda in adminTipoViviendas %}
-            <tr>
-                <td><a href="{{ path('configurable_tipo_vivienda_show', { 'id': adminTipoVivienda.id }) }}">{{ adminTipoVivienda.id }}</a></td>
-                <td>{{ adminTipoVivienda.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurable_tipo_vivienda_show', { 'id': adminTipoVivienda.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurable_tipo_vivienda_edit', { 'id': adminTipoVivienda.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurable_tipo_vivienda_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <a class="btn btn-primary" href="{{ path('configurable_tipo_vivienda_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Tipo</a>
 {% endblock %}

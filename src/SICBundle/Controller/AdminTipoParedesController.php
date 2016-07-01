@@ -44,7 +44,8 @@ class AdminTipoParedesController extends Controller
             $em->persist($adminTipoParede);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_paredes_show', array('id' => $adminTipoParede->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoparedes'));
+            // return $this->redirectToRoute('configurable_tipo_paredes_show', array('id' => $adminTipoParede->getId()));
         }
 
         return $this->render('admintipoparedes/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoParedesController extends Controller
             $em->persist($adminTipoParede);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_paredes_edit', array('id' => $adminTipoParede->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoparedes'));
+            // return $this->redirectToRoute('configurable_tipo_paredes_edit', array('id' => $adminTipoParede->getId()));
         }
 
         return $this->render('admintipoparedes/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoParedesController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_paredes_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipoparedes'));
+        // return $this->redirectToRoute('configurable_tipo_paredes_index');
     }
 
     /**

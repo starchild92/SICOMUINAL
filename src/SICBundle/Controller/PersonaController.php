@@ -33,7 +33,7 @@ class PersonaController extends Controller
      * Creates a new Persona entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla, $id_grupofamiliar)
     {
         $persona = new Persona();
         $form = $this->createForm('SICBundle\Form\PersonaType', $persona);
@@ -41,14 +41,23 @@ class PersonaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $gf = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
+            $g = $gf[0];
+            $g->addMiembro($persona);
             $em->persist($persona);
+            $em->persist($g);
             $em->flush();
 
-            return $this->redirectToRoute('personas_show', array('id' => $persona->getId()));
+            return $this->redirectToRoute('personas_new', array(
+                'id_planilla' => $id_planilla,
+                'id_grupofamiliar' => $id_grupofamiliar));
         }
 
         return $this->render('persona/new.html.twig', array(
             'persona' => $persona,
+            'id_planilla' => $id_planilla,
+            'id_grupofamiliar' => $id_grupofamiliar,
             'form' => $form->createView(),
         ));
     }
