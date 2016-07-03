@@ -44,7 +44,8 @@ class AdminMecanismoInformacionController extends Controller
             $em->persist($adminMecanismoInformacion);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_mecanismo_informacion_show', array('id' => $adminMecanismoInformacion->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'mecanismoinformacion'));
+            // return $this->redirectToRoute('configurables_tipo_mecanismo_informacion_show', array('id' => $adminMecanismoInformacion->getId()));
         }
 
         return $this->render('adminmecanismoinformacion/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminMecanismoInformacionController extends Controller
             $em->persist($adminMecanismoInformacion);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_mecanismo_informacion_edit', array('id' => $adminMecanismoInformacion->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'mecanismoinformacion'));
+            // return $this->redirectToRoute('configurables_tipo_mecanismo_informacion_edit', array('id' => $adminMecanismoInformacion->getId()));
         }
 
         return $this->render('adminmecanismoinformacion/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminMecanismoInformacionController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipo_mecanismo_informacion_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'mecanismoinformacion'));
+        // return $this->redirectToRoute('configurables_tipo_mecanismo_informacion_index');
     }
 
     /**

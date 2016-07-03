@@ -44,7 +44,8 @@ class AdminAreaTrabajoCCController extends Controller
             $em->persist($adminAreaTrabajoCC);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_areas_trabajo_show', array('id' => $adminAreaTrabajoCC->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'areatrabajo'));
+            // return $this->redirectToRoute('configurables_tipos_areas_trabajo_show', array('id' => $adminAreaTrabajoCC->getId()));
         }
 
         return $this->render('adminareatrabajocc/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminAreaTrabajoCCController extends Controller
             $em->persist($adminAreaTrabajoCC);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_areas_trabajo_edit', array('id' => $adminAreaTrabajoCC->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'areatrabajo'));
+            // return $this->redirectToRoute('configurables_tipos_areas_trabajo_edit', array('id' => $adminAreaTrabajoCC->getId()));
         }
 
         return $this->render('adminareatrabajocc/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminAreaTrabajoCCController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipos_areas_trabajo_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'areatrabajo'));
+        // return $this->redirectToRoute('configurables_tipos_areas_trabajo_index');
     }
 
     /**

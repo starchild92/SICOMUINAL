@@ -38,26 +38,39 @@ class PersonaController extends Controller
         $persona = new Persona();
         $form = $this->createForm('SICBundle\Form\PersonaType', $persona);
         $form->handleRequest($request);
+        
+        $em = $this->getDoctrine()->getManager();
+        $GrupoFam = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
+        // $cantMiembros = 1;
+        if ($GrupoFam != NULL) {
+            $Grupo = $GrupoFam[0];
+            $aux = $Grupo->getCantidadMiembros();
+            $Grupo->setCantidadMiembros($aux+1);
+        }else{
+            //no hay grupo familiar no existes
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $gf = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
-            $g = $gf[0];
-            $g->addMiembro($persona);
+            $Grupo->addMiembro($persona);
             $em->persist($persona);
-            $em->persist($g);
+            $em->persist($Grupo);
             $em->flush();
+
+            $cantMiembros = $Grupo->getCantidadMiembros()+1;
 
             return $this->redirectToRoute('personas_new', array(
                 'id_planilla' => $id_planilla,
-                'id_grupofamiliar' => $id_grupofamiliar));
+                'id_grupofamiliar' => $id_grupofamiliar,
+                'cantMiembros' => $cantMiembros));
         }
+
+        $cantMiembros = $Grupo->getCantidadMiembros()+1;
 
         return $this->render('persona/new.html.twig', array(
             'persona' => $persona,
             'id_planilla' => $id_planilla,
             'id_grupofamiliar' => $id_grupofamiliar,
+            'cantMiembros' => $cantMiembros,
             'form' => $form->createView(),
         ));
     }

@@ -44,7 +44,8 @@ class AdminTipoPadecenciaController extends Controller
             $em->persist($adminTipoPadecencium);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_padecencia_show', array('id' => $adminTipoPadecencium->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipopadecencia'));
+            // return $this->redirectToRoute('configurable_tipo_padecencia_show', array('id' => $adminTipoPadecencium->getId()));
         }
 
         return $this->render('admintipopadecencia/new.html.twig', array(

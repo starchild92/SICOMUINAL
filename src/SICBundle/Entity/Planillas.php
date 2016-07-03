@@ -21,9 +21,10 @@ class Planillas
      */
     private $id;
 
+
     /**
-     * @ORM\OneToOne(targetEntity="Usuario", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="Empadr", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="planillas")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     private $empadronador;
 
@@ -115,29 +116,6 @@ class Planillas
     public function getObservaciones()
     {
         return $this->observaciones;
-    }
-
-    /**
-     * Set empadronador
-     *
-     * @param \SICBundle\Entity\Usuario $empadronador
-     * @return Planillas
-     */
-    public function setEmpadronador(\SICBundle\Entity\Usuario $empadronador = null)
-    {
-        $this->empadronador = $empadronador;
-
-        return $this;
-    }
-
-    /**
-     * Get empadronador
-     *
-     * @return \SICBundle\Entity\Usuario 
-     */
-    public function getEmpadronador()
-    {
-        return $this->empadronador;
     }
 
     /**
@@ -322,5 +300,28 @@ class Planillas
     public function getSituacionComunidad()
     {
         return $this->situacionComunidad;
+    }
+
+    /**
+     * Set empadronador
+     *
+     * @param \SICBundle\Entity\Usuario $empadronador
+     * @return Planillas
+     */
+    public function setEmpadronador(\SICBundle\Entity\Usuario $empadronador = null)
+    {
+        $this->empadronador = $empadronador;
+
+        return $this;
+    }
+
+    /**
+     * Get empadronador
+     *
+     * @return \SICBundle\Entity\Usuario 
+     */
+    public function getEmpadronador()
+    {
+        return $this->empadronador;
     }
 }

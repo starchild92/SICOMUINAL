@@ -48,7 +48,7 @@ class SituacionServiciosController extends Controller
             $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('situacioncomunidad_new', array('id_planilla' => $id_planilla));
+            return $this->redirectToRoute('participacioncomunitaria_new', array('id_planilla' => $id_planilla));
         }
 
         return $this->render('situacionservicios/new.html.twig', array(

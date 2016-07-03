@@ -44,7 +44,8 @@ class AdminAguasBlancasController extends Controller
             $em->persist($adminAguasBlanca);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_aguas_blancas_show', array('id' => $adminAguasBlanca->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'aguasblancas'));
+            // return $this->redirectToRoute('configurables_tipos_aguas_blancas_show', array('id' => $adminAguasBlanca->getId()));
         }
 
         return $this->render('adminaguasblancas/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminAguasBlancasController extends Controller
             $em->persist($adminAguasBlanca);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_aguas_blancas_edit', array('id' => $adminAguasBlanca->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'aguasblancas'));
+            // return $this->redirectToRoute('configurables_tipos_aguas_blancas_edit', array('id' => $adminAguasBlanca->getId()));
         }
 
         return $this->render('adminaguasblancas/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminAguasBlancasController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipos_aguas_blancas_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'aguasblancas'));
+        // return $this->redirectToRoute('configurables_tipos_aguas_blancas_index');
     }
 
     /**

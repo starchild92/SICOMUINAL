@@ -1,39 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminOrgComunitaria list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminOrgComunitarium in adminOrgComunitarias %}
-            <tr>
-                <td><a href="{{ path('configurables_tipos_organizaciones_comunitarias_show', { 'id': adminOrgComunitarium.id }) }}">{{ adminOrgComunitarium.id }}</a></td>
-                <td>{{ adminOrgComunitarium.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurables_tipos_organizaciones_comunitarias_show', { 'id': adminOrgComunitarium.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurables_tipos_organizaciones_comunitarias_edit', { 'id': adminOrgComunitarium.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurables_tipos_organizaciones_comunitarias_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Organizaciones Comunitarias</div>
+        <table class="table-striped table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminOrgComunitarium in adminOrgComunitarias %}
+                <tr>
+                    <td>{{ adminOrgComunitarium.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_tipos_organizaciones_comunitarias_edit', { 'id': adminOrgComunitarium.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>        
+    <a class="btn btn-primary" href="{{ path('configurables_tipos_organizaciones_comunitarias_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nueva Org. Comunitaria</a>
 {% endblock %}

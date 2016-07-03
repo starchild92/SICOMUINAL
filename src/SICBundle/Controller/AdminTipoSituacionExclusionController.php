@@ -44,7 +44,8 @@ class AdminTipoSituacionExclusionController extends Controller
             $em->persist($adminTipoSituacionExclusion);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_situacion_exclusion_show', array('id' => $adminTipoSituacionExclusion->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'situacionexclusion'));
+            // return $this->redirectToRoute('configurable_tipo_situacion_exclusion_show', array('id' => $adminTipoSituacionExclusion->getId()));
         }
 
         return $this->render('admintiposituacionexclusion/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoSituacionExclusionController extends Controller
             $em->persist($adminTipoSituacionExclusion);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_situacion_exclusion_edit', array('id' => $adminTipoSituacionExclusion->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'situacionexclusion'));
+            // return $this->redirectToRoute('configurable_tipo_situacion_exclusion_edit', array('id' => $adminTipoSituacionExclusion->getId()));
         }
 
         return $this->render('admintiposituacionexclusion/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoSituacionExclusionController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_situacion_exclusion_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'situacionexclusion'));
+        // return $this->redirectToRoute('configurable_tipo_situacion_exclusion_index');
     }
 
     /**

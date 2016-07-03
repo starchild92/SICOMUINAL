@@ -18,7 +18,7 @@
 							<th>Apellidos</th>
 							<th>Correo</th>
 							<th>Teléfonos</th>
-							<th>Actions</th>
+							<th>Opciones</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -30,8 +30,8 @@
 							<td>{{ usuario.email }}</td>
 							<td>{% for tlf in usuario.telefono %}{{ tlf.codigo }} - {{ tlf.numero }}<br>{% endfor %}</td>
 							<td>
-								<a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">show</a>
-								<a href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">edit</a>
+								<a class="btn btn-default button-line" href="{{ path('usuarios_show', { 'id': usuario.id }) }}"><i class="fa fa-info"></i> Detalles</a>
+								<a class="btn btn-default button-line" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}"><i class="fa fa-edit"></i> Editar</a>
 							</td>
 						</tr>
 					{% endfor %}

@@ -44,7 +44,8 @@ class AdminPreguntasParticipacionComunitariaController extends Controller
             $em->persist($adminPreguntasParticipacionComunitarium);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_preguntas_participacion_comunitaria_show', array('id' => $adminPreguntasParticipacionComunitarium->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'particiapcioncomunitaria'));
+            // return $this->redirectToRoute('configurables_preguntas_participacion_comunitaria_show', array('id' => $adminPreguntasParticipacionComunitarium->getId()));
         }
 
         return $this->render('adminpreguntasparticipacioncomunitaria/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminPreguntasParticipacionComunitariaController extends Controller
             $em->persist($adminPreguntasParticipacionComunitarium);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_preguntas_participacion_comunitaria_edit', array('id' => $adminPreguntasParticipacionComunitarium->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'particiapcioncomunitaria'));
+            // return $this->redirectToRoute('configurables_preguntas_participacion_comunitaria_edit', array('id' => $adminPreguntasParticipacionComunitarium->getId()));
         }
 
         return $this->render('adminpreguntasparticipacioncomunitaria/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminPreguntasParticipacionComunitariaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_preguntas_participacion_comunitaria_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'particiapcioncomunitaria'));
+        // return $this->redirectToRoute('configurables_preguntas_participacion_comunitaria_index');
     }
 
     /**

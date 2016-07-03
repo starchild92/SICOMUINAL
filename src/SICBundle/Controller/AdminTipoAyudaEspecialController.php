@@ -44,7 +44,8 @@ class AdminTipoAyudaEspecialController extends Controller
             $em->persist($adminTipoAyudaEspecial);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_ayuda_especial_show', array('id' => $adminTipoAyudaEspecial->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ayudaespecial'));
+            // return $this->redirectToRoute('configurable_tipo_ayuda_especial_show', array('id' => $adminTipoAyudaEspecial->getId()));
         }
 
         return $this->render('admintipoayudaespecial/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoAyudaEspecialController extends Controller
             $em->persist($adminTipoAyudaEspecial);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_ayuda_especial_edit', array('id' => $adminTipoAyudaEspecial->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ayudaespecial'));
+            // return $this->redirectToRoute('configurable_tipo_ayuda_especial_edit', array('id' => $adminTipoAyudaEspecial->getId()));
         }
 
         return $this->render('admintipoayudaespecial/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoAyudaEspecialController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_ayuda_especial_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ayudaespecial'));
+        // return $this->redirectToRoute('configurable_tipo_ayuda_especial_index');
     }
 
     /**

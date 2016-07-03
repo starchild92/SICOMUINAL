@@ -44,7 +44,8 @@ class AdminTipoMascotasController extends Controller
             $em->persist($adminTipoMascota);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_mascotas_show', array('id' => $adminTipoMascota->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipomascotas'));
+            // return $this->redirectToRoute('configurable_tipo_mascotas_show', array('id' => $adminTipoMascota->getId()));
         }
 
         return $this->render('admintipomascotas/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoMascotasController extends Controller
             $em->persist($adminTipoMascota);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_mascotas_edit', array('id' => $adminTipoMascota->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipomascotas'));
+            // return $this->redirectToRoute('configurable_tipo_mascotas_edit', array('id' => $adminTipoMascota->getId()));
         }
 
         return $this->render('admintipomascotas/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoMascotasController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_mascotas_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipomascotas'));
+        // return $this->redirectToRoute('configurable_tipo_mascotas_index');
     }
 
     /**

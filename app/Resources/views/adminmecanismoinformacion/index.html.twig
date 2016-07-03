@@ -1,39 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminMecanismoInformacion list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminMecanismoInformacion in adminMecanismoInformacions %}
-            <tr>
-                <td><a href="{{ path('configurables_tipo_mecanismo_informacion_show', { 'id': adminMecanismoInformacion.id }) }}">{{ adminMecanismoInformacion.id }}</a></td>
-                <td>{{ adminMecanismoInformacion.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurables_tipo_mecanismo_informacion_show', { 'id': adminMecanismoInformacion.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurables_tipo_mecanismo_informacion_edit', { 'id': adminMecanismoInformacion.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurables_tipo_mecanismo_informacion_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Mecanismos de Información</div>
+        <table class="table-striped table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminMecanismoInformacion in adminMecanismoInformacions %}
+                <tr>
+                    <td>{{ adminMecanismoInformacion.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_tipo_mecanismo_informacion_edit', { 'id': adminMecanismoInformacion.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>        
+    <a class="btn btn-primary" href="{{ path('configurables_tipo_mecanismo_informacion_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Mecanismo de Información</a>
 {% endblock %}

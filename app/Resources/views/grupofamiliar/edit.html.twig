@@ -1,21 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>GrupoFamiliar edit</h1>
-
+    <h2>Datos del Grupo Familiar</h2>
+    
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(edit_form.apellidos) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(edit_form.tiempoResidencia) }}
+                    {{ form_row(edit_form.sector) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(edit_form.direccion) }}
+                    {{ form_row(edit_form.numeroCasa) }}
+                </div>
+            </div>
+        </div>
+    </div>
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios" />
     {{ form_end(edit_form) }}
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('grupofamiliar_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown')
+              .dropdown();
+        })
+    </script>
 {% endblock %}

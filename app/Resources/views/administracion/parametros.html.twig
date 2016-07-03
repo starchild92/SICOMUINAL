@@ -20,6 +20,7 @@
     </style>
 {% endblock %}
 {% block body %}
+	<input type="hidden" id="parametro" value="{{ app.request.get('index') }}">
 	<div class="row">
 		<div class="col-lg-2 col-md-3 col-sm-4">
 			<div class="nav-side-menu">
@@ -33,38 +34,38 @@
 			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Datos Jefe Grupo Familiar</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="uno">
-			                    <li><a id="btnTabla" class="primero" data-url="{{ path('admin_nacionalidad_index') }}">Nacionalidad</a></li>
-								<li><a id="btnTabla" data-url="{{ path('configurable_respuesta_cerrada_index') }}">Respuestas Cerradas</a></li>
-								<li><a id="btnTabla" data-url="{{ path('configurable_incapacidades_index') }}">Incapacidades</a></li>
-								<li><a id="btnTabla" data-url="{{ path('configurable_pensionados_instituciones_index') }}">Pensionados Instituciones</a></li>
-								<li><a id="btnTabla" data-url="{{ path('configurable_estado_civil_index') }}">Estado Civil</a></li>
-								<li><a id="btnTabla" data-url="{{ path('configurable_nivel_instruccion_index') }}">Niveles de Instrucción</a></li>
-								<li><a id="btnTabla" data-url="{{ path('configurable_profesiones_index') }}">Profesiones</a></li>
-								<li><a id="btnTabla" data-url="{{ path('configurable_clasificacion_ingreso_familiar_index') }}">Ingreso Familiar</a></li>
+			                    <li><a id="btnTabla" class="nacionalidad" data-url="{{ path('admin_nacionalidad_index') }}">Nacionalidad</a></li>
+								<li><a id="btnTabla" class="respcerrada" data-url="{{ path('configurable_respuesta_cerrada_index') }}">Respuestas Cerradas</a></li>
+								<li><a id="btnTabla" class="incapacidades" data-url="{{ path('configurable_incapacidades_index') }}">Incapacidades</a></li>
+								<li><a id="btnTabla" class="pensionadoinstitucion" data-url="{{ path('configurable_pensionados_instituciones_index') }}">Pensionados Instituciones</a></li>
+								<li><a id="btnTabla" class="estadocivil" data-url="{{ path('configurable_estado_civil_index') }}">Estado Civil</a></li>
+								<li><a id="btnTabla" class="nivelinstruccion" data-url="{{ path('configurable_nivel_instruccion_index') }}">Niveles de Instrucción</a></li>
+								<li><a id="btnTabla" class="profesiones" data-url="{{ path('configurable_profesiones_index') }}">Profesiones</a></li>
+								<li><a id="btnTabla" class="ingresofamiliar" data-url="{{ path('configurable_clasificacion_ingreso_familiar_index') }}">Ingreso Familiar</a></li>
 			                </ul>
 
 			                <li id="li-menu" data-toggle="collapse" data-target="#dos" class="collapsed">
 			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Económica</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="dos">
-			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurable_ubicacion-trabajo_index') }}">Ubicaciones Trabajo</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_venta_vivenda_index') }}">Articulos Venta Vienda</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipos_ingresos_index') }}">Cantidades Tipos de Ingreso</a></li>
+			                    <li><a id="btnTabla" class="ubicaciontrabajo" href="#" data-url="{{ path('configurable_ubicacion-trabajo_index') }}">Ubicaciones Trabajo</a></li>
+								<li><a id="btnTabla" class="ventavivienda" href="#" data-url="{{ path('configurable_venta_vivenda_index') }}">Articulos Venta Vienda</a></li>
+								<li><a id="btnTabla" class="tipoingresos" href="#" data-url="{{ path('configurable_tipos_ingresos_index') }}">Cantidades Tipos de Ingreso</a></li>
 			                </ul>
 
 			                <li id="li-menu" data-toggle="collapse" data-target="#tres" class="collapsed">
 			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Vivienda</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="tres">
-			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_vivienda_index') }}">Tipos de Vivienda</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_tenencia_index') }}">Forma de Tenencia</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_habitaciones_index') }}">Tipos Habitaciones Vivienda</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_paredes_index') }}">Tipos Paredes</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_techo_index') }}">Tipos Techos</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_enseres_index') }}">Tipos Enseres</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_salubridad_index') }}">Salubridad Vivienda</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_plagas_index') }}">Tipos Plagas</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_mascotas_index') }}">Tipos Mascotas</a></li>
+			                    <li><a id="btnTabla" class="tipovivienda" href="#" data-url="{{ path('configurable_tipo_vivienda_index') }}">Tipos de Vivienda</a></li>
+								<li><a id="btnTabla" class="tipotenencia" href="#" data-url="{{ path('configurable_tipo_tenencia_index') }}">Forma de Tenencia</a></li>
+								<li><a id="btnTabla" class="tipohabitacionesvivienda" href="#" data-url="{{ path('configurable_tipo_habitaciones_index') }}">Tipos Habitaciones Vivienda</a></li>
+								<li><a id="btnTabla" class="tipoparedes" href="#" data-url="{{ path('configurable_tipo_paredes_index') }}">Tipos Paredes</a></li>
+								<li><a id="btnTabla" class="tipotecho" href="#" data-url="{{ path('configurable_tipo_techo_index') }}">Tipos Techos</a></li>
+								<li><a id="btnTabla" class="tipoenseres" href="#" data-url="{{ path('configurable_tipo_enseres_index') }}">Tipos Enseres</a></li>
+								<li><a id="btnTabla" class="salubridadvivienda" href="#" data-url="{{ path('configurable_tipo_salubridad_index') }}">Salubridad Vivienda</a></li>
+								<li><a id="btnTabla" class="tipoplagas" href="#" data-url="{{ path('configurables_tipo_plagas_index') }}">Tipos Plagas</a></li>
+								<li><a id="btnTabla" class="tipomascotas" href="#" data-url="{{ path('configurable_tipo_mascotas_index') }}">Tipos Mascotas</a></li>
 			                </ul>
 
 			                <li id="li-menu" data-toggle="collapse" data-target="#cuatro" class="collapsed">
@@ -80,25 +81,25 @@
 			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Servicios</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="cinco">
-			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_aguas_blancas_index') }}">Tipos de Aguas Blancas</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_aguas_servidas_index') }}">Tipos de Aguas Servidas</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_gas_index') }}">Tipos de Gas</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_sistema_electrico_index') }}">Sistema Electrico</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_recoleccion_basura_index') }}">Recolección de Basura</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_telefonia_index') }}">Telefonia</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_transporte_index') }}">Transporte</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipo_mecanismo_informacion_index') }}">Mecanismo de Información</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_servicios_comunales_index') }}">Servicio Comunales</a></li>
+			                    <li><a id="btnTabla" class="aguasblancas" href="#" data-url="{{ path('configurables_tipos_aguas_blancas_index') }}">Tipos de Aguas Blancas</a></li>
+								<li><a id="btnTabla" class="aguasservidas" href="#" data-url="{{ path('configurables_tipos_aguas_servidas_index') }}">Tipos de Aguas Servidas</a></li>
+								<li><a id="btnTabla" class="tipogas" href="#" data-url="{{ path('configurables_tipos_gas_index') }}">Tipos de Gas</a></li>
+								<li><a id="btnTabla" class="sistemaelectrico" href="#" data-url="{{ path('configurables_tipo_sistema_electrico_index') }}">Sistema Electrico</a></li>
+								<li><a id="btnTabla" class="recoleccionbasura" href="#" data-url="{{ path('configurables_tipo_recoleccion_basura_index') }}">Recolección de Basura</a></li>
+								<li><a id="btnTabla" class="tipotelefonia" href="#" data-url="{{ path('configurables_tipo_telefonia_index') }}">Telefonía</a></li>
+								<li><a id="btnTabla" class="tipotransporte" href="#" data-url="{{ path('configurables_tipo_transporte_index') }}">Transporte</a></li>
+								<li><a id="btnTabla" class="mecanismoinformacion" href="#" data-url="{{ path('configurables_tipo_mecanismo_informacion_index') }}">Mecanismo de Información</a></li>
+								<li><a id="btnTabla" class="servicioscomunales" href="#" data-url="{{ path('configurables_tipos_servicios_comunales_index') }}">Servicios Comunales</a></li>
 			                </ul>
 
 			                <li id="li-menu" data-toggle="collapse" data-target="#seis" class="collapsed">
 			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Participación Comunitaria</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="seis">
-			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_organizaciones_comunitarias_index') }}">Organizaciones Comunitarias</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_misiones_comunidad_index') }}">Misiones en la Comunidad</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_preguntas_participacion_comunitaria_index') }}">Preguntas</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurables_tipos_areas_trabajo_index') }}">Areas de Trabajo CC</a></li>
+			                    <li><a id="btnTabla" class="organizacionescomunitarias" href="#" data-url="{{ path('configurables_tipos_organizaciones_comunitarias_index') }}">Organizaciones Comunitarias</a></li>
+								<li><a id="btnTabla" class="misionescomunidad" href="#" data-url="{{ path('configurables_tipos_misiones_comunidad_index') }}">Misiones en la Comunidad</a></li>
+								<li><a id="btnTabla" class="particiapcioncomunitaria" href="#" data-url="{{ path('configurables_preguntas_participacion_comunitaria_index') }}">Preguntas</a></li>
+								<li><a id="btnTabla" class="areatrabajo" href="#" data-url="{{ path('configurables_tipos_areas_trabajo_index') }}">Areas de Trabajo CC</a></li>
 			                </ul>
 
 			            </ul>
@@ -117,9 +118,11 @@
         <div class="modal-dialog" role="document">
         	<div class="panel panel-primary">
         		<div class="panel-heading"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Nuevo Elemento</h4></div>
+                    <h4 class="modal-title" id="myModalLabel">Elemento</h4></div>
         		<div class="panel-body">
-        			<span id="modal-body" class="negritas text-center">Cargando por favor espere... </span>
+        			<span id="modal-body" class="negritas text-center"><div class="well-sm text-center"><img src="{{ asset('images/FlatIcons/hourglass.png') }}" height='60' alt="espere">
+						<hr>
+						<br>Cargando el formulario</div></span>
         		</div>
         	</div>
         </div>
@@ -171,16 +174,26 @@
 		});
 
 		$('#myModal').on('hidden.bs.modal', function(){
-			html = "<div class='panel-body'><span id='modal-body'>Cargando por favor espere... </span></div>";
+			html = "<div class='panel-body'><span id='modal-body'><div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr><br>Cargando el formulario</div></span></div>";
 			$('.panel-body').replaceWith(html);
 		});
 
-		$('.primero').click();
+
+		//Para el menu
+		str = $('#parametro').val();
+		if (str != '') {
+			$('.'+str).click();
+			$('.'+str).parent().parent().collapse('toggle');
+		}else{
+			$('.nacionalidad').click();
+			$('.nacionalidad').parent().parent().collapse('toggle');
+		}
+		
 
 		$('body').on('click', '#li-menu', function(){
 			$(this).attr('style', "background-color: #81C784 !important;")
 			lis = $('.collapse .in') // siempre es uno
-			$('[data-target="#'+$(lis[0]).attr('id')+'"]').attr('style', "background-color: #FFF !important;")
+			$('[data-target="#'+$(lis[0]).attr('id')+'"]').attr('style', "background-color: #f5f5f5 !important;")
 			for (var i = 0; i < lis.length; i++){
 				if($(lis[i]).attr('id') != $(this).attr('id')){ $(lis[i]).collapse('hide') }
 			}

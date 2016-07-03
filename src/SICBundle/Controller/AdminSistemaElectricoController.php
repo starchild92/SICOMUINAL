@@ -44,7 +44,8 @@ class AdminSistemaElectricoController extends Controller
             $em->persist($adminSistemaElectrico);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_sistema_electrico_show', array('id' => $adminSistemaElectrico->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'sistemaelectrico'));
+            // return $this->redirectToRoute('configurables_tipo_sistema_electrico_show', array('id' => $adminSistemaElectrico->getId()));
         }
 
         return $this->render('adminsistemaelectrico/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminSistemaElectricoController extends Controller
             $em->persist($adminSistemaElectrico);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_sistema_electrico_edit', array('id' => $adminSistemaElectrico->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'sistemaelectrico'));
+            // return $this->redirectToRoute('configurables_tipo_sistema_electrico_edit', array('id' => $adminSistemaElectrico->getId()));
         }
 
         return $this->render('adminsistemaelectrico/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminSistemaElectricoController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipo_sistema_electrico_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'sistemaelectrico'));
+        // return $this->redirectToRoute('configurables_tipo_sistema_electrico_index');
     }
 
     /**

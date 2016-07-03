@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminSistemaElectrico list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Sistema Eléctrico</div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminSistemaElectrico in adminSistemaElectricos %}
+                <tr>
+                    <td>{{ adminSistemaElectrico.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_tipo_sistema_electrico_edit', { 'id': adminSistemaElectrico.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="{{ path('configurables_tipo_sistema_electrico_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Sistema Electrico</a>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminSistemaElectrico in adminSistemaElectricos %}
-            <tr>
-                <td><a href="{{ path('configurables_tipo_sistema_electrico_show', { 'id': adminSistemaElectrico.id }) }}">{{ adminSistemaElectrico.id }}</a></td>
-                <td>{{ adminSistemaElectrico.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurables_tipo_sistema_electrico_show', { 'id': adminSistemaElectrico.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurables_tipo_sistema_electrico_edit', { 'id': adminSistemaElectrico.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurables_tipo_sistema_electrico_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

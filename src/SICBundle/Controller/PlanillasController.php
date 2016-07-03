@@ -130,4 +130,62 @@ class PlanillasController extends Controller
             ->getForm()
         ;
     }
+
+    public function conitnuarEncuestaAction($id_encuesta = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_encuesta);
+
+        if (sizeof($planilla) == 1) {
+            $planilla = $planilla[0];
+            echo "estuve aqui";
+            $aux = $planilla->getJefeGrupoFamiliar();
+            if ($aux != NULL) {
+                $aux = $planilla->getGrupoFamiliar();
+                if ($aux != NULL) {
+                    $aux = $planilla->getSituacionEconomica();
+                    if ($aux != NULL) {
+                        $aux = $planilla->getSituacionVivienda();
+                        if ($aux != NULL) {
+                            $aux = $planilla->getSituacionSalud();
+                            if ($aux != NULL) {
+                                $aux = $planilla->getSituacionServicios();
+                                if ($aux != NULL) {
+                                    $aux = $planilla->getParticipacionComunitaria();
+                                    if ($aux != NULL) {
+                                        $aux = $planilla->getSituacionComunidad();
+                                        if ($aux != NULL) {
+                                            $this->get('session')->getFlashBag()
+                                            ->add('success', 'La planilla ya está completa');
+                                            return $this->redirectToRoute('planillas_index');
+                                        }else{
+                                            return $this->redirectToRoute('situacioncomunidad_new', array('id_planilla' => $planilla->getId()));
+                                        }
+                                    }else{
+                                        return $this->redirectToRoute('participacioncomunitaria_new', array('id_planilla' => $planilla->getId()));
+                                    }
+                                }else{
+                                    return $this->redirectToRoute('situacionservicios_new', array('id_planilla' => $planilla->getId()));
+                                }
+                            }else{
+                                return $this->redirectToRoute('situacionsalud_new', array('id_planilla' => $planilla->getId()));
+                            }
+                        }else{
+                            return $this->redirectToRoute('situacionvivienda_new', array('id_planilla' => $planilla->getId()));
+                        }
+                    }else{
+                        return $this->redirectToRoute('situacioneconomica_new', array('id_planilla' => $planilla->getId()));
+                    }
+                }else{
+                    return $this->redirectToRoute('grupofamiliar_new', array('id_planilla' => $planilla->getId()));
+                }
+            }else{
+                return $this->redirectToRoute('jefegrupofamiliar_new', array('id_planilla' => $planilla->getId()));
+            }
+        }
+
+        $this->get('session')->getFlashBag()
+        ->add('danger', 'La planilla que indicó no existe.');
+        return $this->redirectToRoute('planillas_index');
+    }
 }

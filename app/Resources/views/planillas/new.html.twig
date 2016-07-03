@@ -4,26 +4,21 @@
 	<h2>Estudio Demografico y Socioeconomico</h2>
 	<hr>
 
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="jumbotron">
-				<p class="text-center">Está a punto de iniciar el registro de una nueva planilla que contendrá los datos socieconomicos de una familia</p>
+	<div class="jumbotron"><div class="row">
+		
+			<div class="col-sm-10">
+				<p>Está a punto de iniciar el registro de una nueva planilla que contendrá los datos socieconomicos de una familia</p>
 			</div>
-			
+			<div class="col-sm-2">
+				<small>Támbien puede continuar con una encuesta anterior sin finalizar. <a href="#"> Continuar Encuesta</a></small>
+			</div>
 		</div>
-		{# <div class="col-sm-2">
-			<h4>Recuerde</h4>
-			<ul>
-				<li>Recuerde que es una planilla por familia, no por casa.</li>
-			</ul>
-		</div> #}
 	</div>
 
 	{{ form_start(form) }}
 		{{ form_widget(form) }}
-		<input class="btn btn-warning btn-block btn-lg" type="submit" value="Iniciar el registro de los Datos" />
+		<input class="btn btn-success btn-block btn-lg" type="submit" value="Iniciar el registro de los Datos" />
 	{{ form_end(form) }}
-
 {% endblock %}
 
 {% block javascripts %}

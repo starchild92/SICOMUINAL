@@ -60,6 +60,12 @@ class Usuario extends BaseUser
     private $telefono;
 
     /**
+     * @ORM\OneToMany(targetEntity="Planillas", mappedBy="empadronador")
+     */
+    private $planillas;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -192,5 +198,38 @@ class Usuario extends BaseUser
     public function getTelefono()
     {
         return $this->telefono;
+    }
+
+    /**
+     * Add planillas
+     *
+     * @param \SICBundle\Entity\Planillas $planillas
+     * @return Usuario
+     */
+    public function addPlanilla(\SICBundle\Entity\Planillas $planillas)
+    {
+        $this->planillas[] = $planillas;
+
+        return $this;
+    }
+
+    /**
+     * Remove planillas
+     *
+     * @param \SICBundle\Entity\Planillas $planillas
+     */
+    public function removePlanilla(\SICBundle\Entity\Planillas $planillas)
+    {
+        $this->planillas->removeElement($planillas);
+    }
+
+    /**
+     * Get planillas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPlanillas()
+    {
+        return $this->planillas;
     }
 }

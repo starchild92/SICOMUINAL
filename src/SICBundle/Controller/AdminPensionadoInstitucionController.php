@@ -44,7 +44,8 @@ class AdminPensionadoInstitucionController extends Controller
             $em->persist($adminPensionadoInstitucion);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_pensionados_instituciones_show', array('id' => $adminPensionadoInstitucion->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'pensionadoinstitucion'));
+            // return $this->redirectToRoute('configurable_pensionados_instituciones_show', array('id' => $adminPensionadoInstitucion->getId()));
         }
 
         return $this->render('adminpensionadoinstitucion/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminPensionadoInstitucionController extends Controller
             $em->persist($adminPensionadoInstitucion);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_pensionados_instituciones_edit', array('id' => $adminPensionadoInstitucion->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'pensionadoinstitucion'));
+            // return $this->redirectToRoute('configurable_pensionados_instituciones_edit', array('id' => $adminPensionadoInstitucion->getId()));
         }
 
         return $this->render('adminpensionadoinstitucion/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminPensionadoInstitucionController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_pensionados_instituciones_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'pensionadoinstitucion'));
+        // return $this->redirectToRoute('configurable_pensionados_instituciones_index');
     }
 
     /**

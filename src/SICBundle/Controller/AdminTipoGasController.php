@@ -44,7 +44,8 @@ class AdminTipoGasController extends Controller
             $em->persist($adminTipoGa);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_gas_show', array('id' => $adminTipoGa->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipogas'));
+            // return $this->redirectToRoute('configurables_tipos_gas_show', array('id' => $adminTipoGa->getId()));
         }
 
         return $this->render('admintipogas/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoGasController extends Controller
             $em->persist($adminTipoGa);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_gas_edit', array('id' => $adminTipoGa->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipogas'));
+            // return $this->redirectToRoute('configurables_tipos_gas_edit', array('id' => $adminTipoGa->getId()));
         }
 
         return $this->render('admintipogas/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoGasController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipos_gas_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipogas'));
+        // return $this->redirectToRoute('configurables_tipos_gas_index');
     }
 
     /**

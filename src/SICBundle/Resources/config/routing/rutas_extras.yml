@@ -3,7 +3,7 @@ sic_homepage:
     defaults: { _controller: "SICBundle:Inicio:inicio" }
     methods:  GET
 
-sic_homepage:
+sic_homepage_login:
     path:     /login
     defaults: { _controller: "SICBundle:Inicio:login" }
     methods:  GET

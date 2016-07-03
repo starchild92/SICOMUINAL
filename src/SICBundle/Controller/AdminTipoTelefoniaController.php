@@ -44,7 +44,8 @@ class AdminTipoTelefoniaController extends Controller
             $em->persist($adminTipoTelefonium);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_telefonia_show', array('id' => $adminTipoTelefonium->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotelefonia'));
+            // return $this->redirectToRoute('configurables_tipo_telefonia_show', array('id' => $adminTipoTelefonium->getId()));
         }
 
         return $this->render('admintipotelefonia/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoTelefoniaController extends Controller
             $em->persist($adminTipoTelefonium);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_telefonia_edit', array('id' => $adminTipoTelefonium->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotelefonia'));
+            // return $this->redirectToRoute('configurables_tipo_telefonia_edit', array('id' => $adminTipoTelefonium->getId()));
         }
 
         return $this->render('admintipotelefonia/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoTelefoniaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipo_telefonia_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotelefonia'));
+        // return $this->redirectToRoute('configurables_tipo_telefonia_index');
     }
 
     /**

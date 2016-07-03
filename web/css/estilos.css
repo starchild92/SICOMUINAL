@@ -64,6 +64,7 @@ h1 > .btn, h2 > .btn, h3 > .btn, h4 > .btn, h5 > .btn, h6 > .btn, .h1 > .btn, .h
 }
 
 .negritas{ font-weight: bold; }
+.borderless td, .borderless th { border: none !important; }
 
 /*Primary Color For Table + Headers*/
 .thead-primary { background-color: #375A7F !important; color: #FFFFFF; }
@@ -125,4 +126,11 @@ body {
 	background-color: #f1f1f1;
     -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
+}
+
+div.panel-body > hr {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
 }

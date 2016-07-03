@@ -44,7 +44,8 @@ class AdminServiciosComunalesController extends Controller
             $em->persist($adminServiciosComunale);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_servicios_comunales_show', array('id' => $adminServiciosComunale->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'servicioscomunales'));
+            // return $this->redirectToRoute('configurables_tipos_servicios_comunales_show', array('id' => $adminServiciosComunale->getId()));
         }
 
         return $this->render('adminservicioscomunales/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminServiciosComunalesController extends Controller
             $em->persist($adminServiciosComunale);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_servicios_comunales_edit', array('id' => $adminServiciosComunale->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'servicioscomunales'));
+            // return $this->redirectToRoute('configurables_tipos_servicios_comunales_edit', array('id' => $adminServiciosComunale->getId()));
         }
 
         return $this->render('adminservicioscomunales/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminServiciosComunalesController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipos_servicios_comunales_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'servicioscomunales'));
+        // return $this->redirectToRoute('configurables_tipos_servicios_comunales_index');
     }
 
     /**

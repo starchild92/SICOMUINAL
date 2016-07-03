@@ -44,7 +44,8 @@ class AdminOrgComunitariaController extends Controller
             $em->persist($adminOrgComunitarium);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_organizaciones_comunitarias_show', array('id' => $adminOrgComunitarium->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'organizacionescomunitarias'));
+            // return $this->redirectToRoute('configurables_tipos_organizaciones_comunitarias_show', array('id' => $adminOrgComunitarium->getId()));
         }
 
         return $this->render('adminorgcomunitaria/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminOrgComunitariaController extends Controller
             $em->persist($adminOrgComunitarium);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_organizaciones_comunitarias_edit', array('id' => $adminOrgComunitarium->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'organizacionescomunitarias'));
+            // return $this->redirectToRoute('configurables_tipos_organizaciones_comunitarias_edit', array('id' => $adminOrgComunitarium->getId()));
         }
 
         return $this->render('adminorgcomunitaria/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminOrgComunitariaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipos_organizaciones_comunitarias_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'organizacionescomunitarias'));
+        // return $this->redirectToRoute('configurables_tipos_organizaciones_comunitarias_index');
     }
 
     /**

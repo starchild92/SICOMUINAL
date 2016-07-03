@@ -44,7 +44,8 @@ class AdminMisionesComunidadController extends Controller
             $em->persist($adminMisionesComunidad);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_misiones_comunidad_show', array('id' => $adminMisionesComunidad->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'misionescomunidad'));
+            // return $this->redirectToRoute('configurables_tipos_misiones_comunidad_show', array('id' => $adminMisionesComunidad->getId()));
         }
 
         return $this->render('adminmisionescomunidad/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminMisionesComunidadController extends Controller
             $em->persist($adminMisionesComunidad);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_misiones_comunidad_edit', array('id' => $adminMisionesComunidad->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'misionescomunidad'));
+            // return $this->redirectToRoute('configurables_tipos_misiones_comunidad_edit', array('id' => $adminMisionesComunidad->getId()));
         }
 
         return $this->render('adminmisionescomunidad/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminMisionesComunidadController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipos_misiones_comunidad_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'misionescomunidad'));
+        // return $this->redirectToRoute('configurables_tipos_misiones_comunidad_index');
     }
 
     /**

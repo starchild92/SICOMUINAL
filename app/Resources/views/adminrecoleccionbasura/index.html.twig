@@ -1,39 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminRecoleccionBasura list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminRecoleccionBasura in adminRecoleccionBasuras %}
-            <tr>
-                <td><a href="{{ path('configurables_tipo_recoleccion_basura_show', { 'id': adminRecoleccionBasura.id }) }}">{{ adminRecoleccionBasura.id }}</a></td>
-                <td>{{ adminRecoleccionBasura.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurables_tipo_recoleccion_basura_show', { 'id': adminRecoleccionBasura.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurables_tipo_recoleccion_basura_edit', { 'id': adminRecoleccionBasura.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurables_tipo_recoleccion_basura_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Recolección Basura</div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminRecoleccionBasura in adminRecoleccionBasuras %}
+                <tr>
+                    <td>{{ adminRecoleccionBasura.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_tipo_recoleccion_basura_edit', { 'id': adminRecoleccionBasura.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="{{ path('configurables_tipo_recoleccion_basura_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Metódo de Recolección de Basura</a>
 {% endblock %}

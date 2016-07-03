@@ -1,41 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminPreguntasParticipacionComunitaria list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Preguntas Participación Comunitaria</div>
+        <table class="table-striped table table-bordered">
+            <thead>
+                <tr>
+                    <th>Interrogante</th>
+                    <th>Respuesta</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminPreguntasParticipacionComunitarium in adminPreguntasParticipacionComunitarias %}
+                <tr>
+                    <td>{{ adminPreguntasParticipacionComunitarium.interrogante }}</td>
+                    <td>{{ adminPreguntasParticipacionComunitarium.respuesta }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_preguntas_participacion_comunitaria_edit', { 'id': adminPreguntasParticipacionComunitarium.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Interrogante</th>
-                <th>Respuesta</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminPreguntasParticipacionComunitarium in adminPreguntasParticipacionComunitarias %}
-            <tr>
-                <td><a href="{{ path('configurables_preguntas_participacion_comunitaria_show', { 'id': adminPreguntasParticipacionComunitarium.id }) }}">{{ adminPreguntasParticipacionComunitarium.id }}</a></td>
-                <td>{{ adminPreguntasParticipacionComunitarium.interrogante }}</td>
-                <td>{{ adminPreguntasParticipacionComunitarium.respuesta }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurables_preguntas_participacion_comunitaria_show', { 'id': adminPreguntasParticipacionComunitarium.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurables_preguntas_participacion_comunitaria_edit', { 'id': adminPreguntasParticipacionComunitarium.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurables_preguntas_participacion_comunitaria_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <a class="btn btn-primary" href="{{ path('configurables_preguntas_participacion_comunitaria_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nueva Preguntas Participación Comunitaria</a>
 {% endblock %}

@@ -44,7 +44,8 @@ class AdminRecoleccionBasuraController extends Controller
             $em->persist($adminRecoleccionBasura);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_recoleccion_basura_show', array('id' => $adminRecoleccionBasura->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'recoleccionbasura'));
+            // return $this->redirectToRoute('configurables_tipo_recoleccion_basura_show', array('id' => $adminRecoleccionBasura->getId()));
         }
 
         return $this->render('adminrecoleccionbasura/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminRecoleccionBasuraController extends Controller
             $em->persist($adminRecoleccionBasura);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_recoleccion_basura_edit', array('id' => $adminRecoleccionBasura->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'recoleccionbasura'));
+            // return $this->redirectToRoute('configurables_tipo_recoleccion_basura_edit', array('id' => $adminRecoleccionBasura->getId()));
         }
 
         return $this->render('adminrecoleccionbasura/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminRecoleccionBasuraController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipo_recoleccion_basura_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'recoleccionbasura'));
+        // return $this->redirectToRoute('configurables_tipo_recoleccion_basura_index');
     }
 
     /**

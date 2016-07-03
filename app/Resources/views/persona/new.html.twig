@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <h1>Miembro Grupo Familiar</h1>
+    <h1>Miembro Grupo Familiar <small>Actualmente hay {{ cantMiembros }} miembros</small></h1>
 
     {{ form_start(form) }}
         <div class="row">
@@ -58,6 +58,7 @@
         $(document).ready(function() {
             $("#persona_edad").parent().addClass('hidden');
             $('.ui.dropdown').dropdown();
+            $('.additions').dropdown({ allowAdditions: true });
             $('.js-datepicker')
                 .datepicker({ format: 'yyyy-mm-dd' })
                     .on('hide', function() {

@@ -1,56 +1,61 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h2>Modificar Datos del Jefe Grupo Familiar</h2>
-    
+
     {{ form_start(edit_form) }}
         <div class="row">
-            <div class="col-sm-6">{{ form_row(edit_form.nombres) }}</div>
-            <div class="col-sm-6">{{ form_row(edit_form.apellidos) }}</div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.nombres) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.apellidos) }}</div>
+                        </div>
+                        {{ form_row(edit_form.sexo) }}
+                        {{ form_row(edit_form.fechaNacimiento) }}
+                        {{ form_row(edit_form.edad) }}
+                        {{ form_row(edit_form.cne) }}
+                        {{ form_row(edit_form.email) }}
+                        {{ form_row(edit_form.trabajaActualmente) }}
+                        {{ form_row(edit_form.profesion) }}
+                        {{ form_row(edit_form.pensionado) }}
+                        {{ form_row(edit_form.pensionadoInstitucion) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(edit_form.cedula) }}
+                        {{ form_row(edit_form.nacionalidad) }}
+                        {{ form_row(edit_form.estadoCivil) }}
+                        {{ form_row(edit_form.incapacitado) }}
+                        {{ form_row(edit_form.incapacitadoTipo) }}
+                        {{ form_row(edit_form.tiempoEnComunidad) }}
+                        {{ form_row(edit_form.nivelInstruccion) }}
+                        {{ form_row(edit_form.ingresoFamiliar) }}
+                        {{ form_row(edit_form.ingresoMensual) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(edit_form.telefono) }}
+                    </div>
+                </div>  
+            </div>
         </div>
         <div class="row">
-            <div class="col-sm-4">{{ form_row(edit_form.cedula) }}</div>
-            <div class="col-sm-4">{{ form_row(edit_form.nacionalidad) }}</div>
-            <div class="col-sm-4">{{ form_row(edit_form.estadoCivil) }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">{{ form_row(edit_form.sexo) }}</div>
-            <div class="col-sm-3">{{ form_row(edit_form.fechaNacimiento) }}</div>
-            <div class="col-sm-3">{{ form_row(edit_form.edad) }}</div>
-            <div class="col-sm-3">{{ form_row(edit_form.cne) }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">{{ form_row(edit_form.incapacitado) }}</div>
-            <div class="col-sm-4">{{ form_row(edit_form.incapacitadoTipo) }}</div>
-            <div class="col-sm-2">{{ form_row(edit_form.pensionado) }}</div>
-            <div class="col-sm-4">{{ form_row(edit_form.pensionadoInstitucion) }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">{{ form_row(edit_form.trabajaActualmente) }}</div>
-            <div class="col-sm-6">{{ form_row(edit_form.profesion) }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">{{ form_row(edit_form.tiempoEnComunidad) }}</div>
-            <div class="col-sm-4">{{ form_row(edit_form.nivelInstruccion) }}</div>
-            <div class="col-sm-4">{{ form_row(edit_form.email) }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">{{ form_row(edit_form.ingresoFamiliar) }}</div>
-            <div class="col-sm-6">{{ form_row(edit_form.ingresoMensual) }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">{{ form_row(edit_form.telefono) }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6"><input class="btn btn-success btn-block" type="submit" value="Guardar Datos" /></div>
-            <div class="col-sm-6"><a class="btn btn-default btn-block" href="{{ path('jefegrupofamiliar_index') }}">Ver todos</a></div>
+            <input class="btn btn-success btn-block" type="submit" value="Guardar Datos" />
         </div>
         
     {{ form_end(edit_form) }}
-        
-    {{ form_start(delete_form) }}
-        <input class="btn btn-danger" type="submit" value="Eliminar Datos">
-    {{ form_end(delete_form) }}
 {% endblock %}
+
 {% block javascripts %}
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('js/formTelefono.js') }}"></script>

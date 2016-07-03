@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="persona")
  * @ORM\Entity()
+ * @UniqueEntity("cedula")
  */
 class Persona
 {
@@ -73,9 +74,8 @@ class Persona
     private $parentesco;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="gradoInstruccion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminNivelInstruccion", cascade={"persist"})
+     * @ORM\JoinColumn(name="nivelInstr_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $gradoInstruccion;
 
@@ -124,14 +124,6 @@ class Persona
      * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $pensionadoInstitucion;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->telefonos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -305,29 +297,6 @@ class Persona
     }
 
     /**
-     * Set gradoInstruccion
-     *
-     * @param string $gradoInstruccion
-     * @return Persona
-     */
-    public function setGradoInstruccion($gradoInstruccion)
-    {
-        $this->gradoInstruccion = $gradoInstruccion;
-
-        return $this;
-    }
-
-    /**
-     * Get gradoInstruccion
-     *
-     * @return string 
-     */
-    public function getGradoInstruccion()
-    {
-        return $this->gradoInstruccion;
-    }
-
-    /**
      * Set cne
      *
      * @param string $cne
@@ -417,6 +386,29 @@ class Persona
     public function getPensionado()
     {
         return $this->pensionado;
+    }
+
+    /**
+     * Set gradoInstruccion
+     *
+     * @param \SICBundle\Entity\AdminNivelInstruccion $gradoInstruccion
+     * @return Persona
+     */
+    public function setGradoInstruccion(\SICBundle\Entity\AdminNivelInstruccion $gradoInstruccion = null)
+    {
+        $this->gradoInstruccion = $gradoInstruccion;
+
+        return $this;
+    }
+
+    /**
+     * Get gradoInstruccion
+     *
+     * @return \SICBundle\Entity\AdminNivelInstruccion 
+     */
+    public function getGradoInstruccion()
+    {
+        return $this->gradoInstruccion;
     }
 
     /**

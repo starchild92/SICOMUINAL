@@ -1,64 +1,203 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Planillas</h1>
+	<h2>Registro # {{ planilla.id }}: "Estudio Demográfico y Socioeconomico"</h2>
+	<hr>
+	<div class="row">
+		<div class="col-sm-10">
+			<div class="col-sm-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">Informacion Planilla</div>
+					<table class="table borderless table-condensed">
+						<tbody>
+							<tr>
+								<td><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></td>
+							</tr>
+							<tr>
+								<td><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></td>
+							</tr>
+							<tr>
+								<td><span class="negritas">Fecha: </span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-sm-9">
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingOne">
+							<a class="negritas" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								1. Jefe Grupo Familiar
+							</a>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							<div class="panel-body">
+								{% if planilla.jefeGrupoFamiliar != null %}
+									{{ planilla.jefeGrupoFamiliar.id }}
+									<table class="table borderless">
+										<tr>
+											<th class="col-sm-2">TH</th>
+											<td>algo</td>
+										</tr>
+									</table>
+									{{ dump(planilla.jefegrupofamiliar) }}
+								{% endif %}
+								<hr>
+								<a class="btn btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': planilla.jefeGrupoFamiliar.id }) }}">Modificar Datos del Jefe Grupo Familiar</a>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingTwo">
+							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								2. Grupo Familiar
+							</a>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+							<div class="panel-body">
+								{% if planilla.grupoFamiliar.miembros != null %}
+									{{ planilla.grupoFamiliar.miembros|length }} miembros
+									<table class="table borderless">
+										<tr>
+											<th class="col-sm-2">TH</th>
+											<td>algo</td>
+										</tr>
+									</table>
+									{{ dump(planilla.grupoFamiliar) }}
+								{% endif %}
+								<hr>
+								<a class="btn btn-primary" href="#">Modificar Datos del Grupo Familiar</a>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingThree">
+							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								3. Situación Economica
+							</a>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+							<div class="panel-body">
+								{% if planilla.situacionEconomica != null %}
+									{{ planilla.situacionEconomica.id }}
+									<table class="table borderless">
+										<tr>
+											<th class="col-sm-2">TH</th>
+											<td>algo</td>
+										</tr>
+									</table>
+									{{ dump(planilla.situacionEconomica) }}
+								{% endif %}
+								<hr>
+								<a class="btn btn-primary" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}">Modificar Datos de la Situación Economica</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingFour">
+							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+								4. Situación Vivienda
+							</a>
+						</div>
+						<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+							<div class="panel-body">
+								{% if planilla.situacionVivienda != null %}
+								{{ planilla.situacionVivienda.id }}
+								{% endif %}
+							</div>
+						</div>
+					</div>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ planilla.id }}</td>
-            </tr>
-            <tr>
-                <th>Empadronador</th>
-                <td>{{ planilla.empadronador }}</td>
-            </tr>
-            <tr>
-                <th>Jefegrupofamiliar</th>
-                <td>{{ planilla.jefeGrupoFamiliar.id }}</td>
-            </tr>
-            <tr>
-                <th>Miembrosgrupofamiliar</th>
-                <td>{{ planilla.grupoFamiliar.id }}</td>
-            </tr>
-            <tr>
-                <th>Situacioneconomica</th>
-                <td>{{ planilla.situacionEconomica.id }}</td>
-            </tr>
-            <tr>
-                <th>Situacionvivienda</th>
-                <td>{{ planilla.situacionVivienda.id }}</td>
-            </tr>
-            <tr>
-                <th>Situacionsalud</th>
-                <td>{{ planilla.situacionSalud.id }}</td>
-            </tr>
-            <tr>
-                <th>Situacionservicios</th>
-                <td>{{ planilla.situacionServicios.id }}</td>
-            </tr>
-            <tr>
-                <th>Participacioncomunitaria</th>
-                <td>{{ planilla.participacionComunitaria.id }}</td>
-            </tr>
-            <tr>
-                <th>Situacioncomunidad</th>
-                <td>{{ planilla.situacionComunidad.id }}</td>
-            </tr>
-        </tbody>
-    </table>
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingFive">
+							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+								5. Situación Salud
+							</a>
+						</div>
+						<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
+							<div class="panel-body">
+								{% if planilla.situacionSalud != null %}
+								{{ planilla.situacionSalud.id }}
+								{% endif %}
+							</div>
+						</div>
+					</div>
 
-    <ul>
-        <li>
-            <a href="{{ path('planillas_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('planillas_edit', { 'id': planilla.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingSix">
+							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+								6. Situación Servicios
+							</a>
+						</div>
+						<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix">
+							<div class="panel-body">
+								{% if planilla.situacionServicios != null %}
+								{{ planilla.situacionServicios.id }}
+								{% endif %}
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="heading7">
+							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+								7. Participación Comunitaria
+							</a>
+						</div>
+						<div id="collapse7" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading7">
+							<div class="panel-body">
+								{% if planilla.participacionComunitaria != null %}
+								{{ planilla.participacionComunitaria.id }}
+								{% endif %}
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="heading8">
+							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+								8. Situación Comunitaria
+							</a>
+						</div>
+						<div id="collapse8" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading8">
+							<div class="panel-body">
+								{% if planilla.situacionComunidad != null %}
+								{{ planilla.situacionComunidad.id }}
+								{% endif %}
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="heading9">
+							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
+								Observaciones
+							</a>
+						</div>
+						<div id="collapse9" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading9">
+							<div class="panel-body">
+								{{ planilla.observaciones }}
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<p class="negritas text-center">Opciones</p>
+			<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>
+			<hr>
+			{{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar">{{ form_end(delete_form) }}
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+<script>
+$(document).on('ready', function(){
+	$('.collapse').collapse()
+})
+</script>
 {% endblock %}

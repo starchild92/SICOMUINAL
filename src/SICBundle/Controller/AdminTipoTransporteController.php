@@ -44,7 +44,8 @@ class AdminTipoTransporteController extends Controller
             $em->persist($adminTipoTransporte);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_transporte_show', array('id' => $adminTipoTransporte->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotransporte'));
+            // return $this->redirectToRoute('configurables_tipo_transporte_show', array('id' => $adminTipoTransporte->getId()));
         }
 
         return $this->render('admintipotransporte/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminTipoTransporteController extends Controller
             $em->persist($adminTipoTransporte);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipo_transporte_edit', array('id' => $adminTipoTransporte->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotransporte'));
+            // return $this->redirectToRoute('configurables_tipo_transporte_edit', array('id' => $adminTipoTransporte->getId()));
         }
 
         return $this->render('admintipotransporte/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminTipoTransporteController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipo_transporte_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotransporte'));
+        // return $this->redirectToRoute('configurables_tipo_transporte_index');
     }
 
     /**

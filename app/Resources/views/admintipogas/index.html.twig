@@ -1,39 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminTipoGas list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminTipoGa in adminTipoGas %}
-            <tr>
-                <td><a href="{{ path('configurables_tipos_gas_show', { 'id': adminTipoGa.id }) }}">{{ adminTipoGa.id }}</a></td>
-                <td>{{ adminTipoGa.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurables_tipos_gas_show', { 'id': adminTipoGa.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurables_tipos_gas_edit', { 'id': adminTipoGa.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurables_tipos_gas_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipo de Gas</div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminTipoGa in adminTipoGas %}
+                <tr>
+                    <td>{{ adminTipoGa.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_tipos_gas_edit', { 'id': adminTipoGa.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="{{ path('configurables_tipos_gas_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Tipo de Gas</a>
 {% endblock %}

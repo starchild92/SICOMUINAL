@@ -44,7 +44,8 @@ class AdminAguasServidasController extends Controller
             $em->persist($adminAguasServida);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_aguas_servidas_show', array('id' => $adminAguasServida->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'aguasservidas'));
+            // return $this->redirectToRoute('configurables_tipos_aguas_servidas_show', array('id' => $adminAguasServida->getId()));
         }
 
         return $this->render('adminaguasservidas/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminAguasServidasController extends Controller
             $em->persist($adminAguasServida);
             $em->flush();
 
-            return $this->redirectToRoute('configurables_tipos_aguas_servidas_edit', array('id' => $adminAguasServida->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'aguasservidas'));
+            // return $this->redirectToRoute('configurables_tipos_aguas_servidas_edit', array('id' => $adminAguasServida->getId()));
         }
 
         return $this->render('adminaguasservidas/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminAguasServidasController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurables_tipos_aguas_servidas_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'aguasservidas'));
+        // return $this->redirectToRoute('configurables_tipos_aguas_servidas_index');
     }
 
     /**

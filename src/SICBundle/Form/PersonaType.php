@@ -43,15 +43,21 @@ class PersonaType extends AbstractType
             ->add('parentesco', 'text', array(
                 'label'     => 'Parentesco que guarda con el Jefe del Grupo Familiar'))
             
-            ->add('gradoInstruccion','text',array(
-                'label'     => 'Grado de Instrucción'))
+            ->add('gradoInstruccion', EntityType::class, array(
+                'label' => '¿Cúal es su Nivel de Instrucción?',
+                'class' => 'SICBundle:AdminNivelInstruccion',
+                'placeholder' => 'Selecciona una',
+                'choice_label' => 'nombre',
+                'attr'      => array(
+                    'class' => 'ui search dropdown')
+            ))
 
             ->add('profesion', EntityType::class, array(
                 'class' => 'SICBundle:AdminProfesion',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'attr'      => array(
-                    // 'class' => 'ui dropdown',
+                    'class' => 'search additions',
                     'required'  => false),
                 'label'     => 'Indique una Profesión'
             ))

@@ -44,7 +44,8 @@ class AdminUbicacionTrabajoController extends Controller
             $em->persist($adminUbicacionTrabajo);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_ubicacion-trabajo_show', array('id' => $adminUbicacionTrabajo->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ubicaciontrabajo'));
+            // return $this->redirectToRoute('configurable_ubicacion-trabajo_show', array('id' => $adminUbicacionTrabajo->getId()));
         }
 
         return $this->render('adminubicaciontrabajo/new.html.twig', array(
@@ -82,7 +83,8 @@ class AdminUbicacionTrabajoController extends Controller
             $em->persist($adminUbicacionTrabajo);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_ubicacion-trabajo_edit', array('id' => $adminUbicacionTrabajo->getId()));
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ubicaciontrabajo'));
+            // return $this->redirectToRoute('configurable_ubicacion-trabajo_edit', array('id' => $adminUbicacionTrabajo->getId()));
         }
 
         return $this->render('adminubicaciontrabajo/edit.html.twig', array(
@@ -107,7 +109,8 @@ class AdminUbicacionTrabajoController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_ubicacion-trabajo_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ubicaciontrabajo'));
+        // return $this->redirectToRoute('configurable_ubicacion-trabajo_index');
     }
 
     /**

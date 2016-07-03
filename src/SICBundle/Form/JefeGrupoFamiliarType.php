@@ -2,6 +2,9 @@
 
 namespace SICBundle\Form;
 
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -97,6 +100,8 @@ class JefeGrupoFamiliarType extends AbstractType
                 'label' => 'Estado Civil',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
+                'attr'      => array(
+                    'class' => 'ui dropdown',)
             ))
             ->add('nivelInstruccion', EntityType::class, array(
                 'label' => '¿Cúal es el Nivel de Instrucción?',
@@ -110,7 +115,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'attr'      => array(
-                    'class' => 'ui dropdown',
+                    'class' => 'search',
                     'required'  => false)
             ))
             ->add('trabajaActualmente', EntityType::class, array(
