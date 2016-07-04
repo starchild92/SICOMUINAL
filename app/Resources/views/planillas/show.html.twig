@@ -25,6 +25,8 @@
 			</div>
 			<div class="col-sm-9">
 				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					
+					{% if planilla.jefeGrupoFamiliar != null %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingOne">
 							<a class="negritas" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -33,7 +35,7 @@
 						</div>
 						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 							<div class="panel-body">
-								{% if planilla.jefeGrupoFamiliar != null %}
+								
 									{{ planilla.jefeGrupoFamiliar.id }}
 									<table class="table borderless">
 										<tr>
@@ -42,12 +44,15 @@
 										</tr>
 									</table>
 									{{ dump(planilla.jefegrupofamiliar) }}
-								{% endif %}
+								
 								<hr>
 								<a class="btn btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': planilla.jefeGrupoFamiliar.id }) }}">Modificar Datos del Jefe Grupo Familiar</a>
+								
 							</div>
 						</div>
 					</div>
+					{% endif %}
+					{% if planilla.grupoFamiliar != null %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingTwo">
 							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -56,7 +61,7 @@
 						</div>
 						<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 							<div class="panel-body">
-								{% if planilla.grupoFamiliar.miembros != null %}
+								
 									{{ planilla.grupoFamiliar.miembros|length }} miembros
 									<table class="table borderless">
 										<tr>
@@ -65,12 +70,15 @@
 										</tr>
 									</table>
 									{{ dump(planilla.grupoFamiliar) }}
-								{% endif %}
+								
 								<hr>
 								<a class="btn btn-primary" href="#">Modificar Datos del Grupo Familiar</a>
+								
 							</div>
 						</div>
 					</div>
+					{% endif %}
+					{% if planilla.situacionEconomica != null %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingThree">
 							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -79,7 +87,7 @@
 						</div>
 						<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
 							<div class="panel-body">
-								{% if planilla.situacionEconomica != null %}
+								
 									{{ planilla.situacionEconomica.id }}
 									<table class="table borderless">
 										<tr>
@@ -88,13 +96,16 @@
 										</tr>
 									</table>
 									{{ dump(planilla.situacionEconomica) }}
-								{% endif %}
+								
 								<hr>
 								<a class="btn btn-primary" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}">Modificar Datos de la Situación Economica</a>
+								
 							</div>
 						</div>
 					</div>
+					{% endif %}
 					
+					{% if planilla.situacionVivienda != null %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingFour">
 							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -103,13 +114,15 @@
 						</div>
 						<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
 							<div class="panel-body">
-								{% if planilla.situacionVivienda != null %}
+								
 								{{ planilla.situacionVivienda.id }}
-								{% endif %}
+								
 							</div>
 						</div>
 					</div>
-
+					{% endif %}
+					
+					{% if planilla.situacionSalud != null %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingFive">
 							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
@@ -118,13 +131,15 @@
 						</div>
 						<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
 							<div class="panel-body">
-								{% if planilla.situacionSalud != null %}
+								
 								{{ planilla.situacionSalud.id }}
-								{% endif %}
+								
 							</div>
 						</div>
 					</div>
-
+					{% endif %}
+					
+					{% if planilla.situacionServicios != null %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingSix">
 							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
@@ -133,13 +148,15 @@
 						</div>
 						<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix">
 							<div class="panel-body">
-								{% if planilla.situacionServicios != null %}
+								
 								{{ planilla.situacionServicios.id }}
-								{% endif %}
+								
 							</div>
 						</div>
 					</div>
-
+					{% endif %}
+					
+					{% if planilla.participacionComunitaria != null %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="heading7">
 							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
@@ -148,13 +165,15 @@
 						</div>
 						<div id="collapse7" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading7">
 							<div class="panel-body">
-								{% if planilla.participacionComunitaria != null %}
+								
 								{{ planilla.participacionComunitaria.id }}
-								{% endif %}
 							</div>
 						</div>
 					</div>
+					{% endif %}
 
+					
+					{% if planilla.situacionComunidad != null %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="heading8">
 							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
@@ -163,12 +182,12 @@
 						</div>
 						<div id="collapse8" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading8">
 							<div class="panel-body">
-								{% if planilla.situacionComunidad != null %}
+								
 								{{ planilla.situacionComunidad.id }}
-								{% endif %}
 							</div>
 						</div>
 					</div>
+					{% endif %}
 
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="heading9">

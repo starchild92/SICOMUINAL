@@ -56,7 +56,7 @@ class PersonaController extends Controller
             $em->persist($Grupo);
             $em->flush();
 
-            $cantMiembros = $Grupo->getCantidadMiembros()+1;
+            $cantMiembros = $Grupo->getCantidadMiembros();
 
             return $this->redirectToRoute('personas_new', array(
                 'id_planilla' => $id_planilla,
@@ -64,7 +64,7 @@ class PersonaController extends Controller
                 'cantMiembros' => $cantMiembros));
         }
 
-        $cantMiembros = $Grupo->getCantidadMiembros()+1;
+        $cantMiembros = $Grupo->getCantidadMiembros();
 
         return $this->render('persona/new.html.twig', array(
             'persona' => $persona,
