@@ -24,7 +24,7 @@
                 {% endfor %}</td>
                 <td>{% for orgs in participacionComunitarium.existenOrganizaciones %}{{ orgs.nombre }}<br>{% endfor %}</td>
                 <td>{{ participacionComunitarium.participaOrganizacion }}</td>
-                <td>{% for preg in participacionComunitarium.preguntasParticipacionComunitaria %}{{ preg.interrogante }}<br>{% endfor %}</td>
+                <td>{% for preg in participacionComunitarium.preguntasParticipacionComunitaria %}{{ preg.interrogante }}, Resp. {{ preg.respuesta }}<br>{% endfor %}</td>
                 <td>{% for areatrab in participacionComunitarium.areaTabajoCC %}{{ areatrab.nombre }}<br>{% endfor %}</td>
                 <td>
                     <ul>

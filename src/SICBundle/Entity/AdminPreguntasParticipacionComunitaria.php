@@ -22,9 +22,8 @@ class AdminPreguntasParticipacionComunitaria
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="interrogante", type="text")
+     * @ORM\ManyToOne(targetEntity="AdminPreguntas", cascade={"persist"})
+     * @ORM\JoinColumn(name="pregunta", referencedColumnName="id", onDelete="CASCADE")
      */
     private $interrogante;
 
@@ -35,6 +34,7 @@ class AdminPreguntasParticipacionComunitaria
     private $respuesta;
 
     public function __toString(){ return $this->interrogante; }
+
 
     /**
      * Get id
@@ -49,10 +49,10 @@ class AdminPreguntasParticipacionComunitaria
     /**
      * Set interrogante
      *
-     * @param string $interrogante
+     * @param \SICBundle\Entity\AdminPreguntas $interrogante
      * @return AdminPreguntasParticipacionComunitaria
      */
-    public function setInterrogante($interrogante)
+    public function setInterrogante(\SICBundle\Entity\AdminPreguntas $interrogante = null)
     {
         $this->interrogante = $interrogante;
 
@@ -62,7 +62,7 @@ class AdminPreguntasParticipacionComunitaria
     /**
      * Get interrogante
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminPreguntas 
      */
     public function getInterrogante()
     {
@@ -72,10 +72,10 @@ class AdminPreguntasParticipacionComunitaria
     /**
      * Set respuesta
      *
-     * @param string $respuesta
+     * @param \SICBundle\Entity\AdminRespCerrada $respuesta
      * @return AdminPreguntasParticipacionComunitaria
      */
-    public function setRespuesta($respuesta)
+    public function setRespuesta(\SICBundle\Entity\AdminRespCerrada $respuesta = null)
     {
         $this->respuesta = $respuesta;
 
@@ -85,7 +85,7 @@ class AdminPreguntasParticipacionComunitaria
     /**
      * Get respuesta
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminRespCerrada 
      */
     public function getRespuesta()
     {

@@ -201,3 +201,7 @@ sic_configurables_preguntas_participacion_comunitaria:
 sic_configurables_tipos_areas_trabajo:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminareatrabajocc.yml"
     prefix:   /configurables/tipos/areas_trabajo
+
+sic_configurables_preguntas:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminpreguntas.yml"
+    prefix:   /configurables/preguntas
