@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class UsuarioType extends AbstractType
 {
@@ -15,11 +16,23 @@ class UsuarioType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $permissions = array(
+            'ROLE_ADMIN'    => 'Administrador',
+            'ROLE_USER'     => 'Empadronador',
+        );
+        
         $builder
             ->add('primerNombre')
             ->add('segundoNombre')
             ->add('primerApellido')
             ->add('segundoApellido')
+            ->add('cedula')
+            ->add('fechaNacimiento', DateType::class, array(
+                'widget' => 'single_text',
+                'html5' => false,
+                'label' => 'Fecha de Nacimiento',
+                'attr' => ['class' => 'js-datepicker'],
+            ))
             ->add('telefono',
                     'collection',array(
                         'required' => false,
@@ -32,6 +45,19 @@ class UsuarioType extends AbstractType
                         'data_class' => null,
                         'label' => 'Número(s) teléfonicos',
                         ))
+            ->add('enabled', 'choice', array(
+                'label' => 'Estado de la Cuenta',
+                'choices'   => array(
+                    '1' => 'Cuenta Activa',
+                    '0' => 'Cuenta Inactiva')))
+            ->add('roles','choice',array(
+                    'label'   => 'Elija el Rol',
+                    'choices' => $permissions,
+                    'multiple' => true,
+                    'attr' => array(
+                        'multiple' => '',
+                        'class' => 'ui dropdown')
+                ))
         ;
     }
     
@@ -47,8 +73,6 @@ class UsuarioType extends AbstractType
 
     public function getParent()
     {
-        //return 'FOS\UserBundle\Form\Type\RegistrationFormType';
-        // Or for Symfony < 2.8
         return 'fos_user_registration';
     }
 
@@ -57,17 +81,8 @@ class UsuarioType extends AbstractType
         return 'app_user_registration';
     }
 
-    // For Symfony 2.x
     public function getName()
     {
         return $this->getBlockPrefix();
     }
-
-    /*
-      @return string
-     
-    public function getName()
-    {
-        return 'appbundle_usuario';
-    }*/
 }

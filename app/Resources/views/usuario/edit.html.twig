@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-header">
-            <h1>Modificar Datos de Usuario</h1>
+            <h2 class="text-center">Modificar Datos de Usuario <i class="fa fa-user"></i></h2>
         </div>
     </div>    
     <div class="col-sm-10">
@@ -12,6 +12,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Datos Personales del Usuario</div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-6">{{ form_row(edit_form.primerNombre) }}</div>
@@ -22,21 +23,43 @@
                                 <div class="col-sm-6">{{ form_row(edit_form.segundoApellido) }}</div>
                             </div>
                             {{ form_row(edit_form.email) }}
+                            <div class="row">
+                                <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
+                                <div class="col-sm-6">{{ form_row(edit_form.fechaNacimiento) }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Datos de Acceso al Sistema</div>
                         <div class="panel-body">
                             {{ form_row(edit_form.username) }}
-                            {{ form_row(edit_form.plainPassword) }}
+                            {% if edit_form.plainPassword is defined %}
+                                {{ form_row(edit_form.plainPassword) }}
+                            {% else %}
+                            <p class="text-center text-danger negritas">Importante <i class="fa fa-exclamation"></i></p>
+                            <p class="text-danger">Sólo el usuario identificado puede cambiar su contraseña en línea, de otro modo deberá solicitar el cambio por correo electronico atravez de la opción, he olvidado mi clave del Login.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Teléfonos</div>
+                        <div class="panel-body">
+                            {{ form_widget(edit_form.telefono) }}
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Estado de la Cuenta y Rol del Sistema</div>
                         <div class="panel-body">
-                            {{ form_widget(edit_form.telefono) }}
+                            {{ form_row(edit_form.enabled) }}
+                            {{ form_row(edit_form.roles) }}
                         </div>
                     </div>
                 </div>
@@ -53,5 +76,11 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('js/formTelefono.js') }}"></script>
+<script src="{{ asset('js/formTelefono.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('.ui.dropdown').dropdown();
+        $('.js-datepicker').datepicker({ format: 'yyyy-mm-dd' });
+    })
+</script>
 {% endblock %}

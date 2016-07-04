@@ -51,7 +51,21 @@ class Usuario extends BaseUser
     private $segundoApellido;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist", "remove"})
+     * @var string
+     *
+     * @ORM\Column(name="cedula", type="string", length=255)
+     */
+    private $cedula;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaNacimiento", type="date")
+     */
+    private $fechaNacimiento;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinTable(name="usuario_telefonos",
      *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}
@@ -231,5 +245,51 @@ class Usuario extends BaseUser
     public function getPlanillas()
     {
         return $this->planillas;
+    }
+
+    /**
+     * Set cedula
+     *
+     * @param string $cedula
+     * @return Usuario
+     */
+    public function setCedula($cedula)
+    {
+        $this->cedula = $cedula;
+
+        return $this;
+    }
+
+    /**
+     * Get cedula
+     *
+     * @return string 
+     */
+    public function getCedula()
+    {
+        return $this->cedula;
+    }
+
+    /**
+     * Set fechaNacimiento
+     *
+     * @param \DateTime $fechaNacimiento
+     * @return Usuario
+     */
+    public function setFechaNacimiento($fechaNacimiento)
+    {
+        $this->fechaNacimiento = $fechaNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaNacimiento
+     *
+     * @return \DateTime 
+     */
+    public function getFechaNacimiento()
+    {
+        return $this->fechaNacimiento;
     }
 }

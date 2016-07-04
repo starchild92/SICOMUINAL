@@ -75,6 +75,20 @@ class UsuarioController extends Controller
     {
         $deleteForm = $this->createDeleteForm($usuario);
         $editForm = $this->createForm('SICBundle\Form\UsuarioType', $usuario);
+
+        $you = $this->getUser();
+        if($you->getId() != $usuario->getId())
+        {
+            $editForm->remove('plainPassword');
+        }
+
+        $roles = $you->getRoles();        
+        if (!in_array("ROLE_ADMIN", $roles))
+        {
+            $editForm->remove('enabled');
+            $editForm->remove('roles');
+        }
+        
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
