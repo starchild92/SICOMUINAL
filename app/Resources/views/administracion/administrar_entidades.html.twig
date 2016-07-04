@@ -1,23 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<h2>Administración</h2>
+	<h2 class="text-center">Administración</h2>
 	<hr>
 	<div class="col-lg-6">
 		<div class="panel panel-primary">
+			<div class="panel-heading">Datos del Consejo Comunal</div>
 			<div class="panel-body">
-				<h3>Consejo Comunal</h3>
 				{% if consejo|length > 0 %}
-				<p class="bottom-line negritas text-info">Nombre</p>
-				<p>{{ consejo.nombre }}</p>
-				<p class="bottom-line negritas text-info">Código</p>
-				<p>{{ consejo.codigo }}</p>
-				<p class="bottom-line negritas text-info">RIF</p>
-				<p>{{ consejo.rif }}</p>
-				<p class="bottom-line negritas text-info">Número Cuenta</p>
-				<p>{{ consejo.numeroCuenta }}</p>
-
-				<a id="btn-edit" href="#" data-action="{{ path('consejocomunal_edit', {'id': consejo.id }) }}" data-title="Modificar Datos del Consejo Comunal" class="btn btn-default btn-sm pull-right">Modificar Datos del Consejo Comunal</a>
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">Nombre</p>
+							<p class="text-right">{{ consejo.nombre }}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">Código</p>
+							<p class="text-right">{{ consejo.codigo }}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">RIF</p>
+							<p class="text-right">{{ consejo.rif }}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">Número Cuenta</p>
+							<p class="text-right">{{ consejo.numeroCuenta }}</p>
+						</div>
+					</div>
+					<a id="btn-edit" href="#" data-action="{{ path('consejocomunal_edit', {'id': consejo.id }) }}" data-title="Modificar Datos del Consejo Comunal" class="btn btn-info pull-right">Modificar Datos del Consejo Comunal</a>
 				{% else %}
 					<a id="btn-edit" href="#" data-action="{{ path('consejocomunal_new') }}" data-title="Datos Consejo Comunal" class="btn btn-primary btn-block">Agregue los Datos del Consejo Comunal</a>
 				{% endif %}
@@ -26,23 +37,40 @@
 	</div>
 	<div class="col-lg-6">
 		<div class="panel panel-primary">
+			<div class="panel-heading">Datos de la Comunidad</div>
 			<div class="panel-body">
-				<h3>Comunidad</h3>
 				{% if comunidad|length > 0 %}
-				<p class="bottom-line negritas text-info">Estado</p>
-				<p>{{ comunidad.estado }}</p>
-				<p class="bottom-line negritas text-info">Municipio</p>
-				<p>{{ comunidad.municipio }}</p>
-				<p class="bottom-line negritas text-info">Parroquia</p>
-				<p>{{ comunidad.parroquia }}</p>
-				<p class="bottom-line negritas text-info">Sector</p>
-				<p>{{ comunidad.sector }}</p>
-				<p class="bottom-line negritas text-info">Comunidad</p>
-				<p>{{ comunidad.comunidad }}</p>
-				<p class="bottom-line negritas text-info">Direccion</p>
-				<p>{{ comunidad.direccion }}</p>
-
-				<a id="btn-edit" href="#" data-action="{{ path('comunidades_edit', {'id': comunidad.id }) }}" data-title="Modificar Datos de la Comunidad" class="btn btn-default btn-sm pull-right">Modificar Datos de la Comunidad</a>
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">Estado</p>
+							<p class="text-right">{{ comunidad.estado }}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">Municipio</p>
+							<p class="text-right">{{ comunidad.municipio }}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">Parroquia</p>
+							<p class="text-right">{{ comunidad.parroquia }}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">Sector</p>
+							<p class="text-right">{{ comunidad.sector }}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">Comunidad</p>
+							<p class="text-right">{{ comunidad.comunidad }}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="bottom-line negritas text-info">Direccion</p>
+							<p class="text-right">{{ comunidad.direccion }}</p>
+						</div>
+					</div>
+					<a id="btn-edit" href="#" data-action="{{ path('comunidades_edit', {'id': comunidad.id }) }}" data-title="Modificar Datos de la Comunidad" class="btn btn-info pull-right">Modificar Datos de la Comunidad</a>
 				{% else %}
 					<a id="btn-edit" href="#" data-action="{{ path('comunidades_new') }}" data-title="Datos de la Comunidad" class="btn btn-primary btn-block">Agregue los Datos de la Comunidad</a>
 				{% endif %}

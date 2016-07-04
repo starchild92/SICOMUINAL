@@ -5,7 +5,16 @@
 
     <span id="modalCuerpo">
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(edit_form.nombre) }}</div>
+            <div class="col-sm-6">{{ form_row(edit_form.codigo) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(edit_form.rif) }}</div>
+            <div class="col-sm-6">{{ form_row(edit_form.numeroCuenta) }}</div>
+        </div>
+        {{ form_row(edit_form.numeroCuenta) }}
+
         <input class="btn btn-primary btn-block" type="submit" value="Guardar" />
     {{ form_end(edit_form) }}
     </span>
