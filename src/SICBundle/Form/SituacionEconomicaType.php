@@ -30,9 +30,12 @@ class SituacionEconomicaType extends AbstractType
 
             ->add('actividadComercialenVivienda', 'entity', array(
                 'class'     => 'SICBundle:AdminVentaVivienda',
-                'label'     => 'Ventas De',
+                'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'placeholder' => 'Selecciona una',
+                'multiple'  => true,
                 'attr'  =>  array(
+                    'multiple' => '',
+                    'required'  => false,
                     'class' => 'ui fluid dropdown')))
 
             ->add('ingresoFamiliar','text',array(
@@ -55,7 +58,8 @@ class SituacionEconomicaType extends AbstractType
             ->add('placa','text',array(
                 'label'     => 'Si posee vehículo(s), Ingrese la(s) placa(s)',
                 'attr'        => array(
-                'placeholder'   => 'AAA000,BBB111,....')))
+                    'required' => false,
+                    'placeholder'   => 'AAA000,BBB111,....')))
         ;
     }
     

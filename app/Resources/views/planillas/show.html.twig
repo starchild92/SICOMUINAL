@@ -7,7 +7,7 @@
 		<div class="col-sm-10">
 			<div class="col-sm-3">
 				<div class="panel panel-default">
-					<div class="panel-heading">Informacion Planilla</div>
+					<div class="panel-heading text-center negritas">Informacion Planilla</div>
 					<table class="table borderless table-condensed">
 						<tbody>
 							<tr>
@@ -35,16 +35,113 @@
 						</div>
 						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 							<div class="panel-body">
-								
-									{{ planilla.jefeGrupoFamiliar.id }}
-									<table class="table borderless">
-										<tr>
-											<th class="col-sm-2">TH</th>
-											<td>algo</td>
-										</tr>
-									</table>
-									{{ dump(planilla.jefegrupofamiliar) }}
-								
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Nombres</p>
+										<p>{{ planilla.jefeGrupoFamiliar.nombres }}</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Apellidos</p>
+										<p>{{ planilla.jefeGrupoFamiliar.apellidos }}</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Cédula</p>
+										<p>{{ planilla.jefeGrupoFamiliar.cedula }}</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Nacionalidad</p>
+										<p>{{ planilla.jefeGrupoFamiliar.nacionalidad }}</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Fecha de Nacimiento</p>
+										<p>{{ planilla.jefeGrupoFamiliar.fechaNacimiento() }}</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Edad</p>
+										<p>{{ planilla.jefeGrupoFamiliar.edad }} años de edad</p>
+									</div>
+								</div>
+									
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">CNE</p>
+										<p>{{ planilla.jefeGrupoFamiliar.cne }}, estoy inscrito en el Consejo Nacional Electoral</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Tiempo en la Comunidad</p>
+										<p>{{ planilla.jefeGrupoFamiliar.tiempoEnComunidad }}</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Sexo</p>
+										<p>{{ planilla.jefeGrupoFamiliar.sexo }}</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">¿Posee alguna Discapacidad?</p>
+										<p>{{ planilla.jefeGrupoFamiliar.incapacitado }}</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Tipo de discapacidad</p>
+										<p>{{ planilla.jefeGrupoFamiliar.incapacitadoTipo }}</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">¿Es Pensionado?</p>
+										<p>{{ planilla.jefeGrupoFamiliar.pensionado }}</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Institución</p>
+										<p>{{ planilla.jefeGrupoFamiliar.pensionadoInstitucion }}</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Estado Civil</p>
+										<p>{{ planilla.jefeGrupoFamiliar.estadoCivil }}</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Nivel de Instrucción</p>
+										<p>{{ planilla.jefeGrupoFamiliar.nivelInstruccion }}</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Profesión</p>
+										<p>{{ planilla.jefeGrupoFamiliar.profesion }}</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Email</p>
+										<p>{{ planilla.jefeGrupoFamiliar.email }}</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">¿Trabaja Actualmente?</p>
+										<p>{{ planilla.jefeGrupoFamiliar.trabajaActualmente }}</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<p class="bottom-line negritas text-info">Teléfono(s)</p>
+										<p>{% for telf in planilla.jefeGrupoFamiliar.telefono %}{{ telf.codigo }} {{ telf.numero }}<br>{% endfor %}</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Ingreso Familiar</p>
+										<p>{{ planilla.jefeGrupoFamiliar.ingresoFamiliar }}</p>
+									</div>
+									<div class="col-sm-6">
+										<p class="bottom-line negritas text-info">Ingreso Mensual</p>
+										<p>{{ planilla.jefeGrupoFamiliar.ingresoMensual }}</p>
+									</div>
+								</div>
 								<hr>
 								<a class="btn btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': planilla.jefeGrupoFamiliar.id }) }}">Modificar Datos del Jefe Grupo Familiar</a>
 								

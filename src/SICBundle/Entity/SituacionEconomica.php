@@ -31,6 +31,13 @@ class SituacionEconomica
      * @ORM\ManyToOne(targetEntity="AdminVentaVivienda", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="ventaV_id", referencedColumnName="id", onDelete="CASCADE")
      */
+    /**
+     * @ORM\ManyToMany(targetEntity="AdminVentaVivienda", orphanRemoval=true)
+     * @ORM\JoinTable(name="sitVivi_ActComercial",
+     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ActComercial", referencedColumnName="id")}
+     *      )
+     */
     private $actividadComercialenVivienda;
 
     /**
@@ -52,6 +59,14 @@ class SituacionEconomica
      * @ORM\Column(name="placa", type="string", length=255)
      */
     private $placa;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->actividadComercialenVivienda = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -133,22 +148,32 @@ class SituacionEconomica
     }
 
     /**
-     * Set actividadComercialenVivienda
+     * Add actividadComercialenVivienda
      *
      * @param \SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda
      * @return SituacionEconomica
      */
-    public function setActividadComercialenVivienda(\SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda = null)
+    public function addActividadComercialenVivienda(\SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda)
     {
-        $this->actividadComercialenVivienda = $actividadComercialenVivienda;
+        $this->actividadComercialenVivienda[] = $actividadComercialenVivienda;
 
         return $this;
     }
 
     /**
+     * Remove actividadComercialenVivienda
+     *
+     * @param \SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda
+     */
+    public function removeActividadComercialenVivienda(\SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda)
+    {
+        $this->actividadComercialenVivienda->removeElement($actividadComercialenVivienda);
+    }
+
+    /**
      * Get actividadComercialenVivienda
      *
-     * @return \SICBundle\Entity\AdminVentaVivienda 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getActividadComercialenVivienda()
     {

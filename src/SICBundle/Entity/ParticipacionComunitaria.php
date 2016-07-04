@@ -22,7 +22,7 @@ class ParticipacionComunitaria
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminOrgComunitaria", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AdminOrgComunitaria", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="partCom_orgs",
      *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="orgs_id", referencedColumnName="id")}
@@ -45,7 +45,7 @@ class ParticipacionComunitaria
     private $participaMiembroOrganizacion;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminMisionesComunidad")
+     * @ORM\ManyToMany(targetEntity="AdminMisionesComunidad", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="partCom_Misiones",
      *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="mision_id", referencedColumnName="id")}
@@ -70,6 +70,7 @@ class ParticipacionComunitaria
      *      )
      */
     private $areaTabajoCC;
+    
     
     /**
      * Constructor

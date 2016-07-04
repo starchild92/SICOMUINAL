@@ -20,7 +20,7 @@
             <tr>
                 <td><a href="{{ path('situacioneconomica_show', { 'id': situacionEconomica.id }) }}">{{ situacionEconomica.id }}</a></td>
                 <td>{{ situacionEconomica.dondeTrabaja }}</td>
-                <td>{{ situacionEconomica.actividadComercialenVivienda }}</td>
+                <td>{% for articulo in situacionEconomica.actividadComercialenVivienda  %}{{ articulo.nombre }}<br>{% endfor %}</td>
                 <td>{{ situacionEconomica.ingresoFamiliarEspecifico }}</td>
                 <td>{{ situacionEconomica.ingresoFamiliar }}</td>
                 <td>{{ situacionEconomica.placa }}</td>

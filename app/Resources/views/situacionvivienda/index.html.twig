@@ -28,14 +28,14 @@
                 <td>{{ situacionVivienda.tipo }}</td>
                 <td>{{ situacionVivienda.tenencia }}</td>
                 <td>{{ situacionVivienda.terrenoPropio }}</td>
-                <td>{% for habitacion in situacionVivienda.habitaciones %}{{ habitacion.nombre }}{% endfor %}</td>
+                <td>{% for habitacion in situacionVivienda.habitaciones %}{{ habitacion.nombre }}{% endfor %}<br></td>
                 <td>{{ situacionVivienda.cantidadHabitaciones }}</td>
                 <td>{{ situacionVivienda.paredes }}</td>
                 <td>{{ situacionVivienda.techo }}</td>
-                <td>{% for enseres in situacionVivienda.enseres %}{{ enseres.nombre }}{% endfor %}</td>
+                <td>{% for enseres in situacionVivienda.enseres %}{{ enseres.nombre }}<br>{% endfor %}</td>
                 <td>{{ situacionVivienda.salubridad }}</td>
-                <td>{% for ins in situacionVivienda.presenciaInsectos %}{{ ins.nombre }}{% endfor %}</td>
-                <td>{% for mas in situacionVivienda.mascota %}{{ mas.nombre }}{% endfor %}</td>
+                <td>{% for ins in situacionVivienda.presenciaInsectos %}{{ ins.nombre }}<br>{% endfor %}</td>
+                <td>{% for mas in situacionVivienda.mascota %}{{ mas.nombre }}<br>{% endfor %}</td>
                 <td>
                     <ul>
                         <li>

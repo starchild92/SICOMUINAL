@@ -48,6 +48,8 @@ class SituacionComunidadController extends Controller
             $em->persist($p);
             $em->flush();
 
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha culminado con éxtio el registro de los datos en el sistema.');
             return $this->redirectToRoute('planillas_index');
         }
 
