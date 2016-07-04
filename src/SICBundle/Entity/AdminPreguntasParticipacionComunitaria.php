@@ -29,7 +29,7 @@ class AdminPreguntasParticipacionComunitaria
     private $interrogante;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
      * @ORM\JoinColumn(name="respCerrada", referencedColumnName="id", onDelete="CASCADE")
      */
     private $respuesta;
