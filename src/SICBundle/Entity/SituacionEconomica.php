@@ -61,6 +61,11 @@ class SituacionEconomica
     private $placa;
 
     /**
+     * @ORM\OneToOne(targetEntity="SituacionEconomica", inversedBy="situacionEconomica")
+     */
+    private $planilla;
+
+    /**
      * Constructor
      */
     public function __construct()

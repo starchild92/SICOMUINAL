@@ -41,7 +41,7 @@ class Planillas
     private $grupoFamiliar;
 
     /**
-     * @ORM\OneToOne(targetEntity="SituacionEconomica", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="SituacionEconomica", inversedBy="planilla", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="sitEco", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionEconomica;
