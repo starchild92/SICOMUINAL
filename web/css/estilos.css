@@ -83,7 +83,7 @@ h1 > .btn, h2 > .btn, h3 > .btn, h4 > .btn, h5 > .btn, h6 > .btn, .h1 > .btn, .h
 }
 
 p.bottom-line {
-	border-bottom: 1px solid #464545;
+	border-bottom: 1px solid #ddd;
 	margin-bottom: 2px;
 }
 
@@ -133,4 +133,10 @@ div.panel-body > hr {
     margin-bottom: 10px;
     border: 0;
     border-top: 1px solid #eee;
+}
+
+hr.little {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    border: 0;
 }

@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminTipoAyudaEspecial list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipo de Ayuda Especial</div>
+        <table class="table-bordered table table-stripped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminTipoAyudaEspecial in adminTipoAyudaEspecials %}
+                <tr>
+                    <td>{{ adminTipoAyudaEspecial.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_tipo_ayuda_especial_edit', { 'id': adminTipoAyudaEspecial.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminTipoAyudaEspecial in adminTipoAyudaEspecials %}
-            <tr>
-                <td><a href="{{ path('configurable_tipo_ayuda_especial_show', { 'id': adminTipoAyudaEspecial.id }) }}">{{ adminTipoAyudaEspecial.id }}</a></td>
-                <td>{{ adminTipoAyudaEspecial.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurable_tipo_ayuda_especial_show', { 'id': adminTipoAyudaEspecial.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurable_tipo_ayuda_especial_edit', { 'id': adminTipoAyudaEspecial.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurable_tipo_ayuda_especial_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <a class="btn btn-primary" href="{{ path('configurable_tipo_ayuda_especial_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo</a>
 {% endblock %}

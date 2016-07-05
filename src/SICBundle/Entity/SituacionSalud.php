@@ -31,7 +31,7 @@ class SituacionSalud
     private $padecencia;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoAyudaEspecial", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AdminTipoAyudaEspecial", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitSalud_ayu",
      *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="ayuda_id", referencedColumnName="id")}
@@ -40,7 +40,7 @@ class SituacionSalud
     private $ayudaEspecial;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoSituacionExclusion", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AdminTipoSituacionExclusion", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitSalud_exc",
      *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="exclusion_id", referencedColumnName="id")}

@@ -35,15 +35,23 @@ class SituacionViviendaController extends Controller
      */
     public function newAction(Request $request, $id_planilla)
     {
+        /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
+        $em = $this->getDoctrine()->getManager();
+        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $p = $planilla[0];
+
+        if($p->getSituacionVivienda() != NULL){
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
         $situacionVivienda = new SituacionVivienda();
         $form = $this->createForm('SICBundle\Form\SituacionViviendaType', $situacionVivienda);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($situacionVivienda);
-            $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
-            $p = $planilla[0];
             $p->setSituacionVivienda($situacionVivienda);
             $em->persist($p);
             $em->flush();

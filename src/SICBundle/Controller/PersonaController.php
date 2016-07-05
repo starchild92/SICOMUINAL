@@ -47,7 +47,9 @@ class PersonaController extends Controller
             $aux = $Grupo->getCantidadMiembros();
             $Grupo->setCantidadMiembros($aux+1);
         }else{
-            //no hay grupo familiar no existes
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
         if ($form->isSubmitted() && $form->isValid()) {

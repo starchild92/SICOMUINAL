@@ -94,6 +94,7 @@ class SituacionViviendaType extends AbstractType
             ->add('presenciaInsectos','entity', array(
                 'class' => 'SICBundle:AdminTipoPlagas',
                 'multiple' => true,
+                'required'  => false,
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'ui dropdown')))
@@ -101,6 +102,7 @@ class SituacionViviendaType extends AbstractType
             ->add('mascota','entity', array(
                 'class' => 'SICBundle:AdminTipoMascotas',
                 'multiple' => true,
+                'required'  => false,
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'ui dropdown')))

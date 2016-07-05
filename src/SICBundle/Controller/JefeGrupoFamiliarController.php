@@ -35,14 +35,22 @@ class JefeGrupoFamiliarController extends Controller
      */
     public function newAction(Request $request, $id_planilla)
     {
+        /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
+        $em = $this->getDoctrine()->getManager();
+        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $p = $planilla[0];
+
+        if($p->getJefeGrupoFamiliar() != NULL){
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
         $jefeGrupoFamiliar = new JefeGrupoFamiliar();
         $form = $this->createForm('SICBundle\Form\JefeGrupoFamiliarType', $jefeGrupoFamiliar);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
-            $p = $planilla[0];
             $p->setJefeGrupoFamiliar($jefeGrupoFamiliar);
             $em->persist($jefeGrupoFamiliar);
             $em->persist($p);

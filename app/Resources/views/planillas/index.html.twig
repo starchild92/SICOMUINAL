@@ -2,7 +2,7 @@
 
 {% block body %}
     <h1 class="text-center">Registros: "Estudio Demográfico y Socioeconomico"</h1>
-
+    <hr>
     {# <table class="table">
         <thead>
             <tr>
@@ -25,8 +25,12 @@
                 <div class="thumbnail">
                   <div class="caption">
                     <h3 class="text-center"><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></h3>
-                    <p><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a> a {% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }}{% endif %}</p>
-                    <p><a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a></p>
+                    <p class="text-center"><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a> a {% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }}{% endif %}</p>
+                    <p>{{ planilla.fecha() }}</p>
+                    
+                    <p>{% if planilla.terminada != 100 %}
+                    <a class="btn btn-warning btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>{% else %}<a class="btn btn-primary btn-block" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a>{% endif %}</p>
+
                   </div>
                 </div>
               </div>

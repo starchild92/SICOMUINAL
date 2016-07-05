@@ -44,6 +44,8 @@ class PlanillasController extends Controller
 
             //Colocando el empadronador
             $planilla->setEmpadronador($this->getUser());
+            $planilla->setTerminada(0);
+            $planilla->setFecha(new \DateTime('now'));
 
             $em->persist($planilla);
             $em->flush();
@@ -138,12 +140,22 @@ class PlanillasController extends Controller
 
         if (sizeof($planilla) == 1) {
             $planilla = $planilla[0];
-            echo "estuve aqui";
+            
             $aux = $planilla->getJefeGrupoFamiliar();
             if ($aux != NULL) {
                 $aux = $planilla->getGrupoFamiliar();
                 if ($aux != NULL) {
+                    $miembros = $aux->getCantidadMiembros();
+                    $id = $aux->getId();
+
                     $aux = $planilla->getSituacionEconomica();
+                    // Si la cantidad de miembros es 0, agregar nuevos miembros
+                    if($miembros <= 1 && $aux == null){
+                        return $this->redirectToRoute('personas_new', array(
+                        'id_planilla' => $planilla->getId(),
+                        'id_grupofamiliar' => $id));
+                    }
+
                     if ($aux != NULL) {
                         $aux = $planilla->getSituacionVivienda();
                         if ($aux != NULL) {

@@ -21,7 +21,8 @@ class SituacionSaludType extends AbstractType
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'multiple' => true,
                 'attr'  =>  array(
-                    'class' => 'ui dropdown')))
+                    'multiple' => '',
+                    'class' => 'fluid multiple search selection')))
             
             ->add('ayudaEspecial','collection',array(
                     'required' => false,

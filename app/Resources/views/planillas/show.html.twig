@@ -4,309 +4,301 @@
 	<h2>Registro # {{ planilla.id }}: "Estudio Demográfico y Socioeconomico"</h2>
 	<hr>
 	<div class="row">
-		<div class="col-sm-10">
-			<div class="col-sm-3">
-				<div class="panel panel-default">
-					<div class="panel-heading text-center negritas">Informacion Planilla</div>
-					<table class="table borderless table-condensed">
-						<tbody>
-							<tr>
-								<td><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></td>
-							</tr>
-							<tr>
-								<td><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></td>
-							</tr>
-							<tr>
-								<td><span class="negritas">Fecha: </span></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+		<div class="col-sm-3">
+			<div class="panel panel-default">
+				<div class="panel-heading text-center negritas">Información Planilla</div>
+					<div class="panel-body">
+						<p><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></p>
+						<p><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></p>
+						<p><span class="negritas">Fecha:</span> {{ planilla.fecha() }}</p>
+					</div>
 			</div>
-			<div class="col-sm-9">
-				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-					
-					{% if planilla.jefeGrupoFamiliar != null %}
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
-							<a class="negritas" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-								1. Jefe Grupo Familiar
-							</a>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Nombres</p>
-										<p>{{ planilla.jefeGrupoFamiliar.nombres }}</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Apellidos</p>
-										<p>{{ planilla.jefeGrupoFamiliar.apellidos }}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Cédula</p>
-										<p>{{ planilla.jefeGrupoFamiliar.cedula }}</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Nacionalidad</p>
-										<p>{{ planilla.jefeGrupoFamiliar.nacionalidad }}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Fecha de Nacimiento</p>
-										<p>{{ planilla.jefeGrupoFamiliar.fechaNacimiento() }}</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Edad</p>
-										<p>{{ planilla.jefeGrupoFamiliar.edad }} años de edad</p>
-									</div>
-								</div>
-									
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">CNE</p>
-										<p>{{ planilla.jefeGrupoFamiliar.cne }}, estoy inscrito en el Consejo Nacional Electoral</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Tiempo en la Comunidad</p>
-										<p>{{ planilla.jefeGrupoFamiliar.tiempoEnComunidad }}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Sexo</p>
-										<p>{{ planilla.jefeGrupoFamiliar.sexo }}</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">¿Posee alguna Discapacidad?</p>
-										<p>{{ planilla.jefeGrupoFamiliar.incapacitado }}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Tipo de discapacidad</p>
-										<p>{{ planilla.jefeGrupoFamiliar.incapacitadoTipo }}</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">¿Es Pensionado?</p>
-										<p>{{ planilla.jefeGrupoFamiliar.pensionado }}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Institución</p>
-										<p>{{ planilla.jefeGrupoFamiliar.pensionadoInstitucion }}</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Estado Civil</p>
-										<p>{{ planilla.jefeGrupoFamiliar.estadoCivil }}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Nivel de Instrucción</p>
-										<p>{{ planilla.jefeGrupoFamiliar.nivelInstruccion }}</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Profesión</p>
-										<p>{{ planilla.jefeGrupoFamiliar.profesion }}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Email</p>
-										<p>{{ planilla.jefeGrupoFamiliar.email }}</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">¿Trabaja Actualmente?</p>
-										<p>{{ planilla.jefeGrupoFamiliar.trabajaActualmente }}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12">
-										<p class="bottom-line negritas text-info">Teléfono(s)</p>
-										<p>{% for telf in planilla.jefeGrupoFamiliar.telefono %}{{ telf.codigo }} {{ telf.numero }}<br>{% endfor %}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Ingreso Familiar</p>
-										<p>{{ planilla.jefeGrupoFamiliar.ingresoFamiliar }}</p>
-									</div>
-									<div class="col-sm-6">
-										<p class="bottom-line negritas text-info">Ingreso Mensual</p>
-										<p>{{ planilla.jefeGrupoFamiliar.ingresoMensual }}</p>
-									</div>
-								</div>
-								<hr>
-								<a class="btn btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': planilla.jefeGrupoFamiliar.id }) }}">Modificar Datos del Jefe Grupo Familiar</a>
-								
-							</div>
-						</div>
-					</div>
-					{% endif %}
-					{% if planilla.grupoFamiliar != null %}
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingTwo">
-							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-								2. Grupo Familiar
-							</a>
-						</div>
-						<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-							<div class="panel-body">
-								
-									{{ planilla.grupoFamiliar.miembros|length }} miembros
-									<table class="table borderless">
-										<tr>
-											<th class="col-sm-2">TH</th>
-											<td>algo</td>
-										</tr>
-									</table>
-									{{ dump(planilla.grupoFamiliar) }}
-								
-								<hr>
-								<a class="btn btn-primary" href="#">Modificar Datos del Grupo Familiar</a>
-								
-							</div>
-						</div>
-					</div>
-					{% endif %}
-					{% if planilla.situacionEconomica != null %}
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingThree">
-							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-								3. Situación Economica
-							</a>
-						</div>
-						<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
-							<div class="panel-body">
-								
-									{{ planilla.situacionEconomica.id }}
-									<table class="table borderless">
-										<tr>
-											<th class="col-sm-2">TH</th>
-											<td>algo</td>
-										</tr>
-									</table>
-									{{ dump(planilla.situacionEconomica) }}
-								
-								<hr>
-								<a class="btn btn-primary" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}">Modificar Datos de la Situación Economica</a>
-								
-							</div>
-						</div>
-					</div>
-					{% endif %}
-					
-					{% if planilla.situacionVivienda != null %}
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingFour">
-							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-								4. Situación Vivienda
-							</a>
-						</div>
-						<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
-							<div class="panel-body">
-								
-								{{ planilla.situacionVivienda.id }}
-								
-							</div>
-						</div>
-					</div>
-					{% endif %}
-					
-					{% if planilla.situacionSalud != null %}
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingFive">
-							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-								5. Situación Salud
-							</a>
-						</div>
-						<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
-							<div class="panel-body">
-								
-								{{ planilla.situacionSalud.id }}
-								
-							</div>
-						</div>
-					</div>
-					{% endif %}
-					
-					{% if planilla.situacionServicios != null %}
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingSix">
-							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-								6. Situación Servicios
-							</a>
-						</div>
-						<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix">
-							<div class="panel-body">
-								
-								{{ planilla.situacionServicios.id }}
-								
-							</div>
-						</div>
-					</div>
-					{% endif %}
-					
-					{% if planilla.participacionComunitaria != null %}
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="heading7">
-							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
-								7. Participación Comunitaria
-							</a>
-						</div>
-						<div id="collapse7" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading7">
-							<div class="panel-body">
-								
-								{{ planilla.participacionComunitaria.id }}
-							</div>
-						</div>
-					</div>
-					{% endif %}
-
-					
-					{% if planilla.situacionComunidad != null %}
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="heading8">
-							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
-								8. Situación Comunitaria
-							</a>
-						</div>
-						<div id="collapse8" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading8">
-							<div class="panel-body">
-								
-								{{ planilla.situacionComunidad.id }}
-							</div>
-						</div>
-					</div>
-					{% endif %}
-
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="heading9">
-							<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
-								Observaciones
-							</a>
-						</div>
-						<div id="collapse9" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading9">
-							<div class="panel-body">
-								{{ planilla.observaciones }}
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
+			<hr class="little">
+			<a href="#" class="btn btn-default btn-block">Agregar Observaciones</a>
+			{% if planilla.terminada != 100 %}
+				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>
+				
+			{% endif %}
+			<hr class="little">
+			{{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar esta Planilla">{{ form_end(delete_form) }}
 		</div>
-		<div class="col-sm-2">
-			<p class="negritas text-center">Opciones</p>
-			<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>
-			<hr>
-			{{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar">{{ form_end(delete_form) }}
+		<div class="col-sm-9">
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				
+				{% if planilla.jefeGrupoFamiliar != null %}
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<a class="negritas" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							1. Jefe Grupo Familiar
+						</a>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Nombres</p>
+									<p>{{ planilla.jefeGrupoFamiliar.nombres }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Apellidos</p>
+									<p>{{ planilla.jefeGrupoFamiliar.apellidos }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Cédula</p>
+									<p>{{ planilla.jefeGrupoFamiliar.cedula }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Nacionalidad</p>
+									<p>{{ planilla.jefeGrupoFamiliar.nacionalidad }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Fecha de Nacimiento</p>
+									<p>{{ planilla.jefeGrupoFamiliar.fechaNacimiento() }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Edad</p>
+									<p>{{ planilla.jefeGrupoFamiliar.edad }} años de edad</p>
+								</div>
+							</div>
+								
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">CNE</p>
+									<p>{{ planilla.jefeGrupoFamiliar.cne }}, estoy inscrito en el Consejo Nacional Electoral</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Tiempo en la Comunidad</p>
+									<p>{{ planilla.jefeGrupoFamiliar.tiempoEnComunidad }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Sexo</p>
+									<p>{{ planilla.jefeGrupoFamiliar.sexo }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">¿Posee alguna Discapacidad?</p>
+									<p>{{ planilla.jefeGrupoFamiliar.incapacitado }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Tipo de discapacidad</p>
+									<p>{{ planilla.jefeGrupoFamiliar.incapacitadoTipo }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">¿Es Pensionado?</p>
+									<p>{{ planilla.jefeGrupoFamiliar.pensionado }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Institución</p>
+									<p>{{ planilla.jefeGrupoFamiliar.pensionadoInstitucion }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Estado Civil</p>
+									<p>{{ planilla.jefeGrupoFamiliar.estadoCivil }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Nivel de Instrucción</p>
+									<p>{{ planilla.jefeGrupoFamiliar.nivelInstruccion }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Profesión</p>
+									<p>{{ planilla.jefeGrupoFamiliar.profesion }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Email</p>
+									<p>{{ planilla.jefeGrupoFamiliar.email }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">¿Trabaja Actualmente?</p>
+									<p>{{ planilla.jefeGrupoFamiliar.trabajaActualmente }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<p class="bottom-line negritas text-info">Teléfono(s)</p>
+									<p>{% for telf in planilla.jefeGrupoFamiliar.telefono %}{{ telf.codigo }} {{ telf.numero }}<br>{% endfor %}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Ingreso Familiar</p>
+									<p>{{ planilla.jefeGrupoFamiliar.ingresoFamiliar }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Ingreso Mensual</p>
+									<p>{{ planilla.jefeGrupoFamiliar.ingresoMensual }}</p>
+								</div>
+							</div>
+							<hr>
+							<a class="btn btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': planilla.jefeGrupoFamiliar.id }) }}">Modificar Datos del Jefe Grupo Familiar</a>
+							
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				{% if planilla.grupoFamiliar != null %}
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingTwo">
+						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							2. Grupo Familiar
+						</a>
+					</div>
+					<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+						<div class="panel-body">
+							
+								{{ planilla.grupoFamiliar.miembros|length }} miembros
+								<table class="table borderless">
+									<tr>
+										<th class="col-sm-2">TH</th>
+										<td>algo</td>
+									</tr>
+								</table>
+								{{ dump(planilla.grupoFamiliar) }}
+							
+							<hr>
+							<a class="btn btn-primary" href="#">Modificar Datos del Grupo Familiar</a>
+							
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				{% if planilla.situacionEconomica != null %}
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingThree">
+						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							3. Situación Economica
+						</a>
+					</div>
+					<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+						<div class="panel-body">
+							
+								{{ planilla.situacionEconomica.id }}
+								<table class="table borderless">
+									<tr>
+										<th class="col-sm-2">TH</th>
+										<td>algo</td>
+									</tr>
+								</table>
+								{{ dump(planilla.situacionEconomica) }}
+							
+							<hr>
+							<a class="btn btn-primary" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}">Modificar Datos de la Situación Economica</a>
+							
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				
+				{% if planilla.situacionVivienda != null %}
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingFour">
+						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+							4. Situación Vivienda
+						</a>
+					</div>
+					<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+						<div class="panel-body">
+							
+							{{ planilla.situacionVivienda.id }}
+							
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				
+				{% if planilla.situacionSalud != null %}
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingFive">
+						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+							5. Situación Salud
+						</a>
+					</div>
+					<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
+						<div class="panel-body">
+							
+							{{ planilla.situacionSalud.id }}
+							
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				
+				{% if planilla.situacionServicios != null %}
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingSix">
+						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+							6. Situación Servicios
+						</a>
+					</div>
+					<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix">
+						<div class="panel-body">
+							
+							{{ planilla.situacionServicios.id }}
+							
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				
+				{% if planilla.participacionComunitaria != null %}
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="heading7">
+						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+							7. Participación Comunitaria
+						</a>
+					</div>
+					<div id="collapse7" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading7">
+						<div class="panel-body">
+							
+							{{ planilla.participacionComunitaria.id }}
+						</div>
+					</div>
+				</div>
+				{% endif %}
+
+				
+				{% if planilla.situacionComunidad != null %}
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="heading8">
+						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+							8. Situación Comunitaria
+						</a>
+					</div>
+					<div id="collapse8" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading8">
+						<div class="panel-body">
+							
+							{{ planilla.situacionComunidad.id }}
+						</div>
+					</div>
+				</div>
+				{% endif %}
+
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="heading9">
+						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
+							Observaciones
+						</a>
+					</div>
+					<div id="collapse9" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading9">
+						<div class="panel-body">
+							{{ planilla.observaciones }}
+						</div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
 {% endblock %}

@@ -83,7 +83,37 @@ class Planillas
      */
     private $observaciones;
     
-    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="terminada", type="integer")
+     */
+    private $terminada;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime")
+     */
+    private $fecha;
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps()
+    {
+        $this->fecha = \DateTime('now');
+    }
+
+    public function fecha()
+    {
+        $fecha = $this->getFecha();
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
+    }
 
     /**
      * Get id
@@ -323,5 +353,51 @@ class Planillas
     public function getEmpadronador()
     {
         return $this->empadronador;
+    }
+
+    /**
+     * Set terminada
+     *
+     * @param integer $terminada
+     * @return Planillas
+     */
+    public function setTerminada($terminada)
+    {
+        $this->terminada = $terminada;
+
+        return $this;
+    }
+
+    /**
+     * Get terminada
+     *
+     * @return integer 
+     */
+    public function getTerminada()
+    {
+        return $this->terminada;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Planillas
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
     }
 }

@@ -32,6 +32,7 @@ class SituacionEconomicaType extends AbstractType
                 'class'     => 'SICBundle:AdminVentaVivienda',
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'placeholder' => 'Selecciona una',
+                'required'  => false,
                 'multiple'  => true,
                 'attr'  =>  array(
                     'multiple' => '',
