@@ -157,19 +157,47 @@
 					</div>
 					<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 						<div class="panel-body">
-							
-								{{ planilla.grupoFamiliar.miembros|length }} miembros
-								<table class="table borderless">
-									<tr>
-										<th class="col-sm-2">TH</th>
-										<td>algo</td>
-									</tr>
-								</table>
-								{{ dump(planilla.grupoFamiliar) }}
-							
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Apellidos del Grupo</p>
+									<p>{{ planilla.grupoFamiliar.apellidos }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Dirección del Grupo</p>
+									<p>{{ planilla.grupoFamiliar.direccion }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Este Grupo está formado por</p>
+									<p>{{ planilla.grupoFamiliar.cantidadMiembros }} personas</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Número Casa</p>
+									<p>{{ planilla.grupoFamiliar.numeroCasa }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Sector</p>
+									<p>{{ planilla.grupoFamiliar.sector }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Tiempo Residencia</p>
+									<p>{{ planilla.grupoFamiliar.tiempoResidencia }} años</p>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<p class="bottom-line negritas text-info">Personas que conforman el Grupo Familiar</p>
+									{% for persona in planilla.grupoFamiliar.miembros %}
+									<p>{{ persona.nombre }} {{ persona.apellido }}, {{ persona.edad }} años <a class="pull-right" href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-user"></i> Ver persona</a></p>
+									{% endfor %}
+								</div>
+							</div>
 							<hr>
-							<a class="btn btn-primary" href="#">Modificar Datos del Grupo Familiar</a>
-							
+							<a class="btn btn-primary" href="{{path('grupofamiliar_edit',{'id':planilla.grupoFamiliar.id})}}">Modificar Datos del Grupo Familiar</a>
 						</div>
 					</div>
 				</div>

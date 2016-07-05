@@ -1,39 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>AdminAreaTrabajoCC list</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Areas de Trabajo Disponibles</div>
+        <table class="table-bordered table table-stripped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminAreaTrabajoCC in adminAreaTrabajoCCs %}
+                <tr>
+                    <td>{{ adminAreaTrabajoCC.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_tipos_areas_trabajo_edit', { 'id': adminAreaTrabajoCC.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adminAreaTrabajoCC in adminAreaTrabajoCCs %}
-            <tr>
-                <td><a href="{{ path('configurables_tipos_areas_trabajo_show', { 'id': adminAreaTrabajoCC.id }) }}">{{ adminAreaTrabajoCC.id }}</a></td>
-                <td>{{ adminAreaTrabajoCC.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('configurables_tipos_areas_trabajo_show', { 'id': adminAreaTrabajoCC.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('configurables_tipos_areas_trabajo_edit', { 'id': adminAreaTrabajoCC.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('configurables_tipos_areas_trabajo_new') }}" id="forModal">Create a new entry</a>
-        </li>
-    </ul>
+    <a class="btn btn-primary" href="{{ path('configurables_tipos_areas_trabajo_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nueva Area de Trabajo</a>
 {% endblock %}
