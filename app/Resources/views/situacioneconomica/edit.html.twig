@@ -1,21 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SituacionEconomica edit</h1>
-
+    <h2 class="text-center">Situación Económica</h2>
+    <hr>
+    <div class="row">
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(edit_form.dondeTrabaja) }}
+                    {{ form_row(edit_form.actividadComercialenVivienda) }}
+                    {{ form_row(edit_form.placa) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(edit_form.ingresoFamiliar) }}
+                    {{ form_row(edit_form.ingresoFamiliarEspecifico) }}
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('situacioneconomica_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <div class="col-sm-12"><input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios en Situación Económica y Regresar a la Planilla" /></div>
+    {{ form_end(edit_form) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown')
+              .dropdown();
+        })
+    </script>
 {% endblock %}

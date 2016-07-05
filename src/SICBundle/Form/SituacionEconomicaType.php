@@ -58,8 +58,8 @@ class SituacionEconomicaType extends AbstractType
             
             ->add('placa','text',array(
                 'label'     => 'Si posee vehículo(s), Ingrese la(s) placa(s)',
+                'required' => false,
                 'attr'        => array(
-                    'required' => false,
                     'placeholder'   => 'AAA000,BBB111,....')))
         ;
     }

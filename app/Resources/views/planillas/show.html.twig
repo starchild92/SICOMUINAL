@@ -191,9 +191,17 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<p class="bottom-line negritas text-info">Personas que conforman el Grupo Familiar</p>
-									{% for persona in planilla.grupoFamiliar.miembros %}
-									<p>{{ persona.nombre }} {{ persona.apellido }}, {{ persona.edad }} años <a class="pull-right" href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-user"></i> Ver persona</a></p>
-									{% endfor %}
+									<table class="table table-bordered table-striped">
+										<tbody>{% for persona in planilla.grupoFamiliar.miembros %}
+											<tr>
+												<td>{{ persona.nombre }} {{ persona.apellido }}, {{ persona.edad }} años</td>
+												<td>{{ persona.parentesco }}</td>
+												<td><a class="pull-right" href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-user"></i> Ver persona</a></td>
+											</tr>{% endfor %}
+										</tbody>
+									</table>
+									<a class="btn btn-success btn-block btn-sm" href="{{path('personas_new',{'id_planilla':planilla.id, 'id_grupofamiliar':planilla.grupoFamiliar.id})}}">Agregar Miembro al Grupo Familiar</a>
+									
 								</div>
 							</div>
 							<hr>
@@ -213,38 +221,37 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p class="bottom-line negritas text-info">¿Dónde trabaja?</p>
 									<p>{{ planilla.situacionEconomica.dondeTrabaja }}</p>
 								</div>
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p class="bottom-line negritas text-info">Actividad comercial en la vivienda</p>
+									{% if planilla.situacionEconomica.actividadComercialenVivienda is not defined %}
+									<p>No se realiza ninguna actividad comercial en la vivienda.</p>
+									{% endif %}
 									<p>{% for articulo in planilla.situacionEconomica.actividadComercialenVivienda %}
 										<span class="label label-default">{{ articulo.nombre }}</span>{% endfor %}</p>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p class="bottom-line negritas text-info">Ingreso Familiar (Bs)</p>
 									<p>{{ planilla.situacionEconomica.ingresoFamiliarEspecifico }}</p>
 								</div>
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p class="bottom-line negritas text-info">Ingreso Familiar (Bs)</p>
 									<p>{{ planilla.situacionEconomica.ingresoFamiliar }}</p>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-12">
-									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p class="bottom-line negritas text-info">Placa Vehículo</p>
+									{% if planilla.situacionEconomica.placa is not defined %}
+									<p>El Grupo familiar no tiene vehículo</p>
+									{% endif %}
 									<p>{{ planilla.situacionEconomica.placa }}</p>
 								</div>
 							</div>
-
-
-							
-							
-							
-							
-							
 							<hr>
 							<a class="btn btn-primary" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}">Modificar Datos de la Situación Economica</a>
 							
