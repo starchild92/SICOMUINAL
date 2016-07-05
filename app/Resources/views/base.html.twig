@@ -151,6 +151,12 @@
 				<strong>Enhorabuena!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
+		{% for flashMessage in app.session.flashbag.get('error') %}
+			<div class="alert alert-danger text-center">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Disculpe!</strong> {{ flashMessage }}
+			</div>
+		{% endfor %}
 		{% for flashMessage in app.session.flashbag.get('danger') %}
 			<div class="alert alert-danger text-center">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

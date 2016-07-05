@@ -211,15 +211,39 @@
 					</div>
 					<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
 						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p>{{ planilla.situacionEconomica.dondeTrabaja }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p>{% for articulo in planilla.situacionEconomica.actividadComercialenVivienda %}
+										<span class="label label-default">{{ articulo.nombre }}</span>{% endfor %}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p>{{ planilla.situacionEconomica.ingresoFamiliarEspecifico }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p>{{ planilla.situacionEconomica.ingresoFamiliar }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<p class="bottom-line negritas text-info">AAAAAAAAA</p>
+									<p>{{ planilla.situacionEconomica.placa }}</p>
+								</div>
+							</div>
+
+
 							
-								{{ planilla.situacionEconomica.id }}
-								<table class="table borderless">
-									<tr>
-										<th class="col-sm-2">TH</th>
-										<td>algo</td>
-									</tr>
-								</table>
-								{{ dump(planilla.situacionEconomica) }}
+							
+							
+							
 							
 							<hr>
 							<a class="btn btn-primary" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}">Modificar Datos de la Situación Economica</a>
