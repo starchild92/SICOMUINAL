@@ -133,6 +133,19 @@ class PlanillasController extends Controller
         ;
     }
 
+    public function cargarObservacionAction(Request $request, $id_planilla)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+
+        $data = $request->get('observaciones');
+        $planilla[0]->setObservaciones($data);
+        $em->persist($planilla[0]);
+        $em->flush();
+        $this->get('session')->getFlashBag()
+        ->add('success', 'Se ha registrado la observación');
+    }
+
     public function conitnuarEncuestaAction($id_encuesta = null)
     {
         $em = $this->getDoctrine()->getManager();

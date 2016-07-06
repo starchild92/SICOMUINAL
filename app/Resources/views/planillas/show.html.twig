@@ -14,7 +14,7 @@
 					</div>
 			</div>
 			<hr class="little">
-			<a href="#" class="btn btn-default btn-block">Agregar Observaciones</a>
+			<button id="modalButt" type="button" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="btn btn-default btn-block" data-toggle="modal" data-target=".bs-example-modal-sm">Agregar Observaciones</button>
 			{% if planilla.terminada != 100 %}
 				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>
 				
@@ -507,11 +507,48 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					{# <h5 class="modal-title" id="myModalLabel"></h5> #}Observaciones de la Planilla
+				</div>
+				<div class="modal-body">
+					<form role="form">
+						<div class="form-group">
+							<textarea class="form-control" rows="5" id="observaciones">{{ planilla.observaciones }}</textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-block btn-primary" id="modalClose" data-dismiss="modal">Guardar Observaciones</button>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
+
 {% block javascripts %}
 <script>
 $(document).on('ready', function(){
-	$('.collapse').collapse()
+	$('.collapse').collapse();
+
+	$('#modalClose').on('click', function(){
+		action = $('#modalButt').data('url');
+
+		$.ajax({
+			method: "POST",
+			url: action,
+			data: { observaciones: $('#observaciones').val()
+			},
+			complete: function(){
+				window.location.reload();
+			}
+		});
+
+	})
 })
 </script>
 {% endblock %}
