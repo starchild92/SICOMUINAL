@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Datos del Grupo Familiar</h2>
-    
+    <h2 class="text-center">Datos del Grupo Familiar</h2>
+    <hr>
     {{ form_start(edit_form) }}
     <div class="row">
         <div class="col-sm-12">
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-        <input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios" />
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios en Información Económica y Regresar a la Planilla" />
     {{ form_end(edit_form) }}
 {% endblock %}
 

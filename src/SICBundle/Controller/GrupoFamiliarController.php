@@ -98,7 +98,7 @@ class GrupoFamiliarController extends Controller
             $em->persist($grupoFamiliar);
             $em->flush();
 
-            return $this->redirectToRoute('grupofamiliar_edit', array('id' => $grupoFamiliar->getId()));
+            return $this->redirectToRoute('planillas_show', array('id' => $grupoFamiliar->getPlanilla()->getId()));
         }
 
         return $this->render('grupofamiliar/edit.html.twig', array(

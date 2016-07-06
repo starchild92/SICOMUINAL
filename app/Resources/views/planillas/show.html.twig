@@ -214,7 +214,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingThree">
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							3. Situación Economica
+							3. Situación Económica
 						</a>
 					</div>
 					<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
@@ -254,7 +254,6 @@
 							</div>
 							<hr>
 							<a class="btn btn-primary" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}">Modificar Datos de la Situación Economica</a>
-							
 						</div>
 					</div>
 				</div>
@@ -269,9 +268,70 @@
 					</div>
 					<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
 						<div class="panel-body">
-							
-							{{ planilla.situacionVivienda.id }}
-							
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Tipo de Vivienda</p>
+									<p>{{ planilla.situacionVivienda.tipo }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Tenencia</p>
+									<p>{{ planilla.situacionVivienda.tenencia }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">¿Terreno Propio?</p>
+									<p>{{ planilla.situacionVivienda.terrenoPropio }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">¿OVC?</p>
+									<p>{{ planilla.situacionVivienda.ovc }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Habitaciones de la Vivienda</p>
+									<p>{% for habitacion in planilla.situacionVivienda.habitaciones %}
+										<span class="label label-default">{{ habitacion.nombre }}</span>{% endfor %}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Cantidad de Habitaciones</p>
+									<p>{{ planilla.situacionVivienda.cantidadHabitaciones }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Condición de Paredes</p>
+									<p>{{ planilla.situacionVivienda.paredes }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Tipo de Techo</p>
+									<p>{{ planilla.situacionVivienda.techo }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Enseres de la Vivienda</p>
+									<p>{% for enser in planilla.situacionVivienda.enseres %}
+										<span class="label label-default">{{ enser.nombre }}</span>{% endfor %}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Salubridad</p>
+									<p>{{ planilla.situacionVivienda.salubridad }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Presencia de Insectos</p>
+									<p>{% for insecto in planilla.situacionVivienda.presenciaInsectos %}
+										<span class="label label-default">{{ insecto.nombre }}</span>{% endfor %}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Mascotas</p>
+									<p>{% for mascota in planilla.situacionVivienda.mascota %}
+										<span class="label label-default">{{ mascota.nombre }}</span>{% endfor %}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -286,9 +346,22 @@
 					</div>
 					<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
 						<div class="panel-body">
-							
-							{{ planilla.situacionSalud.id }}
-							
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Padecencias en el Grupo Familiar</p>
+									<p>{% for padecencia in planilla.situacionSalud.padecencia %}
+										<span class="label label-default">{{ padecencia.nombre }}</span>{% endfor %}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Ayuda(s) Especial(es)</p>
+									<p>{% for ayudaEspecial in planilla.situacionSalud.ayudaEspecial %}
+										<span class="label label-default">{{ ayudaEspecial.nombre }}</span>{% endfor %}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Situación de Exclusión</p>
+									<p>{% for situacionExclusion in planilla.situacionSalud.situacionExclusion %}<span class="label label-default">{{ situacionExclusion.situacion }}: {{ situacionExclusion.cantidad }}</span>{% endfor %}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -303,9 +376,47 @@
 					</div>
 					<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix">
 						<div class="panel-body">
-							
-							{{ planilla.situacionServicios.id }}
-							
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Suministro de Aguas Blancas</p>
+									<p>{{ planilla.situacionServicios.aguasBlancas }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Servicio de Aguas Servidas</p>
+									<p>{{ planilla.situacionServicios.aguasServidas }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Suministro de Gas</p>
+									<p>{{ planilla.situacionServicios.gas }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Suministro Eléctrico</p>
+									<p>{{ planilla.situacionServicios.sistemaElectrico }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Recolección de Basura</p>
+									<p>{{ planilla.situacionServicios.recoleccionBasura }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Telefonía</p>
+									<p>{{ planilla.situacionServicios.telefonia }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Transporte</p>
+									<p>{% for transporte in planilla.situacionServicios.transporte %}
+										<span class="label label-default">{{ transporte.nombre }}</span>{% endfor %}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Mecanismos de Información</p>
+									<p>{% for mecanismoInformacion in planilla.situacionServicios.mecanismoInformacion %}
+										<span class="label label-default">{{ mecanismoInformacion.nombre }}</span>{% endfor %}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Servicios Comunales</p>
+									<p>{% for serviciosComunales in planilla.situacionServicios.serviciosComunales %}
+										<span class="label label-default">{{ serviciosComunales.nombre }}</span>{% endfor %}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -320,8 +431,40 @@
 					</div>
 					<div id="collapse7" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading7">
 						<div class="panel-body">
-							
-							{{ planilla.participacionComunitaria.id }}
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Organizaciones</p>
+									<p>{% for item in planilla.participacionComunitaria.existenOrganizaciones %}
+										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Participación Organizaciones</p>
+									<p>{{ planilla.participacionComunitaria.participaOrganizacion }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Participa Miembro Organización</p>
+									<p>{{ planilla.participacionComunitaria.participaMiembroOrganizacion }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Misiones Comunidad</p>
+									<p>{% for item in planilla.participacionComunitaria.misionesComunidad %}
+										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Preguntas Participacion Comunitaria</p>
+									<p>{% for item in planilla.participacionComunitaria.preguntasParticipacionComunitaria %}
+										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Area de Trabajo</p>
+									<p>{% for item in planilla.participacionComunitaria.areaTabajoCC %}
+										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -337,8 +480,12 @@
 					</div>
 					<div id="collapse8" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading8">
 						<div class="panel-body">
-							
-							{{ planilla.situacionComunidad.id }}
+							<div class="row">
+								<div class="col-sm-12">
+									<p class="bottom-line negritas text-info"></p>
+									<p>{{ planilla.situacionComunidad.preguntasSituacionComunidad }}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
