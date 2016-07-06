@@ -49,7 +49,7 @@ class SituacionSalud
     private $situacionExclusion;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="situacionSalud")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionSalud")
      */
     private $planilla;
 
@@ -170,5 +170,28 @@ class SituacionSalud
     public function getSituacionExclusion()
     {
         return $this->situacionExclusion;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return SituacionSalud
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

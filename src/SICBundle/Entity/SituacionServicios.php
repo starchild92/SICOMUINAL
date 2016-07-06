@@ -85,7 +85,7 @@ class SituacionServicios
     private $serviciosComunales;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="situacionServicios")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionServicios")
      */
     private $planilla;
 
@@ -344,5 +344,28 @@ class SituacionServicios
     public function getServiciosComunales()
     {
         return $this->serviciosComunales;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return SituacionServicios
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

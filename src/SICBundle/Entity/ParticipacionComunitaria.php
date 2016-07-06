@@ -72,7 +72,7 @@ class ParticipacionComunitaria
     private $areaTabajoCC;
     
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="participacionComunitaria")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="participacionComunitaria")
      */
     private $planilla;
     
@@ -273,5 +273,28 @@ class ParticipacionComunitaria
     public function getAreaTabajoCC()
     {
         return $this->areaTabajoCC;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return ParticipacionComunitaria
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

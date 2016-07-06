@@ -95,7 +95,7 @@ class SituacionEconomicaController extends Controller
             $em->persist($situacionEconomica);
             $em->flush();
 
-            return $this->redirectToRoute('situacioneconomica_edit', array('id' => $situacionEconomica->getId()));
+            return $this->redirectToRoute('planillas_show', array('id' => $situacionEconomica->planilla));
         }
 
         return $this->render('situacioneconomica/edit.html.twig', array(

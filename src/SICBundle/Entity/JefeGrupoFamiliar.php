@@ -162,7 +162,7 @@ class JefeGrupoFamiliar
     private $ingresoMensual;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="jefeGrupoFamiliar")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="jefeGrupoFamiliar")
      */
     private $planilla;
 

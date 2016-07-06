@@ -61,7 +61,7 @@ class SituacionEconomica
     private $placa;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="situacionEconomica")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionEconomica")
      */
     private $planilla;
 
@@ -206,5 +206,28 @@ class SituacionEconomica
     public function getIngresoFamiliarEspecifico()
     {
         return $this->ingresoFamiliarEspecifico;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return SituacionEconomica
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

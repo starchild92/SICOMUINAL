@@ -74,7 +74,7 @@ class GrupoFamiliar
     private $miembros;
     
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="grupoFamiliar")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="grupoFamiliar")
      */
     private $planilla;
     
@@ -264,5 +264,28 @@ class GrupoFamiliar
     public function getMiembros()
     {
         return $this->miembros;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return GrupoFamiliar
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }
