@@ -162,6 +162,11 @@ class JefeGrupoFamiliar
     private $ingresoMensual;
 
     /**
+     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="jefeGrupoFamiliar")
+     */
+    private $planilla;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -678,5 +683,28 @@ class JefeGrupoFamiliar
     public function getTelefono()
     {
         return $this->telefono;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return JefeGrupoFamiliar
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

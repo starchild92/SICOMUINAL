@@ -61,7 +61,7 @@ class SituacionEconomica
     private $placa;
 
     /**
-     * @ORM\OneToOne(targetEntity="SituacionEconomica", inversedBy="situacionEconomica")
+     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="situacionEconomica")
      */
     private $planilla;
 

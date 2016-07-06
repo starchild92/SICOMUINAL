@@ -72,8 +72,12 @@ class GrupoFamiliar
      *      )
      */
     private $miembros;
-
-
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="grupoFamiliar")
+     */
+    private $planilla;
+    
     /**
      * Get id
      *

@@ -107,6 +107,11 @@ class SituacionVivienda
      *      )
      */
     private $mascota;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="SituacionVivienda")
+     */
+    private $planilla;
     
     
     /**

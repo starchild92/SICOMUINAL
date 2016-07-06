@@ -71,6 +71,10 @@ class ParticipacionComunitaria
      */
     private $areaTabajoCC;
     
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="participacionComunitaria")
+     */
+    private $planilla;
     
     /**
      * Constructor

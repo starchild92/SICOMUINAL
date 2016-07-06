@@ -29,13 +29,13 @@ class Planillas
     private $empadronador;
 
     /**
-     * @ORM\OneToOne(targetEntity="JefeGrupoFamiliar", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="JefeGrupoFamiliar", inversedBy="planilla", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="jefegFam", referencedColumnName="id", onDelete="CASCADE")
      */
     private $jefeGrupoFamiliar;
 
     /**
-     * @ORM\OneToOne(targetEntity="GrupoFamiliar", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="GrupoFamiliar", inversedBy="planilla", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="grupoFam", referencedColumnName="id", onDelete="CASCADE")
      */
     private $grupoFamiliar;
@@ -47,31 +47,31 @@ class Planillas
     private $situacionEconomica;
 
     /**
-     * @ORM\OneToOne(targetEntity="SituacionVivienda", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="SituacionVivienda", inversedBy="planilla", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionVivienda;
 
     /**
-     * @ORM\OneToOne(targetEntity="SituacionSalud", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="SituacionSalud", inversedBy="planilla", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="sitSal", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionSalud;
 
     /**
-     * @ORM\OneToOne(targetEntity="SituacionServicios", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="SituacionServicios", inversedBy="planilla", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="sitServ", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionServicios;
 
     /**
-     * @ORM\OneToOne(targetEntity="ParticipacionComunitaria", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="ParticipacionComunitaria", inversedBy="planilla", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="partCom", referencedColumnName="id", onDelete="CASCADE")
      */
     private $participacionComunitaria;
 
     /**
-     * @ORM\OneToOne(targetEntity="SituacionComunidad", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="SituacionComunidad", inversedBy="planilla", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="sitCom", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionComunidad;

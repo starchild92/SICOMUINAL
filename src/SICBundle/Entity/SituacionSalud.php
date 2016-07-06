@@ -47,6 +47,12 @@ class SituacionSalud
      *      )
      */
     private $situacionExclusion;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="situacionSalud")
+     */
+    private $planilla;
+
     /**
      * Constructor
      */

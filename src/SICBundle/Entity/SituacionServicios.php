@@ -85,6 +85,11 @@ class SituacionServicios
     private $serviciosComunales;
 
     /**
+     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="situacionServicios")
+     */
+    private $planilla;
+
+    /**
      * Constructor
      */
     public function __construct()

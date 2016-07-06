@@ -28,6 +28,10 @@ class SituacionComunidad
      */
     private $preguntasSituacionComunidad;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", inversedBy="situacionComunidad")
+     */
+    private $planilla;
 
     /**
      * Get id
