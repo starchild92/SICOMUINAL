@@ -292,4 +292,13 @@ class Usuario extends BaseUser
     {
         return $this->fechaNacimiento;
     }
+    
+    public function fechaNacimiento()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
+    }
 }

@@ -95,7 +95,7 @@ class JefeGrupoFamiliarController extends Controller
             $em->persist($jefeGrupoFamiliar);
             $em->flush();
 
-            return $this->redirectToRoute('jefegrupofamiliar_edit', array('id' => $jefeGrupoFamiliar->getId()));
+            return $this->redirectToRoute('planillas_show', array('id' => $jefeGrupoFamiliar->getPlanilla()->getId()));
         }
 
         return $this->render('jefegrupofamiliar/edit.html.twig', array(

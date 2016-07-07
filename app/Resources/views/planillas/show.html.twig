@@ -142,8 +142,7 @@
 								</div>
 							</div>
 							<hr>
-							<a class="btn btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': planilla.jefeGrupoFamiliar.id }) }}">Modificar Datos del Jefe Grupo Familiar</a>
-							
+							<a class="btn btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': planilla.jefeGrupoFamiliar.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 						</div>
 					</div>
 				</div>
@@ -205,7 +204,7 @@
 								</div>
 							</div>
 							<hr>
-							<a class="btn btn-primary" href="{{path('grupofamiliar_edit',{'id':planilla.grupoFamiliar.id})}}">Modificar Datos del Grupo Familiar</a>
+							<a class="btn btn-primary" href="{{path('grupofamiliar_edit',{'id':planilla.grupoFamiliar.id})}}"><i class="fa fa-edit"></i> Modificar datos</a>
 						</div>
 					</div>
 				</div>
@@ -253,7 +252,7 @@
 								</div>
 							</div>
 							<hr>
-							<a class="btn btn-primary" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}">Modificar Datos de la Situación Economica</a>
+							<a class="btn btn-primary" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 						</div>
 					</div>
 				</div>
@@ -332,6 +331,8 @@
 										<span class="label label-default">{{ mascota.nombre }}</span>{% endfor %}</p>
 								</div>
 							</div>
+							<hr>
+							<a class="btn btn-primary" href="{{ path('situacionvivienda_edit', { 'id': planilla.situacionVivienda.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 						</div>
 					</div>
 				</div>
@@ -362,6 +363,8 @@
 									<p>{% for situacionExclusion in planilla.situacionSalud.situacionExclusion %}<span class="label label-default">{{ situacionExclusion.situacion }}: {{ situacionExclusion.cantidad }}</span>{% endfor %}</p>
 								</div>
 							</div>
+							<hr>
+							<a class="btn btn-primary" href="{{ path('situacionsalud_edit', { 'id': planilla.situacionSalud.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 						</div>
 					</div>
 				</div>
@@ -417,6 +420,8 @@
 										<span class="label label-default">{{ serviciosComunales.nombre }}</span>{% endfor %}</p>
 								</div>
 							</div>
+							<hr>
+							<a class="btn btn-primary" href="{{ path('situacionservicios_edit', { 'id': planilla.situacionServicios.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 						</div>
 					</div>
 				</div>
@@ -465,12 +470,13 @@
 										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
 								</div>
 							</div>
+							<hr>
+							<a class="btn btn-primary" href="{{ path('participacioncomunitaria_edit', { 'id': planilla.participacionComunitaria.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 						</div>
 					</div>
 				</div>
 				{% endif %}
 
-				
 				{% if planilla.situacionComunidad != null %}
 				<div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="heading8">
@@ -486,6 +492,8 @@
 									<p>{{ planilla.situacionComunidad.preguntasSituacionComunidad }}</p>
 								</div>
 							</div>
+							<hr>
+							<a class="btn btn-primary" href="{{ path('situacioncomunidad_edit', { 'id': planilla.situacionComunidad.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 						</div>
 					</div>
 				</div>

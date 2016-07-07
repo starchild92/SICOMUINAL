@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h2>Modificar Datos del Jefe Grupo Familiar</h2>
-
+    <h2 class="text-center">Modificar Datos del Jefe Grupo Familiar</h2>
+    <hr>
     {{ form_start(edit_form) }}
         <div class="row">
             <div class="col-sm-6">
@@ -16,8 +16,10 @@
                         {{ form_row(edit_form.edad) }}
                         {{ form_row(edit_form.cne) }}
                         {{ form_row(edit_form.email) }}
-                        {{ form_row(edit_form.trabajaActualmente) }}
-                        {{ form_row(edit_form.profesion) }}
+                        <div class="row">
+                            <div class="col-sm-5">{{ form_row(edit_form.trabajaActualmente) }}</div>
+                            <div class="col-sm-7">{{ form_row(edit_form.profesion) }}</div>
+                        </div>
                         {{ form_row(edit_form.pensionado) }}
                         {{ form_row(edit_form.pensionadoInstitucion) }}
                     </div>
@@ -26,11 +28,15 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(edit_form.cedula) }}
-                        {{ form_row(edit_form.nacionalidad) }}
+                        <div class="row">
+                            <div class="col-sm-5">{{ form_row(edit_form.cedula) }}</div>
+                            <div class="col-sm-7">{{ form_row(edit_form.nacionalidad) }}</div>
+                        </div>
                         {{ form_row(edit_form.estadoCivil) }}
-                        {{ form_row(edit_form.incapacitado) }}
-                        {{ form_row(edit_form.incapacitadoTipo) }}
+                        <div class="row">
+                            <div class="col-sm-5">{{ form_row(edit_form.incapacitado) }}</div>
+                            <div class="col-sm-7">{{ form_row(edit_form.incapacitadoTipo) }}</div>
+                        </div>
                         {{ form_row(edit_form.tiempoEnComunidad) }}
                         {{ form_row(edit_form.nivelInstruccion) }}
                         {{ form_row(edit_form.ingresoFamiliar) }}
@@ -49,9 +55,7 @@
                 </div>  
             </div>
         </div>
-        <div class="row">
-            <input class="btn btn-success btn-block" type="submit" value="Guardar Datos" />
-        </div>
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios del Jefe del Grupo Familiar y Regresar a la Planilla" />
         
     {{ form_end(edit_form) }}
 {% endblock %}
@@ -62,6 +66,7 @@
     <script src="{{ asset('js/funcionesExtras.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
             $('.ui.dropdown').dropdown();
             $('.js-datepicker')
                 .datepicker({ format: 'yyyy-mm-dd' })
@@ -74,7 +79,6 @@
 
                         document.getElementById('jefe_grupo_familiar_edad').value = age;
                     });
-
             AexcluyeB('jefe_grupo_familiar_incapacitado', 'jefe_grupo_familiar_incapacitadoTipo');
             AexcluyeB('jefe_grupo_familiar_pensionado', 'jefe_grupo_familiar_pensionadoInstitucion');
         })

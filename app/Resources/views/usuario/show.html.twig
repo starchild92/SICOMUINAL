@@ -3,18 +3,16 @@
 {% block body %}
 <div class="row">
 	<div class="col-sm-12">
-		<div class="page-header">
-			<h1>Usuario</h1>
-		</div>
+		<h1>Usuario</h1>
+		<hr>
 	</div>
 	<div class="col-sm-10">
 		<table class="table borderless table-hover">
 	        <tbody>
 	            <tr><th class="col-sm-3">Nombres</th><td>{{ usuario.primerNombre }} {{ usuario.segundoNombre }}</td></tr>
 				<tr><th>Apellidos</th><td>{{ usuario.primerApellido }} {{ usuario.segundoApellido }}</td></tr>
-				<tr><th>Planillas Agregadas</th><td>Ha registrado {{ usuario.planillas|length }} planillas en el sistema.</td></tr>
-				<tr><th>Cédula</th><td>Coloquelacedulaaqui</td></tr>
-				<tr><th>Fecha de Nacimiento</th><td>colocalafechadenacimientoaqui</td></tr>
+				<tr><th>Cédula</th><td>{{ usuario.cedula }}</td></tr>
+				<tr><th>Fecha de Nacimiento</th><td>{{ usuario.fechaNacimiento() }}</td></tr>
 				<tr><th>Correo</th><td>{{ usuario.email }}</td></tr>
 				<tr><th>Usuario</th><td>{{ usuario.username }}</td></tr>
 				<tr><th>Activo<br><small>Indica su estado en el sistema</small></th><td>{% if usuario.enabled %}<span class="text-success negritas">Se encuentra activo</span>{% else %}<span class="text-danger negritas">Está inactivo</span>{% endif %}</td></tr>
@@ -25,13 +23,14 @@
 				<tr><th>Rol en el Sistema <br> <small>Posee los siguientes roles en el sistema</small></th><td>{% for role in usuario.roles %}{% if role == 'ROLE_ADMIN' %}<span class="label label-danger"><i class="fa fa-star fa-fw"></i> ADMINISTRADOR</span>{% endif %} {% if role == 'ROLE_USER' %}<span class="label label-primary"><i class="fa fa-user fa-fw"></i> EMPADRONADOR</span>{% endif %}{% endfor %}</td></tr>
 				<tr><th></th><td>{% if usuario.expired %}Cuenta vencida{% else %}No ha vencido su cuenta{% endif %}</td></tr>
 				<tr><th></th><td>{% if usuario.locked %}Está bloqueado{% else %}No está bloquedado{% endif %}</td></tr>
+				<tr><th>Planillas Agregadas</th><td>Ha registrado {{ usuario.planillas|length }} planillas en el sistema.</td></tr>
 	        </tbody>
 	    </table>
 	</div>
 	<div class="col-sm-2">
 		<a class="btn btn-default button-line btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
         <a class="btn btn-default button-line btn-block" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">Modificar Datos</a>
-        <hr>
+        <hr class="little">
 		{{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar">{{ form_end(delete_form) }}
 	</div>
 </div>
