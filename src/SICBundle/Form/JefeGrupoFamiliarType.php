@@ -135,8 +135,11 @@ class JefeGrupoFamiliarType extends AbstractType
                     'data_class' => null,
                     'label' => 'Número(s) teléfonicos',
                     ))
+
             ->add('email','text',array(
-                'label'     => 'Correo Electronico'))
+                'label'     => 'Correo Electrónico',
+                'required'  => false,))
+
             ->add('ingresoFamiliar', EntityType::class, array(
                 'label' => 'Clasificación del Ingreso Familiar',
                 'class' => 'SICBundle:AdminClasIngresoFamiliar',

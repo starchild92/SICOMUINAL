@@ -1,21 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SituacionComunidad edit</h1>
-
+    <h1 class="text-center">Situación Comunitaria</h1>
+    <hr>
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar Datos y regresar a la Planilla" />
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('situacioncomunidad_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

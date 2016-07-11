@@ -95,7 +95,10 @@ class SituacionViviendaController extends Controller
             $em->persist($situacionVivienda);
             $em->flush();
 
-            return $this->redirectToRoute('situacionvivienda_edit', array('id' => $situacionVivienda->getId()));
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se han actualizado los datos de la Situación de Vivienda de forma exitosa.');
+            return $this->redirectToRoute('planillas_show', array('id' => $situacionVivienda->getPlanilla()->getId()));
+            // return $this->redirectToRoute('situacionvivienda_edit', array('id' => $situacionVivienda->getId()));
         }
 
         return $this->render('situacionvivienda/edit.html.twig', array(

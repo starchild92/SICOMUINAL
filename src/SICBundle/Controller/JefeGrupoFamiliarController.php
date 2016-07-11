@@ -95,6 +95,9 @@ class JefeGrupoFamiliarController extends Controller
             $em->persist($jefeGrupoFamiliar);
             $em->flush();
 
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se han guardado los cambios del Jefe de Grupo Familiar');
+
             return $this->redirectToRoute('planillas_show', array('id' => $jefeGrupoFamiliar->getPlanilla()->getId()));
         }
 

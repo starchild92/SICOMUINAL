@@ -24,12 +24,12 @@
               <div class="col-sm-3 col-md-3 col-xs-6">
                 <div class="thumbnail">
                   <div class="caption">
-                    <h3 class="text-center"><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></h3>
-                    <p class="text-center"><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a> a {% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }}{% endif %}</p>
-                    <p>{{ planilla.fecha() }}</p>
+                    <h4 class="text-left"><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></h4>
+                    <p class="text-left"><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a> a {% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }}{% endif %}</p>
+                    <p class="text-right small">{{ planilla.fecha() }}</p>
                     
                     <p>{% if planilla.terminada != 100 %}
-                    <a class="btn btn-warning btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>{% else %}<a class="btn btn-primary btn-block" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a>{% endif %}</p>
+                    <a class="btn btn-xs btn-warning btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>{% else %}<a class="btn btn-xs btn-primary btn-block" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a>{% endif %}</p>
 
                   </div>
                 </div>

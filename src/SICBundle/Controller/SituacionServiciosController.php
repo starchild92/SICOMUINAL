@@ -94,7 +94,9 @@ class SituacionServiciosController extends Controller
             $em->persist($situacionServicio);
             $em->flush();
 
-            return $this->redirectToRoute('situacionservicios_edit', array('id' => $situacionServicio->getId()));
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se han almacena los datos de Situación de Servicios de forma exitosa.');
+            return $this->redirectToRoute('planillas_show', array('id' => $situacionServicio->getPlanilla()->getId()));
         }
 
         return $this->render('situacionservicios/edit.html.twig', array(

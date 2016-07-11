@@ -77,16 +77,26 @@ class UsuarioController extends Controller
         $editForm = $this->createForm('SICBundle\Form\UsuarioType', $usuario);
 
         $you = $this->getUser();
-        if($you->getId() != $usuario->getId())
-        {
-            $editForm->remove('plainPassword');
-        }
-
         $roles = $you->getRoles();        
         if (!in_array("ROLE_ADMIN", $roles))
         {
+            // no soy admin
             $editForm->remove('enabled');
             $editForm->remove('roles');
+
+            if($you->getId() != $usuario->getId())
+            {
+                // intento editar datos de otro usuario
+                $this->get('session')->getFlashBag()
+                ->add('warning', 'Operacion no permitida.');
+                return $this->redirectToRoute('usuarios_index');
+                $editForm->remove('plainPassword');
+            }
+        }
+
+        if($you->getId() != $usuario->getId())
+        {
+            $editForm->remove('plainPassword');
         }
         
         $editForm->handleRequest($request);
@@ -96,7 +106,10 @@ class UsuarioController extends Controller
             $em->persist($usuario);
             $em->flush();
 
-            return $this->redirectToRoute('usuarios_edit', array('id' => $usuario->getId()));
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se han almacena los datos del usuario correctamente');
+
+            return $this->redirectToRoute('usuarios_index');
         }
 
         return $this->render('usuario/edit.html.twig', array(
@@ -117,8 +130,15 @@ class UsuarioController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($usuario);
+            // $em->remove($usuario);
+            // $em->flush();
+
+            // El usuario no es removido en su lugar es colocado como inactivo para mantener sus planillas e información dentro del sistema
+            $usuario->setEnabled(false);
+            $em->persist($usuario);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'Se colocó al usuario ('.$usuario->getUsername().') como inactivo en el sistema.' );
         }
 
         return $this->redirectToRoute('usuarios_index');

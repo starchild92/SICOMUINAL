@@ -28,7 +28,9 @@
 							<p class="text-right">{{ consejo.numeroCuenta }}</p>
 						</div>
 					</div>
+					{% if '1' in app.user.roles|keys %}
 					<a id="btn-edit" href="#" data-action="{{ path('consejocomunal_edit', {'id': consejo.id }) }}" data-title="Modificar Datos del Consejo Comunal" class="btn btn-info pull-right">Modificar Datos del Consejo Comunal</a>
+					{% endif %}
 				{% else %}
 					<a id="btn-edit" href="#" data-action="{{ path('consejocomunal_new') }}" data-title="Datos Consejo Comunal" class="btn btn-primary btn-block">Agregue los Datos del Consejo Comunal</a>
 				{% endif %}
@@ -52,7 +54,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-6">
-							<p class="bottom-line negritas text-info">Parroquia</p>
+							<p class="bottom-line negritas text-info">Parroquía</p>
 							<p class="text-right">{{ comunidad.parroquia }}</p>
 						</div>
 						<div class="col-sm-6">
@@ -66,11 +68,11 @@
 							<p class="text-right">{{ comunidad.comunidad }}</p>
 						</div>
 						<div class="col-sm-6">
-							<p class="bottom-line negritas text-info">Direccion</p>
+							<p class="bottom-line negritas text-info">Dirección</p>
 							<p class="text-right">{{ comunidad.direccion }}</p>
 						</div>
 					</div>
-					<a id="btn-edit" href="#" data-action="{{ path('comunidades_edit', {'id': comunidad.id }) }}" data-title="Modificar Datos de la Comunidad" class="btn btn-info pull-right">Modificar Datos de la Comunidad</a>
+					{% if '1' in app.user.roles|keys %}<a id="btn-edit" href="#" data-action="{{ path('comunidades_edit', {'id': comunidad.id }) }}" data-title="Modificar Datos de la Comunidad" class="btn btn-info pull-right">Modificar Datos de la Comunidad</a>{% endif %}
 				{% else %}
 					<a id="btn-edit" href="#" data-action="{{ path('comunidades_new') }}" data-title="Datos de la Comunidad" class="btn btn-primary btn-block">Agregue los Datos de la Comunidad</a>
 				{% endif %}

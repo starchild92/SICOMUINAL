@@ -53,15 +53,22 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading text-center">Estado de la Cuenta y Rol del Sistema</div>
                         <div class="panel-body">
+                        {% if edit_form.enabled is defined %}
                             {{ form_row(edit_form.enabled) }}
                             {{ form_row(edit_form.roles) }}
+                        {% else %}
+                            <p class="text-info">No tiene los permisos suficientes para modificar su rol en el sistema o estado de la cuenta.</p>
+                        {% endif %}
+                        
                         </div>
                     </div>
                 </div>
+                
             </div>
             <input class="btn btn-primary btn-block" type="submit" value="Guardar cambios del usuario" />
         {{ form_end(edit_form) }}
@@ -69,7 +76,7 @@
     <div class="col-sm-2">
         <a class="btn btn-default button-line btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
         <hr class="little">
-        {{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar">{{ form_end(delete_form) }}
+        {{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar Usuario">{{ form_end(delete_form) }}
     </div>
 </div>
 {% endblock %}

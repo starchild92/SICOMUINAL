@@ -12,11 +12,11 @@
 				<tr><th class="col-sm-3">Nombres</th><td>{{ user.primerNombre }} {{ user.segundoNombre }}</td></tr>
 				<tr><th>Apellidos</th><td>{{ user.primerApellido }} {{ user.segundoApellido }}</td></tr>
 				<tr><th>Planillas Agregadas</th><td>Ha registrado {{ user.planillas|length }} planillas en el sistema.</td></tr>
-				<tr><th>Cédula</th><td>Coloquelacedulaaqui</td></tr>
-				<tr><th>Fecha de Nacimiento</th><td>colocalafechadenacimientoaqui</td></tr>
+				<tr><th>Cédula</th><td>{{ user.cedula }}</td></tr>
+				<tr><th>Fecha de Nacimiento</th><td>{{ user.fechaNacimiento() }}</td></tr>
 				<tr><th>Correo</th><td>{{ user.email }}</td></tr>
 				<tr><th>Usuario</th><td>{{ user.username }}</td></tr>
-				<tr><th>Activo<br><small class="text-info">Indica su estado en el sistema</small></th><td>{% if user.enabled %}<span class="text-success negritas">Se encuentra activo</span>{% else %}<span class="text-danger negritas">Está inactivo</span>{% endif %}</td></tr>
+				<tr><th>Activo<br><small class="text-info">Indica su estado en el sistema</small></th><td>{% if user.enabled %}<span class="text-success negritas">Se encuentra activo</span>{% else %}<span class="text-danger negritas">Está inactivo</span><small>No puede ingresar al sistema.</small>{% endif %}</td></tr>
 				<tr><th>Teléfonos</th><td>
 					{% if user.telefono|length == 0 %}No tiene ningun número de teléfono{% endif %}
 					{% for telf in user.telefono %}({{ telf.codigo }}) - {{ telf.numero }}<br>{% endfor %}

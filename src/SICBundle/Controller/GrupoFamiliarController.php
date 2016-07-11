@@ -98,6 +98,8 @@ class GrupoFamiliarController extends Controller
             $em->persist($grupoFamiliar);
             $em->flush();
 
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha modificado la información del Grupo Familiar de forma exitosa');
             return $this->redirectToRoute('planillas_show', array('id' => $grupoFamiliar->getPlanilla()->getId()));
         }
 

@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+<style>
+.label{
+	font-weight: normal !important;
+	display: inline-block !important;
+}
+</style>
+{% endblock %}
 {% block body %}
 	<h2>Registro # {{ planilla.id }}: "Estudio Demográfico y Socioeconomico"</h2>
 	<hr>
@@ -10,19 +17,23 @@
 					<div class="panel-body">
 						<p><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></p>
 						<p><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></p>
+						<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
 						<p><span class="negritas">Fecha:</span> {{ planilla.fecha() }}</p>
 					</div>
 			</div>
 			<hr class="little">
 			<button id="modalButt" type="button" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="btn btn-default btn-block" data-toggle="modal" data-target=".bs-example-modal-sm">Agregar Observaciones</button>
+			<a class="btn btn-default btn-block" href="{{ path('planillas_index') }}">Ver Todas</a>
 			{% if planilla.terminada != 100 %}
 				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>
-				
 			{% endif %}
 			<hr class="little">
 			{{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar esta Planilla">{{ form_end(delete_form) }}
 		</div>
 		<div class="col-sm-9">
+			{% if planilla.terminada != 100 %}
+				<p class="well well-sm"><a class="btn btn-primary btn-block negritas" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Esta encuesta está sin terminar, haga click aqui para continuarla <i class="fa fa-arrow-right"></i></a></p>
+			{% endif %}
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				
 				{% if planilla.jefeGrupoFamiliar != null %}
@@ -72,7 +83,7 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Tiempo en la Comunidad</p>
-									<p>{{ planilla.jefeGrupoFamiliar.tiempoEnComunidad }}</p>
+									<p>{{ planilla.jefeGrupoFamiliar.tiempoEnComunidad }} años</p>
 								</div>
 							</div>
 							<div class="row">
@@ -82,23 +93,23 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">¿Posee alguna Discapacidad?</p>
-									<p>{{ planilla.jefeGrupoFamiliar.incapacitado }}</p>
+									<p>{{ planilla.jefeGrupoFamiliar.incapacitado|title }}</p>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Tipo de discapacidad</p>
-									<p>{{ planilla.jefeGrupoFamiliar.incapacitadoTipo }}</p>
+									<p>{% if planilla.jefeGrupoFamiliar.incapacitadoTipo|length == 0 %}No aplica{% else %}{{ planilla.jefeGrupoFamiliar.incapacitadoTipo }}{% endif %}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">¿Es Pensionado?</p>
-									<p>{{ planilla.jefeGrupoFamiliar.pensionado }}</p>
+									<p>{{ planilla.jefeGrupoFamiliar.pensionado|title }}</p>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Institución</p>
-									<p>{{ planilla.jefeGrupoFamiliar.pensionadoInstitucion }}</p>
+									<p>{% if planilla.jefeGrupoFamiliar.pensionadoInstitucion|length == 0 %}No aplica{% else %}{{ planilla.jefeGrupoFamiliar.pensionadoInstitucion }}{% endif %}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Estado Civil</p>
@@ -118,7 +129,7 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Email</p>
-									<p>{{ planilla.jefeGrupoFamiliar.email }}</p>
+									<p>{% if planilla.jefeGrupoFamiliar.email|length == 0 %}No especificó{% else %}{{ planilla.jefeGrupoFamiliar.email }}{% endif %}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">¿Trabaja Actualmente?</p>
@@ -128,7 +139,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<p class="bottom-line negritas text-info">Teléfono(s)</p>
-									<p>{% for telf in planilla.jefeGrupoFamiliar.telefono %}{{ telf.codigo }} {{ telf.numero }}<br>{% endfor %}</p>
+									<p>{% for telf in planilla.jefeGrupoFamiliar.telefono %}({{ telf.codigo }}) - {{ telf.numero }}<br>{% endfor %}</p>
 								</div>
 							</div>
 							<div class="row">
@@ -245,7 +256,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<p class="bottom-line negritas text-info">Placa Vehículo</p>
-									{% if planilla.situacionEconomica.placa is not defined %}
+									{% if planilla.situacionEconomica.placa|length == 0 %}
 									<p>El Grupo familiar no tiene vehículo</p>
 									{% endif %}
 									<p>{{ planilla.situacionEconomica.placa }}</p>

@@ -94,7 +94,9 @@ class SituacionSaludController extends Controller
             $em->persist($situacionSalud);
             $em->flush();
 
-            return $this->redirectToRoute('situacionsalud_edit', array('id' => $situacionSalud->getId()));
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha modificado la información de la Situación de Salud de forma exitosa.');
+            return $this->redirectToRoute('planillas_show', array('id' => $situacionSalud->getPlanilla()->getId()));
         }
 
         return $this->render('situacionsalud/edit.html.twig', array(

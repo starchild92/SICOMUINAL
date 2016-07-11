@@ -95,6 +95,8 @@ class SituacionEconomicaController extends Controller
             $em->persist($situacionEconomica);
             $em->flush();
 
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha modificado la información de la Situación Económica de forma exitosa.');
             return $this->redirectToRoute('planillas_show', array('id' => $situacionEconomica->getPlanilla()->getId()));
         }
 

@@ -13,10 +13,11 @@
 				<table class="table table-bordered">
 					<thead class="thead-info">
 						<tr>
-							<th>Id</th>
+							{# <th>Id</th> #}
 							<th>Nombres</th>
 							<th>Apellidos</th>
 							<th>Correo</th>
+							<th>Estatus</th>
 							<th>Teléfonos</th>
 							<th>Opciones</th>
 						</tr>
@@ -24,10 +25,11 @@
 					<tbody>
 					{% for usuario in usuarios %}
 						<tr>
-							<td><a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>
+							{# <td><a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td> #}
 							<td>{{ usuario.primerNombre }} {{ usuario.segundoNombre }}</td>
 							<td>{{ usuario.primerApellido }} {{ usuario.segundoApellido }}</td>
 							<td>{{ usuario.email }}</td>
+							<td>{% if usuario.enabled %}<span class="text-success negritas">Activo</span>{% else %}<span class="text-danger negritas">Inactivo</span><br><small>No puede ingresar al sistema.</small>{% endif %}</td>
 							<td>{% for tlf in usuario.telefono %}{{ tlf.codigo }} - {{ tlf.numero }}<br>{% endfor %}</td>
 							<td>
 								<a class="btn btn-default button-line" href="{{ path('usuarios_show', { 'id': usuario.id }) }}"><i class="fa fa-info"></i> Detalles</a>

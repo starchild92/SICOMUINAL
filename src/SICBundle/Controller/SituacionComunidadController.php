@@ -97,7 +97,9 @@ class SituacionComunidadController extends Controller
             $em->persist($situacionComunidad);
             $em->flush();
 
-            return $this->redirectToRoute('situacioncomunidad_edit', array('id' => $situacionComunidad->getId()));
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se han actualizado los datos de la Situación Comunitaria de forma extiosa.');
+            return $this->redirectToRoute('planillas_show', array('id' => $situacionComunidad->getPlanilla()->getId()));
         }
 
         return $this->render('situacioncomunidad/edit.html.twig', array(

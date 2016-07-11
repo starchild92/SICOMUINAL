@@ -15,7 +15,7 @@
 				<tr><th>Fecha de Nacimiento</th><td>{{ usuario.fechaNacimiento() }}</td></tr>
 				<tr><th>Correo</th><td>{{ usuario.email }}</td></tr>
 				<tr><th>Usuario</th><td>{{ usuario.username }}</td></tr>
-				<tr><th>Activo<br><small>Indica su estado en el sistema</small></th><td>{% if usuario.enabled %}<span class="text-success negritas">Se encuentra activo</span>{% else %}<span class="text-danger negritas">Está inactivo</span>{% endif %}</td></tr>
+				<tr><th>Activo<br><small>Indica su estado en el sistema</small></th><td>{% if usuario.enabled %}<span class="text-success negritas">Se encuentra activo</span>{% else %}<span class="text-danger negritas">Está inactivo</span><br><small>No puede ingresar al sistema.</small>{% endif %}</td></tr>
 				<tr><th>Teléfonos</th><td>
 					{% if usuario.telefono|length == 0 %}No tiene ningun número de teléfono{% endif %}
 					{% for telf in usuario.telefono %}{{ telf.codigo }} - {{ telf.numero }}<br>{% endfor %}

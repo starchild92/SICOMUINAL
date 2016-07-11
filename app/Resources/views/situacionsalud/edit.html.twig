@@ -1,15 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Situación Salud</h1>
+    <h1 class="text-center">Situación Salud</h1>
+    <hr>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input class="btn btn-primary btn-block" type="submit" value="Guardar Situación de Salud" />
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-body">{{ form_row(edit_form.padecencia) }}</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-body">{{ form_row(edit_form.ayudaEspecial) }}</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-body">{{ form_row(edit_form.situacionExclusion) }}</div>
+                </div>
+            </div>
+        </div>
+        <input class="btn btn-primary btn-block" type="submit" value="Actualizar Datos de la Situación Salud y regresar a la Planilla" />
     {{ form_end(edit_form) }}
-
-    {{ form_start(delete_form) }}<input class="btn btn-danger btn-block" type="submit" value="Elminar Datos">{{ form_end(delete_form) }}
-    
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/formAyudaEspecial.js') }}"></script>
@@ -17,6 +31,7 @@
     <script>
         $(document).ready(function() {
             $('.ui.dropdown').dropdown();
+            $('.fluid.multiple.search.selection').dropdown({ allowAdditions: true });
         })
     </script>
 {% endblock %}
