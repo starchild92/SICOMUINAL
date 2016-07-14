@@ -3,63 +3,28 @@
 {% block body %}
     <h1 class="text-center">Registros: "Estudio Demográfico y Socioeconomico"</h1>
     <hr>
-    {# <table class="table">
+    <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Empadronador</th>
-                <th>Jefegrupofamiliar</th>
-                <th>Miembrosgrupofamiliar</th>
-                <th>Situacioneconomica</th>
-                <th>Situacionvivienda</th>
-                <th>Situacionsalud</th>
-                <th>Situacionservicios</th>
-                <th>Participacioncomunitaria</th>
-                <th>Situacioncomunidad</th>
+                <th>Encuestado</th>
+                <th>Fecha Modificada</th>
+                <th>Estado</th>
             </tr>
         </thead>
-        <tbody> #}
+        <tbody>
         <div class="row">
             {% for planilla in planillas %}
-              <div class="col-sm-3 col-md-3 col-xs-6">
-                <div class="thumbnail">
-                  <div class="caption">
-                    <h4 class="text-left"><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></h4>
-                    <p class="text-left"><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a> a {% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }}{% endif %}</p>
-                    <p class="text-right small">{{ planilla.fecha() }}</p>
-                    
-                    <p>{% if planilla.terminada != 100 %}
-                    <a class="btn btn-xs btn-warning btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>{% else %}<a class="btn btn-xs btn-primary btn-block" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a>{% endif %}</p>
-
-                  </div>
-                </div>
-              </div>
-            
-
-            {# <tr>
-                <td></td>
-                <td></td>
-                <td>
-                    
-                    
-                </td>
-                <td>
-                    {% if planilla.jefeGrupoFamiliar != null %}
-                        {% if planilla.grupoFamiliar.miembros != null %}
-                            {{ planilla.grupoFamiliar.miembros|length }} miembros
-                        {% endif %}
-                    {% endif %}
-                </td>
-                <td>{% if planilla.situacionEconomica != null %}{{ planilla.situacionEconomica.id }}{% endif %}</td>
-                <td>{% if planilla.situacionVivienda != null %}{{ planilla.situacionVivienda.id }}{% endif %}</td>
-                <td>{% if planilla.situacionSalud != null %}{{ planilla.situacionSalud.id }}{% endif %}</td>
-                <td>{% if planilla.situacionServicios != null %}{{ planilla.situacionServicios.id }}{% endif %}</td>
-                <td>{% if planilla.participacionComunitaria != null %}{{ planilla.participacionComunitaria.id }}{% endif %}</td>
-                <td>{% if planilla.situacionComunidad != null %}{{ planilla.situacionComunidad.id }}{% endif %}</td>
-                <td><a class="btn button-line" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a></td>
-            </tr> #}
-        {% endfor %}
-        </div>
-        {# </tbody>
-    </table> #}
+                <tr>
+                    <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></td>
+                    <td><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></td>
+                    <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }}{% endif %}</td>
+                    <td>{{ planilla.fecha() }}</td>
+                    <td>{% if planilla.terminada != 100 %}
+                    <a class="btn btn-xs btn-warning btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>{% else %}<a class="btn btn-xs btn-primary btn-block" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a>{% endif %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

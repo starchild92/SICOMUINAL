@@ -201,6 +201,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<p class="bottom-line negritas text-info">Personas que conforman el Grupo Familiar</p>
+									{% if planilla.grupoFamiliar.miembros|length > 0 %}
 									<table class="table table-bordered table-striped">
 										<tbody>{% for persona in planilla.grupoFamiliar.miembros %}
 											<tr>
@@ -210,6 +211,9 @@
 											</tr>{% endfor %}
 										</tbody>
 									</table>
+									{% else %}
+									<p>No se han registrado miembros adiconales al Jefe del Grupo Familiar.</p>
+									{% endif %}
 									<a class="btn btn-success btn-block btn-sm" href="{{path('personas_new',{'id_planilla':planilla.id, 'id_grupofamiliar':planilla.grupoFamiliar.id})}}">Agregar Miembro al Grupo Familiar</a>
 									
 								</div>

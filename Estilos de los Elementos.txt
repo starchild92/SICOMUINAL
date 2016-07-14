@@ -1,0 +1,2 @@
+Todas las tablas son
+	table table-bordered table-striped table-hover

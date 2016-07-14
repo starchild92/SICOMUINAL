@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Planillas
  *
  * @ORM\Table(name="planillas")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="SICBundle\Repository\PlanillasRepository")
  */
 class Planillas
@@ -98,12 +99,12 @@ class Planillas
     private $fecha;
 
     /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
     public function updatedTimestamps()
     {
-        $this->fecha = \DateTime('now');
+        $this->fecha = new \DateTime('now');
     }
 
     public function fecha()

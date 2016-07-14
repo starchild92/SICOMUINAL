@@ -65,10 +65,10 @@ class GrupoFamiliar
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Persona", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="Persona", cascade={"remove", "persist"})
      * @ORM\JoinTable(name="grupo_familiar_personas",
-     *      joinColumns={@ORM\JoinColumn(name="grupo_familiar", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="persona", referencedColumnName="id", unique=true)}
+     *      joinColumns={@ORM\JoinColumn(name="grupo_familiar", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="persona", referencedColumnName="id", unique=true, onDelete="CASCADE")}
      *      )
      */
     private $miembros;
