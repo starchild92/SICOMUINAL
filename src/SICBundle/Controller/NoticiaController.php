@@ -23,9 +23,11 @@ class NoticiaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $noticias = $em->getRepository('SICBundle:Noticia')->findAll();
+        $usuarios_reciben_correo = $em->getRepository('SICBundle:Noticia')->CantidadPersonasCorreo();
 
         return $this->render('noticia/index.html.twig', array(
             'noticias' => $noticias,
+            'reciben_correo' => $usuarios_reciben_correo,
         ));
     }
 
@@ -129,5 +131,38 @@ class NoticiaController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function newsletterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $noticias = $em->getRepository('SICBundle:Noticia')->NoticiasOrdenDesc(); //solo las noticias que están visibles
+
+        return $this->render('noticia/newsletter.html.twig', array(
+            'noticias' => $noticias,
+        ));
+    }
+
+    /* cambia el estado de visto de una noticia*/
+    public function alternarVisibilidadAction(Request $request, Noticia $noticium)
+    {
+        if ($this->getUser() != NULL) {
+            $em = $this->getDoctrine()->getManager();
+            if ($noticium->getVisibilidad() == '0') {
+                //a invisible
+                $noticium->setVisibilidad('1');
+                $this->get('session')->getFlashBag()->add('success', 'Se ha colocado la noticia "'.$noticium->getTitulo().'" como visible.');
+            }else{
+                // a visible
+                $noticium->setVisibilidad('0');
+                $this->get('session')->getFlashBag()->add('success', 'Se ha colocado la noticia "'.$noticium->getTitulo().'" como invisible.');
+            }
+            $em->persist($noticium);
+            $em->flush();
+
+            return $this->redirectToRoute('noticia_index');
+        }
+
+        return $this->redirectToRoute('sic_homepage');
     }
 }

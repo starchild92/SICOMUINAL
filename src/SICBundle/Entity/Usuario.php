@@ -311,4 +311,37 @@ class Usuario extends BaseUser
 
         return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
     }
+
+    /**
+     * Add noticias
+     *
+     * @param \SICBundle\Entity\Noticia $noticias
+     * @return Usuario
+     */
+    public function addNoticia(\SICBundle\Entity\Noticia $noticias)
+    {
+        $this->noticias[] = $noticias;
+
+        return $this;
+    }
+
+    /**
+     * Remove noticias
+     *
+     * @param \SICBundle\Entity\Noticia $noticias
+     */
+    public function removeNoticia(\SICBundle\Entity\Noticia $noticias)
+    {
+        $this->noticias->removeElement($noticias);
+    }
+
+    /**
+     * Get noticias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNoticias()
+    {
+        return $this->noticias;
+    }
 }

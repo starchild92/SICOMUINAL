@@ -1,21 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Noticia edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    <h1><i class="fa fa-edit"></i> Modificar Noticia</h1>
+    <hr>
+    {{ form_start(edit_form, {'id':'appbundle_correo'}) }}
+        <div class="row">
+            <div class="col-sm-10">{{ form_row(edit_form.titulo) }}</div>
+            <div class="col-sm-2">{{ form_widget(edit_form.visibilidad) }}</div>
+        </div>
+        {{ form_widget(edit_form.cuerpo, {'id':'TypeHere'}) }}
+        <hr class="little">
+        <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save fa-fw"></i> Actualizar Texto del Correo </button>
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('noticia_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% endblock %}
+{% block javascripts %}
+    <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script type="application/x-javascript">
+        tinymce.init({selector:'#TypeHere'});
+    </script>
 {% endblock %}

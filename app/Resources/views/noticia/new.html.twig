@@ -1,16 +1,23 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/checkbox.css') }}">
+{% endblock %}
 {% block body %}
-    <h1>Noticia creation</h1>
-
+    <h1 class="text-center">Crear Noticia</h1>
+    <hr>
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-block btn-primary" type="submit" value="Crear Noticia" />
     {{ form_end(form) }}
+    <hr class="little">
+    <a class="btn btn-default btn-block" href="{{ path('noticia_index') }}">Ver todas</a>
 
-    <ul>
-        <li>
-            <a href="{{ path('noticia_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/checkbox.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.ui.checkbox').checkbox('toggle');
+        })
+    </script>
 {% endblock %}

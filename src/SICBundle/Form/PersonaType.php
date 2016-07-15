@@ -32,6 +32,8 @@ class PersonaType extends AbstractType
             ->add('cedula','text', array(
                 'label'     => 'Cédula de Identidad'))
             
+            ->add('email')
+            
             ->add('fechaNacimiento', DateType::class, array(
                 'widget'    => 'single_text',
                 'html5'     => false,

@@ -5,7 +5,7 @@
     <hr>
     <div class="row">
         <div class="col-sm-9">
-            <table class="table table-bordered table-striped table-hover">
+            <table class="table borderless table-hover">
                 <tbody>
                     <tr>
                         <th>Nombre</th>
@@ -20,53 +20,59 @@
                         <td>{{ persona.sexo }}</td>
                     </tr>
                     <tr>
-                        <th>Cedula</th>
+                        <th>Cédula de Identidad</th>
                         <td>{{ persona.cedula }}</td>
                     </tr>
                     <tr>
+                        <th>Correo</th>
+                        <td>{{ persona.email }}</td>
+                    </tr>
+                    <tr>
                         <th>Fechanacimiento</th>
-                        <td>{% if persona.fechaNacimiento %}{{ persona.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+                        <td>{% if persona.fechaNacimiento %}{{ persona.fechaNacimiento() }}{% endif %}</td>
                     </tr>
                     <tr>
                         <th>Edad</th>
-                        <td>{{ persona.edad }}</td>
+                        <td>{{ persona.edad }} años</td>
                     </tr>
                     <tr>
-                        <th>Parentesco</th>
+                        <th>Parentesco <br><small class="text-info">con el Jefe Grupo Familiar</small></th>
                         <td>{{ persona.parentesco }}</td>
                     </tr>
                     <tr>
-                        <th>Gradoinstruccion</th>
+                        <th>Grado de Instrucción</th>
                         <td>{{ persona.gradoInstruccion }}</td>
                     </tr>
                     <tr>
-                        <th>Profesion</th>
+                        <th>Profesión</th>
                         <td>{{ persona.profesion }}</td>
                     </tr>
                     <tr>
-                        <th>Cne</th>
-                        <td>{{ persona.cne }}</td>
+                        <th>CNE</th>
+                        <td>{{ persona.cne|title }}</td>
                     </tr>
+                    {% if persona.sexo != 'Masculino' %}
                     <tr>
-                        <th>Embarazotemprano</th>
+                        <th>¿Embarazo temprano?</th>
                         <td>{{ persona.embarazoTemprano }}</td>
                     </tr>
+                    {% endif %}
                     <tr>
-                        <th>Incapacitado</th>
-                        <td>{{ persona.incapacitado }}</td>
+                        <th>¿Es Incapacitado?</th>
+                        <td>{{ persona.incapacitado|title }}</td>
                     </tr>
-                    <tr>
+                    {% if persona.incapacitado != 'no' %}<tr>
                         <th>Incapacitadotipo</th>
                         <td>{{ persona.incapacitadoTipo }}</td>
-                    </tr>
+                    </tr>{% endif %}
                     <tr>
-                        <th>Pensionado</th>
-                        <td>{{ persona.pensionado }}</td>
+                        <th>¿Es Pensionado?</th>
+                        <td>{{ persona.pensionado|title }}</td>
                     </tr>
-                    <tr>
+                    {% if persona.pensionado != 'no' %}<tr>
                         <th>Pensionadoinstitucion</th>
                         <td>{{ persona.pensionadoInstitucion }}</td>
-                    </tr>
+                    </tr>{% endif %}
                 </tbody>
             </table>
         </div>

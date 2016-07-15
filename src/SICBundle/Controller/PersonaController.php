@@ -106,7 +106,9 @@ class PersonaController extends Controller
             $em->persist($persona);
             $em->flush();
 
-            return $this->redirectToRoute('personas_edit', array('id' => $persona->getId()));
+            $this->get('session')->getFlashBag()->add('success', 'Se han actualizado los datos de forma correcta.');
+
+            return $this->redirectToRoute('personas_show', array('id' => $persona->getId()));
         }
 
         return $this->render('persona/edit.html.twig', array(

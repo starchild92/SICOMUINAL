@@ -9,19 +9,11 @@
 		{% block stylesheets %}{% endblock %}
 
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
-		{# <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-theme.css') }}"> #}
-		{# <link rel="stylesheet" type="text/css" href="{{ asset('css/darkly-bootstrap.css') }}"> #}
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/estilos.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/ie10-viewport-bug-workaround.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}">
 
 		{# Clases de Semantic UI #}
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/semantic.min.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/dropdown.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/transition.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/icon.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/step.css') }}">
 		<style>
 		@font-face {
 		    font-family: 'Open Sans';
@@ -86,64 +78,7 @@
 					</ul> #}
 
 					<ul class="nav navbar-nav navbar-right">
-
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDs <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="{{ path('consejocomunal_index') }}">Consejo Comunal</a></li>
-								<li><a href="{{ path('comunidades_index') }}">Comunidades</a></li>
-								
-								<li><a href="{{ path('usuarios_index') }}">Usuarios</a></li>
-								<li><a href="{{ path('jefegrupofamiliar_index') }}">Jefe Grupo Familiar</a></li>
-								<li><a href="{{ path('grupofamiliar_index') }}">Grupo Familiar</a></li>
-								<li><a href="{{ path('personas_index') }}">Miembros Grupo Familiar</a></li>
-								<li><a href="{{ path('situacioneconomica_index') }}">Situación Ecónomica</a></li>
-								<li><a href="{{ path('situacionvivienda_index') }}">Situación Vivienda</a></li>
-								<li><a href="{{ path('situacionsalud_index') }}">Situación Salud</a></li>
-								<li><a href="{{ path('situacionservicios_index') }}">Situación Servicios</a></li>
-								<li><a href="{{ path('participacioncomunitaria_index') }}">Participación Comunitaria</a></li>
-								<li><a href="{{ path('situacioncomunidad_index') }}">Situación Comunitaria</a></li>
-							</ul>
-						</li>
-
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administar <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="{{ path('sic_administacion_entidades') }}"><i class="fa fa-users"></i> Datos Consejo Comunal</a></li>
-								<li><a href="{{ path('sic_administacion_parametros_planilla') }}"><i class="fa fa-cogs"></i> Parámetros en Encuestas</a></li>
-								<li><a href="{{ path('noticia_index') }}"><i class="fa fa-newspaper-o"></i> Noticias</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> Correos Comunitario</a></li>
-								<li><a href="#"><i class="fa fa-compass"></i> Bitácora del Sistema</a></li>
-							</ul>
-						</li>
-
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Encuestas <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="{{ path('planillas_index') }}"><i class="fa fa-file-o"></i> Listar Encuestas</a></li>
-								<li><a href="{{ path('planillas_new') }}"><i class="fa fa-clipboard"></i> Nueva Encuesta</a></li>
-								<li><a href="#"><i class="fa fa-edit"></i> Modificar Encuesta</a></li>
-							</ul>
-						</li>
-
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="{{ path('usuarios_index') }}"><i class="fa fa-th-list"></i> Listar Usuarios</a></li>
-								<li><a href="{{ path('usuarios_new') }}"><i class="fa fa-plus"></i> Agregar Usuario</a></li>
-							</ul>
-						</li>
-
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.primerNombre }} {{ app.user.primerApellido }} <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								{# <li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li> #}
-								<li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-eye"></i> Ver perfil</a></li>
-								<li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-edit"></i> Editar perfil</a></li>
-							</ul>
-						</li>
-
-						<li class="btn-danger"><a style="color: #FFF;" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i>  <span class="visible-xs">Cerrar Sesión</span></a></li>
+						<li><a href="#">{% block not_log_title %}{% endblock %}</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
@@ -196,13 +131,6 @@
 		<script src="{{ asset('js/jquery2.1.4.js') }}"></script>
 		<script src="{{ asset('js/bootstrap.js') }}"></script>
 		<script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
-		<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
-		
-		{# JS de Semantic UI #}
-		<script src="{{ asset('js/dropdown.js') }}"></script>
-		<script src="{{ asset('js/package.js') }}"></script>
-		<script src="{{ asset('js/index.js') }}"></script>
-		<script src="{{ asset('js/transition.js') }}"></script>
 		
 		<script>
 			$(function () {

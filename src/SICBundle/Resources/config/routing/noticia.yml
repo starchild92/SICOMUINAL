@@ -22,3 +22,13 @@ noticia_delete:
     path:     /{id}/delete
     defaults: { _controller: "SICBundle:Noticia:delete" }
     methods:  DELETE
+
+noticia_toggle_visibilidad:
+    path:     /{id}/alternar/visibilidad
+    defaults: { _controller: "SICBundle:Noticia:alternarVisibilidad" }
+    methods:  GET
+
+noticia_newsletter:
+    path:     /publicaciones
+    defaults: { _controller: "SICBundle:Noticia:newsletter" }
+    methods:  GET

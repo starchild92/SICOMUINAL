@@ -12,4 +12,49 @@ use Doctrine\ORM\EntityRepository;
  */
 class NoticiaRepository extends EntityRepository
 {
+	/* retorna la cantidad de personas con correo que está recibiendo mensajes
+	no inlcuye miembro del consejo comunal (entidad usuarios) */
+	public function CantidadPersonasCorreo()
+	{
+		$query = $this->getEntityManager()
+            ->createQuery(
+			'SELECT COUNT(p)
+			FROM SICBundle:Persona p
+			WHERE p.email != :var
+				AND p.recibir_correo = :var2'
+		)
+            ->setParameter('var', '')
+            ->setParameter('var2', '0');
+
+		$cant = $query->getSingleScalarResult();
+
+		$query = $this->getEntityManager()
+            ->createQuery(
+			'SELECT COUNT(p)
+			FROM SICBundle:JefeGrupoFamiliar p
+			WHERE p.email != :var
+				AND p.recibir_correo = :var2'
+		)
+            ->setParameter('var', '')
+            ->setParameter('var2', '0');
+
+		$cant = $query->getSingleScalarResult() + $cant;
+		
+		return $cant;
+	}
+
+	public function NoticiasOrdenDesc()
+	{
+		$query = $this->getEntityManager()
+            ->createQuery(
+			'SELECT n
+			FROM SICBundle:Noticia n
+			WHERE n.visibilidad = :var
+				ORDER BY n.fechaPub DESC'
+		)
+            ->setParameter('var', '1');
+
+		$result = $query->setMaxResults(5)->getResult();
+		return $result;
+	}
 }

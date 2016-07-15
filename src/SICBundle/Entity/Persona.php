@@ -126,6 +126,13 @@ class Persona
     private $pensionadoInstitucion;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
      * @ORM\Column(name="recibir_correo", type="boolean")
      */
     private $recibir_correo;
@@ -138,6 +145,15 @@ class Persona
     public function getId()
     {
         return $this->id;
+    }
+
+    public function fechaNacimiento()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
     }
 
     /**
@@ -506,5 +522,28 @@ class Persona
     public function getRecibirCorreo()
     {
         return $this->recibir_correo;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Persona
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

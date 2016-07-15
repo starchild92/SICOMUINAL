@@ -16,11 +16,14 @@ class NoticiaType extends AbstractType
     {
         $builder
             ->add('titulo')
-            ->add('cuerpo')
+            ->add('cuerpo', 'textarea', array(
+                'required' => false))
             // ->add('usuario')
             // ->add('fecha', 'datetime')
             // ->add('fechaPub', 'datetime')
-            ->add('visibilidad')
+            ->add('visibilidad','checkbox', array(
+                'attr'      => array(
+                    'class' => 'ui toggle checkbox')))
         ;
     }
     
