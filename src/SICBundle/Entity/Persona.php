@@ -126,6 +126,11 @@ class Persona
     private $pensionadoInstitucion;
 
     /**
+     * @ORM\Column(name="recibir_correo", type="boolean")
+     */
+    private $recibir_correo;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -478,5 +483,28 @@ class Persona
     public function getPensionadoInstitucion()
     {
         return $this->pensionadoInstitucion;
+    }
+
+    /**
+     * Set recibir_correo
+     *
+     * @param boolean $recibirCorreo
+     * @return Persona
+     */
+    public function setRecibirCorreo($recibirCorreo)
+    {
+        $this->recibir_correo = $recibirCorreo;
+
+        return $this;
+    }
+
+    /**
+     * Get recibir_correo
+     *
+     * @return boolean 
+     */
+    public function getRecibirCorreo()
+    {
+        return $this->recibir_correo;
     }
 }

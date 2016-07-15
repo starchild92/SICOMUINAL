@@ -22,7 +22,6 @@ class Planillas
      */
     private $id;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="planillas")
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
@@ -114,6 +113,21 @@ class Planillas
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
         return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
+    }
+
+    public function fechayhora()
+    {
+        $fecha = $this->getFecha();
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y')." a las ".$fecha->format('h').":".$fecha->format('i')." ".$fecha->format('a');
+    }
+
+    public function fechaCron()
+    {
+        $fecha = $this->getFecha();
+        return $fecha->format('Y')."/".$fecha->format('n')."/".$fecha->format('d')." a las ".$fecha->format('h').":".$fecha->format('i')." ".$fecha->format('a');
     }
 
     /**

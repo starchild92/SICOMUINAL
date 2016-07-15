@@ -10,13 +10,14 @@
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="panel panel-info">
-				<table class="table table-bordered">
+				<table class="table table-bordered table-striped table-hover">
 					<thead class="thead-info">
 						<tr>
 							{# <th>Id</th> #}
 							<th>Nombres</th>
 							<th>Apellidos</th>
 							<th>Correo</th>
+							<th>Tipo</th>
 							<th>Estatus</th>
 							<th>Teléfonos</th>
 							<th>Opciones</th>
@@ -29,11 +30,27 @@
 							<td>{{ usuario.primerNombre }} {{ usuario.segundoNombre }}</td>
 							<td>{{ usuario.primerApellido }} {{ usuario.segundoApellido }}</td>
 							<td>{{ usuario.email }}</td>
-							<td>{% if usuario.enabled %}<span class="text-success negritas">Activo</span>{% else %}<span class="text-danger negritas">Inactivo</span><br><small>No puede ingresar al sistema.</small>{% endif %}</td>
+							<td>
+								{% if usuario.enabled %}
+									<span class="label label-success"><i class="fa fa-check"></i> Activo</span>
+								{% else %}
+									<span class="label label-danger"><i class="fa fa-times"></i> Inactivo</span><br><small>No puede ingresar al sistema.</small>
+								{% endif %}
+							</td>
+							<td>
+								{% if usuario.roles|length == 2 %}<span class="label label-success"><i class="fa fa-star fa-fw"></i> Administrador</span>{% else %}<span class="label label-info"><i class="fa fa-user fa-fw"></i> Empadronador</span>{% endif %}
+							</td>
 							<td>{% for tlf in usuario.telefono %}{{ tlf.codigo }} - {{ tlf.numero }}<br>{% endfor %}</td>
 							<td>
-								<a class="btn btn-default button-line" href="{{ path('usuarios_show', { 'id': usuario.id }) }}"><i class="fa fa-info"></i> Detalles</a>
-								<a class="btn btn-default button-line" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-cogs"></i> <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li><a href="{{ path('usuarios_show', { 'id': usuario.id }) }}"><i class="fa fa-info"></i> Mostrar detalles</a></li>
+										<li><a href="{{ path('usuarios_edit', { 'id': usuario.id }) }}"><i class="fa fa-edit"></i> Editar detalles</a></li>
+									</ul>
+								</div>
 							</td>
 						</tr>
 					{% endfor %}

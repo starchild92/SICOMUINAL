@@ -4,13 +4,14 @@
     <h1 class="text-center">Registros: "Estudio Demográfico y Socioeconomico"</h1>
     <hr>
     <table class="table table-bordered table-striped table-hover">
-        <thead>
+        <thead class="thead-info">
             <tr>
                 <th>#</th>
                 <th>Empadronador</th>
                 <th>Encuestado</th>
                 <th>Fecha Modificada</th>
                 <th>Estado</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -20,9 +21,27 @@
                     <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></td>
                     <td><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></td>
                     <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }}{% endif %}</td>
-                    <td>{{ planilla.fecha() }}</td>
-                    <td>{% if planilla.terminada != 100 %}
-                    <a class="btn btn-xs btn-warning btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>{% else %}<a class="btn btn-xs btn-primary btn-block" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a>{% endif %}</td>
+                    <td>{{ planilla.fechaCron() }}</td>
+                    <td>
+                        {% if planilla.terminada != 100 %}
+                            <span class="label label-warning">Sin terminar</span>
+                        {% else %}
+                            <span class="label label-primary">Terminada</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                {% if planilla.terminada != 100 %}
+                                    <li><a href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a></li>
+                                {% else %}
+                                    <li><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

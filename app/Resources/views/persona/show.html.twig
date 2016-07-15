@@ -1,88 +1,81 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Persona</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ persona.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ persona.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Apellido</th>
-                <td>{{ persona.apellido }}</td>
-            </tr>
-            <tr>
-                <th>Sexo</th>
-                <td>{{ persona.sexo }}</td>
-            </tr>
-            <tr>
-                <th>Cedula</th>
-                <td>{{ persona.cedula }}</td>
-            </tr>
-            <tr>
-                <th>Fechanacimiento</th>
-                <td>{% if persona.fechaNacimiento %}{{ persona.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Edad</th>
-                <td>{{ persona.edad }}</td>
-            </tr>
-            <tr>
-                <th>Parentesco</th>
-                <td>{{ persona.parentesco }}</td>
-            </tr>
-            <tr>
-                <th>Gradoinstruccion</th>
-                <td>{{ persona.gradoInstruccion }}</td>
-            </tr>
-            <tr>
-                <th>Profesion</th>
-                <td>{{ persona.profesion }}</td>
-            </tr>
-            <tr>
-                <th>Cne</th>
-                <td>{{ persona.cne }}</td>
-            </tr>
-            <tr>
-                <th>Embarazotemprano</th>
-                <td>{{ persona.embarazoTemprano }}</td>
-            </tr>
-            <tr>
-                <th>Incapacitado</th>
-                <td>{{ persona.incapacitado }}</td>
-            </tr>
-            <tr>
-                <th>Incapacitadotipo</th>
-                <td>{{ persona.incapacitadoTipo }}</td>
-            </tr>
-            <tr>
-                <th>Pensionado</th>
-                <td>{{ persona.pensionado }}</td>
-            </tr>
-            <tr>
-                <th>Pensionadoinstitucion</th>
-                <td>{{ persona.pensionadoInstitucion }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('personas_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('personas_edit', { 'id': persona.id }) }}">Edit</a>
-        </li>
-        <li>
+    <h1 class="text-center">Persona <small>{{ persona.nombre|title }} {{ persona.apellido|title }}</small></h1>
+    <hr>
+    <div class="row">
+        <div class="col-sm-9">
+            <table class="table table-bordered table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{ persona.nombre|title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Apellido</th>
+                        <td>{{ persona.apellido|title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sexo</th>
+                        <td>{{ persona.sexo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cedula</th>
+                        <td>{{ persona.cedula }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fechanacimiento</th>
+                        <td>{% if persona.fechaNacimiento %}{{ persona.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Edad</th>
+                        <td>{{ persona.edad }}</td>
+                    </tr>
+                    <tr>
+                        <th>Parentesco</th>
+                        <td>{{ persona.parentesco }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gradoinstruccion</th>
+                        <td>{{ persona.gradoInstruccion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Profesion</th>
+                        <td>{{ persona.profesion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cne</th>
+                        <td>{{ persona.cne }}</td>
+                    </tr>
+                    <tr>
+                        <th>Embarazotemprano</th>
+                        <td>{{ persona.embarazoTemprano }}</td>
+                    </tr>
+                    <tr>
+                        <th>Incapacitado</th>
+                        <td>{{ persona.incapacitado }}</td>
+                    </tr>
+                    <tr>
+                        <th>Incapacitadotipo</th>
+                        <td>{{ persona.incapacitadoTipo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pensionado</th>
+                        <td>{{ persona.pensionado }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pensionadoinstitucion</th>
+                        <td>{{ persona.pensionadoInstitucion }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-3">
+            <a href="{{ path('personas_edit', { 'id': persona.id }) }}" class="btn btn-block btn-primary">Modificar Datos de {{ persona.nombre|title }}</a>
+            <hr class="little">
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input class="btn-block btn btn-danger" type="submit" value="Eliminar a {{ persona.nombre|title }}">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </div>
+    </div>
 {% endblock %}

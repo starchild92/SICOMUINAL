@@ -167,6 +167,11 @@ class JefeGrupoFamiliar
     private $planilla;
 
     /**
+     * @ORM\Column(name="recibir_correo", type="boolean")
+     */
+    private $recibir_correo;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -706,5 +711,28 @@ class JefeGrupoFamiliar
     public function getPlanilla()
     {
         return $this->planilla;
+    }
+
+    /**
+     * Set recibir_correo
+     *
+     * @param boolean $recibirCorreo
+     * @return JefeGrupoFamiliar
+     */
+    public function setRecibirCorreo($recibirCorreo)
+    {
+        $this->recibir_correo = $recibirCorreo;
+
+        return $this;
+    }
+
+    /**
+     * Get recibir_correo
+     *
+     * @return boolean 
+     */
+    public function getRecibirCorreo()
+    {
+        return $this->recibir_correo;
     }
 }

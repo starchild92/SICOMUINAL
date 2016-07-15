@@ -54,6 +54,10 @@ sic_planillas:
     resource: "@SICBundle/Resources/config/routing/planillas.yml"
     prefix:   /planillas
 
+sic_noticia:
+    resource: "@SICBundle/Resources/config/routing/noticia.yml"
+    prefix:   /noticia
+
 # ----------------------------------------------------------------------------
 
 sic_admin_nacionalidad:

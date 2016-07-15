@@ -78,6 +78,11 @@ class Usuario extends BaseUser
      */
     private $planillas;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Noticia", mappedBy="usuario")
+     */
+    private $noticias;
+
 
     /**
      * Get id
@@ -87,6 +92,11 @@ class Usuario extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    public function nombreyapellido()
+    {
+        return $this->primerNombre.' '.$this->primerApellido;
     }
 
     /**

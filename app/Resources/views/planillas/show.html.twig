@@ -18,7 +18,7 @@
 						<p><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></p>
 						<p><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></p>
 						<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
-						<p><span class="negritas">Fecha:</span> {{ planilla.fecha() }}</p>
+						<p><span class="negritas">Fecha:</span> {{ planilla.fechayhora() }}</p>
 					</div>
 			</div>
 			<hr class="little">
@@ -200,21 +200,40 @@
 
 							<div class="row">
 								<div class="col-sm-12">
-									<p class="bottom-line negritas text-info">Personas que conforman el Grupo Familiar</p>
+									<p class="bottom-line negritas text-info text-center">Personas que conforman el Grupo Familiar</p>
 									{% if planilla.grupoFamiliar.miembros|length > 0 %}
 									<table class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>Nombre, edad</th>
+												<th>Cédula</th>
+												<th>Parentezo Jefe Grupo Fam</th>
+												<th></th>
+											</tr>
+										</thead>
 										<tbody>{% for persona in planilla.grupoFamiliar.miembros %}
 											<tr>
 												<td>{{ persona.nombre }} {{ persona.apellido }}, {{ persona.edad }} años</td>
+												<td>{{ persona.cedula }}</td>
 												<td>{{ persona.parentesco }}</td>
-												<td><a class="pull-right" href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-user"></i> Ver persona</a></td>
+												<td>
+													<div class="btn-group">
+														<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													Opciones <span class="caret"></span>
+													</button>
+													<ul class="dropdown-menu">
+														<li><a href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-user"></i> Ver persona</a></li>
+														<li><a href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-edit"></i> Editar persona</a></li>
+													</ul>
+													</div>
+													</td>
 											</tr>{% endfor %}
 										</tbody>
 									</table>
 									{% else %}
 									<p>No se han registrado miembros adiconales al Jefe del Grupo Familiar.</p>
 									{% endif %}
-									<a class="btn btn-success btn-block btn-sm" href="{{path('personas_new',{'id_planilla':planilla.id, 'id_grupofamiliar':planilla.grupoFamiliar.id})}}">Agregar Miembro al Grupo Familiar</a>
+									<a class="btn btn-success btn-block" href="{{path('personas_new',{'id_planilla':planilla.id, 'id_grupofamiliar':planilla.grupoFamiliar.id})}}"><i class="fa fa-plus"></i> Agregar Miembro al Grupo Familiar</a>
 									
 								</div>
 							</div>
@@ -240,7 +259,7 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Actividad comercial en la vivienda</p>
-									{% if planilla.situacionEconomica.actividadComercialenVivienda is not defined %}
+									{% if planilla.situacionEconomica.actividadComercialenVivienda|length == 0 %}
 									<p>No se realiza ninguna actividad comercial en la vivienda.</p>
 									{% endif %}
 									<p>{% for articulo in planilla.situacionEconomica.actividadComercialenVivienda %}
