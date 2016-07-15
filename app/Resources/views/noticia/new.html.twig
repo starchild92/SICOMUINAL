@@ -1,23 +1,22 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/checkbox.css') }}">
-{% endblock %}
+
 {% block body %}
     <h1 class="text-center">Crear Noticia</h1>
     <hr>
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input class="btn btn-block btn-primary" type="submit" value="Crear Noticia" />
+    {{ form_start(form, {'id':'appbundle_correo'}) }}
+        <div class="row">
+            <div class="col-sm-10">{{ form_row(form.titulo) }}</div>
+            <div class="col-sm-2">{{ form_widget(form.visibilidad) }}</div>
+        </div>
+        {{ form_widget(form.cuerpo, {'id':'TypeHere'}) }}
+        <hr class="little">
+        <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save fa-fw"></i> Actualizar Texto del Correo </button>
     {{ form_end(form) }}
-    <hr class="little">
-    <a class="btn btn-default btn-block" href="{{ path('noticia_index') }}">Ver todas</a>
 
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('js/checkbox.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('.ui.checkbox').checkbox('toggle');
-        })
+    <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script type="application/x-javascript">
+        tinymce.init({selector:'#TypeHere'});
     </script>
 {% endblock %}

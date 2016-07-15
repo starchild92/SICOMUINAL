@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\Noticia;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\NoticiaType;
 
 /**
@@ -49,6 +50,10 @@ class NoticiaController extends Controller
             $noticium->setFechaPub(new \DateTime('now'));
 
             $em->persist($noticium);
+
+            $entrada = new Bitacora($this->getUser(),'agregó','una Noticia nueva.');
+            $em->persist($entrada);
+
             $em->flush();
 
             return $this->redirectToRoute('noticia_show', array('id' => $noticium->getId()));
@@ -87,6 +92,8 @@ class NoticiaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($noticium);
+            $entrada = new Bitacora($this->getUser(),'modificó','una Noticia');
+            $em->persist($entrada);
             $em->flush();
 
             return $this->redirectToRoute('noticia_edit', array('id' => $noticium->getId()));
@@ -111,6 +118,8 @@ class NoticiaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($noticium);
+            $entrada = new Bitacora($this->getUser(),'eliminó','una Noticia');
+            $em->persist($entrada);
             $em->flush();
         }
 

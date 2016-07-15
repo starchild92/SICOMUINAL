@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <style type="text/css">
+        #datefilter{ font-family: 'Open Sans', sans-serif; font-size: 14px; }
+        .loader {
+            display:    none;
+            position:   fixed;
+            z-index:    1090;
+            top:        0;
+            left:       0;
+            height:     100%;
+            width:      100%;
+            background: rgba( 0, 0, 0, .3 ) 
+            url("{{ asset('images/ball.svg') }}") 50% 50% no-repeat;
+        }
+        body.loading { overflow: hidden; }
+        body.loading .loader { display: block; }
+        .well-sm { margin-bottom: 25px !important; }
+    </style>
+{% endblock %}
+{% block body -%}
+    <div class="page-header">
+        <h1><i class="fa fa-compass fa-fw pull-left"></i> Bitácora del Sistema
+        <input type="hidden" id="accion" value="{{ path('bitacora_filtrar') }}">
+        
+        <div class="input-group col-lg-3 pull-right">
+            <span class="input-group-addon" id="basic-addon2"><i class="fa fa-filter fa-fw"></i></span><div class="form-group">
+              
+              <select class="form-control" aria-describedby="basic-addon2" style="font-family: Open Sans;" id="sel1">
+                <option selected value="todos">Todas la Entradas</option>
+                <option value="eliminó">Eliminaciones</option>
+                <option value="agregó">Agregaciones</option>
+                <option value="modificó">Modificaciones</option>
+                <option value="envió">Envios</option>
+              </select>
+            </div>
+        </div>
+
+        <div class="input-group col-lg-3 pull-right">
+            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-calendar fa-fw"></i></span>
+            <input type="text" id="datefilter" name="datefilter" class="form-control" placeholder="fecha" aria-describedby="basic-addon1">
+        </div>
+        </h1>
+    </div>
+
+<div id="cuerposs">
+    <div class="row">
+    {% if entities|length == 0 %}
+        <div class="col-sm-12">
+            <hr>
+            <h2 class="text-center"><i class="fa fa-meh-o fa-fw"></i> No se encontrarón entradas en la bitácora para la fecha o rango que especificó.</h2>
+        </div>
+    {% endif %}
+    {% set dia_actual = date('today') %}
+    {% for entity in entities %}
+        {% if (entity.fecha|date('Y-m-d') != dia_actual|date('Y-m-d')) or (loop.index == 1) %}
+            {% set dia_actual = entity.fecha %}
+            <div class="col-sm-12">
+                <h3 class="text-left negritas">{{ entity.fechaF(dia_actual) }}</h3>
+                <hr>
+            </div>
+        {% endif %}
+        <div class="col-sm-12">
+            <div class="alert {% if entity.accion == 'agregó' %}alert-success{% elseif entity.accion == 'eliminó' %}alert-danger{% elseif entity.accion == 'envió' %}alert-warning{% else %}alert-info{% endif %} well-sm">
+                {% if entity.accion == 'agregó' %}
+                    <i class="fa fa-plus fa-fw pull-left"></i>
+                    {% elseif entity.accion == 'eliminó' %}
+                    <i class="fa fa-times fa-fw pull-left"></i>
+                    {% elseif entity.accion == 'envió' %}
+                    <i class="fa fa-send fa-fw pull-left"></i>
+                    {% elseif entity.accion == 'generó' %}
+                    <i class="fa fa-file fa-fw pull-left"></i>
+                    {% elseif entity.accion == 'modificó' %}
+                    <i class="fa fa-pencil fa-fw pull-left"></i>
+                    {% else %}
+                    <i class="fa fa-exclamation fa-fw pull-left"></i>
+                {% endif %}
+                <p>El usuario <span class="negritas">{{ entity.usuario.nombreyapellido() }}</span> {{ entity.accion }} {{ entity.detalles }}</p>
+                <p><span class="label {% if entity.accion == 'agregó' %}label-success{% elseif entity.accion == 'eliminó' %}label-danger{% elseif entity.accion == 'envió' %}label-warning{% else %}label-info{% endif %} label-sm pull-left">{{ entity.fecha|date('Y-m-d h:i a') }}</span></p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+<div class="loader" id="loader"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/datepicker.js') }}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+
+            $('input[name="datefilter"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Limpiar'
+                },
+                ranges: {
+                    'Hoy': [moment(), moment()],
+                    'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
+                    'Últimos 30 días': [moment().subtract(29, 'days'), moment()],
+                    'Este Mes': [moment().startOf('month'), moment().endOf('month')],
+                    'El Mes Pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+            });
+
+            $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+                $("#cuerposs").fadeTo("slow", 0.15);
+                $.ajax({
+                    url: $('#accion').val(),
+                    type: "POST",
+                    data: {
+                        fechaInicio: picker.startDate.format('YYYY-MM-DD'),
+                        fechaFinal: picker.endDate.format('YYYY-MM-DD'),
+                        criteria: $("#sel1").val(),
+                    },
+                    success: function(data, textStatus, xhr){
+                        $('#cuerposs').replaceWith($(data).find('#cuerposs'));
+                        $('#cuerposs').fadeIn('slow')
+                    },
+                });
+            });
+
+            $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+        });
+    </script>
+{% endblock %}

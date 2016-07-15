@@ -83,6 +83,10 @@ class Usuario extends BaseUser
      */
     private $noticias;
 
+    /**
+    * @ORM\OneToMany(targetEntity="Bitacora", mappedBy="usuario")
+    **/
+    private $bitacora;
 
     /**
      * Get id

@@ -12,7 +12,7 @@
                 <div class="panel-body">
                     <h3>{{ noticium.titulo }} <small class="negritas"> por {{ noticium.usuario.nombreyapellido() }}</small></h3>
                     <hr class="little">
-                    <p>{{ noticium.cuerpo }}</p>
+                    <p>{{ noticium.cuerpo|raw }}</p>
                 </div>
                 <div class="panel-footer">
                     <div class="row">

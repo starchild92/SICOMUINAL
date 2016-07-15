@@ -58,6 +58,10 @@ sic_noticia:
     resource: "@SICBundle/Resources/config/routing/noticia.yml"
     prefix:   /noticia
 
+sic_bitacora:
+    resource: "@SICBundle/Resources/config/routing/bitacora.yml"
+    prefix:   /bitacora
+
 # ----------------------------------------------------------------------------
 
 sic_admin_nacionalidad:
