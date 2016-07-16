@@ -1,17 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>ParticipacionComunitaria edit</h1>
-
+    <h1>Modifique la Participación Comunitaria</h1>
+    <hr>
     {{ form_start(edit_form) }}
-        {# {{ dump(edit_form) }} #}
-        {% for elem in edit_form.preguntasParticipacionComunitaria.vars.AdminPreguntas  %}
-            {{ dump(elem) }}
-        {% endfor %}
-        
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(edit_form.existenOrganizaciones) }}
+                        {{ form_row(edit_form.participaOrganizacion) }}
+                        {{ form_row(edit_form.participaMiembroOrganizacion) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(edit_form.misionesComunidad) }}
+                        {{ form_row(edit_form.preguntasParticipacionComunitaria) }}
+                        {{ form_row(edit_form.areaTabajoCC) }}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Guardar y Regresar</button>
     {{ form_end(edit_form) }}
 {% endblock %}
 {% block javascripts %}

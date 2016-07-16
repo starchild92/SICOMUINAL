@@ -1,76 +1,202 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>JefeGrupoFamiliar list</h2>
+    <h2>Estadísticas Jefes de Grupos Familiares</h2>
     <hr>
-    <div class="panel panel-primary">
-        <div class="panerl-body table-responsive">
-            <table class="table table-bordered table-striped">
-                <thead class="thead-info">
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Cedula</th>
-                        <th>Nacionalidad</th>
-                        <th>Fechanacimiento</th>
-                        <th>Edad</th>
-                        <th>Cne</th>
-                        <th>Tiempoencomunidad</th>
-                        <th>Sexo</th>
-                        <th>Incapacitadotipo</th>
-                        <th>Pensionadoinstitucion</th>
-                        <th>Estadocivil</th>
-                        <th>Nivelinstruccion</th>
-                        <th>Profesion</th>
-                        <th>Trabajaactualmente</th>
-                        <th>Telefono</th>
-                        <th>Email</th>
-                        <th>Ingresofamiliar</th>
-                        <th>Ingresomensual</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for jefeGrupoFamiliar in jefeGrupoFamiliars %}
-                    <tr>
-                        <td><a href="{{ path('jefegrupofamiliar_show', { 'id': jefeGrupoFamiliar.id }) }}">{{ jefeGrupoFamiliar.id }}</a></td>
-                        <td>{{ jefeGrupoFamiliar.nombres }}</td>
-                        <td>{{ jefeGrupoFamiliar.apellidos }}</td>
-                        <td>{{ jefeGrupoFamiliar.cedula }}</td>
-                        <td>{{ jefeGrupoFamiliar.nacionalidad }}</td>
-                        <td>{% if jefeGrupoFamiliar.fechaNacimiento %}{{ jefeGrupoFamiliar.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
-                        <td>{{ jefeGrupoFamiliar.edad }}</td>
-                        <td>{{ jefeGrupoFamiliar.cne }}</td>
-                        <td>{{ jefeGrupoFamiliar.tiempoEnComunidad }}</td>
-                        <td>{{ jefeGrupoFamiliar.sexo }}</td>
-                        <td>{{ jefeGrupoFamiliar.incapacitadoTipo }}</td>
-                        <td>{{ jefeGrupoFamiliar.pensionadoInstitucion }}</td>
-                        <td>{{ jefeGrupoFamiliar.estadoCivil }}</td>
-                        <td>{{ jefeGrupoFamiliar.nivelInstruccion }}</td>
-                        <td>{{ jefeGrupoFamiliar.profesion }}</td>
-                        <td>{{ jefeGrupoFamiliar.trabajaActualmente }}</td>
-                        <td>{% for tlf in jefeGrupoFamiliar.telefono %}
-                            <li>{{ tlf }}</li>
-                        {% endfor %}</td>
-                        <td>{{ jefeGrupoFamiliar.email }}</td>
-                        <td>{{ jefeGrupoFamiliar.ingresoFamiliar }}</td>
-                        <td>{{ jefeGrupoFamiliar.ingresoMensual }}</td>
-                        <td>
-                            <ul>
-                                <li>
-                                    <a href="{{ path('jefegrupofamiliar_show', { 'id': jefeGrupoFamiliar.id }) }}">show</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('jefegrupofamiliar_edit', { 'id': jefeGrupoFamiliar.id }) }}">edit</a>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Nacionalidad</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Nacionalidad</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for n in stat_nacionalidad %}
+                        <tr>
+                            <td>{{n.nacionalidad}}</td>
+                            <td>{{n.cantidad}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Sexo</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Sexo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sx in stat_sexo %}
+                        <tr>
+                            <td>{{sx.sexo}}</td>
+                            <td>{{sx.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Inscrito en el CNE</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Resp</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cne in stat_cne %}
+                        <tr>
+                            <td>{{cne.resp}}</td>
+                            <td>{{cne.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Edo. Civil</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Estado Civil</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for edo in stat_edo_civil %}
+                        <tr>
+                            <td>{{edo.edo_civil}}</td>
+                            <td>{{edo.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {# dlfjkhslkdhflkshdlfkjhslkdjfhslkjdfhlskjdfh #}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Niveles de Instrucción</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Nivel</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for nivel in stat_instruccion %}<tr>
+                            <td>{{ nivel.instruccion }}</td>
+                            <td>{{ nivel.cantidad }}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Profesiones</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Profesiones</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pr in stat_profesiones %}<tr>
+                            <td>{{pr.profesiones}}</td>
+                            <td>{{pr.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Empleado</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>¿Se encuentra Empleado?</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for emp in stat_empleado %}<tr>
+                            <td>{{emp.resp}}</td>
+                            <td>{{emp.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Incapacidades</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Incapacidad</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for inc in stat_incapacidades %}<tr>
+                            <td>{{inc.incapacidades}}</td>
+                            <td>{{inc.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Pensionados</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Pensionados</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ins in stat_pensionados %}<tr>
+                            <td>{{ins.pensionados}}</td>
+                            <td>{{ins.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/highchart.js') }}"></script>
+    <script src="{{ asset('js/highchart/highcharts.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('table.highchart').highchartTable();
+        });
+    </script>
 {% endblock %}

@@ -496,7 +496,7 @@
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Preguntas Participacion Comunitaria</p>
 									<p>{% for item in planilla.participacionComunitaria.preguntasParticipacionComunitaria %}
-										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
+										{{ item.interrogante }} <br> R. {{ item.respuesta }} {% endfor %}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Area de Trabajo</p>

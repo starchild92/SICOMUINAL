@@ -94,7 +94,9 @@ class ParticipacionComunitariaController extends Controller
             $em->persist($participacionComunitarium);
             $em->flush();
 
-            return $this->redirectToRoute('participacioncomunitaria_edit', array('id' => $participacionComunitarium->getId()));
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado la información de participación comunitaria de forma correcta');
+            
+            return $this->redirectToRoute('planillas_show', array('id' => $participacionComunitarium->getPlanilla()->getId()));
         }
 
         return $this->render('participacioncomunitaria/edit.html.twig', array(

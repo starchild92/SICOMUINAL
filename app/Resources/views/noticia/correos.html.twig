@@ -13,8 +13,6 @@
                     <p>Haga llegar un mensaje a todos los miembros de la comunidad con una dirección de correo electrónico.</p>
                     <a href="#" data-url="{{ path('comunicado_new') }}" id="forModal" class="btn btn-success btn-block"><i class="fa fa-edit"></i> Redactar Mensaje</a>
                 </div>
-                <div class="panel-footer">
-                </div>
             </div>
         </div>
         <div class="col-sm-7">
@@ -33,7 +31,7 @@
                         <tbody>
                             {% for correo in comunicados %}
                             <tr>
-                                <td class="col-sm-5">{{ correo.titulo }} <a class="pull-right" href="{{ path('comunicado_show', {'id':correo.id})}}">ver completo</a><br>{{ correo.cuerpo|slice(0,30) }}</td>
+                                <td class="col-sm-5"><span class="negritas">{{ correo.titulo }}</span> <a class="pull-right" href="{{ path('comunicado_show', {'id':correo.id})}}">ver completo</a><br>{{ correo.cuerpo|slice(0,30) }}</td>
                                 <td><a href="{{ path('usuarios_show', {'id':correo.emisor.id }) }}">{{ correo.emisor }}</a></td>
                                 <td>{{ correo.fecha|date('Y-m-d') }}</td>
                                 <td>{{ correo.numDestinatarios }} personas</td>
@@ -42,8 +40,6 @@
                         </tbody>
                     </table>
                     </div>
-                <div class="panel-footer">
-                </div>
             </div>
         </div>
         <div class="col-sm-2">
