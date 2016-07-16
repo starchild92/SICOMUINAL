@@ -135,6 +135,11 @@ class Persona
      */
     private $recibir_correo;
 
+    public function __construct()
+    {
+        $this->recibir_correo = false;
+    }
+
     /**
      * Get id
      *

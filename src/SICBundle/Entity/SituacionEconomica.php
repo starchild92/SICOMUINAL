@@ -28,10 +28,6 @@ class SituacionEconomica
     private $dondeTrabaja;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminVentaVivienda", cascade={"persist"})
-     * @ORM\JoinColumn(name="ventaV_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    /**
      * @ORM\ManyToMany(targetEntity="AdminVentaVivienda", orphanRemoval=true)
      * @ORM\JoinTable(name="sitVivi_ActComercial",
      *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},

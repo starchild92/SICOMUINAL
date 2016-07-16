@@ -23,6 +23,18 @@ class PersonaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $personas = $em->getRepository('SICBundle:Persona')->findAll();
+        $stat_edad = array();
+        $mayor = 0;
+        $menor = 0;
+        foreach ($personas as $p) {
+            if ($p->getEdad() >= 18 ) {
+                $mayor++;
+            }else{
+                $menor++;
+            }
+        }
+        array_push($stat_edad, array('a' => 'Mayores de Edad', 'cantidad' => $mayor));
+        array_push($stat_edad, array('a' => 'Menores de Edad', 'cantidad' => $menor));
 
         $stat_sexo = array();
         array_push(
@@ -124,7 +136,7 @@ class PersonaController extends Controller
         }
 
         return $this->render('persona/index.html.twig', array(
-            'personas' => $personas,
+            // 'personas' => $personas,
             'stat_sexo' => $stat_sexo,
             'stat_cne' => $stat_cne,
             'stat_instruccion' => $stat_instruccion,
@@ -132,6 +144,7 @@ class PersonaController extends Controller
             'stat_incapacidades' => $stat_incapacidades,
             'stat_pensionados' => $stat_pensionados,
             'stat_embarazo' => $stat_embarazo,
+            'stat_edad' => $stat_edad,
         ));
     }
 
@@ -165,6 +178,7 @@ class PersonaController extends Controller
             $em->flush();
 
             $cantMiembros = $Grupo->getCantidadMiembros();
+            $this->get('session')->getFlashBag()->add('success','Se agregó el miembro al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('personas_new', array(
                 'id_planilla' => $id_planilla,

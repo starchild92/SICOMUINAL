@@ -24,8 +24,61 @@ class SituacionEconomicaController extends Controller
 
         $situacionEconomicas = $em->getRepository('SICBundle:SituacionEconomica')->findAll();
 
+        $ubic_trabajo = $em->getRepository('SICBundle:AdminUbicacionTrabajo')->findAll();
+        $stat_ubic_trabajo = array();
+        foreach ($ubic_trabajo as $elemento) {
+            array_push(
+                $stat_ubic_trabajo, 
+                array(
+                    'trabajo' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionEconomica')->findBy(
+                                        array('dondeTrabaja' => $elemento->getId())
+                                        )))
+            );
+        }
+
+        $venta_vivienda = $em->getRepository('SICBundle:AdminVentaVivienda')->findAll();
+        $stat_venta_vivienda = array();
+        foreach ($venta_vivienda as $elemento) {
+            array_push(
+                $stat_venta_vivienda, 
+                array(
+                    'venta_vivienda' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionEconomica')->findByActividadComercialVivienda($elemento)))
+            );
+        }
+
+        $tipo_ingreso = $em->getRepository('SICBundle:AdminTipoIngresos')->findAll();
+        $stat_tipo_ingreso = array();
+        foreach ($tipo_ingreso as $elemento) {
+            array_push(
+                $stat_tipo_ingreso, 
+                array(
+                    'tipo_ingreso' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionEconomica')->findBy(
+                                  array('ingresoFamiliarEspecifico' => $elemento->getId())
+                                  )))
+            );
+        }
+
+        $stat_vehiculos = array();
+        $si = 0; $no = 0;
+        foreach ($situacionEconomicas as $sit) { if ($sit->getPlaca() != "") { $si++; }else{ $no++; } }
+        array_push(
+            $stat_vehiculos, 
+            array('nombre' => 'Con Vehículo',
+                'cantidad' => $si));
+        array_push(
+            $stat_vehiculos, 
+            array('nombre' => 'Sin Vehículo',
+                'cantidad' => $no));
+
         return $this->render('situacioneconomica/index.html.twig', array(
-            'situacionEconomicas' => $situacionEconomicas,
+            // 'situacionEconomicas' => $situacionEconomicas,
+            'stat_ubic_trabajo'  => $stat_ubic_trabajo,
+            'stat_venta_vivienda'  => $stat_venta_vivienda,
+            'stat_tipo_ingreso'  => $stat_tipo_ingreso,
+            'stat_vehiculos'  => $stat_vehiculos,
         ));
     }
 

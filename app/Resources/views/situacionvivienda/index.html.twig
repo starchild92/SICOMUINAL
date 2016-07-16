@@ -1,53 +1,252 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Situación Vivienda</h1>
+    <h2>Estadísticas Situación Vivienda</h2>
+    <hr>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Tipo Vivienda</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_tipo_vivienda %}<tr>
+                            <td>{{item.tipo_vivienda}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Tenencia</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tenencia</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_tipo_tenencia %}<tr>
+                            <td>{{item.tipo_tenencia}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Propiedad</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Resp.</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_terreno %}<tr>
+                            <td>{{item.resp}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Habitaciones</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_habitaciones %}<tr>
+                            <td>{{item.habitaciones}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Tipo</th>
-                <th>Tenencia</th>
-                <th>Terrenopropio</th>
-                <th>Habitaciones</th>
-                <th>Cantidadhabitaciones</th>
-                <th>Paredes</th>
-                <th>Techo</th>
-                <th>Enseres</th>
-                <th>Salubridad</th>
-                <th>Presenciainsectos</th>
-                <th>Mascota</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for situacionVivienda in situacionViviendas %}
-            <tr>
-                <td><a href="{{ path('situacionvivienda_show', { 'id': situacionVivienda.id }) }}">{{ situacionVivienda.id }}</a></td>
-                <td>{{ situacionVivienda.tipo }}</td>
-                <td>{{ situacionVivienda.tenencia }}</td>
-                <td>{{ situacionVivienda.terrenoPropio }}</td>
-                <td>{% for habitacion in situacionVivienda.habitaciones %}{{ habitacion.nombre }}{% endfor %}<br></td>
-                <td>{{ situacionVivienda.cantidadHabitaciones }}</td>
-                <td>{{ situacionVivienda.paredes }}</td>
-                <td>{{ situacionVivienda.techo }}</td>
-                <td>{% for enseres in situacionVivienda.enseres %}{{ enseres.nombre }}<br>{% endfor %}</td>
-                <td>{{ situacionVivienda.salubridad }}</td>
-                <td>{% for ins in situacionVivienda.presenciaInsectos %}{{ ins.nombre }}<br>{% endfor %}</td>
-                <td>{% for mas in situacionVivienda.mascota %}{{ mas.nombre }}<br>{% endfor %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('situacionvivienda_show', { 'id': situacionVivienda.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('situacionvivienda_edit', { 'id': situacionVivienda.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Cantidad Habitaciones</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {# {% for item in stat_cant_habitaciones %}<tr>
+                            <td>{{ item.6 }}</td>
+                            <td>{{ item.6 }}</td>
+                        </tr>{% endfor %} #}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Paredes</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_paredes %}<tr>
+                            <td>{{ item.paredes }}</td>
+                            <td>{{ item.cantidad }}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Techo</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_techo %}<tr>
+                            <td>{{ item.techo }}</td>
+                            <td>{{ item.cantidad }}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Enseres</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_enseres %}<tr>
+                            <td>{{ item.enseres }}</td>
+                            <td>{{ item.cantidad }}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Salubridad</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_salubridad %}<tr>
+                            <td>{{ item.salubridad }}</td>
+                            <td>{{ item.cantidad }}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Insectos</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_plagas %}<tr>
+                            <td>{{ item.plagas }}</td>
+                            <td>{{ item.cantidad }}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Mascotas</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_mascotas %}<tr>
+                            <td>{{ item.mascotas }}</td>
+                            <td>{{ item.cantidad }}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">OVC</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Resp.</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_ovc %}<tr>
+                            <td>{{item.resp}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/highchart.js') }}"></script>
+    <script src="{{ asset('js/highchart/highcharts.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('table.highchart').highchartTable();
+        });
+    </script>
 {% endblock %}

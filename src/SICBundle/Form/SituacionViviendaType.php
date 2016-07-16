@@ -33,30 +33,22 @@ class SituacionViviendaType extends AbstractType
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
-            ->add('terrenoPropio', ChoiceType::class, array(
-                'choices'  => array(
-                    'Seleccione' => '',
-                    'Si' => 'si',
-                    'No' => 'no',
-                    // 'Otro' => 'otro'
-                ),
-                'choices_as_values' => true,
-                'label'     => '¿Es el terreno propio?',
+            ->add('terrenoPropio', 'entity', array(
+                'class' => 'SICBundle:AdminRespCerrada',
+                'placeholder' => 'Selecciona una',
+                'choice_label' => 'respuesta',
                 'attr'  =>  array(
-                    'class' => 'ui dropdown')))
+                    'class' => 'ui dropdown'))
+            )
 
-            ->add('ovc', ChoiceType::class, array(
-                'choices'  => array(
-                    'Seleccione' => '',
-                    'Si' => 'si',
-                    'No' => 'no',
-                    // 'Otro' => 'otro'
-                ),
-                'choices_as_values' => true,
+            ->add('ovc', 'entity', array(
+                'class' => 'SICBundle:AdminRespCerrada',
                 'label'   => 'Organizaciones Civiles de Viviendas (OCV)',
                 'placeholder'   => '¿Pertenece a una OCV?',
+                'choice_label' => 'respuesta',
                 'attr'  =>  array(
-                    'class' => 'ui dropdown')))
+                    'class' => 'ui dropdown'))
+            )
 
             ->add('habitaciones','entity', array(
                 'class' => 'SICBundle:AdminTipoHabitacionesVivienda',

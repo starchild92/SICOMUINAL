@@ -34,16 +34,14 @@ class SituacionVivienda
     private $tenencia;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="terrenoPropio", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="terrenoPropio", referencedColumnName="id", onDelete="CASCADE")
      */
     private $terrenoPropio;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ovc", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="ovc", referencedColumnName="id", onDelete="CASCADE")
      */
     private $ovc;
 

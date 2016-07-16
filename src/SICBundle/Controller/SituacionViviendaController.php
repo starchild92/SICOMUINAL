@@ -24,8 +24,171 @@ class SituacionViviendaController extends Controller
 
         $situacionViviendas = $em->getRepository('SICBundle:SituacionVivienda')->findAll();
 
+        $tipo_vivienda = $em->getRepository('SICBundle:AdminTipoVivienda')->findAll();
+        $stat_tipo_vivienda = array();
+        foreach ($tipo_vivienda as $elemento) {
+            array_push(
+                $stat_tipo_vivienda, 
+                array(
+                    'tipo_vivienda' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('tipo' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $tipo_tenencia = $em->getRepository('SICBundle:AdminTipoTenencia')->findAll();
+        $stat_tipo_tenencia = array();
+        foreach ($tipo_tenencia as $elemento) {
+            array_push(
+                $stat_tipo_tenencia, 
+                array(
+                    'tipo_tenencia' => $elemento->getForma(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('tenencia' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $terreno = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_terreno = array();
+        foreach ($terreno as $elemento) {
+            array_push(
+                $stat_terreno, 
+                array(
+                    'resp' => $elemento->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('terrenoPropio' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $ovc = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_ovc = array();
+        foreach ($ovc as $elemento) {
+            array_push(
+                $stat_ovc, 
+                array(
+                    'resp' => $elemento->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('ovc' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $habitaciones = $em->getRepository('SICBundle:AdminTipoHabitacionesVivienda')->findAll();
+        $stat_habitaciones = array();
+        foreach ($habitaciones as $elemento) {
+            array_push(
+                $stat_habitaciones, 
+                array(
+                    'habitaciones' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByHabitaciones($elemento)))
+            );
+        }
+
+        // $stat_cant_habitaciones = array();
+        // foreach ($situacionViviendas as $elemento) {
+        //     if (in_array($elemento->getCantidadHabitaciones(), $stat_cant_habitaciones)) {
+        //         $stat_cant_habitaciones[$elemento->getCantidadHabitaciones()] = $stat_cant_habitaciones[$elemento->getCantidadHabitaciones()] + 1;
+        //     }else{
+        //         array_push($stat_cant_habitaciones, array($elemento->getCantidadHabitaciones() => 1));
+        //     }
+        // }
+
+        $paredes = $em->getRepository('SICBundle:AdminTipoParedes')->findAll();
+        $stat_paredes = array();
+        foreach ($paredes as $elemento) {
+            array_push(
+                $stat_paredes, 
+                array(
+                    'paredes' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('paredes' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $techo = $em->getRepository('SICBundle:AdminTipoTecho')->findAll();
+        $stat_techo = array();
+        foreach ($techo as $elemento) {
+            array_push(
+                $stat_techo, 
+                array(
+                    'techo' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('techo' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $enseres = $em->getRepository('SICBundle:AdminTipoEnseres')->findAll();
+        $stat_enseres = array();
+        foreach ($enseres as $elemento) {
+            array_push(
+                $stat_enseres, 
+                array(
+                    'enseres' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByEnseres($elemento)))
+            );
+        }
+
+        $salubridad = $em->getRepository('SICBundle:AdminSalubridadVivienda')->findAll();
+        $stat_salubridad = array();
+        foreach ($salubridad as $elemento) {
+            array_push(
+                $stat_salubridad, 
+                array(
+                    'salubridad' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('salubridad' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $plagas = $em->getRepository('SICBundle:AdminTipoPlagas')->findAll();
+        $stat_plagas = array();
+        foreach ($plagas as $elemento) {
+            array_push(
+                $stat_plagas, 
+                array(
+                    'plagas' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByPresenciaInsectos($elemento)))
+            );
+        }
+
+        $mascotas = $em->getRepository('SICBundle:AdminTipoMascotas')->findAll();
+        $stat_mascotas = array();
+        foreach ($mascotas as $elemento) {
+            array_push(
+                $stat_mascotas, 
+                array(
+                    'mascotas' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByPresenciaInsectos($elemento)))
+            );
+        }
+
         return $this->render('situacionvivienda/index.html.twig', array(
             'situacionViviendas' => $situacionViviendas,
+            'stat_tipo_vivienda' => $stat_tipo_vivienda,
+            'stat_tipo_tenencia' => $stat_tipo_tenencia,
+            'stat_ovc' => $stat_ovc,
+            'stat_terreno' => $stat_terreno,
+            // 'stat_cant_habitaciones' => $stat_cant_habitaciones,
+            'stat_mascotas' => $stat_mascotas,
+            'stat_plagas' => $stat_plagas,
+            'stat_enseres' => $stat_enseres,
+            'stat_habitaciones' => $stat_habitaciones,
+            'stat_salubridad' => $stat_salubridad,
+            'stat_techo' => $stat_techo,
+            'stat_paredes' => $stat_paredes,
         ));
     }
 

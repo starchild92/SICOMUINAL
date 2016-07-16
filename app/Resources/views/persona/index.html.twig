@@ -77,14 +77,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for a in stat_edad %}<tr>
+                            <td>{{ a.a }}</td>
+                            <td>{{ a.cantidad }}</td>
+                        </tr>{% endfor %}
                         <tr>
-                            <td>Mayor de Edad</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>Menor de Edad</td>
-                            <td>2</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

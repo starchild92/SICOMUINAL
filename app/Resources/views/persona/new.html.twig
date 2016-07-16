@@ -33,7 +33,10 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         {{ form_row(form.cedula) }}
-                        {{ form_row(form.fechaNacimiento) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.fechaNacimiento) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.email) }}</div>
+                        </div>
                         {{ form_row(form.edad) }}
                         {{ form_row(form.sexo) }}
                         {{ form_row(form.embarazoTemprano) }}
