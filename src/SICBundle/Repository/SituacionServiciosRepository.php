@@ -12,4 +12,42 @@ use Doctrine\ORM\EntityRepository;
  */
 class SituacionServiciosRepository extends EntityRepository
 {
+	public function transporte($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:SituacionServicios', 'm')
+                ->innerJoin('m.transporte', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function mecanismoInformacion($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:SituacionServicios', 'm')
+                ->innerJoin('m.mecanismoInformacion', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function serviciosComunales($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:SituacionServicios', 'm')
+                ->innerJoin('m.serviciosComunales', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
 }

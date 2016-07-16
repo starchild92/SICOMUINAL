@@ -1,49 +1,194 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SituacionServicios list</h1>
+    <h2>Estadísticas Situación Servicios</h2>
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Aguas Blancas</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_aguasb %}<tr>
+                            <td>{{item.aguasb}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Aguas Servidas</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_aguasservidas %}<tr>
+                            <td>{{item.aguasservidas}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Gas</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_gas %}<tr>
+                            <td>{{item.gas}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Aguasblancas</th>
-                <th>Aguasservidas</th>
-                <th>Gas</th>
-                <th>Sistemaelectrico</th>
-                <th>Recoleccionbasura</th>
-                <th>Telefonia</th>
-                <th>Transporte</th>
-                <th>Mecanismoinformacion</th>
-                <th>Servicioscomunales</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for situacionServicio in situacionServicios %}
-            <tr>
-                <td><a href="{{ path('situacionservicios_show', { 'id': situacionServicio.id }) }}">{{ situacionServicio.id }}</a></td>
-                <td>{{ situacionServicio.aguasBlancas }}</td>
-                <td>{{ situacionServicio.aguasServidas }}</td>
-                <td>{{ situacionServicio.gas }}</td>
-                <td>{{ situacionServicio.sistemaElectrico }}</td>
-                <td>{{ situacionServicio.recoleccionBasura }}</td>
-                <td>{{ situacionServicio.telefonia }}</td>
-                <td>{% for transp in situacionServicio.transporte %}{{ transp.nombre }}<br>{% endfor %}</td>
-                <td>{% for mecInfo in situacionServicio.mecanismoInformacion %}{{ mecInfo.nombre }}<br>{% endfor %}</td>
-                <td>{% for servCom in situacionServicio.serviciosComunales %}{{ servCom.nombre }}<br>{% endfor %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('situacionservicios_show', { 'id': situacionServicio.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('situacionservicios_edit', { 'id': situacionServicio.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Sistema Electríco</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_sistemas_electrico %}<tr>
+                            <td>{{item.sistemas_electrico}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Recolección de Basura</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_basura %}<tr>
+                            <td>{{item.basura}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Telefonía</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_telefonia %}<tr>
+                            <td>{{item.telefonia}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Transporte</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_transporte %}<tr>
+                            <td>{{item.transporte}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Mecanismos de Información</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_mecanismoInformacion %}<tr>
+                            <td>{{item.mecanismoInformacion}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Servicios Comunales</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_serviciosComunales %}<tr>
+                            <td>{{item.serviciosComunales}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/highchart.js') }}"></script>
+    <script src="{{ asset('js/highchart/highcharts.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('table.highchart').highchartTable();
+        });
+    </script>
 {% endblock %}

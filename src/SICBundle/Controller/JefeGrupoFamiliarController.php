@@ -71,6 +71,7 @@ class JefeGrupoFamiliarController extends Controller
                     )
             );
         }
+        
         $stat_empleado = array();
         foreach ($resp_cerradas as $resp) {
             array_push(
