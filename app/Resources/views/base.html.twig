@@ -81,63 +81,62 @@
 					<a class="navbar-brand" href="{{ path('sic_homepage') }}"><img src="{{ asset('images/logo.png') }}" alt="logo" class="img-responsive"></a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administar <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ path('sic_administacion_entidades') }}"><i class="fa fa-users"></i> Datos Consejo Comunal</a></li>
+							<li><a href="{{ path('sic_administacion_parametros_planilla') }}"><i class="fa fa-cogs"></i> Parámetros en Encuestas</a></li>
+							<li><a href="{{ path('noticia_index') }}"><i class="fa fa-newspaper-o"></i> Noticias</a></li>
+							<li><a href="{{ path('noticia_correo') }}"><i class="fa fa-envelope"></i> Correo Comunitario</a></li>
+							<li><a href="{{ path('bitacora_index') }}"><i class="fa fa-compass"></i> Bitácora del Sistema</a></li>
+						</ul>
+					</li>
 
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administar <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="{{ path('sic_administacion_entidades') }}"><i class="fa fa-users"></i> Datos Consejo Comunal</a></li>
-								<li><a href="{{ path('sic_administacion_parametros_planilla') }}"><i class="fa fa-cogs"></i> Parámetros en Encuestas</a></li>
-								<li><a href="{{ path('noticia_index') }}"><i class="fa fa-newspaper-o"></i> Noticias</a></li>
-								<li><a href="{{ path('noticia_correo') }}"><i class="fa fa-envelope"></i> Correo Comunitario</a></li>
-								<li><a href="{{ path('bitacora_index') }}"><i class="fa fa-compass"></i> Bitácora del Sistema</a></li>
-							</ul>
-						</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Encuestas <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ path('planillas_index') }}"><i class="fa fa-file-o"></i> Listar Encuestas</a></li>
+							<li><a href="{{ path('planillas_new') }}"><i class="fa fa-clipboard"></i> Nueva Encuesta</a></li>
+							<li><a href="#"><i class="fa fa-edit"></i> Modificar Encuesta</a></li>
+						</ul>
+					</li>
 
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Encuestas <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="{{ path('planillas_index') }}"><i class="fa fa-file-o"></i> Listar Encuestas</a></li>
-								<li><a href="{{ path('planillas_new') }}"><i class="fa fa-clipboard"></i> Nueva Encuesta</a></li>
-								<li><a href="#"><i class="fa fa-edit"></i> Modificar Encuesta</a></li>
-							</ul>
-						</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estadísticas <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><i class="fa fa-bar-chart"></i> Generales</a></li>
+							<li><a href="{{ path('jefegrupofamiliar_index') }}"><i class="fa fa-bar-chart"></i> Jefe Grupo Familiar</a></li>
+							{# <li><a href="{{ path('grupofamiliar_index') }}"><i class="fa fa-bar-chart"></i> Grupo Familiar</a></li> #}
+							<li><a href="{{ path('personas_index') }}"><i class="fa fa-bar-chart"></i> Miembros Grupo Familiar</a></li>
+							<li><a href="{{ path('situacioneconomica_index') }}"><i class="fa fa-bar-chart"></i> Situación Ecónomica</a></li>
+							<li><a href="{{ path('situacionvivienda_index') }}"><i class="fa fa-bar-chart"></i> Situación Vivienda</a></li>
+							<li><a href="{{ path('situacionsalud_index') }}"><i class="fa fa-bar-chart"></i> Situación Salud</a></li>
+							<li><a href="{{ path('situacionservicios_index') }}"><i class="fa fa-bar-chart"></i> Situación Servicios</a></li>
+							<li><a href="{{ path('participacioncomunitaria_index') }}"><i class="fa fa-bar-chart"></i> Participación Comunitaria</a></li>
+							<li><a href="{{ path('situacioncomunidad_index') }}"><i class="fa fa-bar-chart"></i> Situación Comunitaria</a></li>
+						</ul>
+					</li>
 
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estadísticas <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="fa fa-bar-chart"></i> Generales</a></li>
-								<li><a href="{{ path('jefegrupofamiliar_index') }}"><i class="fa fa-bar-chart"></i> Jefe Grupo Familiar</a></li>
-								<li><a href="{{ path('grupofamiliar_index') }}"><i class="fa fa-bar-chart"></i> Grupo Familiar</a></li>
-								<li><a href="{{ path('personas_index') }}"><i class="fa fa-bar-chart"></i> Miembros Grupo Familiar</a></li>
-								<li><a href="{{ path('situacioneconomica_index') }}"><i class="fa fa-bar-chart"></i> Situación Ecónomica</a></li>
-								<li><a href="{{ path('situacionvivienda_index') }}"><i class="fa fa-bar-chart"></i> Situación Vivienda</a></li>
-								<li><a href="{{ path('situacionsalud_index') }}"><i class="fa fa-bar-chart"></i> Situación Salud</a></li>
-								<li><a href="{{ path('situacionservicios_index') }}"><i class="fa fa-bar-chart"></i> Situación Servicios</a></li>
-								<li><a href="{{ path('participacioncomunitaria_index') }}"><i class="fa fa-bar-chart"></i> Participación Comunitaria</a></li>
-								<li><a href="{{ path('situacioncomunidad_index') }}"><i class="fa fa-bar-chart"></i> Situación Comunitaria</a></li>
-							</ul>
-						</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ path('usuarios_index') }}"><i class="fa fa-th-list"></i> Listar Usuarios</a></li>
+							<li><a href="{{ path('usuarios_new') }}"><i class="fa fa-plus"></i> Agregar Usuario</a></li>
+						</ul>
+					</li>
 
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="{{ path('usuarios_index') }}"><i class="fa fa-th-list"></i> Listar Usuarios</a></li>
-								<li><a href="{{ path('usuarios_new') }}"><i class="fa fa-plus"></i> Agregar Usuario</a></li>
-							</ul>
-						</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.primerNombre }} {{ app.user.primerApellido }} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							{# <li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li> #}
+							<li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-eye"></i> Ver perfil</a></li>
+							<li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-edit"></i> Editar perfil</a></li>
+						</ul>
+					</li>
 
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.primerNombre }} {{ app.user.primerApellido }} <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								{# <li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li> #}
-								<li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-eye"></i> Ver perfil</a></li>
-								<li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-edit"></i> Editar perfil</a></li>
-							</ul>
-						</li>
-
-						<li class="btn-danger"><a style="color: #FFF;" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i>  <span class="visible-xs">Cerrar Sesión</span></a></li>
-					</ul>
+					<li class="btn-danger"><a style="color: #FFF;" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i>  <span class="visible-xs">Cerrar Sesión</span></a></li>
+				</ul>
 				</div><!--/.nav-collapse -->
 			</div>
 		</nav>

@@ -64,25 +64,18 @@ class PersonaType extends AbstractType
                 'label'     => 'Indique una Profesión'
             ))
 
-            ->add('cne', ChoiceType::class, array(
-                'choices'  => array(
-                    'Seleccione' => '',
-                    'Si' => 'si',
-                    'No' => 'no',
-                    // 'Otro' => 'otro'
-                ),
-                'choices_as_values' => true,
-                'label'     => '¿Se encuentra inscrito(a) en el CNE?'
+            ->add('cne', EntityType::class, array(
+                'label'     => '¿Está inscrito en el CNE?',
+                'class' => 'SICBundle:AdminRespCerrada',
+                'placeholder' => 'Selecciona una',
+                'choice_label' => 'respuesta',
             ))
 
-            ->add('embarazoTemprano', ChoiceType::class, array(
-                'choices'  => array(
-                    'Seleccione' => '',
-                    'Si' => 'si',
-                    'No' => 'no',
-                    // 'Otro' => 'otro'
-                ),
-                'choices_as_values' => true,
+            ->add('embarazoTemprano', EntityType::class, array(
+                'label'     => '¿Embarazo Temprano?',
+                'class' => 'SICBundle:AdminRespCerrada',
+                'placeholder' => 'Selecciona una',
+                'choice_label' => 'respuesta',
             ))
 
             ->add('incapacitado', ChoiceType::class, array(

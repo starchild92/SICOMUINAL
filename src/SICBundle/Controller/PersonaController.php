@@ -24,8 +24,114 @@ class PersonaController extends Controller
 
         $personas = $em->getRepository('SICBundle:Persona')->findAll();
 
+        $stat_sexo = array();
+        array_push(
+            $stat_sexo, 
+            array(
+                'sexo' => 'Masculino',
+                'cantidad' => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                    array('sexo' => 'Masculino')
+                                    ))
+                )
+        );
+        array_push(
+            $stat_sexo, 
+            array(
+                'sexo' => 'Femenino',
+                'cantidad' => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                    array('sexo' => 'Femenino')
+                                    ))
+                )
+        );
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_cne = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push(
+                $stat_cne, 
+                array(
+                    'resp' => $resp->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('cne' => $resp->getId())
+                                        ))
+                    )
+            );
+        }
+        $stat_embarazo = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push(
+                $stat_embarazo, 
+                array(
+                    'resp' => $resp->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('embarazoTemprano' => $resp->getId())
+                                        ))
+                    )
+            );
+        }
+        $instruccion = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
+        $stat_instruccion = array();
+        foreach ($instruccion as $elemento) {
+            array_push(
+                $stat_instruccion, 
+                array(
+                    'instruccion' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('gradoInstruccion' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+        $profesiones = $em->getRepository('SICBundle:AdminProfesion')->findAll();
+        $stat_profesiones = array();
+        foreach ($profesiones as $elemento) {
+            array_push(
+                $stat_profesiones, 
+                array(
+                    'profesiones' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('profesion' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $incapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
+        $stat_incapacidades = array();
+        foreach ($incapacidades as $elemento) {
+            array_push(
+                $stat_incapacidades, 
+                array(
+                    'incapacidades' => $elemento->getIncapacidad(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('incapacitadoTipo' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $pensionados = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
+        $stat_pensionados = array();
+        foreach ($pensionados as $elemento) {
+            array_push(
+                $stat_pensionados, 
+                array(
+                    'pensionados' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('pensionadoInstitucion' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
         return $this->render('persona/index.html.twig', array(
             'personas' => $personas,
+            'stat_sexo' => $stat_sexo,
+            'stat_cne' => $stat_cne,
+            'stat_instruccion' => $stat_instruccion,
+            'stat_profesiones' => $stat_profesiones,
+            'stat_incapacidades' => $stat_incapacidades,
+            'stat_pensionados' => $stat_pensionados,
+            'stat_embarazo' => $stat_embarazo,
         ));
     }
 

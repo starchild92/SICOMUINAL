@@ -86,16 +86,14 @@ class Persona
     private $profesion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cne", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="cne", referencedColumnName="id", onDelete="CASCADE")
      */
     private $cne;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="embarazoTemprano", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="embrarazoTemp", referencedColumnName="id", onDelete="CASCADE")
      */
     private $embarazoTemprano;
 
@@ -318,52 +316,6 @@ class Persona
     }
 
     /**
-     * Set cne
-     *
-     * @param string $cne
-     * @return Persona
-     */
-    public function setCne($cne)
-    {
-        $this->cne = $cne;
-
-        return $this;
-    }
-
-    /**
-     * Get cne
-     *
-     * @return string 
-     */
-    public function getCne()
-    {
-        return $this->cne;
-    }
-
-    /**
-     * Set embarazoTemprano
-     *
-     * @param string $embarazoTemprano
-     * @return Persona
-     */
-    public function setEmbarazoTemprano($embarazoTemprano)
-    {
-        $this->embarazoTemprano = $embarazoTemprano;
-
-        return $this;
-    }
-
-    /**
-     * Get embarazoTemprano
-     *
-     * @return string 
-     */
-    public function getEmbarazoTemprano()
-    {
-        return $this->embarazoTemprano;
-    }
-
-    /**
      * Set incapacitado
      *
      * @param string $incapacitado
@@ -545,5 +497,51 @@ class Persona
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set cne
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $cne
+     * @return Persona
+     */
+    public function setCne(\SICBundle\Entity\AdminRespCerrada $cne = null)
+    {
+        $this->cne = $cne;
+
+        return $this;
+    }
+
+    /**
+     * Get cne
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getCne()
+    {
+        return $this->cne;
+    }
+
+    /**
+     * Set embarazoTemprano
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $embarazoTemprano
+     * @return Persona
+     */
+    public function setEmbarazoTemprano(\SICBundle\Entity\AdminRespCerrada $embarazoTemprano = null)
+    {
+        $this->embarazoTemprano = $embarazoTemprano;
+
+        return $this;
+    }
+
+    /**
+     * Get embarazoTemprano
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getEmbarazoTemprano()
+    {
+        return $this->embarazoTemprano;
     }
 }
