@@ -24,8 +24,44 @@ class SituacionSaludController extends Controller
 
         $situacionSaluds = $em->getRepository('SICBundle:SituacionSalud')->findAll();
 
+        $padecencias = $em->getRepository('SICBundle:AdminTipoPadecencia')->findAll();
+        $stat_padecencias = array();
+        foreach ($padecencias as $elemento) {
+            array_push(
+                $stat_padecencias, 
+                array(
+                    'padecencias' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionSalud')->padecencia($elemento)))
+            );
+        }
+
+        $ayuda_especial = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findAll();
+        $stat_ayuda_especial = array();
+        foreach ($ayuda_especial as $elemento) {
+            array_push(
+                $stat_ayuda_especial, 
+                array(
+                    'ayuda_especial' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionSalud')->ayudaEspecial($elemento)))
+            );
+        }
+
+        $situacion_exclusion = $em->getRepository('SICBundle:AdminTipoSituacionExclusion')->findAll();
+        $stat_situacion_exclusion = array();
+        foreach ($situacion_exclusion as $elemento) {
+            array_push(
+                $stat_situacion_exclusion, 
+                array(
+                    'situacion_exclusion' => $elemento->getSituacion(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionSalud')->situacionExclusion($elemento)))
+            );
+        }
+
         return $this->render('situacionsalud/index.html.twig', array(
             'situacionSaluds' => $situacionSaluds,
+            'stat_situacion_exclusion' => $stat_situacion_exclusion,
+            'stat_ayuda_especial' => $stat_ayuda_especial,
+            'stat_padecencias' => $stat_padecencias,
         ));
     }
 

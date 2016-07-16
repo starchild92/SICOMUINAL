@@ -12,4 +12,42 @@ use Doctrine\ORM\EntityRepository;
  */
 class SituacionSaludRepository extends EntityRepository
 {
+	public function padecencia($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:SituacionSalud', 'm')
+                ->innerJoin('m.padecencia', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function ayudaEspecial($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:SituacionSalud', 'm')
+                ->innerJoin('m.ayudaEspecial', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function situacionExclusion($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:SituacionSalud', 'm')
+                ->innerJoin('m.situacionExclusion', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
 }
