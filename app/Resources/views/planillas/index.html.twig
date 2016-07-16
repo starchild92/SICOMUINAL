@@ -36,9 +36,8 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 {% if planilla.terminada != 100 %}
                                     <li><a href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a></li>
-                                {% else %}
-                                    <li><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a></li>
                                 {% endif %}
+                                    <li><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a></li>
                             </ul>
                         </div>
                     </td>
