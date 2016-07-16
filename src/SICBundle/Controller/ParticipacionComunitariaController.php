@@ -24,8 +24,74 @@ class ParticipacionComunitariaController extends Controller
 
         $participacionComunitarias = $em->getRepository('SICBundle:ParticipacionComunitaria')->findAll();
 
+        $orgs = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
+        $stat_orgs = array();
+        foreach ($orgs as $elemento) {
+            array_push(
+                $stat_orgs, 
+                array(
+                    'orgs' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->existenOrganizaciones($elemento)))
+            );
+        }
+
+        $participacion = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_participacion = array();
+        foreach ($participacion as $elemento) {
+            array_push(
+                $stat_participacion, 
+                array(
+                    'participacion' => $elemento->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(
+                                        array('participaOrganizacion' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $parte_miembros = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_parte_miembros = array();
+        foreach ($parte_miembros as $elemento) {
+            array_push(
+                $stat_parte_miembros, 
+                array(
+                    'parte_miembros' => $elemento->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(
+                                        array('participaMiembroOrganizacion' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $misiones = $em->getRepository('SICBundle:AdminMisionesComunidad')->findAll();
+        $stat_misiones = array();
+        foreach ($misiones as $elemento) {
+            array_push(
+                $stat_misiones, 
+                array(
+                    'misiones' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->misionesComunidad($elemento)))
+            );
+        }
+
+        $areatrabajo = $em->getRepository('SICBundle:AdminAreaTrabajoCC')->findAll();
+        $stat_areatrabajo = array();
+        foreach ($areatrabajo as $elemento) {
+            array_push(
+                $stat_areatrabajo, 
+                array(
+                    'areatrabajo' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->areaTabajoCC($elemento)))
+            );
+        }
+
         return $this->render('participacioncomunitaria/index.html.twig', array(
-            'participacionComunitarias' => $participacionComunitarias,
+            // 'participacionComunitarias' => $participacionComunitarias,
+            'stat_areatrabajo' => $stat_areatrabajo,
+            'stat_misiones' => $stat_misiones,
+            'stat_orgs' => $stat_orgs,
+            'stat_participacion' => $stat_participacion,
+            'stat_parte_miembros' => $stat_parte_miembros,
         ));
     }
 
@@ -33,18 +99,30 @@ class ParticipacionComunitariaController extends Controller
      * Creates a new ParticipacionComunitaria entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
+        /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
+        $em = $this->getDoctrine()->getManager();
+        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $p = $planilla[0];
+
+        if($p->getParticipacionComunitaria() != NULL){
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
         $participacionComunitarium = new ParticipacionComunitaria();
         $form = $this->createForm('SICBundle\Form\ParticipacionComunitariaType', $participacionComunitarium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($participacionComunitarium);
+            $p->setParticipacionComunitaria($participacionComunitarium);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('participacioncomunitaria_show', array('id' => $participacionComunitarium->getId()));
+            return $this->redirectToRoute('situacioncomunidad_new', array('id_planilla' => $id_planilla));
         }
 
         return $this->render('participacioncomunitaria/new.html.twig', array(
@@ -82,7 +160,9 @@ class ParticipacionComunitariaController extends Controller
             $em->persist($participacionComunitarium);
             $em->flush();
 
-            return $this->redirectToRoute('participacioncomunitaria_edit', array('id' => $participacionComunitarium->getId()));
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado la información de participación comunitaria de forma correcta');
+            
+            return $this->redirectToRoute('planillas_show', array('id' => $participacionComunitarium->getPlanilla()->getId()));
         }
 
         return $this->render('participacioncomunitaria/edit.html.twig', array(

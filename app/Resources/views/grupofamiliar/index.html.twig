@@ -10,7 +10,6 @@
                 <th>Apellidos</th>
                 <th>Direccion</th>
                 <th>Cantidadmiembros</th>
-                <th>Vivienda</th>
                 <th>Numerocasa</th>
                 <th>Sector</th>
                 <th>Tiemporesidencia</th>
@@ -24,7 +23,6 @@
                 <td>{{ grupoFamiliar.apellidos }}</td>
                 <td>{{ grupoFamiliar.direccion }}</td>
                 <td>{{ grupoFamiliar.cantidadMiembros }}</td>
-                <td>{{ grupoFamiliar.vivienda }}</td>
                 <td>{{ grupoFamiliar.numeroCasa }}</td>
                 <td>{{ grupoFamiliar.sector }}</td>
                 <td>{{ grupoFamiliar.tiempoResidencia }}</td>
@@ -42,10 +40,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('grupofamiliar_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

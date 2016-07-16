@@ -1,0 +1,22 @@
+{% extends 'base_not_log.html.twig' %}
+
+{% block not_log_title %}<i class="fa fa-newspaper-o"></i> Noticias del Consejo Comunal{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-12">
+            {% for noticia in noticias %}
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h3>{{ noticia.titulo }} <small class="negritas"> por {{ noticia.usuario.nombreyapellido() }}</small></h3>
+                        <hr class="little">
+                        <p>{{ noticia.cuerpo|raw }}</p>
+                    </div>
+                    <div class="panel-footer">
+                        <span class="negritas">Publicado:</span> {% if noticia.fechaPub %}{{ noticia.fechaPubyhora() }}{% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,21 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SituacionServicios edit</h1>
-
+    <h1 class="text-center">Situación de Servicios</h1>
+    <hr>
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(edit_form.aguasBlancas) }}
+                        {{ form_row(edit_form.aguasServidas) }}
+                        {{ form_row(edit_form.gas) }}
+                        {{ form_row(edit_form.sistemaElectrico) }}
+                        {{ form_row(edit_form.recoleccionBasura) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(edit_form.telefonia) }}
+                        {{ form_row(edit_form.transporte) }}
+                        {{ form_row(edit_form.mecanismoInformacion) }}
+                        {{ form_row(edit_form.serviciosComunales) }}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('situacionservicios_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar Situación de Salud y regresar a la Planilla" />
+    {{ form_end(edit_form) }}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+        })
+    </script>
 {% endblock %}

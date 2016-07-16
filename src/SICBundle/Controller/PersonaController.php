@@ -23,9 +23,128 @@ class PersonaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $personas = $em->getRepository('SICBundle:Persona')->findAll();
+        $stat_edad = array();
+        $mayor = 0;
+        $menor = 0;
+        foreach ($personas as $p) {
+            if ($p->getEdad() >= 18 ) {
+                $mayor++;
+            }else{
+                $menor++;
+            }
+        }
+        array_push($stat_edad, array('a' => 'Mayores de Edad', 'cantidad' => $mayor));
+        array_push($stat_edad, array('a' => 'Menores de Edad', 'cantidad' => $menor));
+
+        $stat_sexo = array();
+        array_push(
+            $stat_sexo, 
+            array(
+                'sexo' => 'Masculino',
+                'cantidad' => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                    array('sexo' => 'Masculino')
+                                    ))
+                )
+        );
+        array_push(
+            $stat_sexo, 
+            array(
+                'sexo' => 'Femenino',
+                'cantidad' => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                    array('sexo' => 'Femenino')
+                                    ))
+                )
+        );
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_cne = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push(
+                $stat_cne, 
+                array(
+                    'resp' => $resp->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('cne' => $resp->getId())
+                                        ))
+                    )
+            );
+        }
+        $stat_embarazo = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push(
+                $stat_embarazo, 
+                array(
+                    'resp' => $resp->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('embarazoTemprano' => $resp->getId())
+                                        ))
+                    )
+            );
+        }
+        $instruccion = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
+        $stat_instruccion = array();
+        foreach ($instruccion as $elemento) {
+            array_push(
+                $stat_instruccion, 
+                array(
+                    'instruccion' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('gradoInstruccion' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+        $profesiones = $em->getRepository('SICBundle:AdminProfesion')->findAll();
+        $stat_profesiones = array();
+        foreach ($profesiones as $elemento) {
+            array_push(
+                $stat_profesiones, 
+                array(
+                    'profesiones' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('profesion' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $incapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
+        $stat_incapacidades = array();
+        foreach ($incapacidades as $elemento) {
+            array_push(
+                $stat_incapacidades, 
+                array(
+                    'incapacidades' => $elemento->getIncapacidad(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('incapacitadoTipo' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $pensionados = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
+        $stat_pensionados = array();
+        foreach ($pensionados as $elemento) {
+            array_push(
+                $stat_pensionados, 
+                array(
+                    'pensionados' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                                        array('pensionadoInstitucion' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
 
         return $this->render('persona/index.html.twig', array(
-            'personas' => $personas,
+            // 'personas' => $personas,
+            'stat_sexo' => $stat_sexo,
+            'stat_cne' => $stat_cne,
+            'stat_instruccion' => $stat_instruccion,
+            'stat_profesiones' => $stat_profesiones,
+            'stat_incapacidades' => $stat_incapacidades,
+            'stat_pensionados' => $stat_pensionados,
+            'stat_embarazo' => $stat_embarazo,
+            'stat_edad' => $stat_edad,
         ));
     }
 
@@ -33,22 +152,47 @@ class PersonaController extends Controller
      * Creates a new Persona entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla, $id_grupofamiliar)
     {
         $persona = new Persona();
         $form = $this->createForm('SICBundle\Form\PersonaType', $persona);
         $form->handleRequest($request);
+        
+        $em = $this->getDoctrine()->getManager();
+        $GrupoFam = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
+        // $cantMiembros = 1;
+        if ($GrupoFam != NULL) {
+            $Grupo = $GrupoFam[0];
+            $aux = $Grupo->getCantidadMiembros();
+            $Grupo->setCantidadMiembros($aux+1);
+        }else{
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $Grupo->addMiembro($persona);
             $em->persist($persona);
+            $em->persist($Grupo);
             $em->flush();
 
-            return $this->redirectToRoute('personas_show', array('id' => $persona->getId()));
+            $cantMiembros = $Grupo->getCantidadMiembros();
+            $this->get('session')->getFlashBag()->add('success','Se agregó el miembro al grupo familiar de forma correcta.');
+
+            return $this->redirectToRoute('personas_new', array(
+                'id_planilla' => $id_planilla,
+                'id_grupofamiliar' => $id_grupofamiliar,
+                'cantMiembros' => $cantMiembros));
         }
+
+        $cantMiembros = $Grupo->getCantidadMiembros();
 
         return $this->render('persona/new.html.twig', array(
             'persona' => $persona,
+            'id_planilla' => $id_planilla,
+            'id_grupofamiliar' => $id_grupofamiliar,
+            'cantMiembros' => $cantMiembros,
             'form' => $form->createView(),
         ));
     }
@@ -82,7 +226,9 @@ class PersonaController extends Controller
             $em->persist($persona);
             $em->flush();
 
-            return $this->redirectToRoute('personas_edit', array('id' => $persona->getId()));
+            $this->get('session')->getFlashBag()->add('success', 'Se han actualizado los datos de forma correcta.');
+
+            return $this->redirectToRoute('personas_show', array('id' => $persona->getId()));
         }
 
         return $this->render('persona/edit.html.twig', array(

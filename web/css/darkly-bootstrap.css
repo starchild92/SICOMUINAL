@@ -1,44 +1,5 @@
 /*@import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");*/
-@font-face {
-    font-family: 'Open Sans';
-    font-weight: 400;
-    font-style: normal;
-    src: url('{{ asset("fonts/Open-Sans-regular.eot")}}');
-    src: url('{{ asset("fonts/Open-Sans-regular.eot?#iefix")}}') format('embedded-opentype'),
-             local('Open Sans'),
-             local('Open-Sans-regular'),
-             url("{{ asset('fonts/Open-Sans-regular.woff2')}}") format('woff2'),
-             url('{{ asset("fonts/Open-Sans-regular.woff")}}') format('woff'),
-             url('{{ asset("fonts/Open-Sans-regular.ttf")}}') format('truetype'),
-             url('{{ asset("fonts/Open-Sans-regular.svg#OpenSans")}}') format('svg');
-}
-@font-face {
-    font-family: 'Open Sans Condensed';
-    font-weight: 300;
-    font-style: normal;
-    src: url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.eot")}}');
-    src: url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.eot?#iefix")}}') format('embedded-opentype'),
-             local('Open Sans Cond Light'),
-             local('Open-Sans-Condensed-300'),
-             url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.woff2")}}') format('woff2'),
-             url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.woff")}}') format('woff'),
-             url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.ttf")}}') format('truetype'),
-             url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.svg#OpenSansCondensed")}}') format('svg');
-}
-@font-face {
-    font-family: 'Open Sans';
-    font-weight: 400;
-    font-style: italic;
-    src: url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.eot")}}');
-    src: url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.eot?#iefix")}}') format('embedded-opentype'),
-             local('Open Sans Italic'),
-             local('Open-Sans-italic'),
-             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.woff2")}}') format('woff2'),
-             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.woff")}}') format('woff'),
-             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.ttf")}}') format('truetype'),
-             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.svg#OpenSans")}}') format('svg');
-}
-html, body{ font-family: "Open Sans", sans-serif; }
+
 
 html {
   font-family: sans-serif;
@@ -1216,7 +1177,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  /*font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-family: "Open Sans Condensed", sans-serif;
   font-weight: 400;
   line-height: 1.1;
   color: inherit;
@@ -1255,7 +1216,7 @@ h2,
 .h2,
 h3,
 .h3 {
-  margin-top: 21px;
+  margin-top: 10.5px;
   margin-bottom: 10.5px;
 }
 h1 small,
@@ -1441,9 +1402,9 @@ a.bg-danger:focus {
   background-color: #d62c1a;
 }
 .page-header {
-  padding-bottom: 9.5px;
-  margin: 42px 0 21px;
-  border-bottom: 1px solid transparent;
+    padding-bottom: 9.5px;
+    margin: 0px 0 17px;
+    border-bottom: 1px solid #464545;
 }
 ul,
 ol {
@@ -4206,7 +4167,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 @media (min-width: 768px) {
   .navbar {
-    border-radius: 4px;
+    /*border-radius: 4px;*/
   }
 }
 @media (min-width: 768px) {
@@ -4308,10 +4269,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  padding: 4.5px 15px;
+  padding: 0.5px 15px;
   font-size: 19px;
   line-height: 21px;
-  height: 60px;
+  height: 50px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -4331,8 +4292,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   float: right;
   margin-right: 15px;
   padding: 9px 10px;
-  margin-top: 13px;
-  margin-bottom: 13px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -4395,8 +4356,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 19px;
-    padding-bottom: 19px;
+    padding-top: 14px;
+    padding-bottom: 14px;
   }
 }
 .navbar-form {

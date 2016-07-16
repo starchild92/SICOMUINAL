@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3 class="text-center">Modificar Nacionalidad</h3>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Modificar" class="btn btn-success btn-block" />
+    {{ form_end(edit_form) }}
+
+    {{ form_start(delete_form) }}
+        <input type="submit" value="Eliminar" class="btn btn-danger btn-block">
+    {{ form_end(delete_form) }}
+{% endblock %}

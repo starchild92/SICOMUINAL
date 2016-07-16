@@ -3,7 +3,7 @@
 {% block body %}
     <h1>JefeGrupoFamiliar</h1>
 
-    <table>
+    <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -46,16 +46,8 @@
                 <td>{{ jefeGrupoFamiliar.sexo }}</td>
             </tr>
             <tr>
-                <th>Incapacitado</th>
-                <td>{{ jefeGrupoFamiliar.incapacitado }}</td>
-            </tr>
-            <tr>
                 <th>Incapacitadotipo</th>
                 <td>{{ jefeGrupoFamiliar.incapacitadoTipo }}</td>
-            </tr>
-            <tr>
-                <th>Pensionado</th>
-                <td>{{ jefeGrupoFamiliar.pensionado }}</td>
             </tr>
             <tr>
                 <th>Pensionadoinstitucion</th>
@@ -79,7 +71,7 @@
             </tr>
             <tr>
                 <th>Telefono</th>
-                <td>{{ jefeGrupoFamiliar.telefono }}</td>
+                <td>{% for tlf in jefeGrupoFamiliar.telefono %}{{tlf.codigo}} {{ tlf.numero }}<br>{% endfor %}</td>
             </tr>
             <tr>
                 <th>Email</th>

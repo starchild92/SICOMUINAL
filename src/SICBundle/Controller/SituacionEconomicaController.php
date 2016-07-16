@@ -24,8 +24,61 @@ class SituacionEconomicaController extends Controller
 
         $situacionEconomicas = $em->getRepository('SICBundle:SituacionEconomica')->findAll();
 
+        $ubic_trabajo = $em->getRepository('SICBundle:AdminUbicacionTrabajo')->findAll();
+        $stat_ubic_trabajo = array();
+        foreach ($ubic_trabajo as $elemento) {
+            array_push(
+                $stat_ubic_trabajo, 
+                array(
+                    'trabajo' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionEconomica')->findBy(
+                                        array('dondeTrabaja' => $elemento->getId())
+                                        )))
+            );
+        }
+
+        $venta_vivienda = $em->getRepository('SICBundle:AdminVentaVivienda')->findAll();
+        $stat_venta_vivienda = array();
+        foreach ($venta_vivienda as $elemento) {
+            array_push(
+                $stat_venta_vivienda, 
+                array(
+                    'venta_vivienda' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionEconomica')->findByActividadComercialVivienda($elemento)))
+            );
+        }
+
+        $tipo_ingreso = $em->getRepository('SICBundle:AdminTipoIngresos')->findAll();
+        $stat_tipo_ingreso = array();
+        foreach ($tipo_ingreso as $elemento) {
+            array_push(
+                $stat_tipo_ingreso, 
+                array(
+                    'tipo_ingreso' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionEconomica')->findBy(
+                                  array('ingresoFamiliarEspecifico' => $elemento->getId())
+                                  )))
+            );
+        }
+
+        $stat_vehiculos = array();
+        $si = 0; $no = 0;
+        foreach ($situacionEconomicas as $sit) { if ($sit->getPlaca() != "") { $si++; }else{ $no++; } }
+        array_push(
+            $stat_vehiculos, 
+            array('nombre' => 'Con Vehículo',
+                'cantidad' => $si));
+        array_push(
+            $stat_vehiculos, 
+            array('nombre' => 'Sin Vehículo',
+                'cantidad' => $no));
+
         return $this->render('situacioneconomica/index.html.twig', array(
-            'situacionEconomicas' => $situacionEconomicas,
+            // 'situacionEconomicas' => $situacionEconomicas,
+            'stat_ubic_trabajo'  => $stat_ubic_trabajo,
+            'stat_venta_vivienda'  => $stat_venta_vivienda,
+            'stat_tipo_ingreso'  => $stat_tipo_ingreso,
+            'stat_vehiculos'  => $stat_vehiculos,
         ));
     }
 
@@ -33,8 +86,19 @@ class SituacionEconomicaController extends Controller
      * Creates a new SituacionEconomica entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
+        /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
+        $em = $this->getDoctrine()->getManager();
+        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $p = $planilla[0];
+
+        if($p->getSituacionEconomica() != NULL){
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
         $situacionEconomica = new SituacionEconomica();
         $form = $this->createForm('SICBundle\Form\SituacionEconomicaType', $situacionEconomica);
         $form->handleRequest($request);
@@ -42,9 +106,11 @@ class SituacionEconomicaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionEconomica);
+            $p->setSituacionEconomica($situacionEconomica);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('situacioneconomica_show', array('id' => $situacionEconomica->getId()));
+            return $this->redirectToRoute('situacionvivienda_new', array('id_planilla' => $id_planilla));
         }
 
         return $this->render('situacioneconomica/new.html.twig', array(
@@ -82,7 +148,9 @@ class SituacionEconomicaController extends Controller
             $em->persist($situacionEconomica);
             $em->flush();
 
-            return $this->redirectToRoute('situacioneconomica_edit', array('id' => $situacionEconomica->getId()));
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha modificado la información de la Situación Económica de forma exitosa.');
+            return $this->redirectToRoute('planillas_show', array('id' => $situacionEconomica->getPlanilla()->getId()));
         }
 
         return $this->render('situacioneconomica/edit.html.twig', array(

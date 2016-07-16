@@ -1,16 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SituacionEconomica creation</h1>
+    <div class="row">
+        <div class="col-xs-6"><small class="text-info">ant. Miembros del Grupo Familiar</small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Vivienda</small></div>
+    </div>
+    <div class="progress">
+      <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+        Paso 4 de 9
+      </div>
+    </div>
 
+    <h2>Situación Económica</h2>
+	
     {{ form_start(form) }}
+    	<div class="col-sm-6">
+    		<div class="panel panel-primary">
+    			<div class="panel-body">
+    				{{ form_row(form.dondeTrabaja) }}
+	    			{{ form_row(form.actividadComercialenVivienda) }}
+				    {{ form_row(form.placa) }}
+    			</div>
+    		</div>
+    	</div>
+    	<div class="col-sm-6">
+    		<div class="panel panel-primary">
+    			<div class="panel-body">
+    				{{ form_row(form.ingresoFamiliar) }}
+				    {{ form_row(form.ingresoFamiliarEspecifico) }}
+    			</div>
+    		</div>
+    	</div>
+
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-primary btn-block" type="submit" value="Registrar Sitación Económica y Continuar" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('situacioneconomica_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown')
+              .dropdown();
+        })
+    </script>
 {% endblock %}

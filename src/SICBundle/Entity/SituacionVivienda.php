@@ -22,82 +22,106 @@ class SituacionVivienda
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="tipo", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoVivienda", cascade={"persist"})
+     * @ORM\JoinColumn(name="tipoVivienda", referencedColumnName="id", onDelete="CASCADE")
      */
     private $tipo;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="tenencia", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoTenencia", cascade={"persist"})
+     * @ORM\JoinColumn(name="tipoTenencia", referencedColumnName="id", onDelete="CASCADE")
      */
     private $tenencia;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="terrenoPropio", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="terrenoPropio", referencedColumnName="id", onDelete="CASCADE")
      */
     private $terrenoPropio;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="habitaciones", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="ovc", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $ovc;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AdminTipoHabitacionesVivienda")
+     * @ORM\JoinTable(name="sitVivi_tHV",
+     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tHabViv_id", referencedColumnName="id")}
+     *      )
      */
     private $habitaciones;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="cantidadHabitaciones", type="string", length=255)
+     * @ORM\Column(name="cantidadHabitaciones", type="integer")
      */
     private $cantidadHabitaciones;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="paredes", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoParedes", cascade={"persist"})
+     * @ORM\JoinColumn(name="tipoParedes", referencedColumnName="id", onDelete="CASCADE")
      */
     private $paredes;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="techo", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoTecho", cascade={"persist"})
+     * @ORM\JoinColumn(name="tipoTecho", referencedColumnName="id", onDelete="CASCADE")
      */
     private $techo;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="enseres", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminTipoEnseres")
+     * @ORM\JoinTable(name="sitVivi_enseres",
+     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="enseres_id", referencedColumnName="id")}
+     *      )
      */
     private $enseres;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="salubridad", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminSalubridadVivienda", cascade={"persist"})
+     * @ORM\JoinColumn(name="salubridad", referencedColumnName="id", onDelete="CASCADE")
      */
     private $salubridad;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="presenciaInsectos", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminTipoPlagas")
+     * @ORM\JoinTable(name="sitVivi_plaga",
+     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="plaga_id", referencedColumnName="id")}
+     *      )
      */
     private $presenciaInsectos;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mascota", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminTipoMascotas")
+     * @ORM\JoinTable(name="sitVivi_mascota",
+     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="masco_id", referencedColumnName="id")}
+     *      )
      */
     private $mascota;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionVivienda")
+     */
+    private $planilla;
+    
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->habitaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->enseres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->presenciaInsectos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mascota = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -110,56 +134,10 @@ class SituacionVivienda
     }
 
     /**
-     * Set tipo
-     *
-     * @param string $tipo
-     * @return Vivienda
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-
-        return $this;
-    }
-
-    /**
-     * Get tipo
-     *
-     * @return string 
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
-     * Set tenencia
-     *
-     * @param string $tenencia
-     * @return Vivienda
-     */
-    public function setTenencia($tenencia)
-    {
-        $this->tenencia = $tenencia;
-
-        return $this;
-    }
-
-    /**
-     * Get tenencia
-     *
-     * @return string 
-     */
-    public function getTenencia()
-    {
-        return $this->tenencia;
-    }
-
-    /**
      * Set terrenoPropio
      *
      * @param string $terrenoPropio
-     * @return Vivienda
+     * @return SituacionVivienda
      */
     public function setTerrenoPropio($terrenoPropio)
     {
@@ -179,33 +157,33 @@ class SituacionVivienda
     }
 
     /**
-     * Set habitaciones
+     * Set ovc
      *
-     * @param string $habitaciones
-     * @return Vivienda
+     * @param string $ovc
+     * @return SituacionVivienda
      */
-    public function setHabitaciones($habitaciones)
+    public function setOvc($ovc)
     {
-        $this->habitaciones = $habitaciones;
+        $this->ovc = $ovc;
 
         return $this;
     }
 
     /**
-     * Get habitaciones
+     * Get ovc
      *
      * @return string 
      */
-    public function getHabitaciones()
+    public function getOvc()
     {
-        return $this->habitaciones;
+        return $this->ovc;
     }
 
     /**
      * Set cantidadHabitaciones
      *
-     * @param string $cantidadHabitaciones
-     * @return Vivienda
+     * @param integer $cantidadHabitaciones
+     * @return SituacionVivienda
      */
     public function setCantidadHabitaciones($cantidadHabitaciones)
     {
@@ -217,7 +195,7 @@ class SituacionVivienda
     /**
      * Get cantidadHabitaciones
      *
-     * @return string 
+     * @return integer 
      */
     public function getCantidadHabitaciones()
     {
@@ -225,12 +203,91 @@ class SituacionVivienda
     }
 
     /**
+     * Set tipo
+     *
+     * @param \SICBundle\Entity\AdminTipoVivienda $tipo
+     * @return SituacionVivienda
+     */
+    public function setTipo(\SICBundle\Entity\AdminTipoVivienda $tipo = null)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * Get tipo
+     *
+     * @return \SICBundle\Entity\AdminTipoVivienda 
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * Set tenencia
+     *
+     * @param \SICBundle\Entity\AdminTipoTenencia $tenencia
+     * @return SituacionVivienda
+     */
+    public function setTenencia(\SICBundle\Entity\AdminTipoTenencia $tenencia = null)
+    {
+        $this->tenencia = $tenencia;
+
+        return $this;
+    }
+
+    /**
+     * Get tenencia
+     *
+     * @return \SICBundle\Entity\AdminTipoTenencia 
+     */
+    public function getTenencia()
+    {
+        return $this->tenencia;
+    }
+
+    /**
+     * Add habitaciones
+     *
+     * @param \SICBundle\Entity\AdminTipoHabitacionesVivienda $habitaciones
+     * @return SituacionVivienda
+     */
+    public function addHabitacione(\SICBundle\Entity\AdminTipoHabitacionesVivienda $habitaciones)
+    {
+        $this->habitaciones[] = $habitaciones;
+
+        return $this;
+    }
+
+    /**
+     * Remove habitaciones
+     *
+     * @param \SICBundle\Entity\AdminTipoHabitacionesVivienda $habitaciones
+     */
+    public function removeHabitacione(\SICBundle\Entity\AdminTipoHabitacionesVivienda $habitaciones)
+    {
+        $this->habitaciones->removeElement($habitaciones);
+    }
+
+    /**
+     * Get habitaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHabitaciones()
+    {
+        return $this->habitaciones;
+    }
+
+    /**
      * Set paredes
      *
-     * @param string $paredes
-     * @return Vivienda
+     * @param \SICBundle\Entity\AdminTipoParedes $paredes
+     * @return SituacionVivienda
      */
-    public function setParedes($paredes)
+    public function setParedes(\SICBundle\Entity\AdminTipoParedes $paredes = null)
     {
         $this->paredes = $paredes;
 
@@ -240,7 +297,7 @@ class SituacionVivienda
     /**
      * Get paredes
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminTipoParedes 
      */
     public function getParedes()
     {
@@ -250,10 +307,10 @@ class SituacionVivienda
     /**
      * Set techo
      *
-     * @param string $techo
-     * @return Vivienda
+     * @param \SICBundle\Entity\AdminTipoTecho $techo
+     * @return SituacionVivienda
      */
-    public function setTecho($techo)
+    public function setTecho(\SICBundle\Entity\AdminTipoTecho $techo = null)
     {
         $this->techo = $techo;
 
@@ -263,7 +320,7 @@ class SituacionVivienda
     /**
      * Get techo
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminTipoTecho 
      */
     public function getTecho()
     {
@@ -271,22 +328,32 @@ class SituacionVivienda
     }
 
     /**
-     * Set enseres
+     * Add enseres
      *
-     * @param string $enseres
-     * @return Vivienda
+     * @param \SICBundle\Entity\AdminTipoEnseres $enseres
+     * @return SituacionVivienda
      */
-    public function setEnseres($enseres)
+    public function addEnsere(\SICBundle\Entity\AdminTipoEnseres $enseres)
     {
-        $this->enseres = $enseres;
+        $this->enseres[] = $enseres;
 
         return $this;
     }
 
     /**
+     * Remove enseres
+     *
+     * @param \SICBundle\Entity\AdminTipoEnseres $enseres
+     */
+    public function removeEnsere(\SICBundle\Entity\AdminTipoEnseres $enseres)
+    {
+        $this->enseres->removeElement($enseres);
+    }
+
+    /**
      * Get enseres
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getEnseres()
     {
@@ -296,10 +363,10 @@ class SituacionVivienda
     /**
      * Set salubridad
      *
-     * @param string $salubridad
-     * @return Vivienda
+     * @param \SICBundle\Entity\AdminSalubridadVivienda $salubridad
+     * @return SituacionVivienda
      */
-    public function setSalubridad($salubridad)
+    public function setSalubridad(\SICBundle\Entity\AdminSalubridadVivienda $salubridad = null)
     {
         $this->salubridad = $salubridad;
 
@@ -309,7 +376,7 @@ class SituacionVivienda
     /**
      * Get salubridad
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminSalubridadVivienda 
      */
     public function getSalubridad()
     {
@@ -317,22 +384,32 @@ class SituacionVivienda
     }
 
     /**
-     * Set presenciaInsectos
+     * Add presenciaInsectos
      *
-     * @param string $presenciaInsectos
-     * @return Vivienda
+     * @param \SICBundle\Entity\AdminTipoPlagas $presenciaInsectos
+     * @return SituacionVivienda
      */
-    public function setPresenciaInsectos($presenciaInsectos)
+    public function addPresenciaInsecto(\SICBundle\Entity\AdminTipoPlagas $presenciaInsectos)
     {
-        $this->presenciaInsectos = $presenciaInsectos;
+        $this->presenciaInsectos[] = $presenciaInsectos;
 
         return $this;
     }
 
     /**
+     * Remove presenciaInsectos
+     *
+     * @param \SICBundle\Entity\AdminTipoPlagas $presenciaInsectos
+     */
+    public function removePresenciaInsecto(\SICBundle\Entity\AdminTipoPlagas $presenciaInsectos)
+    {
+        $this->presenciaInsectos->removeElement($presenciaInsectos);
+    }
+
+    /**
      * Get presenciaInsectos
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getPresenciaInsectos()
     {
@@ -340,25 +417,58 @@ class SituacionVivienda
     }
 
     /**
-     * Set mascota
+     * Add mascota
      *
-     * @param string $mascota
-     * @return Vivienda
+     * @param \SICBundle\Entity\AdminTipoMascotas $mascota
+     * @return SituacionVivienda
      */
-    public function setMascota($mascota)
+    public function addMascotum(\SICBundle\Entity\AdminTipoMascotas $mascota)
     {
-        $this->mascota = $mascota;
+        $this->mascota[] = $mascota;
 
         return $this;
     }
 
     /**
+     * Remove mascota
+     *
+     * @param \SICBundle\Entity\AdminTipoMascotas $mascota
+     */
+    public function removeMascotum(\SICBundle\Entity\AdminTipoMascotas $mascota)
+    {
+        $this->mascota->removeElement($mascota);
+    }
+
+    /**
      * Get mascota
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getMascota()
     {
         return $this->mascota;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return SituacionVivienda
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Planillas
  *
  * @ORM\Table(name="planillas")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="SICBundle\Repository\PlanillasRepository")
  */
 class Planillas
@@ -22,68 +23,112 @@ class Planillas
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="empadronador", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="planillas")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     private $empadronador;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="jefeGrupoFamiliar", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="JefeGrupoFamiliar", inversedBy="planilla", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="jefegFam", referencedColumnName="id", onDelete="CASCADE")
      */
     private $jefeGrupoFamiliar;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="miembrosGrupoFamiliar", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="GrupoFamiliar", inversedBy="planilla", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="grupoFam", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $miembrosGrupoFamiliar;
+    private $grupoFamiliar;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionEconomica", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionEconomica", inversedBy="planilla", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitEco", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionEconomica;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionVivienda", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionVivienda", inversedBy="planilla", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionVivienda;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionSalud", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionSalud", inversedBy="planilla", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitSal", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionSalud;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionServicios", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionServicios", inversedBy="planilla", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitServ", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionServicios;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="participacionComunitaria", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="ParticipacionComunitaria", inversedBy="planilla", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="partCom", referencedColumnName="id", onDelete="CASCADE")
      */
     private $participacionComunitaria;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionComunidad", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="SituacionComunidad", inversedBy="planilla", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sitCom", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacionComunidad;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observaciones", type="text", nullable=true)
+     */
+    private $observaciones;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="terminada", type="integer")
+     */
+    private $terminada;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime")
+     */
+    private $fecha;
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updatedTimestamps()
+    {
+        $this->fecha = new \DateTime('now');
+    }
+
+    public function fecha()
+    {
+        $fecha = $this->getFecha();
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
+    }
+
+    public function fechayhora()
+    {
+        $fecha = $this->getFecha();
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y')." a las ".$fecha->format('h').":".$fecha->format('i')." ".$fecha->format('a');
+    }
+
+    public function fechaCron()
+    {
+        $fecha = $this->getFecha();
+        return $fecha->format('Y')."/".$fecha->format('n')."/".$fecha->format('d')." a las ".$fecha->format('h').":".$fecha->format('i')." ".$fecha->format('a');
+    }
 
     /**
      * Get id
@@ -96,35 +141,35 @@ class Planillas
     }
 
     /**
-     * Set empadronador
+     * Set observaciones
      *
-     * @param string $empadronador
+     * @param string $observaciones
      * @return Planillas
      */
-    public function setEmpadronador($empadronador)
+    public function setObservaciones($observaciones)
     {
-        $this->empadronador = $empadronador;
+        $this->observaciones = $observaciones;
 
         return $this;
     }
 
     /**
-     * Get empadronador
+     * Get observaciones
      *
      * @return string 
      */
-    public function getEmpadronador()
+    public function getObservaciones()
     {
-        return $this->empadronador;
+        return $this->observaciones;
     }
 
     /**
      * Set jefeGrupoFamiliar
      *
-     * @param string $jefeGrupoFamiliar
+     * @param \SICBundle\Entity\JefeGrupoFamiliar $jefeGrupoFamiliar
      * @return Planillas
      */
-    public function setJefeGrupoFamiliar($jefeGrupoFamiliar)
+    public function setJefeGrupoFamiliar(\SICBundle\Entity\JefeGrupoFamiliar $jefeGrupoFamiliar = null)
     {
         $this->jefeGrupoFamiliar = $jefeGrupoFamiliar;
 
@@ -134,7 +179,7 @@ class Planillas
     /**
      * Get jefeGrupoFamiliar
      *
-     * @return string 
+     * @return \SICBundle\Entity\JefeGrupoFamiliar 
      */
     public function getJefeGrupoFamiliar()
     {
@@ -142,35 +187,35 @@ class Planillas
     }
 
     /**
-     * Set miembrosGrupoFamiliar
+     * Set grupoFamiliar
      *
-     * @param string $miembrosGrupoFamiliar
+     * @param \SICBundle\Entity\GrupoFamiliar $grupoFamiliar
      * @return Planillas
      */
-    public function setMiembrosGrupoFamiliar($miembrosGrupoFamiliar)
+    public function setGrupoFamiliar(\SICBundle\Entity\GrupoFamiliar $grupoFamiliar = null)
     {
-        $this->miembrosGrupoFamiliar = $miembrosGrupoFamiliar;
+        $this->grupoFamiliar = $grupoFamiliar;
 
         return $this;
     }
 
     /**
-     * Get miembrosGrupoFamiliar
+     * Get grupoFamiliar
      *
-     * @return string 
+     * @return \SICBundle\Entity\GrupoFamiliar 
      */
-    public function getMiembrosGrupoFamiliar()
+    public function getGrupoFamiliar()
     {
-        return $this->miembrosGrupoFamiliar;
+        return $this->grupoFamiliar;
     }
 
     /**
      * Set situacionEconomica
      *
-     * @param string $situacionEconomica
+     * @param \SICBundle\Entity\SituacionEconomica $situacionEconomica
      * @return Planillas
      */
-    public function setSituacionEconomica($situacionEconomica)
+    public function setSituacionEconomica(\SICBundle\Entity\SituacionEconomica $situacionEconomica = null)
     {
         $this->situacionEconomica = $situacionEconomica;
 
@@ -180,7 +225,7 @@ class Planillas
     /**
      * Get situacionEconomica
      *
-     * @return string 
+     * @return \SICBundle\Entity\SituacionEconomica 
      */
     public function getSituacionEconomica()
     {
@@ -190,10 +235,10 @@ class Planillas
     /**
      * Set situacionVivienda
      *
-     * @param string $situacionVivienda
+     * @param \SICBundle\Entity\SituacionVivienda $situacionVivienda
      * @return Planillas
      */
-    public function setSituacionVivienda($situacionVivienda)
+    public function setSituacionVivienda(\SICBundle\Entity\SituacionVivienda $situacionVivienda = null)
     {
         $this->situacionVivienda = $situacionVivienda;
 
@@ -203,7 +248,7 @@ class Planillas
     /**
      * Get situacionVivienda
      *
-     * @return string 
+     * @return \SICBundle\Entity\SituacionVivienda 
      */
     public function getSituacionVivienda()
     {
@@ -213,10 +258,10 @@ class Planillas
     /**
      * Set situacionSalud
      *
-     * @param string $situacionSalud
+     * @param \SICBundle\Entity\SituacionSalud $situacionSalud
      * @return Planillas
      */
-    public function setSituacionSalud($situacionSalud)
+    public function setSituacionSalud(\SICBundle\Entity\SituacionSalud $situacionSalud = null)
     {
         $this->situacionSalud = $situacionSalud;
 
@@ -226,7 +271,7 @@ class Planillas
     /**
      * Get situacionSalud
      *
-     * @return string 
+     * @return \SICBundle\Entity\SituacionSalud 
      */
     public function getSituacionSalud()
     {
@@ -236,10 +281,10 @@ class Planillas
     /**
      * Set situacionServicios
      *
-     * @param string $situacionServicios
+     * @param \SICBundle\Entity\SituacionServicios $situacionServicios
      * @return Planillas
      */
-    public function setSituacionServicios($situacionServicios)
+    public function setSituacionServicios(\SICBundle\Entity\SituacionServicios $situacionServicios = null)
     {
         $this->situacionServicios = $situacionServicios;
 
@@ -249,7 +294,7 @@ class Planillas
     /**
      * Get situacionServicios
      *
-     * @return string 
+     * @return \SICBundle\Entity\SituacionServicios 
      */
     public function getSituacionServicios()
     {
@@ -259,10 +304,10 @@ class Planillas
     /**
      * Set participacionComunitaria
      *
-     * @param string $participacionComunitaria
+     * @param \SICBundle\Entity\ParticipacionComunitaria $participacionComunitaria
      * @return Planillas
      */
-    public function setParticipacionComunitaria($participacionComunitaria)
+    public function setParticipacionComunitaria(\SICBundle\Entity\ParticipacionComunitaria $participacionComunitaria = null)
     {
         $this->participacionComunitaria = $participacionComunitaria;
 
@@ -272,7 +317,7 @@ class Planillas
     /**
      * Get participacionComunitaria
      *
-     * @return string 
+     * @return \SICBundle\Entity\ParticipacionComunitaria 
      */
     public function getParticipacionComunitaria()
     {
@@ -282,10 +327,10 @@ class Planillas
     /**
      * Set situacionComunidad
      *
-     * @param string $situacionComunidad
+     * @param \SICBundle\Entity\SituacionComunidad $situacionComunidad
      * @return Planillas
      */
-    public function setSituacionComunidad($situacionComunidad)
+    public function setSituacionComunidad(\SICBundle\Entity\SituacionComunidad $situacionComunidad = null)
     {
         $this->situacionComunidad = $situacionComunidad;
 
@@ -295,10 +340,79 @@ class Planillas
     /**
      * Get situacionComunidad
      *
-     * @return string 
+     * @return \SICBundle\Entity\SituacionComunidad 
      */
     public function getSituacionComunidad()
     {
         return $this->situacionComunidad;
+    }
+
+    /**
+     * Set empadronador
+     *
+     * @param \SICBundle\Entity\Usuario $empadronador
+     * @return Planillas
+     */
+    public function setEmpadronador(\SICBundle\Entity\Usuario $empadronador = null)
+    {
+        $this->empadronador = $empadronador;
+
+        return $this;
+    }
+
+    /**
+     * Get empadronador
+     *
+     * @return \SICBundle\Entity\Usuario 
+     */
+    public function getEmpadronador()
+    {
+        return $this->empadronador;
+    }
+
+    /**
+     * Set terminada
+     *
+     * @param integer $terminada
+     * @return Planillas
+     */
+    public function setTerminada($terminada)
+    {
+        $this->terminada = $terminada;
+
+        return $this;
+    }
+
+    /**
+     * Get terminada
+     *
+     * @return integer 
+     */
+    public function getTerminada()
+    {
+        return $this->terminada;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Planillas
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
     }
 }

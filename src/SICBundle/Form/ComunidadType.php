@@ -20,7 +20,8 @@ class ComunidadType extends AbstractType
             ->add('parroquia')
             ->add('sector')
             ->add('comunidad')
-            ->add('direccion')
+            ->add('direccion', 'text', array(
+                'required' => false,))
         ;
     }
     

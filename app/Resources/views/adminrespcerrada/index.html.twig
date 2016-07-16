@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2></h2>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Respuestas Cerradas <small>(Si ó No)</small></div>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    {# <th>Id</th> #}
+                    <th>Respuesta</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminRespCerrada in adminRespCerradas %}
+                <tr>
+                    {# <td><a href="{{ path('configurable_respuesta_cerrada_show', { 'id': adminRespCerrada.id }) }}">{{ adminRespCerrada.id }}</a></td> #}
+                    <td>{{ adminRespCerrada.respuesta }}</td>
+                    <td>
+                        {# <a href="{{ path('configurable_respuesta_cerrada_show', { 'id': adminRespCerrada.id }) }}">show</a> #}
+                        <a id="forModalEdit" href="{{ path('configurable_respuesta_cerrada_edit', { 'id': adminRespCerrada.id }) }}"><i class="fa fa-edit fa-fw"></i> Editar    </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="{{ path('configurable_respuesta_cerrada_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Nuevo</a>
+{% endblock %}

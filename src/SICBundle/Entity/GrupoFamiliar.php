@@ -43,13 +43,6 @@ class GrupoFamiliar
     private $cantidadMiembros;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="vivienda", type="string", length=255)
-     */
-    private $vivienda;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="numeroCasa", type="integer")
@@ -71,6 +64,20 @@ class GrupoFamiliar
     private $tiempoResidencia;
 
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Persona", cascade={"remove", "persist"})
+     * @ORM\JoinTable(name="grupo_familiar_personas",
+     *      joinColumns={@ORM\JoinColumn(name="grupo_familiar", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="persona", referencedColumnName="id", unique=true, onDelete="CASCADE")}
+     *      )
+     */
+    private $miembros;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="grupoFamiliar")
+     */
+    private $planilla;
+    
     /**
      * Get id
      *
@@ -151,29 +158,6 @@ class GrupoFamiliar
     }
 
     /**
-     * Set vivienda
-     *
-     * @param string $vivienda
-     * @return GrupoFamiliar
-     */
-    public function setVivienda($vivienda)
-    {
-        $this->vivienda = $vivienda;
-
-        return $this;
-    }
-
-    /**
-     * Get vivienda
-     *
-     * @return string 
-     */
-    public function getVivienda()
-    {
-        return $this->vivienda;
-    }
-
-    /**
      * Set numeroCasa
      *
      * @param integer $numeroCasa
@@ -240,5 +224,68 @@ class GrupoFamiliar
     public function getTiempoResidencia()
     {
         return $this->tiempoResidencia;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->miembros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add miembros
+     *
+     * @param \SICBundle\Entity\Persona $miembros
+     * @return GrupoFamiliar
+     */
+    public function addMiembro(\SICBundle\Entity\Persona $miembros)
+    {
+        $this->miembros[] = $miembros;
+
+        return $this;
+    }
+
+    /**
+     * Remove miembros
+     *
+     * @param \SICBundle\Entity\Persona $miembros
+     */
+    public function removeMiembro(\SICBundle\Entity\Persona $miembros)
+    {
+        $this->miembros->removeElement($miembros);
+    }
+
+    /**
+     * Get miembros
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMiembros()
+    {
+        return $this->miembros;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return GrupoFamiliar
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

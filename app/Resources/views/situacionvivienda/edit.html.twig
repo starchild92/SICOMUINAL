@@ -1,21 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SituacionVivienda edit</h1>
-
+    <h1 class="text-center">Actualizar Situación Vivienda</h1>
+    <hr>
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(edit_form.habitaciones) }}
+                        {{ form_row(edit_form.cantidadHabitaciones) }}
+                        {{ form_row(edit_form.tipo) }}
+                        {{ form_row(edit_form.tenencia) }}
+                        {{ form_row(edit_form.terrenoPropio) }}
+                        {{ form_row(edit_form.ovc) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(edit_form.paredes) }}
+                        {{ form_row(edit_form.techo) }}
+                        {{ form_row(edit_form.enseres) }}
+                        {{ form_row(edit_form.salubridad) }}
+                        {{ form_row(edit_form.presenciaInsectos) }}
+                        {{ form_row(edit_form.mascota) }}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('situacionvivienda_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <input class="btn btn-primary btn-block" type="submit" value="Actualizar Datos Situación de Vivienda y Regresar a la Planilla" />
+    {{ form_end(edit_form) }}
+{% endblock %}
+{% block javascripts %}
+<script>
+    $(document).ready(function() {
+        $('.ui.dropdown').dropdown();
+    })
+    </script>
 {% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipo Transporte</div>
+        <table class="table-striped table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminTipoTransporte in adminTipoTransportes %}
+                <tr>
+                    <td>{{ adminTipoTransporte.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_tipo_transporte_edit', { 'id': adminTipoTransporte.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>        
+    <a class="btn btn-primary" href="{{ path('configurables_tipo_transporte_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Medio de Transporte</a>
+{% endblock %}

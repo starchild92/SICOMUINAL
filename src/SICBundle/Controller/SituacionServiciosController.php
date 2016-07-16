@@ -24,8 +24,134 @@ class SituacionServiciosController extends Controller
 
         $situacionServicios = $em->getRepository('SICBundle:SituacionServicios')->findAll();
 
+        $aguasb = $em->getRepository('SICBundle:AdminAguasBlancas')->findAll();
+        $stat_aguasb = array();
+        foreach ($aguasb as $elemento) {
+            array_push(
+                $stat_aguasb, 
+                array(
+                    'aguasb' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                                        array('aguasBlancas' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $aguasservidas = $em->getRepository('SICBundle:AdminAguasServidas')->findAll();
+        $stat_aguasservidas = array();
+        foreach ($aguasservidas as $elemento) {
+            array_push(
+                $stat_aguasservidas, 
+                array(
+                    'aguasservidas' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                                        array('aguasServidas' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $gas = $em->getRepository('SICBundle:AdminTipoGas')->findAll();
+        $stat_gas = array();
+        foreach ($gas as $elemento) {
+            array_push(
+                $stat_gas, 
+                array(
+                    'gas' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                                        array('gas' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $sistemas_electrico = $em->getRepository('SICBundle:AdminSistemaElectrico')->findAll();
+        $stat_sistemas_electrico = array();
+        foreach ($sistemas_electrico as $elemento) {
+            array_push(
+                $stat_sistemas_electrico, 
+                array(
+                    'sistemas_electrico' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                                        array('sistemaElectrico' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $basura = $em->getRepository('SICBundle:AdminRecoleccionBasura')->findAll();
+        $stat_basura = array();
+        foreach ($basura as $elemento) {
+            array_push(
+                $stat_basura, 
+                array(
+                    'basura' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                                        array('recoleccionBasura' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $telefonia = $em->getRepository('SICBundle:AdminTipoTelefonia')->findAll();
+        $stat_telefonia = array();
+        foreach ($telefonia as $elemento) {
+            array_push(
+                $stat_telefonia, 
+                array(
+                    'telefonia' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                                        array('telefonia' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $transporte = $em->getRepository('SICBundle:AdminTipoTransporte')->findAll();
+        $stat_transporte = array();
+        foreach ($transporte as $elemento) {
+            array_push(
+                $stat_transporte, 
+                array(
+                    'transporte' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionServicios')->transporte($elemento)))
+            );
+        }
+
+        $mecanismoInformacion = $em->getRepository('SICBundle:AdminMecanismoInformacion')->findAll();
+        $stat_mecanismoInformacion = array();
+        foreach ($mecanismoInformacion as $elemento) {
+            array_push(
+                $stat_mecanismoInformacion, 
+                array(
+                    'mecanismoInformacion' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionServicios')->mecanismoInformacion($elemento)))
+            );
+        }
+
+        $serviciosComunales = $em->getRepository('SICBundle:AdminServiciosComunales')->findAll();
+        $stat_serviciosComunales = array();
+        foreach ($serviciosComunales as $elemento) {
+            array_push(
+                $stat_serviciosComunales, 
+                array(
+                    'serviciosComunales' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionServicios')->serviciosComunales($elemento)))
+            );
+        }
+
         return $this->render('situacionservicios/index.html.twig', array(
             'situacionServicios' => $situacionServicios,
+            'stat_serviciosComunales' => $stat_serviciosComunales,
+            'stat_mecanismoInformacion' => $stat_mecanismoInformacion,
+            'stat_transporte' => $stat_transporte,
+            'stat_telefonia' => $stat_telefonia,
+            'stat_basura' => $stat_basura,
+            'stat_sistemas_electrico' => $stat_sistemas_electrico,
+            'stat_gas' => $stat_gas,
+            'stat_aguasservidas' => $stat_aguasservidas,
+            'stat_aguasb' => $stat_aguasb,
         ));
     }
 
@@ -33,18 +159,30 @@ class SituacionServiciosController extends Controller
      * Creates a new SituacionServicios entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
+        /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
+        $em = $this->getDoctrine()->getManager();
+        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $p = $planilla[0];
+
+        if($p->getSituacionServicios() != NULL){
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
         $situacionServicio = new SituacionServicios();
         $form = $this->createForm('SICBundle\Form\SituacionServiciosType', $situacionServicio);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($situacionServicio);
+            $p->setSituacionServicios($situacionServicio);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('situacionservicios_show', array('id' => $situacionServicio->getId()));
+            return $this->redirectToRoute('participacioncomunitaria_new', array('id_planilla' => $id_planilla));
         }
 
         return $this->render('situacionservicios/new.html.twig', array(
@@ -82,7 +220,9 @@ class SituacionServiciosController extends Controller
             $em->persist($situacionServicio);
             $em->flush();
 
-            return $this->redirectToRoute('situacionservicios_edit', array('id' => $situacionServicio->getId()));
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se han almacena los datos de Situación de Servicios de forma exitosa.');
+            return $this->redirectToRoute('planillas_show', array('id' => $situacionServicio->getPlanilla()->getId()));
         }
 
         return $this->render('situacionservicios/edit.html.twig', array(

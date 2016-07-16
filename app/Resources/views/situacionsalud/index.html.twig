@@ -1,43 +1,74 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SituacionSalud list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Enfermedad</th>
-                <th>Ayudaespecial</th>
-                <th>Situacionexclusion</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for situacionSalud in situacionSaluds %}
-            <tr>
-                <td><a href="{{ path('situacionsalud_show', { 'id': situacionSalud.id }) }}">{{ situacionSalud.id }}</a></td>
-                <td>{{ situacionSalud.enfermedad }}</td>
-                <td>{{ situacionSalud.ayudaEspecial }}</td>
-                <td>{{ situacionSalud.situacionExclusion }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('situacionsalud_show', { 'id': situacionSalud.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('situacionsalud_edit', { 'id': situacionSalud.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('situacionsalud_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+    <h2>Estadísticas Situación de Salud</h2>
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Padecencias</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_padecencias %}<tr>
+                            <td>{{item.padecencias}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Ayudas Especiales</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_ayuda_especial %}<tr>
+                            <td>{{item.ayuda_especial}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Situación de Exclusión</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_situacion_exclusion %}<tr>
+                            <td>{{item.situacion_exclusion}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/highchart.js') }}"></script>
+    <script src="{{ asset('js/highchart/highcharts.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('table.highchart').highchartTable();
+        });
+    </script>
 {% endblock %}

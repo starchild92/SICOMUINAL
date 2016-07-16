@@ -1,47 +1,115 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>ParticipacionComunitaria list</h1>
+    <h2>Estadistícas Participación Comunitaria</h2>
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Organizaciones</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Organización</th>
+                            <th>Cant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_orgs %}<tr>
+                            <td>{{item.orgs}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">¿Participa en alguna Organización?</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Resp</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_participacion %}<tr>
+                            <td>{{item.participacion}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">¿Participa algún mimebro de la familia?</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                             <th>Resp</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_parte_miembros %}<tr>
+                            <td>{{item.parte_miembros}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Existenorganizaciones</th>
-                <th>Participaorganizacion</th>
-                <th>Participamiembroorganizacion</th>
-                <th>Misionescomunidad</th>
-                <th>Preguntasparticipacioncomunitaria</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for participacionComunitarium in participacionComunitarias %}
-            <tr>
-                <td><a href="{{ path('participacioncomunitaria_show', { 'id': participacionComunitarium.id }) }}">{{ participacionComunitarium.id }}</a></td>
-                <td>{{ participacionComunitarium.existenOrganizaciones }}</td>
-                <td>{{ participacionComunitarium.participaOrganizacion }}</td>
-                <td>{{ participacionComunitarium.participaMiembroOrganizacion }}</td>
-                <td>{{ participacionComunitarium.misionesComunidad }}</td>
-                <td>{{ participacionComunitarium.preguntasParticipacionComunitaria }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('participacioncomunitaria_show', { 'id': participacionComunitarium.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('participacioncomunitaria_edit', { 'id': participacionComunitarium.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('participacioncomunitaria_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Misiones</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Misión</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_misiones %}<tr>
+                            <td>{{item.misiones}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Area de Trabajo (En la que le gustaría actuar)</div>
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                    <thead>
+                        <tr>
+                            <th>Areá</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_areatrabajo %}<tr>
+                            <td>{{item.areatrabajo}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/highchart.js') }}"></script>
+    <script src="{{ asset('js/highchart/highcharts.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('table.highchart').highchartTable();
+        });
+    </script>
 {% endblock %}

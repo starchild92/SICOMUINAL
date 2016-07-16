@@ -1,21 +1,92 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Usuario edit</h1>
+<div class="row">
+    <div class="col-sm-12">        
+        <h2 class="text-center">Modificar Datos de Usuario <i class="fa fa-user"></i></h2>
+        <hr>
+    </div>    
+    <div class="col-sm-10">
+        {{ form_start(edit_form) }}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Datos Personales del Usuario</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">{{ form_row(edit_form.primerNombre) }}</div>
+                                <div class="col-sm-6">{{ form_row(edit_form.segundoNombre) }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">{{ form_row(edit_form.primerApellido) }}</div>
+                                <div class="col-sm-6">{{ form_row(edit_form.segundoApellido) }}</div>
+                            </div>
+                            {{ form_row(edit_form.email) }}
+                            <div class="row">
+                                <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
+                                <div class="col-sm-6">{{ form_row(edit_form.fechaNacimiento) }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Datos de Acceso al Sistema</div>
+                        <div class="panel-body">
+                            {{ form_row(edit_form.username) }}
+                            {% if edit_form.plainPassword is defined %}
+                                {{ form_row(edit_form.plainPassword) }}
+                            {% else %}
+                            <p class="text-center text-danger negritas">Importante <i class="fa fa-exclamation"></i></p>
+                            <p class="text-danger">Sólo el usuario identificado puede cambiar su contraseña en línea, de otro modo deberá solicitar el cambio por correo electronico atravez de la opción, he olvidado mi clave del Login.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Teléfonos</div>
+                        <div class="panel-body">
+                            {{ form_widget(edit_form.telefono) }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Estado de la Cuenta y Rol del Sistema</div>
+                        <div class="panel-body">
+                        {% if edit_form.enabled is defined %}
+                            {{ form_row(edit_form.enabled) }}
+                            {{ form_row(edit_form.roles) }}
+                        {% else %}
+                            <p class="text-info">No tiene los permisos suficientes para modificar su rol en el sistema o estado de la cuenta.</p>
+                        {% endif %}
+                        
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <input class="btn btn-primary btn-block" type="submit" value="Guardar cambios del usuario" />
+        {{ form_end(edit_form) }}
+    </div>
+    <div class="col-sm-2">
+        <a class="btn btn-default button-line btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
+        <hr class="little">
+        {{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar Usuario">{{ form_end(delete_form) }}
+    </div>
+</div>
+{% endblock %}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('usuarios_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% block javascripts %}
+<script src="{{ asset('js/formTelefono.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('.ui.dropdown').dropdown();
+        $('.js-datepicker').datepicker({ format: 'yyyy-mm-dd' });
+    })
+</script>
 {% endblock %}

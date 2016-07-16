@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipo Articulo Venta Vivienda</div>
+        <table class="table-striped table-bordered table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminVentaVivienda in adminVentaViviendas %}
+                <tr>
+                    <td>{{ adminVentaVivienda.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_venta_vivenda_edit', { 'id': adminVentaVivienda.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn-primary btn" href="{{ path('configurable_venta_vivenda_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Articulo Venta Vivienda</a>
+{% endblock %}

@@ -22,23 +22,23 @@ class SituacionEconomica
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="dondeTrabaja", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminUbicacionTrabajo", cascade={"persist"})
+     * @ORM\JoinColumn(name="ubcTrab", referencedColumnName="id", onDelete="CASCADE")
      */
     private $dondeTrabaja;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="actividadComercialenVivienda", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminVentaVivienda", orphanRemoval=true)
+     * @ORM\JoinTable(name="sitVivi_ActComercial",
+     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ActComercial", referencedColumnName="id")}
+     *      )
      */
     private $actividadComercialenVivienda;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="ingresoFamiliarEspecifico", type="float")
+     * @ORM\ManyToOne(targetEntity="AdminTipoIngresos", cascade={"persist"})
+     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $ingresoFamiliarEspecifico;
 
@@ -52,10 +52,22 @@ class SituacionEconomica
     /**
      * @var string
      *
-     * @ORM\Column(name="poseeVehiculo", type="string", length=255)
+     * @ORM\Column(name="placa", type="string", length=255)
      */
-    private $poseeVehiculo;
+    private $placa;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionEconomica")
+     */
+    private $planilla;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->actividadComercialenVivienda = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -65,75 +77,6 @@ class SituacionEconomica
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set dondeTrabaja
-     *
-     * @param string $dondeTrabaja
-     * @return SituacionEconomica
-     */
-    public function setDondeTrabaja($dondeTrabaja)
-    {
-        $this->dondeTrabaja = $dondeTrabaja;
-
-        return $this;
-    }
-
-    /**
-     * Get dondeTrabaja
-     *
-     * @return string 
-     */
-    public function getDondeTrabaja()
-    {
-        return $this->dondeTrabaja;
-    }
-
-    /**
-     * Set actividadComercialenVivienda
-     *
-     * @param string $actividadComercialenVivienda
-     * @return SituacionEconomica
-     */
-    public function setActividadComercialenVivienda($actividadComercialenVivienda)
-    {
-        $this->actividadComercialenVivienda = $actividadComercialenVivienda;
-
-        return $this;
-    }
-
-    /**
-     * Get actividadComercialenVivienda
-     *
-     * @return string 
-     */
-    public function getActividadComercialenVivienda()
-    {
-        return $this->actividadComercialenVivienda;
-    }
-
-    /**
-     * Set ingresoFamiliarEspecifico
-     *
-     * @param float $ingresoFamiliarEspecifico
-     * @return SituacionEconomica
-     */
-    public function setIngresoFamiliarEspecifico($ingresoFamiliarEspecifico)
-    {
-        $this->ingresoFamiliarEspecifico = $ingresoFamiliarEspecifico;
-
-        return $this;
-    }
-
-    /**
-     * Get ingresoFamiliarEspecifico
-     *
-     * @return float 
-     */
-    public function getIngresoFamiliarEspecifico()
-    {
-        return $this->ingresoFamiliarEspecifico;
     }
 
     /**
@@ -160,25 +103,127 @@ class SituacionEconomica
     }
 
     /**
-     * Set poseeVehiculo
+     * Set placa
      *
-     * @param string $poseeVehiculo
+     * @param string $placa
      * @return SituacionEconomica
      */
-    public function setPoseeVehiculo($poseeVehiculo)
+    public function setPlaca($placa)
     {
-        $this->poseeVehiculo = $poseeVehiculo;
+        $this->placa = $placa;
 
         return $this;
     }
 
     /**
-     * Get poseeVehiculo
+     * Get placa
      *
      * @return string 
      */
-    public function getPoseeVehiculo()
+    public function getPlaca()
     {
-        return $this->poseeVehiculo;
+        return $this->placa;
+    }
+
+    /**
+     * Set dondeTrabaja
+     *
+     * @param \SICBundle\Entity\AdminUbicacionTrabajo $dondeTrabaja
+     * @return SituacionEconomica
+     */
+    public function setDondeTrabaja(\SICBundle\Entity\AdminUbicacionTrabajo $dondeTrabaja = null)
+    {
+        $this->dondeTrabaja = $dondeTrabaja;
+
+        return $this;
+    }
+
+    /**
+     * Get dondeTrabaja
+     *
+     * @return \SICBundle\Entity\AdminUbicacionTrabajo 
+     */
+    public function getDondeTrabaja()
+    {
+        return $this->dondeTrabaja;
+    }
+
+    /**
+     * Add actividadComercialenVivienda
+     *
+     * @param \SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda
+     * @return SituacionEconomica
+     */
+    public function addActividadComercialenVivienda(\SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda)
+    {
+        $this->actividadComercialenVivienda[] = $actividadComercialenVivienda;
+
+        return $this;
+    }
+
+    /**
+     * Remove actividadComercialenVivienda
+     *
+     * @param \SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda
+     */
+    public function removeActividadComercialenVivienda(\SICBundle\Entity\AdminVentaVivienda $actividadComercialenVivienda)
+    {
+        $this->actividadComercialenVivienda->removeElement($actividadComercialenVivienda);
+    }
+
+    /**
+     * Get actividadComercialenVivienda
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getActividadComercialenVivienda()
+    {
+        return $this->actividadComercialenVivienda;
+    }
+
+    /**
+     * Set ingresoFamiliarEspecifico
+     *
+     * @param \SICBundle\Entity\AdminTipoIngresos $ingresoFamiliarEspecifico
+     * @return SituacionEconomica
+     */
+    public function setIngresoFamiliarEspecifico(\SICBundle\Entity\AdminTipoIngresos $ingresoFamiliarEspecifico = null)
+    {
+        $this->ingresoFamiliarEspecifico = $ingresoFamiliarEspecifico;
+
+        return $this;
+    }
+
+    /**
+     * Get ingresoFamiliarEspecifico
+     *
+     * @return \SICBundle\Entity\AdminTipoIngresos 
+     */
+    public function getIngresoFamiliarEspecifico()
+    {
+        return $this->ingresoFamiliarEspecifico;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return SituacionEconomica
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

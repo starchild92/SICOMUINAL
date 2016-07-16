@@ -1,21 +1,93 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Persona edit</h1>
+    <h1 class="text-center">Modificar Datos de Persona</h1>
+    <hr>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.nombre) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.apellido) }}</div>
+                        </div>
+                        {{ form_row(edit_form.parentesco) }}
+                        {{ form_row(edit_form.gradoInstruccion) }}
+                        {{ form_row(edit_form.profesion) }}
+                        {{ form_row(edit_form.cne) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.sexo) }}</div>
+                        </div>
+                        {{ form_row(edit_form.email) }}
+                        {{ form_row(edit_form.fechaNacimiento) }}
+                        {{ form_row(edit_form.edad) }}
+                        {{ form_row(edit_form.embarazoTemprano) }}
+                        {{ form_row(edit_form.incapacitado) }}
+                        {{ form_row(edit_form.incapacitadoTipo) }}
+                        {{ form_row(edit_form.pensionado) }}
+                        {{ form_row(edit_form.pensionadoInstitucion) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar Datos de Persona" />
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('personas_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/funcionesExtras.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $("#persona_edad").parent().addClass('hidden');
+            $('.ui.dropdown').dropdown();
+            $('.additions').dropdown({ allowAdditions: true });
+            $('.js-datepicker')
+                .datepicker({ format: 'yyyy-mm-dd' })
+                    .on('hide', function() {
+                        var birthDay = document.getElementById("persona_fechaNacimiento").value;
+                        var DOB = new Date(birthDay);
+                        var today = new Date();
+                        var age = today.getTime() - DOB.getTime();
+                        age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+
+                        document.getElementById('persona_edad').value = age;
+                    });
+            AexcluyeB('persona_incapacitado', 'persona_incapacitadoTipo');
+            AexcluyeB('persona_pensionado', 'persona_pensionadoInstitucion');
+
+            if ($('#persona_sexo').val() == 'Masculino' || $('#persona_sexo').val() == '') {
+                $('#persona_embarazoTemprano').attr('disabled', true);
+                $('#persona_embarazoTemprano').parent().addClass('hidden');
+            }
+
+            $('#persona_sexo').on('change', function(){
+                switch( $(this).val() ){
+                    case 'Femenino':
+                        $('#persona_embarazoTemprano').removeAttr('disabled');
+                        $('#persona_embarazoTemprano').parent().removeClass('hidden');
+                    break;
+                    case 'Masculino':
+                        $('#persona_embarazoTemprano').attr('disabled', true);
+                        $('#persona_embarazoTemprano').val('');
+                        $('#persona_embarazoTemprano').parent().addClass('hidden');
+                    break;
+                    default:
+                        $('#persona_embarazoTemprano').attr('disabled', true);
+                        $('#persona_embarazoTemprano').parent().addClass('hidden');
+                    break;
+                }
+            })
+            
+        });
+    </script>
 {% endblock %}

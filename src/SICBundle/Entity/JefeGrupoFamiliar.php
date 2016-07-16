@@ -38,14 +38,13 @@ class JefeGrupoFamiliar
     /**
      * @var string
      *
-     * @ORM\Column(name="cedula", type="string", length=255)
+     * @ORM\Column(name="cedula", type="string", length=255, unique=true)
      */
     private $cedula;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nacionalidad", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist"})
+     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $nacionalidad;
 
@@ -64,9 +63,8 @@ class JefeGrupoFamiliar
     private $edad;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cne", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="cne", referencedColumnName="id", onDelete="CASCADE")
      */
     private $cne;
 
@@ -92,9 +90,8 @@ class JefeGrupoFamiliar
     private $incapacitado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="incapacitadoTipo", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminIncapacidades", cascade={"persist"})
+     * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $incapacitadoTipo;
 
@@ -106,58 +103,54 @@ class JefeGrupoFamiliar
     private $pensionado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pensionadoInstitucion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminPensionadoInstitucion", cascade={"persist"})
+     * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $pensionadoInstitucion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="estadoCivil", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminEstadoCivil", cascade={"persist"})
+     * @ORM\JoinColumn(name="edoCivil_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $estadoCivil;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nivelInstruccion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminNivelInstruccion", cascade={"persist"})
+     * @ORM\JoinColumn(name="nivelIns_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $nivelInstruccion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="profesion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminProfesion", cascade={"persist"})
+     * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $profesion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="trabajaActualmente", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="respC_id_3", referencedColumnName="id", onDelete="CASCADE")
      */
     private $trabajaActualmente;
 
     /**
-     * @var \stdClass
-     *
-     * @ORM\Column(name="telefono", type="object", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist"})
+     * @ORM\JoinTable(name="jgf_telefonos",
+     *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}
+     *      )
      */
     private $telefono;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ingresoFamiliar", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminClasIngresoFamiliar", cascade={"persist"})
+     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $ingresoFamiliar;
 
@@ -168,6 +161,15 @@ class JefeGrupoFamiliar
      */
     private $ingresoMensual;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="jefeGrupoFamiliar")
+     */
+    private $planilla;
+
+    /**
+     * @ORM\Column(name="recibir_correo", type="boolean")
+     */
+    private $recibir_correo;
 
     /**
      * Get id
@@ -249,29 +251,6 @@ class JefeGrupoFamiliar
     }
 
     /**
-     * Set nacionalidad
-     *
-     * @param string $nacionalidad
-     * @return JefeGrupoFamiliar
-     */
-    public function setNacionalidad($nacionalidad)
-    {
-        $this->nacionalidad = $nacionalidad;
-
-        return $this;
-    }
-
-    /**
-     * Get nacionalidad
-     *
-     * @return string 
-     */
-    public function getNacionalidad()
-    {
-        return $this->nacionalidad;
-    }
-
-    /**
      * Set fechaNacimiento
      *
      * @param \DateTime $fechaNacimiento
@@ -292,6 +271,15 @@ class JefeGrupoFamiliar
     public function getFechaNacimiento()
     {
         return $this->fechaNacimiento;
+    }
+
+    public function fechaNacimiento()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
     }
 
     /**
@@ -571,29 +559,6 @@ class JefeGrupoFamiliar
     }
 
     /**
-     * Set telefono
-     *
-     * @param \stdClass $telefono
-     * @return JefeGrupoFamiliar
-     */
-    public function setTelefono($telefono)
-    {
-        $this->telefono = $telefono;
-
-        return $this;
-    }
-
-    /**
-     * Get telefono
-     *
-     * @return \stdClass 
-     */
-    public function getTelefono()
-    {
-        return $this->telefono;
-    }
-
-    /**
      * Set email
      *
      * @param string $email
@@ -660,5 +625,114 @@ class JefeGrupoFamiliar
     public function getIngresoMensual()
     {
         return $this->ingresoMensual;
+    }
+
+    /**
+     * Set nacionalidad
+     *
+     * @param \SICBundle\Entity\AdminNacionalidad $nacionalidad
+     * @return JefeGrupoFamiliar
+     */
+    public function setNacionalidad(\SICBundle\Entity\AdminNacionalidad $nacionalidad = null)
+    {
+        $this->nacionalidad = $nacionalidad;
+
+        return $this;
+    }
+
+    /**
+     * Get nacionalidad
+     *
+     * @return \SICBundle\Entity\AdminNacionalidad 
+     */
+    public function getNacionalidad()
+    {
+        return $this->nacionalidad;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->telefono = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add telefono
+     *
+     * @param \SICBundle\Entity\Telefono $telefono
+     * @return JefeGrupoFamiliar
+     */
+    public function addTelefono(\SICBundle\Entity\Telefono $telefono)
+    {
+        $this->telefono[] = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Remove telefono
+     *
+     * @param \SICBundle\Entity\Telefono $telefono
+     */
+    public function removeTelefono(\SICBundle\Entity\Telefono $telefono)
+    {
+        $this->telefono->removeElement($telefono);
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return JefeGrupoFamiliar
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
+    }
+
+    /**
+     * Set recibir_correo
+     *
+     * @param boolean $recibirCorreo
+     * @return JefeGrupoFamiliar
+     */
+    public function setRecibirCorreo($recibirCorreo)
+    {
+        $this->recibir_correo = $recibirCorreo;
+
+        return $this;
+    }
+
+    /**
+     * Get recibir_correo
+     *
+     * @return boolean 
+     */
+    public function getRecibirCorreo()
+    {
+        return $this->recibir_correo;
     }
 }

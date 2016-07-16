@@ -9,7 +9,7 @@ participacioncomunitaria_show:
     methods:  GET
 
 participacioncomunitaria_new:
-    path:     /new
+    path:     /paso/8/{id_planilla}/
     defaults: { _controller: "SICBundle:ParticipacionComunitaria:new" }
     methods:  [GET, POST]
 

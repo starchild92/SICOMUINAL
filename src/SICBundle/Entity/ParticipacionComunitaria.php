@@ -22,40 +22,68 @@ class ParticipacionComunitaria
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="existenOrganizaciones", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminOrgComunitaria", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="partCom_orgs",
+     *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="orgs_id", referencedColumnName="id")}
+     *      )
      */
     private $existenOrganizaciones;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="participaOrganizacion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="participaOrganizacion", referencedColumnName="id", onDelete="CASCADE")
      */
     private $participaOrganizacion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="participaMiembroOrganizacion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="participaMiembroOrganizacion", referencedColumnName="id", onDelete="CASCADE")
      */
     private $participaMiembroOrganizacion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="misionesComunidad", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminMisionesComunidad", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="partCom_Misiones",
+     *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="mision_id", referencedColumnName="id")}
+     *      )
      */
     private $misionesComunidad;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="preguntasParticipacionComunitaria", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminPreguntasParticipacionComunitaria", cascade={"persist"})
+     * @ORM\JoinTable(name="partCom_pregPart",
+     *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="pregPart_id", referencedColumnName="id")}
+     *      )
      */
     private $preguntasParticipacionComunitaria;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="AdminAreaTrabajoCC")
+     * @ORM\JoinTable(name="partCom_areaTrabajo",
+     *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="areacc_id", referencedColumnName="id")}
+     *      )
+     */
+    private $areaTabajoCC;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="participacionComunitaria")
+     */
+    private $planilla;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->existenOrganizaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->misionesComunidad = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->preguntasParticipacionComunitaria = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->areaTabajoCC = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -68,22 +96,32 @@ class ParticipacionComunitaria
     }
 
     /**
-     * Set existenOrganizaciones
+     * Add existenOrganizaciones
      *
-     * @param string $existenOrganizaciones
+     * @param \SICBundle\Entity\AdminOrgComunitaria $existenOrganizaciones
      * @return ParticipacionComunitaria
      */
-    public function setExistenOrganizaciones($existenOrganizaciones)
+    public function addExistenOrganizacione(\SICBundle\Entity\AdminOrgComunitaria $existenOrganizaciones)
     {
-        $this->existenOrganizaciones = $existenOrganizaciones;
+        $this->existenOrganizaciones[] = $existenOrganizaciones;
 
         return $this;
     }
 
     /**
+     * Remove existenOrganizaciones
+     *
+     * @param \SICBundle\Entity\AdminOrgComunitaria $existenOrganizaciones
+     */
+    public function removeExistenOrganizacione(\SICBundle\Entity\AdminOrgComunitaria $existenOrganizaciones)
+    {
+        $this->existenOrganizaciones->removeElement($existenOrganizaciones);
+    }
+
+    /**
      * Get existenOrganizaciones
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getExistenOrganizaciones()
     {
@@ -93,10 +131,10 @@ class ParticipacionComunitaria
     /**
      * Set participaOrganizacion
      *
-     * @param string $participaOrganizacion
+     * @param \SICBundle\Entity\AdminRespCerrada $participaOrganizacion
      * @return ParticipacionComunitaria
      */
-    public function setParticipaOrganizacion($participaOrganizacion)
+    public function setParticipaOrganizacion(\SICBundle\Entity\AdminRespCerrada $participaOrganizacion = null)
     {
         $this->participaOrganizacion = $participaOrganizacion;
 
@@ -106,7 +144,7 @@ class ParticipacionComunitaria
     /**
      * Get participaOrganizacion
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminRespCerrada 
      */
     public function getParticipaOrganizacion()
     {
@@ -116,10 +154,10 @@ class ParticipacionComunitaria
     /**
      * Set participaMiembroOrganizacion
      *
-     * @param string $participaMiembroOrganizacion
+     * @param \SICBundle\Entity\AdminRespCerrada $participaMiembroOrganizacion
      * @return ParticipacionComunitaria
      */
-    public function setParticipaMiembroOrganizacion($participaMiembroOrganizacion)
+    public function setParticipaMiembroOrganizacion(\SICBundle\Entity\AdminRespCerrada $participaMiembroOrganizacion = null)
     {
         $this->participaMiembroOrganizacion = $participaMiembroOrganizacion;
 
@@ -129,7 +167,7 @@ class ParticipacionComunitaria
     /**
      * Get participaMiembroOrganizacion
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminRespCerrada 
      */
     public function getParticipaMiembroOrganizacion()
     {
@@ -137,22 +175,32 @@ class ParticipacionComunitaria
     }
 
     /**
-     * Set misionesComunidad
+     * Add misionesComunidad
      *
-     * @param string $misionesComunidad
+     * @param \SICBundle\Entity\AdminMisionesComunidad $misionesComunidad
      * @return ParticipacionComunitaria
      */
-    public function setMisionesComunidad($misionesComunidad)
+    public function addMisionesComunidad(\SICBundle\Entity\AdminMisionesComunidad $misionesComunidad)
     {
-        $this->misionesComunidad = $misionesComunidad;
+        $this->misionesComunidad[] = $misionesComunidad;
 
         return $this;
     }
 
     /**
+     * Remove misionesComunidad
+     *
+     * @param \SICBundle\Entity\AdminMisionesComunidad $misionesComunidad
+     */
+    public function removeMisionesComunidad(\SICBundle\Entity\AdminMisionesComunidad $misionesComunidad)
+    {
+        $this->misionesComunidad->removeElement($misionesComunidad);
+    }
+
+    /**
      * Get misionesComunidad
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getMisionesComunidad()
     {
@@ -160,25 +208,91 @@ class ParticipacionComunitaria
     }
 
     /**
-     * Set preguntasParticipacionComunitaria
+     * Add preguntasParticipacionComunitaria
      *
-     * @param string $preguntasParticipacionComunitaria
+     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria
      * @return ParticipacionComunitaria
      */
-    public function setPreguntasParticipacionComunitaria($preguntasParticipacionComunitaria)
+    public function addPreguntasParticipacionComunitarium(\SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria)
     {
-        $this->preguntasParticipacionComunitaria = $preguntasParticipacionComunitaria;
+        $this->preguntasParticipacionComunitaria[] = $preguntasParticipacionComunitaria;
 
         return $this;
     }
 
     /**
+     * Remove preguntasParticipacionComunitaria
+     *
+     * @param \SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria
+     */
+    public function removePreguntasParticipacionComunitarium(\SICBundle\Entity\AdminPreguntasParticipacionComunitaria $preguntasParticipacionComunitaria)
+    {
+        $this->preguntasParticipacionComunitaria->removeElement($preguntasParticipacionComunitaria);
+    }
+
+    /**
      * Get preguntasParticipacionComunitaria
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getPreguntasParticipacionComunitaria()
     {
         return $this->preguntasParticipacionComunitaria;
+    }
+
+    /**
+     * Add areaTabajoCC
+     *
+     * @param \SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC
+     * @return ParticipacionComunitaria
+     */
+    public function addAreaTabajoCC(\SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC)
+    {
+        $this->areaTabajoCC[] = $areaTabajoCC;
+
+        return $this;
+    }
+
+    /**
+     * Remove areaTabajoCC
+     *
+     * @param \SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC
+     */
+    public function removeAreaTabajoCC(\SICBundle\Entity\AdminAreaTrabajoCC $areaTabajoCC)
+    {
+        $this->areaTabajoCC->removeElement($areaTabajoCC);
+    }
+
+    /**
+     * Get areaTabajoCC
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAreaTabajoCC()
+    {
+        return $this->areaTabajoCC;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return ParticipacionComunitaria
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

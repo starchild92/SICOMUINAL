@@ -22,26 +22,46 @@ class SituacionSalud
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="enfermedad", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminTipoPadecencia", cascade={"persist"})
+     * @ORM\JoinTable(name="sitSalud_padecencia",
+     *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="padecencia_id", referencedColumnName="id")}
+     *      )
      */
-    private $enfermedad;
+    private $padecencia;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ayudaEspecial", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminTipoAyudaEspecial", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="sitSalud_ayu",
+     *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ayuda_id", referencedColumnName="id")}
+     *      )
      */
     private $ayudaEspecial;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacionExclusion", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AdminTipoSituacionExclusion", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="sitSalud_exc",
+     *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="exclusion_id", referencedColumnName="id")}
+     *      )
      */
     private $situacionExclusion;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionSalud")
+     */
+    private $planilla;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->padecencia = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ayudaEspecial = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->situacionExclusion = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -54,45 +74,65 @@ class SituacionSalud
     }
 
     /**
-     * Set enfermedad
+     * Add padecencia
      *
-     * @param string $enfermedad
+     * @param \SICBundle\Entity\AdminTipoPadecencia $padecencia
      * @return SituacionSalud
      */
-    public function setEnfermedad($enfermedad)
+    public function addPadecencium(\SICBundle\Entity\AdminTipoPadecencia $padecencia)
     {
-        $this->enfermedad = $enfermedad;
+        $this->padecencia[] = $padecencia;
 
         return $this;
     }
 
     /**
-     * Get enfermedad
+     * Remove padecencia
      *
-     * @return string 
+     * @param \SICBundle\Entity\AdminTipoPadecencia $padecencia
      */
-    public function getEnfermedad()
+    public function removePadecencium(\SICBundle\Entity\AdminTipoPadecencia $padecencia)
     {
-        return $this->enfermedad;
+        $this->padecencia->removeElement($padecencia);
     }
 
     /**
-     * Set ayudaEspecial
+     * Get padecencia
      *
-     * @param string $ayudaEspecial
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPadecencia()
+    {
+        return $this->padecencia;
+    }
+
+    /**
+     * Add ayudaEspecial
+     *
+     * @param \SICBundle\Entity\AdminTipoAyudaEspecial $ayudaEspecial
      * @return SituacionSalud
      */
-    public function setAyudaEspecial($ayudaEspecial)
+    public function addAyudaEspecial(\SICBundle\Entity\AdminTipoAyudaEspecial $ayudaEspecial)
     {
-        $this->ayudaEspecial = $ayudaEspecial;
+        $this->ayudaEspecial[] = $ayudaEspecial;
 
         return $this;
+    }
+
+    /**
+     * Remove ayudaEspecial
+     *
+     * @param \SICBundle\Entity\AdminTipoAyudaEspecial $ayudaEspecial
+     */
+    public function removeAyudaEspecial(\SICBundle\Entity\AdminTipoAyudaEspecial $ayudaEspecial)
+    {
+        $this->ayudaEspecial->removeElement($ayudaEspecial);
     }
 
     /**
      * Get ayudaEspecial
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getAyudaEspecial()
     {
@@ -100,25 +140,58 @@ class SituacionSalud
     }
 
     /**
-     * Set situacionExclusion
+     * Add situacionExclusion
      *
-     * @param string $situacionExclusion
+     * @param \SICBundle\Entity\AdminTipoSituacionExclusion $situacionExclusion
      * @return SituacionSalud
      */
-    public function setSituacionExclusion($situacionExclusion)
+    public function addSituacionExclusion(\SICBundle\Entity\AdminTipoSituacionExclusion $situacionExclusion)
     {
-        $this->situacionExclusion = $situacionExclusion;
+        $this->situacionExclusion[] = $situacionExclusion;
 
         return $this;
     }
 
     /**
+     * Remove situacionExclusion
+     *
+     * @param \SICBundle\Entity\AdminTipoSituacionExclusion $situacionExclusion
+     */
+    public function removeSituacionExclusion(\SICBundle\Entity\AdminTipoSituacionExclusion $situacionExclusion)
+    {
+        $this->situacionExclusion->removeElement($situacionExclusion);
+    }
+
+    /**
      * Get situacionExclusion
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getSituacionExclusion()
     {
         return $this->situacionExclusion;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return SituacionSalud
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

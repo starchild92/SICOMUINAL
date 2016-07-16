@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input class="btn btn-block btn-success" type="submit" value="Enviar" />
+    {{ form_end(form) }}
+{% endblock %}

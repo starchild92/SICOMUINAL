@@ -1,16 +1,104 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Persona creation</h1>
+    <div class="row">
+        <div class="col-xs-6"><small class="text-info">ant. Datos Grupo Familiar</small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Económica</small></div>
+    </div>
+    <div class="progress">
+      <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
+        Paso 3 de 9
+      </div>
+    </div>
+
+    <h1>Miembro Grupo Familiar <small>Actualmente hay {{ cantMiembros }} miembros</small></h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.nombre) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.apellido) }}</div>
+                        </div>
+                        {{ form_row(form.parentesco) }}
+                        {{ form_row(form.gradoInstruccion) }}
+                        {{ form_row(form.profesion) }}
+                        {{ form_row(form.cne) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(form.cedula) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.fechaNacimiento) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.email) }}</div>
+                        </div>
+                        {{ form_row(form.edad) }}
+                        {{ form_row(form.sexo) }}
+                        {{ form_row(form.embarazoTemprano) }}
+                        {{ form_row(form.incapacitado) }}
+                        {{ form_row(form.incapacitadoTipo) }}
+                        {{ form_row(form.pensionado) }}
+                        {{ form_row(form.pensionadoInstitucion) }}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('personas_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <input class="btn btn-primary btn-block" type="submit" value="Agregar Miembro al Grupo Familiar" />
+    {{ form_end(form) }}
+    <br>
+    <a class="btn-block btn btn-success" href="{{ path('situacioneconomica_new', {'id_planilla':id_planilla}) }}">No hay más miembros, Continuar</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/funcionesExtras.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $("#persona_edad").parent().addClass('hidden');
+            $('.ui.dropdown').dropdown();
+            $('.additions').dropdown({ allowAdditions: true });
+            $('.js-datepicker')
+                .datepicker({ format: 'yyyy-mm-dd' })
+                    .on('hide', function() {
+                        var birthDay = document.getElementById("persona_fechaNacimiento").value;
+                        var DOB = new Date(birthDay);
+                        var today = new Date();
+                        var age = today.getTime() - DOB.getTime();
+                        age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+
+                        document.getElementById('persona_edad').value = age;
+                    });
+            AexcluyeB('persona_incapacitado', 'persona_incapacitadoTipo');
+            AexcluyeB('persona_pensionado', 'persona_pensionadoInstitucion');
+
+            if ($('#persona_sexo').val() == 'Masculino' || $('#persona_sexo').val() == '') {
+                $('#persona_embarazoTemprano').attr('disabled', true);
+                $('#persona_embarazoTemprano').parent().addClass('hidden');
+            }
+
+            $('#persona_sexo').on('change', function(){
+                switch( $(this).val() ){
+                    case 'Femenino':
+                        $('#persona_embarazoTemprano').removeAttr('disabled');
+                        $('#persona_embarazoTemprano').parent().removeClass('hidden');
+                    break;
+                    case 'Masculino':
+                        $('#persona_embarazoTemprano').attr('disabled', true);
+                        $('#persona_embarazoTemprano').val('');
+                        $('#persona_embarazoTemprano').parent().addClass('hidden');
+                    break;
+                    default:
+                        $('#persona_embarazoTemprano').attr('disabled', true);
+                        $('#persona_embarazoTemprano').parent().addClass('hidden');
+                    break;
+                }
+            })
+            
+        });
+    </script>
 {% endblock %}

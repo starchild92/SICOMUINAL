@@ -2,11 +2,13 @@
 
 {% block body %}
     <h1>Comunidad creation</h1>
-
+    
+    <span id="modalCuerpo">
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-primary" type="submit" value="Create" />
     {{ form_end(form) }}
+    </span>
 
     <ul>
         <li>

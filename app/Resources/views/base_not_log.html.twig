@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+		<title>{% block title %}Sistema de Información Comunal{% endblock %}</title>
+		
+		{% block stylesheets %}{% endblock %}
+
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/estilos.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/ie10-viewport-bug-workaround.css') }}">
+
+		<style>
+		@font-face {
+		    font-family: 'Open Sans';
+		    font-weight: 400;
+		    font-style: normal;
+		    src: url('{{ asset("fonts/Open-Sans-regular.eot")}}');
+		    src: url('{{ asset("fonts/Open-Sans-regular.eot?#iefix")}}') format('embedded-opentype'),
+		             local('Open Sans'),
+		             local('Open-Sans-regular'),
+		             url("{{ asset('fonts/Open-Sans-regular.woff2')}}") format('woff2'),
+		             url('{{ asset("fonts/Open-Sans-regular.woff")}}') format('woff'),
+		             url('{{ asset("fonts/Open-Sans-regular.ttf")}}') format('truetype'),
+		             url('{{ asset("fonts/Open-Sans-regular.svg#OpenSans")}}') format('svg');
+		}
+		@font-face {
+		    font-family: 'Open Sans Condensed';
+		    font-weight: 300;
+		    font-style: normal;
+		    src: url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.eot")}}');
+		    src: url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.eot?#iefix")}}') format('embedded-opentype'),
+		             local('Open Sans Cond Light'),
+		             local('Open-Sans-Condensed-300'),
+		             url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.woff2")}}') format('woff2'),
+		             url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.woff")}}') format('woff'),
+		             url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.ttf")}}') format('truetype'),
+		             url('{{ asset("fonts/Open-Sans-Condensed-300/Open-Sans-Condensed-300.svg#OpenSansCondensed")}}') format('svg');
+		}
+		@font-face {
+		    font-family: 'Open Sans';
+		    font-weight: 400;
+		    font-style: italic;
+		    src: url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.eot")}}');
+		    src: url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.eot?#iefix")}}') format('embedded-opentype'),
+		             local('Open Sans Italic'),
+		             local('Open-Sans-italic'),
+		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.woff2")}}') format('woff2'),
+		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.woff")}}') format('woff'),
+		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.ttf")}}') format('truetype'),
+		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.svg#OpenSans")}}') format('svg');
+		}
+		html, body{ font-family: "Open Sans", sans-serif; }
+		</style>
+		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="{{ path('sic_homepage') }}"><img src="{{ asset('images/logo.png') }}" alt="logo" class="img-responsive"></a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">{% block not_log_title %}{% endblock %}</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</nav>
+		
+		{% for flashMessage in app.session.flashbag.get('success') %}
+			<div class="alert alert-success text-center">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Éxito!</strong> {{ flashMessage }}
+			</div>
+		{% endfor %}
+		{% for flashMessage in app.session.flashbag.get('info') %}
+			<div class="alert alert-info text-center">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Enhorabuena!</strong> {{ flashMessage }}
+			</div>
+		{% endfor %}
+		{% for flashMessage in app.session.flashbag.get('warning') %}
+			<div class="alert alert-warning text-center">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>No puede continuar!</strong> {{ flashMessage }}
+			</div>
+		{% endfor %}
+		{% for flashMessage in app.session.flashbag.get('error') %}
+			<div class="alert alert-danger text-center">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Disculpe!</strong> {{ flashMessage }}
+			</div>
+		{% endfor %}
+		{% for flashMessage in app.session.flashbag.get('danger') %}
+			<div class="alert alert-danger text-center">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Disculpe!</strong> {{ flashMessage }}
+			</div>
+		{% endfor %}
+
+		<div class="container">
+			<span id="cuerpo">
+			{% block body %}{% endblock %}
+			</span>
+		</div> <!-- /container -->
+
+		<footer class="footer">
+			<div class="container">
+				<p class="text-muted text-center negritas" style="margin-top: 10px; color: #6d4c41">Sistema de Información Comunal <br><small>Luis Pérez | Proyecto Trabajo Especial de Grado</small><br><small>Universidad de Carabobo - Facultad Experimental de Ciencias y Tencología</small> </p>
+			</div>
+		</footer>
+
+		<script src="{{ asset('js/jquery2.1.4.js') }}"></script>
+		<script src="{{ asset('js/bootstrap.js') }}"></script>
+		<script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>

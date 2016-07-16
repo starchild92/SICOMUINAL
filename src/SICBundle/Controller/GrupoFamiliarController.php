@@ -33,18 +33,34 @@ class GrupoFamiliarController extends Controller
      * Creates a new GrupoFamiliar entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_planilla)
     {
+        /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
+        $em = $this->getDoctrine()->getManager();
+        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $p = $planilla[0];
+
+        if($p->getGrupoFamiliar() != NULL){
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
         $grupoFamiliar = new GrupoFamiliar();
         $form = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $grupoFamiliar->setCantidadMiembros(0);
+            $p->setGrupoFamiliar($grupoFamiliar);
             $em->persist($grupoFamiliar);
+            $em->persist($p);
             $em->flush();
 
-            return $this->redirectToRoute('grupofamiliar_show', array('id' => $grupoFamiliar->getId()));
+            return $this->redirectToRoute('personas_new', array(
+                'id_planilla' => $id_planilla,
+                'id_grupofamiliar' => $grupoFamiliar->getId()));
+            // return $this->redirectToRoute('grupofamiliar_show', array('id' => $grupoFamiliar->getId()));
         }
 
         return $this->render('grupofamiliar/new.html.twig', array(
@@ -82,7 +98,9 @@ class GrupoFamiliarController extends Controller
             $em->persist($grupoFamiliar);
             $em->flush();
 
-            return $this->redirectToRoute('grupofamiliar_edit', array('id' => $grupoFamiliar->getId()));
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha modificado la información del Grupo Familiar de forma exitosa');
+            return $this->redirectToRoute('planillas_show', array('id' => $grupoFamiliar->getPlanilla()->getId()));
         }
 
         return $this->render('grupofamiliar/edit.html.twig', array(

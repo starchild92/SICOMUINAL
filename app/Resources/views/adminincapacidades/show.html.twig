@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminIncapacidades</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adminIncapacidade.id }}</td>
+            </tr>
+            <tr>
+                <th>Incapacidad</th>
+                <td>{{ adminIncapacidade.incapacidad }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_incapacidades_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('configurable_incapacidades_edit', { 'id': adminIncapacidade.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

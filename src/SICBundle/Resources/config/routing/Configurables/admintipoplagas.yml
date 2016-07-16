@@ -1,0 +1,24 @@
+configurables_tipo_plagas_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminTipoPlagas:index" }
+    methods:  GET
+
+configurables_tipo_plagas_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminTipoPlagas:show" }
+    methods:  GET
+
+configurables_tipo_plagas_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminTipoPlagas:new" }
+    methods:  [GET, POST]
+
+configurables_tipo_plagas_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminTipoPlagas:edit" }
+    methods:  [GET, POST]
+
+configurables_tipo_plagas_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminTipoPlagas:delete" }
+    methods:  DELETE

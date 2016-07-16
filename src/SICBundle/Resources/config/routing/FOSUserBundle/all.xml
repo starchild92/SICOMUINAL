@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <import
+        resource="@SICBundle/Resources/config/routing/FOSUserBundle/security.xml" />
+    <import
+        resource="@SICBundle/Resources/config/routing/FOSUserBundle/profile.xml"
+        prefix="/perfil" />
+    <import
+        resource="@SICBundle/Resources/config/routing/FOSUserBundle/registration.xml"
+        prefix="/registro" />
+    <import
+        resource="@SICBundle/Resources/config/routing/FOSUserBundle/resetting.xml"
+        prefix="/reiniciar" />
+    <import
+        resource="@SICBundle/Resources/config/routing/FOSUserBundle/change_password.xml"
+        prefix="/perfil" />
+</routes>

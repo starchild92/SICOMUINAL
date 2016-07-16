@@ -1,55 +1,49 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Planillas list</h1>
-
-    <table>
-        <thead>
+    <h1 class="text-center">Registros: "Estudio Demográfico y Socioeconomico"</h1>
+    <hr>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-info">
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Empadronador</th>
-                <th>Jefegrupofamiliar</th>
-                <th>Miembrosgrupofamiliar</th>
-                <th>Situacioneconomica</th>
-                <th>Situacionvivienda</th>
-                <th>Situacionsalud</th>
-                <th>Situacionservicios</th>
-                <th>Participacioncomunitaria</th>
-                <th>Situacioncomunidad</th>
-                <th>Actions</th>
+                <th>Encuestado</th>
+                <th>Fecha Modificada</th>
+                <th>Estado</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-        {% for planilla in planillas %}
-            <tr>
-                <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">{{ planilla.id }}</a></td>
-                <td>{{ planilla.empadronador }}</td>
-                <td>{{ planilla.jefeGrupoFamiliar }}</td>
-                <td>{{ planilla.miembrosGrupoFamiliar }}</td>
-                <td>{{ planilla.situacionEconomica }}</td>
-                <td>{{ planilla.situacionVivienda }}</td>
-                <td>{{ planilla.situacionSalud }}</td>
-                <td>{{ planilla.situacionServicios }}</td>
-                <td>{{ planilla.participacionComunitaria }}</td>
-                <td>{{ planilla.situacionComunidad }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('planillas_show', { 'id': planilla.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('planillas_edit', { 'id': planilla.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
+        <div class="row">
+            {% for planilla in planillas %}
+                <tr>
+                    <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></td>
+                    <td><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></td>
+                    <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }}{% endif %}</td>
+                    <td>{{ planilla.fechaCron() }}</td>
+                    <td>
+                        {% if planilla.terminada != 100 %}
+                            <span class="label label-warning">Sin terminar</span>
+                        {% else %}
+                            <span class="label label-primary">Terminada</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                {% if planilla.terminada != 100 %}
+                                    <li><a href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a></li>
+                                {% else %}
+                                    <li><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Ver Encuesta</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('planillas_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

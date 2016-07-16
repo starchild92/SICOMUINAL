@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Areas de Trabajo Disponibles</div>
+        <table class="table-bordered table table-stripped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminAreaTrabajoCC in adminAreaTrabajoCCs %}
+                <tr>
+                    <td>{{ adminAreaTrabajoCC.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_tipos_areas_trabajo_edit', { 'id': adminAreaTrabajoCC.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-primary" href="{{ path('configurables_tipos_areas_trabajo_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nueva Area de Trabajo</a>
+{% endblock %}

@@ -1,0 +1,24 @@
+configurable_tipo_padecencia_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminTipoPadecencia:index" }
+    methods:  GET
+
+configurable_tipo_padecencia_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminTipoPadecencia:show" }
+    methods:  GET
+
+configurable_tipo_padecencia_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminTipoPadecencia:new" }
+    methods:  [GET, POST]
+
+configurable_tipo_padecencia_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminTipoPadecencia:edit" }
+    methods:  [GET, POST]
+
+configurable_tipo_padecencia_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminTipoPadecencia:delete" }
+    methods:  DELETE

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Institución Pensionado</div>
+        <table class="table-striped table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminPensionadoInstitucion in adminPensionadoInstitucions %}
+                <tr>
+                    <td>{{ adminPensionadoInstitucion.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_pensionados_instituciones_edit', { 'id': adminPensionadoInstitucion.id }) }}"><i class="fa fa-edit fa-fw"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-primary" href="{{ path('configurable_pensionados_instituciones_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Nueva</a>
+{% endblock %}

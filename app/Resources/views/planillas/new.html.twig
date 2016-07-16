@@ -1,16 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Planillas creation</h1>
+	<h2>Estudio Demografico y Socioeconomico</h2>
+	<hr>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+	<div class="jumbotron"><div class="row">
+		
+			<div class="col-sm-10">
+				<p>Está a punto de iniciar el registro de una nueva planilla que contendrá los datos socieconomicos de una familia</p>
+			</div>
+			<div class="col-sm-2">
+				<small>Támbien puede continuar con una encuesta anterior sin finalizar. <a href="#"> Continuar Encuesta</a></small>
+			</div>
+		</div>
+	</div>
 
-    <ul>
-        <li>
-            <a href="{{ path('planillas_index') }}">Back to the list</a>
-        </li>
-    </ul>
+	{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<input class="btn btn-success btn-block btn-lg" type="submit" value="Iniciar el registro de los Datos" />
+	{{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/formTelefono.js') }}"></script>
+	<script src="{{ asset('js/formMiembroGrupoFamiliar.js') }}"></script>
+	<script>
+		$(document).ready(function() {
+			$('.ui.dropdown')
+			  .dropdown();
+		})
+	</script>
 {% endblock %}

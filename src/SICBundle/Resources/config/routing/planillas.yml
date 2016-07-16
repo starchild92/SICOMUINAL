@@ -22,3 +22,13 @@ planillas_delete:
     path:     /{id}/delete
     defaults: { _controller: "SICBundle:Planillas:delete" }
     methods:  DELETE
+
+planillas_continuar_encuesta:
+    path:     /{id_encuesta}/continuar
+    defaults: { _controller: "SICBundle:Planillas:conitnuarEncuesta" }
+    methods:  [GET, POST]
+
+planillas_observacion_carga:
+    path:     /{id_planilla}/observacion/cargar
+    defaults: { _controller: "SICBundle:Planillas:cargarObservacion" }
+    methods:  [GET, POST]

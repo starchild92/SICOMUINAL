@@ -9,7 +9,7 @@ grupofamiliar_show:
     methods:  GET
 
 grupofamiliar_new:
-    path:     /new
+    path:     /paso/2/{id_planilla}
     defaults: { _controller: "SICBundle:GrupoFamiliar:new" }
     methods:  [GET, POST]
 
