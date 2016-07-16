@@ -12,4 +12,55 @@ use Doctrine\ORM\EntityRepository;
  */
 class ParticipacionComunitariaRepository extends EntityRepository
 {
+	public function existenOrganizaciones($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:ParticipacionComunitaria', 'm')
+                ->innerJoin('m.existenOrganizaciones', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function misionesComunidad($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:ParticipacionComunitaria', 'm')
+                ->innerJoin('m.misionesComunidad', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function preguntasParticipacionComunitaria($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:ParticipacionComunitaria', 'm')
+                ->innerJoin('m.preguntasParticipacionComunitaria', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
+    
+    public function areaTabajoCC($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:ParticipacionComunitaria', 'm')
+                ->innerJoin('m.areaTabajoCC', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
 }

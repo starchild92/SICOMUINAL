@@ -64,7 +64,7 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="respC_id_0", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="cne", referencedColumnName="id", onDelete="CASCADE")
      */
     private $cne;
 

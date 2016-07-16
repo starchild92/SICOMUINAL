@@ -384,16 +384,25 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Padecencias en el Grupo Familiar</p>
+									{% if planilla.situacionSalud.padecencia|length == 0 %}
+									<p>No se ha registrado ninguna</p>
+									{% endif %}
 									<p>{% for padecencia in planilla.situacionSalud.padecencia %}
 										<span class="label label-default">{{ padecencia.nombre }}</span>{% endfor %}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Ayuda(s) Especial(es)</p>
+									{% if planilla.situacionSalud.ayudaEspecial|length == 0 %}
+									<p>No se ha registrado ninguna</p>
+									{% endif %}
 									<p>{% for ayudaEspecial in planilla.situacionSalud.ayudaEspecial %}
 										<span class="label label-default">{{ ayudaEspecial.nombre }}</span>{% endfor %}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Situación de Exclusión</p>
+									{% if planilla.situacionSalud.situacionExclusion|length == 0 %}
+									<p>No se ha registrado ninguna</p>
+									{% endif %}
 									<p>{% for situacionExclusion in planilla.situacionSalud.situacionExclusion %}<span class="label label-default">{{ situacionExclusion.situacion }}: {{ situacionExclusion.cantidad }}</span>{% endfor %}</p>
 								</div>
 							</div>

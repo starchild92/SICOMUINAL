@@ -29,29 +29,21 @@ class ParticipacionComunitariaType extends AbstractType
                     'required'  => false
             )))
 
-            ->add('participaOrganizacion', ChoiceType::class, array(
-                'choices'  => array(
-                    'Seleccione' => '',
-                    'Si' => 'si',
-                    'No' => 'no',
-                    // 'Otro' => 'otro'
-                ),
-                'choices_as_values' => true,
+            ->add('participaOrganizacion', 'entity', array(
+                'class' => 'SICBundle:AdminRespCerrada',
                 'label'     => '¿Participa usted en alguna de ellas?',
+                'choice_label' => 'respuesta',
                 'attr'  =>  array(
-                    'class' => 'ui dropdown')))
+                    'class' => 'ui dropdown'))
+            )
 
-            ->add('participaMiembroOrganizacion', ChoiceType::class, array(
-                'choices'  => array(
-                    'Seleccione' => '',
-                    'Si' => 'si',
-                    'No' => 'no',
-                    // 'Otro' => 'otro'
-                ),
-                'choices_as_values' => true,
+            ->add('participaMiembroOrganizacion', 'entity', array(
+                'class' => 'SICBundle:AdminRespCerrada',
                 'label'     => '¿Participa álgun miembro de la familia?',
+                'choice_label' => 'respuesta',
                 'attr'  =>  array(
-                    'class' => 'ui dropdown')))
+                    'class' => 'ui dropdown'))
+            )
 
             ->add('misionesComunidad', EntityType::class, array(
                 'class' => 'SICBundle:AdminMisionesComunidad',

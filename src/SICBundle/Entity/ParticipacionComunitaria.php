@@ -31,16 +31,14 @@ class ParticipacionComunitaria
     private $existenOrganizaciones;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="participaOrganizacion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="participaOrganizacion", referencedColumnName="id", onDelete="CASCADE")
      */
     private $participaOrganizacion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="participaMiembroOrganizacion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="participaMiembroOrganizacion", referencedColumnName="id", onDelete="CASCADE")
      */
     private $participaMiembroOrganizacion;
 
@@ -98,52 +96,6 @@ class ParticipacionComunitaria
     }
 
     /**
-     * Set participaOrganizacion
-     *
-     * @param string $participaOrganizacion
-     * @return ParticipacionComunitaria
-     */
-    public function setParticipaOrganizacion($participaOrganizacion)
-    {
-        $this->participaOrganizacion = $participaOrganizacion;
-
-        return $this;
-    }
-
-    /**
-     * Get participaOrganizacion
-     *
-     * @return string 
-     */
-    public function getParticipaOrganizacion()
-    {
-        return $this->participaOrganizacion;
-    }
-
-    /**
-     * Set participaMiembroOrganizacion
-     *
-     * @param string $participaMiembroOrganizacion
-     * @return ParticipacionComunitaria
-     */
-    public function setParticipaMiembroOrganizacion($participaMiembroOrganizacion)
-    {
-        $this->participaMiembroOrganizacion = $participaMiembroOrganizacion;
-
-        return $this;
-    }
-
-    /**
-     * Get participaMiembroOrganizacion
-     *
-     * @return string 
-     */
-    public function getParticipaMiembroOrganizacion()
-    {
-        return $this->participaMiembroOrganizacion;
-    }
-
-    /**
      * Add existenOrganizaciones
      *
      * @param \SICBundle\Entity\AdminOrgComunitaria $existenOrganizaciones
@@ -174,6 +126,52 @@ class ParticipacionComunitaria
     public function getExistenOrganizaciones()
     {
         return $this->existenOrganizaciones;
+    }
+
+    /**
+     * Set participaOrganizacion
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $participaOrganizacion
+     * @return ParticipacionComunitaria
+     */
+    public function setParticipaOrganizacion(\SICBundle\Entity\AdminRespCerrada $participaOrganizacion = null)
+    {
+        $this->participaOrganizacion = $participaOrganizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get participaOrganizacion
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getParticipaOrganizacion()
+    {
+        return $this->participaOrganizacion;
+    }
+
+    /**
+     * Set participaMiembroOrganizacion
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $participaMiembroOrganizacion
+     * @return ParticipacionComunitaria
+     */
+    public function setParticipaMiembroOrganizacion(\SICBundle\Entity\AdminRespCerrada $participaMiembroOrganizacion = null)
+    {
+        $this->participaMiembroOrganizacion = $participaMiembroOrganizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get participaMiembroOrganizacion
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getParticipaMiembroOrganizacion()
+    {
+        return $this->participaMiembroOrganizacion;
     }
 
     /**
