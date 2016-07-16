@@ -91,14 +91,14 @@ class SituacionViviendaController extends Controller
             );
         }
 
-        // $stat_cant_habitaciones = array();
-        // foreach ($situacionViviendas as $elemento) {
-        //     if (in_array($elemento->getCantidadHabitaciones(), $stat_cant_habitaciones)) {
-        //         $stat_cant_habitaciones[$elemento->getCantidadHabitaciones()] = $stat_cant_habitaciones[$elemento->getCantidadHabitaciones()] + 1;
-        //     }else{
-        //         array_push($stat_cant_habitaciones, array($elemento->getCantidadHabitaciones() => 1));
-        //     }
-        // }
+        $stat_cant_habitaciones = array();
+        foreach ($situacionViviendas as $elemento) {
+            if (array_key_exists($elemento->getCantidadHabitaciones(), $stat_cant_habitaciones)) {
+                $stat_cant_habitaciones[$elemento->getCantidadHabitaciones()] = $stat_cant_habitaciones[$elemento->getCantidadHabitaciones()] + 1;
+            }else{
+                $stat_cant_habitaciones[$elemento->getCantidadHabitaciones()] = 1;
+            }
+        }
 
         $paredes = $em->getRepository('SICBundle:AdminTipoParedes')->findAll();
         $stat_paredes = array();
@@ -181,7 +181,7 @@ class SituacionViviendaController extends Controller
             'stat_tipo_tenencia' => $stat_tipo_tenencia,
             'stat_ovc' => $stat_ovc,
             'stat_terreno' => $stat_terreno,
-            // 'stat_cant_habitaciones' => $stat_cant_habitaciones,
+            'stat_cant_habitaciones' => $stat_cant_habitaciones,
             'stat_mascotas' => $stat_mascotas,
             'stat_plagas' => $stat_plagas,
             'stat_enseres' => $stat_enseres,

@@ -10,8 +10,8 @@
                 <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,15 +89,15 @@
                 <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
+                            <th>Número Habitaciones</th>
+                            <th>Cant.</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {# {% for item in stat_cant_habitaciones %}<tr>
-                            <td>{{ item.6 }}</td>
-                            <td>{{ item.6 }}</td>
-                        </tr>{% endfor %} #}
+                        {% for keys, value in stat_cant_habitaciones %}<tr>
+                            <td>{{ keys }}</td>
+                            <td>{{ value }}</td>
+                        </tr>{% endfor %}
                     </tbody>
                 </table>
             </div>
