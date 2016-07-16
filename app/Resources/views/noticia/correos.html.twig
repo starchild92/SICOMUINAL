@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block not_log_title %}<i class="fa fa-newspaper-o"></i> Noticias del Consejo Comunal{% endblock %}
+
+{% block body %}
+    <h2 class="text-center">Administración de Correos</h2>
+    <hr>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Enviar Comunicado Masivo</div>
+                <div class="panel-body">
+                    <p>Haga llegar un mensaje a todos los miembros de la comunidad con una dirección de correo electrónico.</p>
+                    <a href="#" data-url="{{ path('comunicado_new') }}" id="forModal" class="btn btn-success btn-block"><i class="fa fa-edit"></i> Redactar Mensaje</a>
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Comunicados Enviados</div>
+                    <div class="pre-scrollable">
+                    <table class="table borderless table-hover">
+                        <thead class="thead-info">
+                            <tr>
+                                <th>Título/Cuerpo</th>
+                                <th>Emisor</th>
+                                <th>Fecha Envio</th>
+                                <th>Destinatarios</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for correo in comunicados %}
+                            <tr>
+                                <td class="col-sm-5">{{ correo.titulo }} <a class="pull-right" href="{{ path('comunicado_show', {'id':correo.id})}}">ver completo</a><br>{{ correo.cuerpo|slice(0,30) }}</td>
+                                <td><a href="{{ path('usuarios_show', {'id':correo.emisor.id }) }}">{{ correo.emisor }}</a></td>
+                                <td>{{ correo.fecha|date('Y-m-d') }}</td>
+                                <td>{{ correo.numDestinatarios }} personas</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Personas Suscritas</div>
+                <div class="panel-body text-center">
+                    <h1>{{ reciben_correo }}</h1>
+                    <small>Cantidad de personas recibiendo su estos correos</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="panel panel-default">
+                <div class="panel-heading"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Elemento</h4></div>
+                <div class="panel-body" id="body-modal">
+                    <span id="modal-body" class="negritas text-center"><div class="well-sm text-center"><img src="{{ asset('images/FlatIcons/hourglass.png') }}" height='60' alt="espere">
+                    <hr class="little">
+                    Cargando el formulario</div></span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $('body').on('click', '#forModal', function(){
+            $('#myModalLabel').text('Enviar Comunicado Masivo');
+            $('#myModal').modal('show');
+            url = $('#forModal').data('url');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function(data, textStatus, xhr){
+                    cuerpo = $(data).find('#cuerpo form').attr('id', 'modal-body');
+                    cuerpo = cuerpo.attr('action', url);
+                    $('#modal-body').replaceWith(cuerpo);
+                }
+            });
+        });
+        /*Cuando el modal se cierra, regresa a su estado base*/
+        $('#myModal').on('hide.bs.modal', function(e){
+            $.confirm({
+                title: 'Advertencia!',
+                content: 'Perderá lo que ha escrito si continua, ¿Desea continuar?',
+                onButton: 'Cerrar',
+                cancelButton: 'Continuar escribiendo',
+                confirm: function(){
+                    html = "<div class='panel-body'><span id='modal-body'><div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr class='little'>Cargando el formulario</div></span></div>";
+                    $('#body-modal').replaceWith(html)
+                },
+                cancel: function(){
+                    e.preventDefault();
+                    $('#myModal').modal('show');
+                }
+            });
+        });
+    </script>
+{% endblock %}

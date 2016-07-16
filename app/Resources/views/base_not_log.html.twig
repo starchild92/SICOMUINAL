@@ -13,7 +13,6 @@
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/ie10-viewport-bug-workaround.css') }}">
 
-		{# Clases de Semantic UI #}
 		<style>
 		@font-face {
 		    font-family: 'Open Sans';
@@ -59,9 +58,8 @@
 		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 	</head>
 	<body>
-		<!-- Fixed navbar -->
 		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 						<span class="sr-only">Toggle navigation</span>
@@ -72,10 +70,6 @@
 					<a class="navbar-brand" href="{{ path('sic_homepage') }}"><img src="{{ asset('images/logo.png') }}" alt="logo" class="img-responsive"></a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
-
-					{# <ul class="nav navbar-nav">
-						<li><a class="negritas" href="{{ path('sic_homepage') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li>
-					</ul> #}
 
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#">{% block not_log_title %}{% endblock %}</a></li>
@@ -115,15 +109,14 @@
 			</div>
 		{% endfor %}
 
-		<div class="container-fluid">
-
+		<div class="container">
 			<span id="cuerpo">
 			{% block body %}{% endblock %}
 			</span>
 		</div> <!-- /container -->
 
 		<footer class="footer">
-			<div class="container-fluid">
+			<div class="container">
 				<p class="text-muted text-center negritas" style="margin-top: 10px; color: #6d4c41">Sistema de Información Comunal <br><small>Luis Pérez | Proyecto Trabajo Especial de Grado</small><br><small>Universidad de Carabobo - Facultad Experimental de Ciencias y Tencología</small> </p>
 			</div>
 		</footer>
@@ -131,12 +124,6 @@
 		<script src="{{ asset('js/jquery2.1.4.js') }}"></script>
 		<script src="{{ asset('js/bootstrap.js') }}"></script>
 		<script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
-		
-		<script>
-			$(function () {
-				$('[data-toggle="tooltip"]').tooltip()
-			})
-		</script>
 		{% block javascripts %}{% endblock %}
 	</body>
 </html>

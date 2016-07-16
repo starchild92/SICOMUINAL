@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class NoticiaType extends AbstractType
+class ComunicadoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,16 +15,11 @@ class NoticiaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            // ->add('emisor')
             ->add('titulo')
-            ->add('cuerpo', 'textarea', array(
-                'required' => false))
-            // ->add('usuario')
+            ->add('cuerpo')
             // ->add('fecha', 'datetime')
-            // ->add('fechaPub', 'datetime')
-            ->add('visibilidad','checkbox', array(
-                'required' => false,
-                'attr'      => array(
-                    'class' => 'ui toggle checkbox')))
+            // ->add('numDestinatarios')
         ;
     }
     
@@ -34,7 +29,7 @@ class NoticiaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SICBundle\Entity\Noticia'
+            'data_class' => 'SICBundle\Entity\Comunicado'
         ));
     }
 }

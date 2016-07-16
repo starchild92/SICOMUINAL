@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Comunicado list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Emisor</th>
+                <th>Titulo</th>
+                <th>Cuerpo</th>
+                <th>Fecha</th>
+                <th>Numdestinatarios</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comunicado in comunicados %}
+            <tr>
+                <td><a href="{{ path('comunicado_show', { 'id': comunicado.id }) }}">{{ comunicado.id }}</a></td>
+                <td>{{ comunicado.emisor }}</td>
+                <td>{{ comunicado.titulo }}</td>
+                <td>{{ comunicado.cuerpo }}</td>
+                <td>{% if comunicado.fecha %}{{ comunicado.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ comunicado.numDestinatarios }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('comunicado_show', { 'id': comunicado.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('comunicado_edit', { 'id': comunicado.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('comunicado_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -43,6 +43,7 @@ class NoticiaRepository extends EntityRepository
 		return $cant;
 	}
 
+	/* Obtiene las últimas 5 noticias en orden descendiente y que están visibles */
 	public function NoticiasOrdenDesc()
 	{
 		$query = $this->getEntityManager()

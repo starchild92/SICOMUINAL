@@ -89,6 +89,11 @@ class Usuario extends BaseUser
     private $bitacora;
 
     /**
+     * @ORM\OneToMany(targetEntity="Comunicado", mappedBy="emisor")
+     */
+    private $comunicados;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -347,5 +352,71 @@ class Usuario extends BaseUser
     public function getNoticias()
     {
         return $this->noticias;
+    }
+
+    /**
+     * Add bitacora
+     *
+     * @param \SICBundle\Entity\Bitacora $bitacora
+     * @return Usuario
+     */
+    public function addBitacora(\SICBundle\Entity\Bitacora $bitacora)
+    {
+        $this->bitacora[] = $bitacora;
+
+        return $this;
+    }
+
+    /**
+     * Remove bitacora
+     *
+     * @param \SICBundle\Entity\Bitacora $bitacora
+     */
+    public function removeBitacora(\SICBundle\Entity\Bitacora $bitacora)
+    {
+        $this->bitacora->removeElement($bitacora);
+    }
+
+    /**
+     * Get bitacora
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBitacora()
+    {
+        return $this->bitacora;
+    }
+
+    /**
+     * Add comunicados
+     *
+     * @param \SICBundle\Entity\Comunicado $comunicados
+     * @return Usuario
+     */
+    public function addComunicado(\SICBundle\Entity\Comunicado $comunicados)
+    {
+        $this->comunicados[] = $comunicados;
+
+        return $this;
+    }
+
+    /**
+     * Remove comunicados
+     *
+     * @param \SICBundle\Entity\Comunicado $comunicados
+     */
+    public function removeComunicado(\SICBundle\Entity\Comunicado $comunicados)
+    {
+        $this->comunicados->removeElement($comunicados);
+    }
+
+    /**
+     * Get comunicados
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComunicados()
+    {
+        return $this->comunicados;
     }
 }

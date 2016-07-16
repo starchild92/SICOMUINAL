@@ -24,11 +24,9 @@ class NoticiaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $noticias = $em->getRepository('SICBundle:Noticia')->findAll();
-        $usuarios_reciben_correo = $em->getRepository('SICBundle:Noticia')->CantidadPersonasCorreo();
 
         return $this->render('noticia/index.html.twig', array(
             'noticias' => $noticias,
-            'reciben_correo' => $usuarios_reciben_correo,
         ));
     }
 
@@ -173,5 +171,18 @@ class NoticiaController extends Controller
         }
 
         return $this->redirectToRoute('sic_homepage');
+    }
+
+    // Devuelve los comunicados enviados a la vista de correo.html.twig
+    public function correosAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunicados = $em->getRepository('SICBundle:Comunicado')->findAll();
+        $usuarios_reciben_correo = $em->getRepository('SICBundle:Noticia')->CantidadPersonasCorreo();
+
+        return $this->render('noticia/correos.html.twig', array(
+            'comunicados' => $comunicados,
+            'reciben_correo' => $usuarios_reciben_correo,
+        ));
     }
 }

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Comunicado</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comunicado.id }}</td>
+            </tr>
+            <tr>
+                <th>Emisor</th>
+                <td>{{ comunicado.emisor }}</td>
+            </tr>
+            <tr>
+                <th>Titulo</th>
+                <td>{{ comunicado.titulo }}</td>
+            </tr>
+            <tr>
+                <th>Cuerpo</th>
+                <td>{{ comunicado.cuerpo }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{% if comunicado.fecha %}{{ comunicado.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Numdestinatarios</th>
+                <td>{{ comunicado.numDestinatarios }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('comunicado_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('comunicado_edit', { 'id': comunicado.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

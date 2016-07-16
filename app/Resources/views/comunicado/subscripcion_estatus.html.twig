@@ -1,0 +1,25 @@
+{% extends 'base_not_log.html.twig' %}
+
+{% block not_log_title %}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-6">
+            <h2 class="text-center text-info">Tú dirección de correo ha sido dada de baja en el sistema</h2>
+            <p>El correo electronico <span class="negritas">{{ correo }}</span> ha sido dado de baja en las notificaciones del consejo comunal.</p>
+            <p>Le recordamos que si desea volver a recibir información del consejo comunal debe comunicarse con un en cargado del consejo en su comunidad</p>
+        </div>
+        <div class="col-sm-6">
+            <h3 class="text-center">Últimas noticias</h3>
+            <ul>
+                {% for noticia in noticias %}
+                    <a href="{{ path('noticia_newsletter')}}">
+                    <li><span class="negritas">{{ noticia.titulo }}</span>
+                        <br>por {{ noticia.usuario.nombreyapellido() }}
+                        <br><small class="text-info">{{ noticia.fechaPubyhora() }}</small></a></li>
+                    <br>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

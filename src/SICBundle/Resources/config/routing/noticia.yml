@@ -32,3 +32,8 @@ noticia_newsletter:
     path:     /publicaciones
     defaults: { _controller: "SICBundle:Noticia:newsletter" }
     methods:  GET
+
+noticia_correo:
+    path:     /correos
+    defaults: { _controller: "SICBundle:Noticia:correos" }
+    methods:  GET
