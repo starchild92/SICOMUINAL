@@ -185,4 +185,50 @@ class NoticiaController extends Controller
             'reciben_correo' => $usuarios_reciben_correo,
         ));
     }
+
+    public function correosUsuariosAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $jfg = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
+        $persona = $em->getRepository('SICBundle:Persona')->findAll();
+        $usuarios_reciben_correo = $em->getRepository('SICBundle:Noticia')->CantidadPersonasCorreo();
+
+
+        return $this->render('noticia/correos.usuarios.html.twig', array(
+            'jfg' => $jfg,
+            'persona' => $persona,
+            'reciben_correo' => $usuarios_reciben_correo,
+        ));
+    }
+
+    public function alternarSubscripcionAction($correo)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $jfg = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('email' => $correo));
+        $personas = $em->getRepository('SICBundle:Persona')->findBy(array('email' => $correo));
+
+        if (sizeof($jfg) > 0) {
+            $persona = $jfg[0];
+            if ($persona->getRecibirCorreo()) {
+                $persona->setRecibirCorreo(false);
+            }else{
+                $persona->setRecibirCorreo(true);
+            }
+        }
+
+        if (sizeof($personas) > 0) {
+            $persona = $personas[0];
+            if ($persona->getRecibirCorreo()) {
+                $persona->setRecibirCorreo(false);
+            }else{
+                $persona->setRecibirCorreo(true);
+            }
+        }
+
+        $em->persist($persona);
+        $em->flush();
+
+        return $this->redirectToRoute('noticia_correo_usuarios');
+    }
 }

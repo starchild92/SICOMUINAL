@@ -181,6 +181,11 @@ class JefeGrupoFamiliar
         return $this->id;
     }
 
+    public function nombreyapellido()
+    {
+        return $this->nombres.' '.$this->apellidos;
+    }
+
     /**
      * Set nombres
      *
@@ -734,5 +739,14 @@ class JefeGrupoFamiliar
     public function getRecibirCorreo()
     {
         return $this->recibir_correo;
+    }
+
+    public function recibir_correo()
+    {
+        if ($this->recibir_correo) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

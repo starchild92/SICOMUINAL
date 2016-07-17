@@ -37,3 +37,13 @@ noticia_correo:
     path:     /correos
     defaults: { _controller: "SICBundle:Noticia:correos" }
     methods:  GET
+
+noticia_correo_usuarios:
+    path:     /correos/usuarios
+    defaults: { _controller: "SICBundle:Noticia:correosUsuarios" }
+    methods:  GET
+
+noticia_toggle_correo:
+    path:     /{correo}/alternar/subscripcion
+    defaults: { _controller: "SICBundle:Noticia:alternarSubscripcion" }
+    methods:  GET

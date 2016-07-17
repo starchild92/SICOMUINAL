@@ -173,6 +173,11 @@ class PersonaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $Grupo->addMiembro($persona);
+            if ($persona->getEmail() != '') {
+                $persona->setRecibirCorreo(true);
+            }else{
+                $persona->setRecibirCorreo(false);
+            }
             $em->persist($persona);
             $em->persist($Grupo);
             $em->flush();
@@ -223,6 +228,12 @@ class PersonaController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            if ($persona->getEmail() != '') {
+                $persona->setRecibirCorreo(true);
+            }else{
+                $persona->setRecibirCorreo(false);
+            }
             $em->persist($persona);
             $em->flush();
 

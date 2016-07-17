@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('datatables/datatables.min.css') }}"/>
+    <style>
+        .dataTables_info, .dataTables_length{ padding-left: 5px; }
+        .dataTables_paginate, .dataTables_filter { padding-right: 5px; }
+        .dataTables_length, .dataTables_filter{ margin-top: 5px; }
+    </style>
+{% endblock %}
 {% block not_log_title %}<i class="fa fa-newspaper-o"></i> Noticias del Consejo Comunal{% endblock %}
-
 {% block body %}
     <h2 class="text-center">Administración de Correos</h2>
     <hr>
     <div class="row">
         <div class="col-sm-3">
             <div class="panel panel-primary">
-                <div class="panel-heading">Enviar Comunicado Masivo</div>
+                <div class="panel-heading">Enviar Comunicado Masivo <i class="fa fa-envelope-o pull-right"></i></div>
                 <div class="panel-body">
                     <p>Haga llegar un mensaje a todos los miembros de la comunidad con una dirección de correo electrónico.</p>
                     <a href="#" data-url="{{ path('comunicado_new') }}" id="forModal" class="btn btn-success btn-block"><i class="fa fa-edit"></i> Redactar Mensaje</a>
@@ -17,9 +23,9 @@
         </div>
         <div class="col-sm-7">
             <div class="panel panel-primary">
-                <div class="panel-heading">Comunicados Enviados</div>
-                    <div class="pre-scrollable">
-                    <table class="table borderless table-hover">
+                <div class="panel-heading">Comunicados Enviados <i class="fa fa-inbox pull-right"></i></div>
+                    {# <div class="pre-scrollable"> #}
+                    <table id="dataTable" class="table borderless table-hover">
                         <thead class="thead-info">
                             <tr>
                                 <th>Título/Cuerpo</th>
@@ -39,7 +45,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    </div>
+                    {# </div> #}
             </div>
         </div>
         <div class="col-sm-2">
@@ -50,6 +56,7 @@
                     <small>Cantidad de personas recibiendo su estos correos</small>
                 </div>
             </div>
+            <a href="{{ path('noticia_correo_usuarios') }}" class="btn btn-block btn-success">Ver Cuentas de Usuarios</a>
         </div>
     </div>
 
@@ -69,7 +76,13 @@
     </div>
 {% endblock %}
 {% block javascripts %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
     <script>
+        $(document).ready(function() {
+            dataTable = $('#dataTable').DataTable( {
+                "pageLength": 25,
+            });
+        });
         $('body').on('click', '#forModal', function(){
             $('#myModalLabel').text('Enviar Comunicado Masivo');
             $('#myModal').modal('show');

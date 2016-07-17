@@ -24,7 +24,7 @@ class NoticiaRepository extends EntityRepository
 				AND p.recibir_correo = :var2'
 		)
             ->setParameter('var', '')
-            ->setParameter('var2', '0');
+            ->setParameter('var2', '1');
 
 		$cant = $query->getSingleScalarResult();
 
@@ -36,7 +36,7 @@ class NoticiaRepository extends EntityRepository
 				AND p.recibir_correo = :var2'
 		)
             ->setParameter('var', '')
-            ->setParameter('var2', '0');
+            ->setParameter('var2', '1');
 
 		$cant = $query->getSingleScalarResult() + $cant;
 		
