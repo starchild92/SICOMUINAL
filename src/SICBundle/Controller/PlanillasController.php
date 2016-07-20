@@ -112,8 +112,12 @@ class PlanillasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            // $em->remove($planilla);
-            // $em->flush();
+            $em->remove($planilla);
+            $bitacora = new Bitacora($this->getUser(),'eliminó','Una planilla.');
+            $em->persist($bitacora);
+            $this->get('session')->getFlashBag()->add('success', 'Se eliminó la planilla de forma exitosa.');
+
+            $em->flush();
         }
 
         return $this->redirectToRoute('planillas_index');
@@ -143,6 +147,8 @@ class PlanillasController extends Controller
         $data = $request->get('observaciones');
         $planilla[0]->setObservaciones($data);
         $em->persist($planilla[0]);
+        $bitacora = new Bitacora($this->getUser(),'modificó','Las observaciones de la planilla '.$id_planilla);
+        $em->persist($bitacora);
         $em->flush();
         $this->get('session')->getFlashBag()
         ->add('success', 'Se ha registrado la observación');
@@ -155,6 +161,10 @@ class PlanillasController extends Controller
 
         if (sizeof($planilla) == 1) {
             $planilla = $planilla[0];
+
+            $bitacora = new Bitacora($this->getUser(),'continuó','con el llenado de la encuesta '.$id_encuesta);
+            $em->persist($bitacora);
+            $em->flush();
             
             $aux = $planilla->getJefeGrupoFamiliar();
             if ($aux != NULL) {

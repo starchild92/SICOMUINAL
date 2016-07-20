@@ -24,8 +24,8 @@
 					</div>
 			</div>
 			<hr class="little">
-			<button id="modalButt" type="button" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="btn btn-default btn-block" data-toggle="modal" data-target=".bs-example-modal-sm">Agregar Observaciones</button>
-			<a class="btn btn-default btn-block" href="{{ path('planillas_index') }}">Ver Todas</a>
+			<button id="modalButt" type="button" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bs-example-modal-sm"> <i class="fa fa-edit"></i> Agregar Observaciones</button>
+			<a class="btn btn-primary btn-block" href="{{ path('planillas_index') }}">Ver Todas</a>
 			{% if planilla.terminada != 100 %}
 				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>
 			{% endif %}
