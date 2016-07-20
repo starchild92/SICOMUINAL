@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
     <h1 class="text-center">Registros: "Estudio Demográfico y Socioeconomico"</h1>
     <hr>
-    <table class="table table-bordered table-striped table-hover">
+    <table id="dataTable" class="table table-bordered table-striped table-hover">
         <thead class="thead-info">
             <tr>
                 <th>#</th>
@@ -15,12 +14,11 @@
             </tr>
         </thead>
         <tbody>
-        <div class="row">
             {% for planilla in planillas %}
                 <tr>
                     <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></td>
-                    <td><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></td>
-                    <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }}{% endif %}</td>
+                    <td><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <p class="small marginless">{{ planilla.empadronador.cedula }}</p> </a></td>
+                    <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula }}</p> {% endif %}</td>
                     <td>{{ planilla.fechaCron() }}</td>
                     <td>
                         {% if planilla.terminada != 100 %}
@@ -31,7 +29,7 @@
                     </td>
                     <td>
                         <div class="btn-group">
-                            <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> <span class="caret"></span>
+                            <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 {% if planilla.terminada != 100 %}
@@ -45,4 +43,16 @@
             {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            dataTable = $('#dataTable').DataTable( {
+                "pageLength": 25,
+                "order": [[ 3, "desc" ]]
+            });
+        });
+    </script>
 {% endblock %}

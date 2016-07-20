@@ -86,6 +86,7 @@ p.bottom-line {
 	border-bottom: 1px solid #ddd;
 	margin-bottom: 2px;
 }
+p.marginless{ margin: 0 0 0px !important; }
 
 .navbar-flat{
 		padding-top: 17px;

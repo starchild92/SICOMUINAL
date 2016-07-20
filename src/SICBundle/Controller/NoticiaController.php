@@ -49,7 +49,7 @@ class NoticiaController extends Controller
 
             $em->persist($noticium);
 
-            $entrada = new Bitacora($this->getUser(),'agregó','una Noticia nueva.');
+            $entrada = new Bitacora($this->getUser(),'agregó','una Noticia nueva, titulada: '.$noticium->getTitulo().'.');
             $em->persist($entrada);
 
             $em->flush();
@@ -90,7 +90,7 @@ class NoticiaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($noticium);
-            $entrada = new Bitacora($this->getUser(),'modificó','una Noticia');
+            $entrada = new Bitacora($this->getUser(),'modificó','una la noticia '.$noticium->getTitulo().'.');
             $em->persist($entrada);
             $em->flush();
 
@@ -159,15 +159,20 @@ class NoticiaController extends Controller
                 //a invisible
                 $noticium->setVisibilidad('1');
                 $this->get('session')->getFlashBag()->add('success', 'Se ha colocado la noticia "'.$noticium->getTitulo().'" como visible.');
+                $entrada = new Bitacora($this->getUser(),'modificó','la visibilidad de '.$noticium->getTitulo().' haciendola visible');
             }else{
                 // a visible
                 $noticium->setVisibilidad('0');
                 $this->get('session')->getFlashBag()->add('success', 'Se ha colocado la noticia "'.$noticium->getTitulo().'" como invisible.');
+                $entrada = new Bitacora($this->getUser(),'modificó','la visibilidad de '.$noticium->getTitulo().' haciendola invisible');
             }
             $em->persist($noticium);
+            
+            $em->persist($entrada);
+
             $em->flush();
 
-            return $this->redirectToRoute('noticia_index');
+            return NULL;
         }
 
         return $this->redirectToRoute('sic_homepage');
@@ -192,7 +197,6 @@ class NoticiaController extends Controller
         $jfg = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
         $persona = $em->getRepository('SICBundle:Persona')->findAll();
         $usuarios_reciben_correo = $em->getRepository('SICBundle:Noticia')->CantidadPersonasCorreo();
-
 
         return $this->render('noticia/correos.usuarios.html.twig', array(
             'jfg' => $jfg,

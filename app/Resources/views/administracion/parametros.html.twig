@@ -173,13 +173,25 @@
 			});
 		});
 
-		$('#myModal').on('hidden.bs.modal', function(){
-			html = "<div class='panel-body'><span id='modal-body'><div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr><br>Cargando el formulario</div></span></div>";
-			$('.panel-body').replaceWith(html);
-		});
+		$('#myModal').on('hide.bs.modal', function(e){
+            $.confirm({
+                title: 'Advertencia!',
+                content: 'Si acepta, perderá los cambios que ha realizado.',
+                cancelButton: 'No Cerrar',
+                confirmButtonClass: 'btn-danger',
+                cancelButtonClass: 'btn-info',
+                theme: 'black',
+                confirm: function(){
+                    html = "<div class='panel-body'><span id='modal-body'><div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr><br>Cargando el formulario</div></span></div>";
+					$('.panel-body').replaceWith(html);
+                },
+                cancel: function(){
+                    e.preventDefault();
+                    $('#myModal').modal('show');
+                }
+            });
+        });
 
-
-		//Para el menu
 		str = $('#parametro').val();
 		if (str != '') {
 			$('.'+str).click();
@@ -189,7 +201,6 @@
 			$('.nacionalidad').parent().parent().collapse('toggle');
 		}
 		
-
 		$('body').on('click', '#li-menu', function(){
 			$(this).attr('style', "background-color: #81C784 !important;")
 			lis = $('.collapse .in') // siempre es uno
@@ -201,28 +212,28 @@
 
 		$('body').on('click', '#forModalEdit', function(e) {
 			$('#loader').show();
-				href = $(this).attr('href');
-				if (href != '#') {
-					$(this).attr('href', '#');
-					$(this).attr('data-href', href);
-				}else{
-					href = $(this).data('href');
-				}
+			href = $(this).attr('href');
+			if (href != '#') {
+				$(this).attr('href', '#');
+				$(this).attr('data-href', href);
+			}else{
+				href = $(this).data('href');
+			}
 
-				$.ajax({
-					url: href,
-					type: "GET",
-					success: function(data, textStatus, xhr){
-						cuerpo = $(data).find('#cuerpo').attr('id', 'modal-body');
-						$('#modal-body').replaceWith(cuerpo);
-						console.log($('#modal-body').find('form').first())
-						$('#modal-body').find('form').first().attr('action', href);
-					},
-					complete: function(){
-						$('#myModal').modal('show');
-						$('#loader').hide();
-					},
-				});
+			$.ajax({
+				url: href,
+				type: "GET",
+				success: function(data, textStatus, xhr){
+					cuerpo = $(data).find('#cuerpo').attr('id', 'modal-body');
+					$('#modal-body').replaceWith(cuerpo);
+					console.log($('#modal-body').find('form').first())
+					$('#modal-body').find('form').first().attr('action', href);
+				},
+				complete: function(){
+					$('#myModal').modal('show');
+					$('#loader').hide();
+				},
+			});
 		});
 	});
 </script>

@@ -105,6 +105,12 @@ class Noticia
         return $fecha->format('Y')."/".$fecha->format('n')."/".$fecha->format('d')." a las ".$fecha->format('h').":".$fecha->format('i')." ".$fecha->format('a');
     }
 
+    public function fechaOrden()
+    {
+        $fecha = $this->getFecha();
+        return $fecha->format('Y')."/".$fecha->format('n')."/".$fecha->format('d')." a las ".$fecha->format('h').":".$fecha->format('i')." ".$fecha->format('a');
+    }
+
     /**
      * Get id
      *

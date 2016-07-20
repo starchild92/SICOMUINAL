@@ -17,7 +17,9 @@
 					<div class="panel-body">
 						<p><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></p>
 						<p><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></p>
+						{% if planilla.jefeGrupoFamiliar != null %}
 						<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
+						{% endif %}
 						<p><span class="negritas">Fecha:</span> {{ planilla.fechayhora() }}</p>
 					</div>
 			</div>

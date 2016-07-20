@@ -23,6 +23,7 @@ class NoticiaType extends AbstractType
             // ->add('fechaPub', 'datetime')
             ->add('visibilidad','checkbox', array(
                 'required' => false,
+                'label' => 'Hacer Visible',
                 'attr'      => array(
                     'class' => 'ui toggle checkbox')))
         ;

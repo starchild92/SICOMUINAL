@@ -18,12 +18,8 @@
             <div class="col-sm-6">{{ form_row(edit_form.direccion) }}</div>
         </div>
         {{ form_widget(edit_form) }}
-        <input class="btn btn-primary btn-block" type="submit" value="Guardar" />
+        
+        <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save"></i> Guardar Datos</button>
     {{ form_end(edit_form) }}
     </span>
-    
-    <a class="btn btn-default" href="{{ path('comunidades_index') }}">Back to the list</a>
-    {{ form_start(delete_form) }}
-        <input class="btn btn-danger" type="submit" value="Delete">
-    {{ form_end(delete_form) }}
 {% endblock %}

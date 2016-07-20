@@ -6,3 +6,7 @@ div.col-sm-3>(div.panel.panel-primary>((div.panel-heading)+(table.table.table-bo
 
 4 columnas de graficos con tabla de tipo pie
 (div.col-sm-3>(div.panel.panel-primary>((div.panel-heading)+(table.table.table-bordered.table-striped.table-hover.table-condensed.highchart[data-graph-container-before=1][data-graph-type=pie][data-graph-height=300]>(thead>(tr>th*2))+(tbody>(tr>td*2))))))*4
+
+use SICBundle\Entity\Bitacora;
+$bitacora = new Bitacora($this->getUser(),'agregó','una Noticia nueva.');
+$em->persist($bitacora);

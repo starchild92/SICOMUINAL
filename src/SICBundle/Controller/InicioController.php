@@ -29,8 +29,10 @@ class InicioController extends Controller
         $cc = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
 
         // Solo una sola instancia de esta entidad
-        if (count($comunidad) > 0 && count($cc) > 0) {
+        if (count($comunidad) > 0) {
             $comunidad = $comunidad[0];
+        }
+        if (count($cc) > 0) {
             $cc = $cc[0];
         }
 

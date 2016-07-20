@@ -53,7 +53,7 @@
                     <small>Cantidad de personas recibiendo su estos correos</small>
                 </div>
             </div>
-            <a href="{{ path('noticia_correo_usuarios') }}" class="btn btn-block btn-success">Ver Cuentas de Usuarios</a>
+            <a href="{{ path('noticia_correo') }}" class="btn btn-primary btn-block"><i class="fa fa-arrow-left"></i> Regresar</a></h2>
         </div>
     </div>
 {% endblock %}
@@ -65,13 +65,17 @@
                 url = $(this).data('url');
                 if(url){
                     $.confirm({
-                        theme: 'material',
+                        theme: 'black',
                         title: 'Advertencia!',
                         content: 'Cambiar el estado de recibimiento de correos. Se modificará al estado opuesto',
                         cancelButton: 'Cancelar',
                         backgroundDismiss: false,
                         confirm: function(){
-                            $.alert('Aplicando cambios, espere...');
+                            $.confirm({
+                                title: false,
+                                theme: 'black',
+                                content: 'Aplicando cambios, espere...',
+                            });
                             $.ajax({
                                 method: "GET",
                                 url: url,
@@ -83,7 +87,7 @@
                     });
                 }else{
                     $.alert({
-                        theme: 'material',
+                        theme: 'black',
                         title: 'Advertencia!',
                         content: 'El usuario no tiene correo electrónico, por lo que no se puede cambiar el estado de recibimiento, para poder hacerlo agregue un correo electrónico.',
                         cancelButton: 'Cancelar',

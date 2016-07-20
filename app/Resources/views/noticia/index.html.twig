@@ -15,7 +15,7 @@
         <div class="col-sm-10">
             {# <div class="panel panel-info"> #}
             <table id="dataTable" class="table table-bordered table-striped table-hover">
-                <thead>
+                <thead class="thead-info">
                     <tr>
                         <th>Título</th>
                         <th>Por</th>
@@ -30,7 +30,7 @@
                     <tr>
                         <td class="col-sm-3">{{ noticium.titulo }}</td>
                         <td>{{ noticium.usuario.nombreyapellido() }}</td>
-                        <td>{{ noticium.fechayhora() }}</td>
+                        <td>{{ noticium.fechaOrden() }}</td>
                         <td>{% if noticium.fechaPub %}{{ noticium.fechaCron() }}{% endif %}</td>
                         <td class="text-center">{% if noticium.visibilidad %} <i class="fa fa-eye"></i> visible {% else %} <i class="fa fa-eye-slash"></i> invisible {% endif %}</td>
                         <td>
@@ -41,9 +41,9 @@
                                     <li><a href="{{ path('noticia_show', { 'id': noticium.id }) }}"> <i class="fa fa-info"></i> Mostrar detalles</a></li>
                                     <li><a href="{{ path('noticia_edit', { 'id': noticium.id }) }}"> <i class="fa fa-edit"></i> Modificar detalles</a></li>
                                     <li>{% if noticium.visibilidad %}
-                                        <a href="{{ path('noticia_toggle_visibilidad', {'id': noticium.id}) }}"><i class="fa fa-eye-slash"></i> Hacer invisible</a>
+                                        <a id="visibleAction" href="#" data-url="{{ path('noticia_toggle_visibilidad', {'id': noticium.id}) }}"><i class="fa fa-eye-slash"></i> Hacer invisible</a>
                                         {% else %}
-                                        <a href="{{ path('noticia_toggle_visibilidad', {'id': noticium.id}) }}"><i class="fa fa-eye"></i> Hacer visible</a>
+                                        <a id="visibleAction" href="#" data-url="{{ path('noticia_toggle_visibilidad', {'id': noticium.id}) }}"><i class="fa fa-eye"></i> Hacer visible</a>
                                         {% endif %}
                                     </li>
                                 </ul>
@@ -63,7 +63,47 @@
         $(document).ready(function() {
             dataTable = $('#dataTable').DataTable( {
                 "pageLength": 25,
+                "order": [[ 2, "desc" ]]
             });
+        });
+    </script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            $('body').on('click', '#visibleAction', function(e){
+                url = $(this).data('url');
+                $.confirm({
+                    title: 'Atención!',
+                    content: 'Cambiará el estado de la noticia.',
+                    cancelButton: 'No cambiar',
+                    confirmButtonClass: 'btn-danger',
+                    cancelButtonClass: 'btn-info',
+                    theme: 'black',
+                    confirm: function(){
+                        $.confirm({
+                            title: false,
+                            theme: 'black',
+                            content: 'Cambiando la visibilidad y recargando la página',
+                            cancelButton: false, // hides the cancel button.
+                            confirmButton: false, // hides the confirm button.
+                            closeIcon: false, // hides the close icon.
+                        });
+
+                        console.log(url)
+                        $.ajax({
+                            url: url,
+                            type: "GET",
+                            complete: function(){
+                                window.location.reload();
+                            },
+                        });
+                    },
+                    cancel: function(){
+                        e.preventDefault();
+                    }
+                });
+            });
+
         });
     </script>
 {% endblock %}

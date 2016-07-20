@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\Comunidad;
 use SICBundle\Form\ComunidadType;
+use SICBundle\Entity\Bitacora;
 
 /**
  * Comunidad controller.
@@ -42,9 +43,15 @@ class ComunidadController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($comunidad);
+
+            $bitacora = new Bitacora($this->getUser(),'agregó','la información de la comunidad.');
+            $em->persist($bitacora);
+            
             $em->flush();
 
-            return $this->redirectToRoute('comunidades_show', array('id' => $comunidad->getId()));
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado la información de la Comunidad de forma exitosa.');
+
+            return $this->redirectToRoute('sic_administacion_entidades');
         }
 
         return $this->render('comunidad/new.html.twig', array(
@@ -80,9 +87,14 @@ class ComunidadController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($comunidad);
+
+            $bitacora = new Bitacora($this->getUser(),'modificó','la información de la comunidad.');
+            $em->persist($bitacora);
             $em->flush();
 
-            return $this->redirectToRoute('comunidades_edit', array('id' => $comunidad->getId()));
+            $this->get('session')->getFlashBag()->add('success', 'Se ha actualizado la información de la Comunidad de forma exitosa.');
+
+            return $this->redirectToRoute('sic_administacion_entidades');
         }
 
         return $this->render('comunidad/edit.html.twig', array(
