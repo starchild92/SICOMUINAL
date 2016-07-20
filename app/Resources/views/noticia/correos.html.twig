@@ -80,9 +80,10 @@
     <script>
         $(document).ready(function() {
             dataTable = $('#dataTable').DataTable( {
-                "pageLength": 25,
+                "pageLength": 10,
             });
         });
+
         $('body').on('click', '#forModal', function(){
             $('#myModalLabel').text('Enviar Comunicado Masivo');
             $('#myModal').modal('show');
@@ -94,9 +95,35 @@
                     cuerpo = $(data).find('#cuerpo form').attr('id', 'modal-body');
                     cuerpo = cuerpo.attr('action', url);
                     $('#modal-body').replaceWith(cuerpo);
+
+                    $('#enviarMesanjes').click(function(e){
+                        $.confirm({
+                            title: "Desea enviar los Mensajes",
+                            content: "Tenga paciencia, dependiendo de la cantidad de personas esta opción puede tardar.",
+                            theme: 'black',
+                            confirmButtonClass: 'btn-danger',
+                            cancelButtonClass: 'btn-info',
+                            confirm: function(){
+                                $.confirm({
+                                    theme: 'black',
+                                    title: false,
+                                    content: 'Para enviarlos presione OKAY',
+                                    confirmButtonClass: 'btn-danger',
+                                    cancelButtonClass: 'btn-default',
+                                    confirm: function(){
+                                        $('#modal-body').submit();
+                                    }
+                                })
+                            },
+                            cancel: function(e){ $('#modal-body').submit(function(e){ e.preventDefault(); }); }
+                        })
+                    });
+
                 }
             });
         });
+   
+
         /*Cuando el modal se cierra, regresa a su estado base*/
         $('#myModal').on('hide.bs.modal', function(e){
             $.confirm({

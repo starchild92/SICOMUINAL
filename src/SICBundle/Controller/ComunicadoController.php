@@ -69,7 +69,7 @@ class ComunicadoController extends Controller
             }
 
             $em->persist($comunicado);
-            $bitacora = new Bitacora($this->getUser(),'envió','un comunicado másivo a'.sizeof($destinatarios).' personas.');
+            $bitacora = new Bitacora($this->getUser(),'envió','un comunicado másivo a '.sizeof($destinatarios).' personas.');
             $em->persist($bitacora);
             $em->flush();
 
