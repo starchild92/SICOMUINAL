@@ -76,8 +76,10 @@
                     {% else %}
                     <i class="fa fa-exclamation fa-fw pull-left"></i>
                 {% endif %}
-                <p>El usuario <span class="negritas">{{ entity.usuario.nombreyapellido() }}</span> {{ entity.accion }} {{ entity.detalles }}</p>
+                <p>{{ loop.index }}. El usuario <span class="negritas">{{ entity.usuario.nombreyapellido() }}</span> {{ entity.accion }} {{ entity.detalles }}</p>
                 <p><span class="label {% if entity.accion == 'agregó' %}label-success{% elseif entity.accion == 'eliminó' %}label-danger{% elseif entity.accion == 'envió' %}label-warning{% else %}label-info{% endif %} label-sm pull-left">{{ entity.fecha|date('Y-m-d h:i a') }}</span></p>
+
+
             </div>
         </div>
     {% endfor %}

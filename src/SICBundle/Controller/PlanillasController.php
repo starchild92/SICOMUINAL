@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\Planillas;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\PlanillasType;
 
 /**
@@ -110,8 +111,9 @@ class PlanillasController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($planilla);
-            $em->flush();
+
+            // $em->remove($planilla);
+            // $em->flush();
         }
 
         return $this->redirectToRoute('planillas_index');
