@@ -14,15 +14,11 @@ use SICBundle\Form\SituacionViviendaType;
  */
 class SituacionViviendaController extends Controller
 {
-    /**
-     * Lists all SituacionVivienda entities.
-     *
-     */
-    public function indexAction()
+    private function obtenerStat()
     {
         $em = $this->getDoctrine()->getManager();
-
         $situacionViviendas = $em->getRepository('SICBundle:SituacionVivienda')->findAll();
+        $total = sizeof($situacionViviendas);
 
         $tipo_vivienda = $em->getRepository('SICBundle:AdminTipoVivienda')->findAll();
         $stat_tipo_vivienda = array();
@@ -175,7 +171,7 @@ class SituacionViviendaController extends Controller
             );
         }
 
-        return $this->render('situacionvivienda/index.html.twig', array(
+        return array(
             'situacionViviendas' => $situacionViviendas,
             'stat_tipo_vivienda' => $stat_tipo_vivienda,
             'stat_tipo_tenencia' => $stat_tipo_tenencia,
@@ -189,7 +185,18 @@ class SituacionViviendaController extends Controller
             'stat_salubridad' => $stat_salubridad,
             'stat_techo' => $stat_techo,
             'stat_paredes' => $stat_paredes,
-        ));
+            'total' => $total,
+        );
+    }
+
+    /**
+     * Lists all SituacionVivienda entities.
+     *
+     */
+    public function indexAction()
+    {
+        $stats = $this->obtenerStat();
+        return $this->render('situacionvivienda/index.html.twig', $stats);
     }
 
     /**

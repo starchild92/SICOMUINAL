@@ -14,15 +14,12 @@ use SICBundle\Form\SituacionSaludType;
  */
 class SituacionSaludController extends Controller
 {
-    /**
-     * Lists all SituacionSalud entities.
-     *
-     */
-    public function indexAction()
+    private function obtenerStats()
     {
         $em = $this->getDoctrine()->getManager();
 
         $situacionSaluds = $em->getRepository('SICBundle:SituacionSalud')->findAll();
+        $total = sizeof($situacionSaluds);
 
         $padecencias = $em->getRepository('SICBundle:AdminTipoPadecencia')->findAll();
         $stat_padecencias = array();
@@ -57,12 +54,23 @@ class SituacionSaludController extends Controller
             );
         }
 
-        return $this->render('situacionsalud/index.html.twig', array(
+        return array(
             'situacionSaluds' => $situacionSaluds,
             'stat_situacion_exclusion' => $stat_situacion_exclusion,
             'stat_ayuda_especial' => $stat_ayuda_especial,
             'stat_padecencias' => $stat_padecencias,
-        ));
+            'total' => $total,
+        );
+    }
+
+    /**
+     * Lists all SituacionSalud entities.
+     *
+     */
+    public function indexAction()
+    {
+        $stats = $this->obtenerStats();
+        return $this->render('situacionsalud/index.html.twig', $stats);
     }
 
     /**
