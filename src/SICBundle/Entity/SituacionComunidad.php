@@ -29,6 +29,13 @@ class SituacionComunidad
     private $preguntasSituacionComunidad;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="respuesta", type="text")
+     */
+    private $respuesta;
+
+    /**
      * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionComunidad")
      */
     private $planilla;
@@ -87,5 +94,28 @@ class SituacionComunidad
     public function getPlanilla()
     {
         return $this->planilla;
+    }
+
+    /**
+     * Set respuesta
+     *
+     * @param string $respuesta
+     * @return SituacionComunidad
+     */
+    public function setRespuesta($respuesta)
+    {
+        $this->respuesta = $respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Get respuesta
+     *
+     * @return string 
+     */
+    public function getRespuesta()
+    {
+        return $this->respuesta;
     }
 }

@@ -22,3 +22,8 @@ personas_delete:
     path:     /{id}/delete
     defaults: { _controller: "SICBundle:Persona:delete" }
     methods:  DELETE
+
+agenda_comunitaria:
+    path:     /agenda/comunitaria
+    defaults: { _controller: "SICBundle:Persona:agenda" }
+    methods:  GET

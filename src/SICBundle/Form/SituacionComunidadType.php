@@ -16,6 +16,7 @@ class SituacionComunidadType extends AbstractType
     {
         $builder
             ->add('preguntasSituacionComunidad')
+            ->add('respuesta')
         ;
     }
     

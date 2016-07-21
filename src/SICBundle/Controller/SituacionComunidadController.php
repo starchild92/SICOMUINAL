@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\SituacionComunidad;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\SituacionComunidadType;
 
 /**
@@ -55,6 +56,10 @@ class SituacionComunidadController extends Controller
             $p->setSituacionComunidad($situacionComunidad);
             $p->setTerminada('100');
             $em->persist($p);
+
+            $bitacora = new Bitacora($this->getUser(),'agregó','La Situación de Comunidad a la planilla '.$id_planilla);
+            $em->persist($bitacora);
+
             $em->flush();
 
             $this->get('session')->getFlashBag()
@@ -95,6 +100,9 @@ class SituacionComunidadController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionComunidad);
+
+            $bitacora = new Bitacora($this->getUser(),'modificó','La Situación de Comunidad de la planilla '.$situacionComunidad->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()

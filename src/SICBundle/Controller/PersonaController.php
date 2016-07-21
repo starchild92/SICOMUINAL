@@ -288,4 +288,16 @@ class PersonaController extends Controller
             ->getForm()
         ;
     }
+
+    public function agendaAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $jefes = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
+        $personas = $em->getRepository('SICBundle:Persona')->findAll();
+
+        return $this->render('persona/agenda_comunitaria.html.twig', array(
+            'jefes' => $jefes,
+            'personas' => $personas,
+        ));
+    }
 }
