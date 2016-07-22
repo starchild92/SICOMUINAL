@@ -16,6 +16,7 @@
                 <th>Cédula</th>
                 <th>Profesión</th>
                 <th>Edad</th>
+                <th><i class="fa fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,8 @@
                 <td>{{item.cedula}}</td>
                 <td>{{item.profesion}}</td>
                 <td>{{item.edad}} años</td>
+                <td><a href="{{ path('personas_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i></a></td>
+
             </tr>
             {% endfor %}
             {% for item in jefes %}
@@ -35,6 +38,7 @@
                 <td>{{item.cedula}}</td>
                 <td>{{item.profesion}}</td>
                 <td>{{item.edad}} años</td>
+                <td><a href="{{ path('jefegrupofamiliar_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -66,6 +66,14 @@ sic_comunicado:
     resource: "@SICBundle/Resources/config/routing/comunicado.yml"
     prefix:   /comunicado
 
+sic_comite:
+    resource: "@SICBundle/Resources/config/routing/comite.yml"
+    prefix:   /comites
+
+sic_vocero:
+    resource: "@SICBundle/Resources/config/routing/vocero.yml"
+    prefix:   /voceros
+
 # ----------------------------------------------------------------------------
 
 sic_admin_nacionalidad:

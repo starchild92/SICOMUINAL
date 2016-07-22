@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Comite list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Cantvoceros</th>
+                <th>Voceros</th>
+                <th>Tipounidad</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comite in comites %}
+            <tr>
+                <td><a href="{{ path('comites_show', { 'id': comite.id }) }}">{{ comite.id }}</a></td>
+                <td>{{ comite.nombre }}</td>
+                <td>{{ comite.cantVoceros }}</td>
+                <td>{{ comite.voceros }}</td>
+                <td>{{ comite.tipoUnidad }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('comites_show', { 'id': comite.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('comites_edit', { 'id': comite.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('comites_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
