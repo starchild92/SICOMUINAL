@@ -1,16 +1,49 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Comite creation</h1>
+    <h1>Conformación de los Comités <a href="{{ path('comites_index') }}" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Ver Todas</a></h1>
+    <hr>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('comites_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Crear Comité</button>
+    {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('js/formVoceros.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        var id_a = "comite_tipoUnidad";
+        var id_b = "comite_nombre";
+        var value = $('#'+id_b).val();
+        
+        $('#'+id_a).on('change', function(){
+        switch( $(this).val() ){
+            case 'Unidad Ejecutiva':
+                $('#'+id_b).removeAttr('disabled');
+                $('#'+id_b).parent().removeClass('hidden');
+                $('#'+id_b).val(value);
+            break;
+            case 'Unidad Administrativa y Financiera Comunitaria':
+                $('#'+id_b).attr('disabled', true);
+                $('#'+id_b).val('');
+                $('#'+id_b).parent().addClass('hidden');
+            break;
+            case 'Unidad de Contraloría Social':
+                $('#'+id_b).attr('disabled', true);
+                $('#'+id_b).val('');
+                $('#'+id_b).parent().addClass('hidden');
+            break;
+            case 'Comisión Electoral Permanente':
+                $('#'+id_b).attr('disabled', true);
+                $('#'+id_b).val('');
+                $('#'+id_b).parent().addClass('hidden');
+            break;
+        }
+    })
+        // $('.ui.dropdown').dropdown();
+        // $('.js-datepicker').datepicker({ format: 'yyyy-mm-dd' });
+    })
+</script>
 {% endblock %}

@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 class VoceroType extends AbstractType
 {
     /**
@@ -14,11 +16,18 @@ class VoceroType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $opciones = array(
+            'Principal' => "Principal",
+            'Suplente' => "Suplente");
+
         $builder
-            ->add('tipo')
+            ->add('tipo', ChoiceType::class,array(
+                    'label'   => 'Tipo de Vocero',
+                    'choices' => $opciones,
+                ))
+
             ->add('votosElecto')
             ->add('persona')
-            ->add('comite')
         ;
     }
     

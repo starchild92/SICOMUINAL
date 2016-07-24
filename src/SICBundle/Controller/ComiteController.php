@@ -14,6 +14,40 @@ use SICBundle\Form\ComiteType;
  */
 class ComiteController extends Controller
 {
+    public function ExisteTipoUnidad(Comite $comite)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($comite->getTipoUnidad() == "Unidad Ejecutiva") {
+            if ($comite->getNombre() != "") {
+                $comites = $em->getRepository('SICBundle:Comite')->findBy(array(
+                    'tipoUnidad' => "Unidad Ejecutiva", "nombre" => $comite->getNombre()));
+                if (sizeof($comites) > 0) {
+                    $this->get('session')->getFlashBag()
+                    ->add('error', 'Ya hay una "'.$comite->getTipoUnidad().'" de Nombre: "'.$comite->getNombre().'" en el sistema.');
+                    return true;
+                }
+            }else{
+                $this->get('session')->getFlashBag()
+                    ->add('error', 'Para una nueva "'.$comite->getTipoUnidad().'" debe agregar un nombre.');
+                    return true;
+            }
+        }else{
+            $comites = $em->getRepository('SICBundle:Comite')->findAll();
+            foreach ($comites as $key) {
+                if ($comite->getId() != $key->getId()) {
+                    if ($comite->getTipoUnidad() == $key->getTipoUnidad()) {
+                        $this->get('session')->getFlashBag()
+                        ->add('error', 'Ya hay una "'.$comite->getTipoUnidad().'" de este Tipo conformada.');
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Lists all Comite entities.
      *
@@ -40,11 +74,17 @@ class ComiteController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comite);
-            $em->flush();
+            if (!$this->ExisteTipoUnidad($comite)) {
+                $em = $this->getDoctrine()->getManager();
 
-            return $this->redirectToRoute('comites_show', array('id' => $comite->getId()));
+                $voceros = $comite->getVoceros();
+                $comite->setCantVoceros(sizeof($voceros));
+
+                $em->persist($comite);
+                $em->flush();
+
+                return $this->redirectToRoute('comites_index');
+            }
         }
 
         return $this->render('comite/new.html.twig', array(
@@ -77,12 +117,24 @@ class ComiteController extends Controller
         $editForm = $this->createForm('SICBundle\Form\ComiteType', $comite);
         $editForm->handleRequest($request);
 
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
+            $comite_db = $em->getRepository('SICBundle:Comite')->findById($comite->getId());
+
+            print_r($comite_db[0]->getTipoUnidad()); echo "<br>";
+            echo $request->get('comite')->getTipoUnidad(); echo "<br>";
+            print_r($comite->getTipoUnidad()); echo "<br>";           
+            die();
+
+            $voceros = $comite->getVoceros();
+            $comite->setCantVoceros(sizeof($voceros));
+
             $em->persist($comite);
             $em->flush();
 
-            return $this->redirectToRoute('comites_edit', array('id' => $comite->getId()));
+            return $this->redirectToRoute('comites_index');
         }
 
         return $this->render('comite/edit.html.twig', array(

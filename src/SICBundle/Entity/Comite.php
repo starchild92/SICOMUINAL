@@ -24,16 +24,25 @@ class Comite
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=225, unique=true)
+     * @ORM\Column(name="nombre", type="string", length=225, nullable=true)
      */
     private $nombre;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="cant_voceros", type="integer")
+     * @ORM\Column(name="cant_voceros", type="integer", nullable=true)
      */
     private $cantVoceros;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Vocero", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="comite_voceros",
+     *      joinColumns={@ORM\JoinColumn(name="comite_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="vocero_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $voceros;
 
     /**
      * @var string
@@ -125,5 +134,45 @@ class Comite
     public function getTipoUnidad()
     {
         return $this->tipoUnidad;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->voceros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add voceros
+     *
+     * @param \SICBundle\Entity\Vocero $voceros
+     * @return Comite
+     */
+    public function addVocero(\SICBundle\Entity\Vocero $voceros)
+    {
+        $this->voceros[] = $voceros;
+
+        return $this;
+    }
+
+    /**
+     * Remove voceros
+     *
+     * @param \SICBundle\Entity\Vocero $voceros
+     */
+    public function removeVocero(\SICBundle\Entity\Vocero $voceros)
+    {
+        $this->voceros->removeElement($voceros);
+    }
+
+    /**
+     * Get voceros
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVoceros()
+    {
+        return $this->voceros;
     }
 }

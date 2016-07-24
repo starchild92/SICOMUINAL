@@ -31,22 +31,16 @@ class Vocero
     /**
      * @var int
      *
-     * @ORM\Column(name="votos_electo", type="integer")
+     * @ORM\Column(name="votos_electo", type="integer", nullable=true)
      */
     private $votosElecto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="persona", type="string", length=255)
+     * @ORM\Column(name="persona", type="string", length=255, unique=true)
      */
     private $persona;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Comite", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="vocero", referencedColumnName="id", onDelete="CASCADE")
-     */
-    private $comite;
 
     /**
      * Get id
@@ -125,28 +119,5 @@ class Vocero
     public function getPersona()
     {
         return $this->persona;
-    }
-
-    /**
-     * Set comite
-     *
-     * @param \SICBundle\Entity\Comite $comite
-     * @return Vocero
-     */
-    public function setComite(\SICBundle\Entity\Comite $comite = null)
-    {
-        $this->comite = $comite;
-
-        return $this;
-    }
-
-    /**
-     * Get comite
-     *
-     * @return \SICBundle\Entity\Comite 
-     */
-    public function getComite()
-    {
-        return $this->comite;
     }
 }
