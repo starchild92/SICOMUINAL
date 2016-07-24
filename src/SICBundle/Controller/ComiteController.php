@@ -117,16 +117,15 @@ class ComiteController extends Controller
         $editForm = $this->createForm('SICBundle\Form\ComiteType', $comite);
         $editForm->handleRequest($request);
 
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $comite_db = $em->getRepository('SICBundle:Comite')->findById($comite->getId());
+            // $comite_db = $em->getRepository('SICBundle:Comite')->findById($comite->getId());
 
-            print_r($comite_db[0]->getTipoUnidad()); echo "<br>";
-            echo $request->get('comite')->getTipoUnidad(); echo "<br>";
-            print_r($comite->getTipoUnidad()); echo "<br>";           
-            die();
+            // print_r($comite_db[0]->getTipoUnidad()); echo "<br>";
+            // echo $request->get('comite')->getTipoUnidad(); echo "<br>";
+            // print_r($comite->getTipoUnidad()); echo "<br>";           
+            // die();
 
             $voceros = $comite->getVoceros();
             $comite->setCantVoceros(sizeof($voceros));
