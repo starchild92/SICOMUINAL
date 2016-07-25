@@ -36,11 +36,8 @@ class Comite
     private $cantVoceros;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Vocero", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\JoinTable(name="comite_voceros",
-     *      joinColumns={@ORM\JoinColumn(name="comite_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="vocero_id", referencedColumnName="id", unique=true)}
-     *      )
+     * @ORM\ManyToMany(targetEntity="Vocero", inversedBy="comite", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="comite_voceros")
      */
     private $voceros;
 

@@ -43,6 +43,11 @@ class Vocero
     private $persona;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Comite", mappedBy="voceros")
+     */
+    private $comite;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -119,5 +124,45 @@ class Vocero
     public function getPersona()
     {
         return $this->persona;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comite = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comite
+     *
+     * @param \SICBundle\Entity\Comite $comite
+     * @return Vocero
+     */
+    public function addComite(\SICBundle\Entity\Comite $comite)
+    {
+        $this->comite[] = $comite;
+
+        return $this;
+    }
+
+    /**
+     * Remove comite
+     *
+     * @param \SICBundle\Entity\Comite $comite
+     */
+    public function removeComite(\SICBundle\Entity\Comite $comite)
+    {
+        $this->comite->removeElement($comite);
+    }
+
+    /**
+     * Get comite
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComite()
+    {
+        return $this->comite;
     }
 }

@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\Comite;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\ComiteType;
 
 /**
@@ -14,6 +15,22 @@ use SICBundle\Form\ComiteType;
  */
 class ComiteController extends Controller
 {
+    public function getPersonaByCedula($cedula)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $resultado = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
+        if (sizeof($resultado) > 0) {
+            return $resultado[0];
+        }else{
+            $resultado = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
+            if (sizeof($resultado) > 0) {
+                return $resultado[0];
+            }else{
+                return null;
+            }
+        }
+    }
+
     public function ExisteTipoUnidad(Comite $comite)
     {
         $em = $this->getDoctrine()->getManager();
@@ -30,7 +47,7 @@ class ComiteController extends Controller
             }else{
                 $this->get('session')->getFlashBag()
                     ->add('error', 'Para una nueva "'.$comite->getTipoUnidad().'" debe agregar un nombre.');
-                    return true;
+                return true;
             }
         }else{
             $comites = $em->getRepository('SICBundle:Comite')->findAll();
@@ -46,6 +63,57 @@ class ComiteController extends Controller
         }
 
         return false;
+    }
+
+    public function personaEsVocero($cedula)
+    {
+        $em = $this->getDoctrine()->getManager();
+        //En la entidad el atributo es unique, esto debe ser binario
+        $resultado = $em->getRepository('SICBundle:Vocero')->findBy(array('persona' => $cedula));
+        if (sizeof($resultado) > 0) {
+            $persona = $this->getPersonaByCedula($cedula);
+            $this->get('session')->getFlashBag()
+            ->add('error', 'El usuario "'.$persona->nombreyapellido().'" ya es miembro de un comité.');
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function PermitirNuevoVocero(Comite $comite)
+    {
+        /*
+        Las opciones son
+        Unidad Ejectuiva
+            Por cada unidad existen solo 2 voceros (1 principal / 1 suplente)
+        Administrativa
+            5 voceros (5 principales / 5 suplentes) = 10 voceros
+        Contraloria
+            5 voceros (5 principales / 5 suplentes) = 10 voceros
+        Comision Electoral
+            5 voceros (5 principales / 5 suplentes) = 10 voceros
+        */
+        switch ( $comite->getTipoUnidad() ) {
+            case 'Unidad Ejecutiva':
+                if ( $comite->getCantVoceros() < 2) {
+                    return true;
+                }else{
+                    $this->get('session')->getFlashBag()
+                    ->add('error', $comite->getTipoUnidad().' no admite nuevos voceros.');
+                    return false;
+                }
+                break;
+            
+            default:
+                if ( $comite->getCantVoceros() < 2) {
+                    return true;
+                }else{
+                    $this->get('session')->getFlashBag()
+                    ->add('error', $comite->getTipoUnidad().' no admite nuevos voceros.');
+                    return false;
+                }
+                break;
+        }
     }
 
     /**
@@ -77,13 +145,28 @@ class ComiteController extends Controller
             if (!$this->ExisteTipoUnidad($comite)) {
                 $em = $this->getDoctrine()->getManager();
 
-                $voceros = $comite->getVoceros();
-                $comite->setCantVoceros(sizeof($voceros));
+                if ($this->PermitirNuevoVocero($comite)) {
+                    $voceros = $comite->getVoceros();
+                    foreach ($voceros as $v) {
+                        //Pasa la cedula a la función para verificar si es miembro de un comité
+                        if ($this->personaEsVocero($v->getPersona())) {
+                            return $this->render('comite/new.html.twig', array(
+                                'comite' => $comite,
+                                'form' => $form->createView(),
+                            ));
+                        }
+                    }
+                    $comite->setCantVoceros(sizeof($voceros));
+                    $bitacora = new Bitacora($this->getUser(),'agregó', sizeof($voceros).' miembro(s) a '.$comite->getTipoUnidad());
+                    $em->persist($bitacora);
+                    $em->persist($comite);
+                    $em->flush();
 
-                $em->persist($comite);
-                $em->flush();
+                    $this->get('session')->getFlashBag()
+                    ->add('success', 'Se ha creado el comité de forma exitosa, asignadosé '.sizeof($voceros).' voceros a el.');
 
-                return $this->redirectToRoute('comites_index');
+                    return $this->redirectToRoute('comites_index');
+                }
             }
         }
 
@@ -130,6 +213,8 @@ class ComiteController extends Controller
             $voceros = $comite->getVoceros();
             $comite->setCantVoceros(sizeof($voceros));
 
+            $bitacora = new Bitacora($this->getUser(),'modificó', $comite->getTipoUnidad());
+            $em->persist($bitacora);
             $em->persist($comite);
             $em->flush();
 
@@ -154,6 +239,8 @@ class ComiteController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $bitacora = new Bitacora($this->getUser(),'eliminó', $comite->getTipoUnidad()." y ".$comite->getCantVoceros()." sus voceros.");
+                    $em->persist($bitacora);
             $em->remove($comite);
             $em->flush();
         }

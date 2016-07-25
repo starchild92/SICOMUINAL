@@ -36,7 +36,8 @@ knp_snappy:
 
     pdf:
         enabled:    true
-        binary:     "\"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe\""
+        #binary:     "\"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe\""
+        binary:     %kernel.root_dir%/../vendor/h4cc/wkhtmltopdf-i386/bin/wkhtmltopdf-i386
         options:    []
 
 swiftmailer:
