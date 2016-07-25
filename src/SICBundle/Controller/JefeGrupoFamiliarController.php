@@ -25,6 +25,22 @@ class JefeGrupoFamiliarController extends Controller
         return $this->render('jefegrupofamiliar/index.html.twig', $stats);
     }
 
+    public function getPersonaByCedula($cedula)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $resultado = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
+        if (sizeof($resultado) > 0) {
+            return $resultado[0];
+        }else{
+            $resultado = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
+            if (sizeof($resultado) > 0) {
+                return $resultado[0];
+            }else{
+                return null;
+            }
+        }
+    }
+
     /**
      * Creates a new JefeGrupoFamiliar entity.
      *
@@ -47,13 +63,19 @@ class JefeGrupoFamiliarController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $p->setJefeGrupoFamiliar($jefeGrupoFamiliar);
-            $em->persist($jefeGrupoFamiliar);
-            $em->persist($p);
-            $em->flush();
+        	if ($this->getPersonaByCedula($jefeGrupoFamiliar->getCedula()) == NULL) {
+        		$jefeGrupoFamiliar->setRecibirCorreo(true);
+	            $p->setJefeGrupoFamiliar($jefeGrupoFamiliar);
+	            $em->persist($jefeGrupoFamiliar);
+	            $em->persist($p);
+	            $em->flush();
 
-            // redirigir a (Caracteristicas Grupo Familiar)
-            return $this->redirectToRoute('grupofamiliar_new', array('id_planilla' => $id_planilla, 'id_grupofamiliar' => 0));
+	            // redirigir a (Caracteristicas Grupo Familiar)
+	            return $this->redirectToRoute('grupofamiliar_new', array('id_planilla' => $id_planilla, 'id_grupofamiliar' => 0));
+        	}else{
+        		$this->get('session')->getFlashBag()
+                    ->add('error', 'Ya existe una persona con este número de cédula, verifica sus datos en la Agenda de la Comunidad.');
+        	}
         }
 
         return $this->render('jefegrupofamiliar/new.html.twig', array(

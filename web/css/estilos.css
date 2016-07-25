@@ -141,3 +141,10 @@ hr.little {
     margin-bottom: 5px;
     border: 0;
 }
+
+/* ültima fila de las tablas */
+table[class*="table-button"] > tbody > tr > td:last-child {
+	text-align: center;
+	min-width: 85px;
+	padding: 2px;
+}

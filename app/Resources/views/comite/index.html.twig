@@ -7,7 +7,6 @@
     <table class="table table-bordered table-striped table-hover">
         <thead class="thead-info">
             <tr>
-                <th>Id</th>
                 <th class="col-sm-3">Tipo Unidad</th>
                 <th>Cant Voceros</th>
                 <th>Voceros</th>
@@ -23,8 +22,8 @@
         {% for comite in comites %}
             {% if comite.tipoUnidad != "Unidad Ejecutiva" %}
             <tr>
-                <td><a href="{{ path('comites_show', { 'id': comite.id }) }}">{{ comite.id }}</a></td>
-                <td>{{ comite.tipoUnidad }}</td>
+                {# <td><a href="{{ path('comites_show', { 'id': comite.id }) }}">{{ comite.id }}</a></td> #}
+                <td class="negritas">{{ comite.tipoUnidad }}</td>
                 <td>{{ comite.cantVoceros }}</td>
                 <td>
                     {% for v in comite.voceros %}
@@ -53,7 +52,6 @@
     <table class="table table-bordered table-striped table-hover">
         <thead class="thead-info">
             <tr>
-                <th>Id</th>
                 <th class="col-sm-2">Tipo Unidad</th>
                 <th>Nombre</th>
                 <th>Cant Voceros</th>
@@ -70,8 +68,8 @@
         {% for comite in comites %}
             {% if comite.tipoUnidad == "Unidad Ejecutiva" %}
             <tr>
-                <td><a href="{{ path('comites_show', { 'id': comite.id }) }}">{{ comite.id }}</a></td>
-                <td>{{ comite.tipoUnidad }}</td>
+                {# <td><a href="{{ path('comites_show', { 'id': comite.id }) }}">{{ comite.id }}</a></td> #}
+                <td class="negritas">{{ comite.tipoUnidad }}</td>
                 <td>{{ comite.nombre }}</td>
                 <td>{{ comite.cantVoceros }}</td>
                 <td>
@@ -99,5 +97,5 @@
         </tbody>
     </table>
     <hr>
-    <a href="{{ path('comites_new') }}" class="btn btn-default btn-block">Agregar Nuevo Comité</a>
+    <a href="{{ path('comites_new') }}" class="btn btn-primary btn-block">Agregar Nuevo Comité</a>
 {% endblock %}

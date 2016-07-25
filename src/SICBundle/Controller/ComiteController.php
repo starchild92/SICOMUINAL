@@ -105,7 +105,7 @@ class ComiteController extends Controller
                 break;
             
             default:
-                if ( $comite->getCantVoceros() < 2) {
+                if ( $comite->getCantVoceros() < 10) {
                     return true;
                 }else{
                     $this->get('session')->getFlashBag()
@@ -211,14 +211,18 @@ class ComiteController extends Controller
             // die();
 
             $voceros = $comite->getVoceros();
-            $comite->setCantVoceros(sizeof($voceros));
+            if ($this->PermitirNuevoVocero($comite)) {
+                $comite->setCantVoceros(sizeof($voceros));
 
-            $bitacora = new Bitacora($this->getUser(),'modificó', $comite->getTipoUnidad());
-            $em->persist($bitacora);
-            $em->persist($comite);
-            $em->flush();
+                $bitacora = new Bitacora($this->getUser(),'modificó', $comite->getTipoUnidad());
+                $em->persist($bitacora);
+                $em->persist($comite);
+                $em->flush();
 
-            return $this->redirectToRoute('comites_index');
+                $this->get('session')->getFlashBag()->add('success', 'Se modificó con exito '.$comite->getTipoUnidad());
+
+                return $this->redirectToRoute('comites_index');
+            }
         }
 
         return $this->render('comite/edit.html.twig', array(
@@ -243,6 +247,8 @@ class ComiteController extends Controller
                     $em->persist($bitacora);
             $em->remove($comite);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'Se eliminó con exito '.$comite->getTipoUnidad());
         }
 
         return $this->redirectToRoute('comites_index');

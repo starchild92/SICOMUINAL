@@ -5,6 +5,12 @@
 {% block body %}
     <div class="row">
         <div class="col-sm-12">
+            {% if noticias|length == 0 %}
+                <div class="jumbotron">
+                    <h1>Disculpe!</h1>
+                    <p>Por los momentos no hay noticias disponibles para mostrar.</p>
+                </div>
+            {% endif %}
             {% for noticia in noticias %}
                 <div class="panel panel-primary">
                     <div class="panel-body">

@@ -25,9 +25,9 @@
 			</div>
 			<hr class="little">
 			<button id="modalButt" type="button" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bs-example-modal-sm"> <i class="fa fa-edit"></i> Agregar Observaciones</button>
-			<a class="btn btn-primary btn-block" href="{{ path('planillas_index') }}">Ver Todas</a>
+			<a class="btn btn-primary btn-block" href="{{ path('planillas_index') }}"><i class="fa fa-eye"></i> Ver Todas</a>
 			{% if planilla.terminada != 100 %}
-				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>
+				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}"><i class="fa fa-arrow-right"></i> Continuar Encuesta</a>
 			{% endif %}
 			<hr class="little">
 			{{ form_start(delete_form, {'attr': {'id': 'form_eliminar'}}) }}<button id="eliminarPlanilla" class="btn btn-block btn-danger" type="button"> <i class="fa fa-trash"></i> Eliminar esta Planilla</button>{{ form_end(delete_form) }}
@@ -141,6 +141,9 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<p class="bottom-line negritas text-info">Teléfono(s)</p>
+									{% if planilla.jefeGrupoFamiliar.telefono %}
+										<p>No tiene telefonos asociados.</p>
+									{% endif %}
 									<p>{% for telf in planilla.jefeGrupoFamiliar.telefono %}({{ telf.codigo }}) - {{ telf.numero }}<br>{% endfor %}</p>
 								</div>
 							</div>
@@ -552,7 +555,11 @@
 					</div>
 					<div id="collapse9" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading9">
 						<div class="panel-body">
-							{{ planilla.observaciones }}
+							{% if planilla.observaciones == "" %}
+								<p>No se han agregado observaciones a esta planilla.</p>
+							{% else %}
+								<p>{{ planilla.observaciones }}</p>
+							{% endif %}
 						</div>
 					</div>
 				</div>

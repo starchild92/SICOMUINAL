@@ -2,7 +2,7 @@
 {% block body %}
     <h1 class="text-center">Registros: "Estudio Demográfico y Socioeconomico"</h1>
     <hr>
-    <table id="dataTable" class="table table-bordered table-striped table-hover">
+    <table id="dataTable" class="table table-bordered table-striped table-hover table-button">
         <thead class="thead-info">
             <tr>
                 <th>Encuesta #</th>
@@ -20,7 +20,7 @@
                     <td><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <p class="small marginless">{{ planilla.empadronador.cedula }}</p> </a></td>
                     <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula }}</p> {% endif %}</td>
                     <td>{{ planilla.fechaCron() }}</td>
-                    <td>
+                    <td class="text-center">
                         {% if planilla.terminada != 100 %}
                             <span class="label label-warning">Sin terminar</span>
                         {% else %}
@@ -33,7 +33,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 {% if planilla.terminada != 100 %}
-                                    <li> <a href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}"><i class="fa fa-arrow-left"></i> Continuar Encuesta</a></li>
+                                    <li> <a href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}"><i class="fa fa-arrow-right"></i> Continuar Encuesta</a></li>
                                 {% endif %}
                                     <li> <a href="{{ path('planillas_show', { 'id': planilla.id }) }}"><i class="fa fa-eye"></i> Ver Encuesta</a></li>
                             </ul>
