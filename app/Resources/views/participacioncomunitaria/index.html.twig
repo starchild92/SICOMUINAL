@@ -15,58 +15,64 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4 class="panel-title">Organizaciones</h4></div>
-                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                            <thead>
-                                <tr>
-                                    <th>Organización</th>
-                                    <th>Cant</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in stat_orgs %}<tr>
-                                    <td>{{item.orgs}}</td>
-                                    <td>{{item.cantidad}}</td>
-                                </tr>{% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Organización</th>
+                                        <th>Cant</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_orgs %}<tr>
+                                        <td>{{item.orgs}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4 class="panel-title">¿Participa en alguna Organización?</h4></div>
-                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                            <thead>
-                                <tr>
-                                    <th>Resp</th>
-                                    <th>Cant.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in stat_participacion %}<tr>
-                                    <td>{{item.participacion}}</td>
-                                    <td>{{item.cantidad}}</td>
-                                </tr>{% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Resp</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_participacion %}<tr>
+                                        <td>{{item.participacion}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4 class="panel-title">¿Participa algún mimebro de la familia?</h4></div>
-                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                            <thead>
-                                <tr>
-                                     <th>Resp</th>
-                                    <th>Cant.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in stat_parte_miembros %}<tr>
-                                    <td>{{item.parte_miembros}}</td>
-                                    <td>{{item.cantidad}}</td>
-                                </tr>{% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                         <th>Resp</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_parte_miembros %}<tr>
+                                        <td>{{item.parte_miembros}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,39 +81,43 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4 class="panel-title">Misiones</h4></div>
-                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                            <thead>
-                                <tr>
-                                    <th>Misión</th>
-                                    <th>Cant.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in stat_misiones %}<tr>
-                                    <td>{{item.misiones}}</td>
-                                    <td>{{item.cantidad}}</td>
-                                </tr>{% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Misión</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_misiones %}<tr>
+                                        <td>{{item.misiones}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4 class="panel-title">Area de Trabajo (En la que le gustaría actuar)</h4></div>
-                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                            <thead>
-                                <tr>
-                                    <th>Areá</th>
-                                    <th>Cant.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in stat_areatrabajo %}<tr>
-                                    <td>{{item.areatrabajo}}</td>
-                                    <td>{{item.cantidad}}</td>
-                                </tr>{% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Areá</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_areatrabajo %}<tr>
+                                        <td>{{item.areatrabajo}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

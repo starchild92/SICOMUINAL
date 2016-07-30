@@ -15,58 +15,64 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4 class="panel-title">Padecencias</h4></div>
-                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                            <thead>
-                                <tr>
-                                    <th>Tipo</th>
-                                    <th>Cant.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in stat_padecencias %}<tr>
-                                    <td>{{item.padecencias}}</td>
-                                    <td>{{item.cantidad}}</td>
-                                </tr>{% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_padecencias %}<tr>
+                                        <td>{{item.padecencias}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4 class="panel-title">Ayudas Especiales</h4></div>
-                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                            <thead>
-                                <tr>
-                                    <th>Tipo</th>
-                                    <th>Cant.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in stat_ayuda_especial %}<tr>
-                                    <td>{{item.ayuda_especial}}</td>
-                                    <td>{{item.cantidad}}</td>
-                                </tr>{% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_ayuda_especial %}<tr>
+                                        <td>{{item.ayuda_especial}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4 class="panel-title">Situación de Exclusión</h4></div>
-                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                            <thead>
-                                <tr>
-                                    <th>Tipo</th>
-                                    <th>Cant.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in stat_situacion_exclusion %}<tr>
-                                    <td>{{item.situacion_exclusion}}</td>
-                                    <td>{{item.cantidad}}</td>
-                                </tr>{% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_situacion_exclusion %}<tr>
+                                        <td>{{item.situacion_exclusion}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

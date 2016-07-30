@@ -44,7 +44,7 @@ sic_situacionservicios:
 
 sic_participacioncomunitaria:
     resource: "@SICBundle/Resources/config/routing/participacioncomunitaria.yml"
-    prefix:   /participacioncomunitaria
+    prefix:   /participacion/comunitaria
 
 sic_situacioncomunidad:
     resource: "@SICBundle/Resources/config/routing/situacioncomunidad.yml"

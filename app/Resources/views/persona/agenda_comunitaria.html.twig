@@ -27,7 +27,7 @@
                 <td>{{item.cedula}}</td>
                 <td>{{item.profesion}}</td>
                 <td>{{item.edad}} años</td>
-                <td><a href="{{ path('personas_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i></a></td>
+                <td><a href="{{ path('personas_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></td>
 
             </tr>
             {% endfor %}
@@ -38,7 +38,7 @@
                 <td>{{item.cedula}}</td>
                 <td>{{item.profesion}}</td>
                 <td>{{item.edad}} años</td>
-                <td><a href="{{ path('jefegrupofamiliar_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i></a></td>
+                <td><a href="{{ path('jefegrupofamiliar_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -51,6 +51,8 @@
         $(document).ready(function() {
             dataTable = $('#dataTable').DataTable( {
                     "pageLength": 25,
+                    "bLengthChange": false,
+                    "info": true,
                 });
         });
     </script>
