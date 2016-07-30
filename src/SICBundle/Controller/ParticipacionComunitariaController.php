@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\ParticipacionComunitaria;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\ParticipacionComunitariaType;
 
 /**
@@ -162,8 +163,23 @@ class ParticipacionComunitariaController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $questions = $participacionComunitarium->getPreguntasParticipacionComunitaria();
+            foreach ($questions as $q) {
+                if ($q->getInterrogante() == '') {
+                    $this->get('session')->getFlashBag()
+                    ->add('warning', 'No puede haber una Interrogante en blanco. A continuación eliga la pregunta y coloque su respuesta.');
+                    return $this->render('participacioncomunitaria/edit.html.twig', array(
+                        'participacionComunitarium' => $participacionComunitarium,
+                        'edit_form' => $editForm->createView(),
+                        'delete_form' => $deleteForm->createView(),
+                    ));
+                }
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($participacionComunitarium);
+            $bitacora = new Bitacora($this->getUser(),'modificó','La Participación Comunitaria de la planilla '.$participacionComunitarium->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'Se ha modificado la información de participación comunitaria de forma correcta');

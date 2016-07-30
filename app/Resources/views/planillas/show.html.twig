@@ -25,7 +25,7 @@
 			</div>
 			<hr class="little">
 			<button id="modalButt" type="button" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bs-example-modal-sm"> <i class="fa fa-edit"></i> Agregar Observaciones</button>
-			<a class="btn btn-primary btn-block" href="{{ path('planillas_index') }}"><i class="fa fa-eye"></i> Ver Todas</a>
+			<a class="btn btn-primary btn-block" href="{{ path('planillas_index') }}"><i class="fa fa-eye"></i> Ver Todas las Encuestas</a>
 			{% if planilla.terminada != 100 %}
 				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}"><i class="fa fa-arrow-right"></i> Continuar Encuesta</a>
 			{% endif %}
@@ -509,8 +509,12 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Preguntas Participacion Comunitaria</p>
-									<p>{% for item in planilla.participacionComunitaria.preguntasParticipacionComunitaria %}
-										{{ item.interrogante }} <br> R. {{ item.respuesta }} {% endfor %}</p>
+									{% for item in planilla.participacionComunitaria.preguntasParticipacionComunitaria %}
+										<div class="well well-sm">
+											<p class="negritas">{{ item.interrogante }}</p>
+											r. {{ item.respuesta }}
+										</div>
+									{% endfor %}
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Area de Trabajo</p>
@@ -539,7 +543,7 @@
 									{% for preg in planilla.situacionComunidad.preguntasSituacionComunidad %}
 										<div class="well well-sm">
 											<p class="negritas">{{ preg.pregunta }}</p>
-											<p>r. {{ preg.respuesta }}</p>
+											r. {{ preg.respuesta }}
 										</div>
 									{% endfor %}
 								</div>
