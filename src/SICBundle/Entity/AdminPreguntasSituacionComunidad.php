@@ -22,11 +22,17 @@ class AdminPreguntasSituacionComunidad
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pregunta", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminPreguntasSitCom", cascade={"persist"})
+     * @ORM\JoinColumn(name="pregunta_sit_com", referencedColumnName="id", onDelete="CASCADE")
      */
     private $pregunta;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pregunta", type="text")
+     */
+    private $respuesta;
 
     public function __toString(){ return $this->pregunta; }
 
@@ -41,12 +47,35 @@ class AdminPreguntasSituacionComunidad
     }
 
     /**
-     * Set pregunta
+     * Set respuesta
      *
-     * @param string $pregunta
+     * @param string $respuesta
      * @return AdminPreguntasSituacionComunidad
      */
-    public function setPregunta($pregunta)
+    public function setRespuesta($respuesta)
+    {
+        $this->respuesta = $respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Get respuesta
+     *
+     * @return string 
+     */
+    public function getRespuesta()
+    {
+        return $this->respuesta;
+    }
+
+    /**
+     * Set pregunta
+     *
+     * @param \SICBundle\Entity\AdminPreguntas $pregunta
+     * @return AdminPreguntasSituacionComunidad
+     */
+    public function setPregunta(\SICBundle\Entity\AdminPreguntas $pregunta = null)
     {
         $this->pregunta = $pregunta;
 
@@ -56,7 +85,7 @@ class AdminPreguntasSituacionComunidad
     /**
      * Get pregunta
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminPreguntas 
      */
     public function getPregunta()
     {

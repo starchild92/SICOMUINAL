@@ -208,6 +208,10 @@ sic_adminpreguntassituacioncomunidad:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminpreguntassituacioncomunidad.yml"
     prefix:   /administrar/configurables/tipos/adminpreguntassituacioncomunidad
 
+sic_adminpreguntassitcom:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminpreguntassitcom.yml"
+    prefix:   /administrar/configurables/tipos/preguntassitcom
+
 # --------------------------------------------------------------------
 
 sic_configurables_tipos_organizaciones_comunitarias:

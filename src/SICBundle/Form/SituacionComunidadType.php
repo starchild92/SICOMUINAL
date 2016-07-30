@@ -15,8 +15,17 @@ class SituacionComunidadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('preguntasSituacionComunidad')
-            ->add('respuesta')
+            ->add('preguntasSituacionComunidad','collection',array(
+                    'required' => false,
+                    'type' => new AdminPreguntasSituacionComunidadType(),
+                    'cascade_validation' => true,
+                    'attr' => array('class' => 'preguntas'),
+                    'allow_add'=>'true',
+                    'by_reference'=>'false',
+                    'allow_delete' =>'true',
+                    'data_class' => null,
+                    'label'     => 'Preguntas de Situación Comunidad'
+                ))
         ;
     }
     
