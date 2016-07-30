@@ -34,7 +34,6 @@ class AdminPreguntasSituacionComunidad
      */
     private $respuesta;
 
-    public function __toString(){ return $this->pregunta; }
 
     /**
      * Get id
@@ -72,10 +71,10 @@ class AdminPreguntasSituacionComunidad
     /**
      * Set pregunta
      *
-     * @param \SICBundle\Entity\AdminPreguntas $pregunta
+     * @param \SICBundle\Entity\AdminPreguntasSitCom $pregunta
      * @return AdminPreguntasSituacionComunidad
      */
-    public function setPregunta(\SICBundle\Entity\AdminPreguntas $pregunta = null)
+    public function setPregunta(\SICBundle\Entity\AdminPreguntasSitCom $pregunta = null)
     {
         $this->pregunta = $pregunta;
 
@@ -85,7 +84,7 @@ class AdminPreguntasSituacionComunidad
     /**
      * Get pregunta
      *
-     * @return \SICBundle\Entity\AdminPreguntas 
+     * @return \SICBundle\Entity\AdminPreguntasSitCom 
      */
     public function getPregunta()
     {

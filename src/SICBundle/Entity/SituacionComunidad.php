@@ -22,7 +22,7 @@ class SituacionComunidad
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminPreguntasSituacionComunidad", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="AdminPreguntasSituacionComunidad", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="situCom_pregSituComunidad",
      *      joinColumns={@ORM\JoinColumn(name="situCom_id", referencedColumnName="id", onDelete="cascade")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="pregSituComunidad_id", referencedColumnName="id", onDelete="cascade")}
