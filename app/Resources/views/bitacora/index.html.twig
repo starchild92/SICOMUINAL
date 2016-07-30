@@ -97,7 +97,7 @@
         jQuery(document).ready(function() {
             $('.ui.dropdown').dropdown();
 
-            var calendar = $('input[name="datefilter"]').daterangepicker({
+            $('input[name="datefilter"]').daterangepicker({
                 autoUpdateInput: false,
                 locale: {
                     cancelLabel: 'Limpiar'
@@ -130,9 +130,7 @@
                 });
             });
 
-            $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-            });
+            $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) { $(this).val(''); });
 
             $('#sel1').on('change', function(e){
                 if ($('input[name="datefilter"]').val() != '') {
