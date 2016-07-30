@@ -97,7 +97,7 @@
         jQuery(document).ready(function() {
             $('.ui.dropdown').dropdown();
 
-            $('input[name="datefilter"]').daterangepicker({
+            var calendar = $('input[name="datefilter"]').daterangepicker({
                 autoUpdateInput: false,
                 locale: {
                     cancelLabel: 'Limpiar'
@@ -132,6 +132,25 @@
 
             $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
                 $(this).val('');
+            });
+
+            $('#sel1').on('change', function(e){
+                if ($('input[name="datefilter"]').val() != '') {
+                    $("#cuerposs").fadeTo("slow", 0.15);
+                    $.ajax({
+                        url: $('#accion').val(),
+                        type: "POST",
+                        data: {
+                            fechaInicio: $('input[name="datefilter"]').data('daterangepicker').startDate.format('YYYY-MM-DD'),
+                            fechaFinal: $('input[name="datefilter"]').data('daterangepicker').endDate.format('YYYY-MM-DD'),
+                            criteria: $("#sel1").val(),
+                        },
+                        success: function(data, textStatus, xhr){
+                            $('#cuerposs').replaceWith($(data).find('#cuerposs'));
+                            $('#cuerposs').fadeIn('slow')
+                        },
+                    });
+                }
             });
         });
     </script>
