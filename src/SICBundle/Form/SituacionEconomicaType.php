@@ -33,11 +33,10 @@ class SituacionEconomicaType extends AbstractType
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'placeholder' => 'Selecciona una',
                 'required'  => false,
-                'multiple'  => true,
+                'multiple' => true,
                 'attr'  =>  array(
                     'multiple' => '',
-                    'required'  => false,
-                    'class' => 'ui fluid dropdown')))
+                    'class' => 'fluid multiple search selection')))
 
             ->add('ingresoFamiliar','text',array(
                 'attr'      => array(

@@ -64,25 +64,25 @@ class SituacionServiciosType extends AbstractType
                 'label' => 'Sistema de transporte',
                 'attr'  =>  array(
                     'multiple' => '',
-                    'class' => 'ui dropdown')))
+                    'class' => 'fluid multiple search selection')))
 
             ->add('mecanismoInformacion','entity', array(
                 'class' => 'SICBundle:AdminMecanismoInformacion',
                 'placeholder'   => 'Seleccione todas las que apliquen',
-                'multiple' => true,
                 'label' => 'Mecanismos de Información',
+                'multiple' => true,
                 'attr'  =>  array(
                     'multiple' => '',
-                    'class' => 'ui dropdown')))
+                    'class' => 'fluid multiple search selection')))
 
             ->add('serviciosComunales','entity', array(
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'class' => 'SICBundle:AdminServiciosComunales',
-                'multiple' => true,
                 'label' => 'Servicios Comunales',
+                'multiple' => true,
                 'attr'  =>  array(
                     'multiple' => '',
-                    'class' => 'ui dropdown')))
+                    'class' => 'fluid multiple search selection')))
         ;
     }
     
