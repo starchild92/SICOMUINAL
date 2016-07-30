@@ -98,6 +98,20 @@ class SituacionComunidadController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $questions = $situacionComunidad->getPreguntasSituacionComunidad();
+            foreach ($questions as $q) {
+                if ($q->getPregunta() == '') {
+                    $this->get('session')->getFlashBag()
+                    ->add('warning', 'No puede haber una pregunta en blanco. A continuación eliga la pregunta y coloque su respuesta.');
+                    return $this->render('situacioncomunidad/edit.html.twig', array(
+                        'situacionComunidad' => $situacionComunidad,
+                        'edit_form' => $editForm->createView(),
+                        'delete_form' => $deleteForm->createView(),
+                    ));
+                }
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionComunidad);
 

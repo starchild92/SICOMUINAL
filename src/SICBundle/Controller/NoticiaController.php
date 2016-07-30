@@ -216,8 +216,10 @@ class NoticiaController extends Controller
             $persona = $jfg[0];
             if ($persona->getRecibirCorreo()) {
                 $persona->setRecibirCorreo(false);
+                $bitacora = new Bitacora($this->getUser(),'modificó','cambio el estatus para que '.$correo.' no reciba los correos del sistema.');
             }else{
                 $persona->setRecibirCorreo(true);
+                $bitacora = new Bitacora($this->getUser(),'modificó','cambio el estatus para que '.$correo.' reciba los correos del sistema.');
             }
         }
 
@@ -225,11 +227,14 @@ class NoticiaController extends Controller
             $persona = $personas[0];
             if ($persona->getRecibirCorreo()) {
                 $persona->setRecibirCorreo(false);
+                $bitacora = new Bitacora($this->getUser(),'modificó','cambio el estatus para que '.$correo.' no reciba los correos del sistema.');
             }else{
                 $persona->setRecibirCorreo(true);
+                $bitacora = new Bitacora($this->getUser(),'modificó','cambio el estatus para que '.$correo.' reciba los correos del sistema.');
             }
         }
 
+        $em->persist($bitacora);
         $em->persist($persona);
         $em->flush();
 

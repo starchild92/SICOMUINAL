@@ -163,13 +163,13 @@ class ComunicadoController extends Controller
         $persona = $em->getRepository('SICBundle:Persona')->findBy(array('email' => $correo));
         if (sizeof($persona)>0) {
             $p = $persona[0];
-            $p->setRecibirCorreo('0'); //No recibirá correos
+            $p->setRecibirCorreo(false); //No recibirá correos
             $em->persist($p);
         }else{
             $persona = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('email' => $correo));
             if (sizeof($persona)>0) {
                 $p = $persona[0];
-                $p->setRecibirCorreo('0'); //No recibirá correos
+                $p->setRecibirCorreo(false); //No recibirá correos
                 $em->persist($p);
             }
         }

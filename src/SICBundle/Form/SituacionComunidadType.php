@@ -16,7 +16,7 @@ class SituacionComunidadType extends AbstractType
     {
         $builder
             ->add('preguntasSituacionComunidad','collection',array(
-                    'required' => false,
+                    'required' => true,
                     'type' => new AdminPreguntasSituacionComunidadType(),
                     'cascade_validation' => true,
                     'attr' => array('class' => 'preguntas'),

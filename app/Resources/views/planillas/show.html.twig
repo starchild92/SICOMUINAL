@@ -536,10 +536,11 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-sm-12">
-									<p class="bottom-line negritas text-info"></p>
 									{% for preg in planilla.situacionComunidad.preguntasSituacionComunidad %}
-										<p>Preg. {{ preg.pregunta }}</p>
-										<p>Resp. {{ preg.respuesta }}</p>
+										<div class="well well-sm">
+											<p class="negritas">{{ preg.pregunta }}</p>
+											<p>r. {{ preg.respuesta }}</p>
+										</div>
 									{% endfor %}
 								</div>
 							</div>
