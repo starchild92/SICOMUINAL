@@ -204,6 +204,10 @@ sic_configurables_tipos_servicios_comunales:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminservicioscomunales.yml"
     prefix:   /administrar/configurables/tipos/servicios_comunales
 
+sic_adminpreguntassituacioncomunidad:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminpreguntassituacioncomunidad.yml"
+    prefix:   /administrar/configurables/tipos/adminpreguntassituacioncomunidad
+
 # --------------------------------------------------------------------
 
 sic_configurables_tipos_organizaciones_comunitarias:

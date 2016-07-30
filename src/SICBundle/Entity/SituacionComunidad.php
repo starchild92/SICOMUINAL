@@ -22,9 +22,8 @@ class SituacionComunidad
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="preguntasSituacionComunidad", type="text")
+     * @ORM\ManyToOne(targetEntity="AdminPreguntasSituacionComunidad", cascade={"persist"})
+     * @ORM\JoinColumn(name="pregunta", referencedColumnName="id", onDelete="CASCADE")
      */
     private $preguntasSituacionComunidad;
 
@@ -51,12 +50,35 @@ class SituacionComunidad
     }
 
     /**
-     * Set preguntasSituacionComunidad
+     * Set respuesta
      *
-     * @param string $preguntasSituacionComunidad
+     * @param string $respuesta
      * @return SituacionComunidad
      */
-    public function setPreguntasSituacionComunidad($preguntasSituacionComunidad)
+    public function setRespuesta($respuesta)
+    {
+        $this->respuesta = $respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Get respuesta
+     *
+     * @return string 
+     */
+    public function getRespuesta()
+    {
+        return $this->respuesta;
+    }
+
+    /**
+     * Set preguntasSituacionComunidad
+     *
+     * @param \SICBundle\Entity\AdminPreguntasSituacionComunidad $preguntasSituacionComunidad
+     * @return SituacionComunidad
+     */
+    public function setPreguntasSituacionComunidad(\SICBundle\Entity\AdminPreguntasSituacionComunidad $preguntasSituacionComunidad = null)
     {
         $this->preguntasSituacionComunidad = $preguntasSituacionComunidad;
 
@@ -66,7 +88,7 @@ class SituacionComunidad
     /**
      * Get preguntasSituacionComunidad
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminPreguntasSituacionComunidad 
      */
     public function getPreguntasSituacionComunidad()
     {
@@ -94,28 +116,5 @@ class SituacionComunidad
     public function getPlanilla()
     {
         return $this->planilla;
-    }
-
-    /**
-     * Set respuesta
-     *
-     * @param string $respuesta
-     * @return SituacionComunidad
-     */
-    public function setRespuesta($respuesta)
-    {
-        $this->respuesta = $respuesta;
-
-        return $this;
-    }
-
-    /**
-     * Get respuesta
-     *
-     * @return string 
-     */
-    public function getRespuesta()
-    {
-        return $this->respuesta;
     }
 }

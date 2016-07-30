@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Preguntas Situación Comunidad</div>
+        <table class="table-striped table table-bordered">
+            <thead>
+                <tr>
+                    <th>Pregunta</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminPreguntasSituacionComunidad in adminPreguntasSituacionComunidads %}
+                <tr>
+                    <td>{{ adminPreguntasSituacionComunidad.pregunta }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('adminpreguntassituacioncomunidad_edit', { 'id': adminPreguntasSituacionComunidad.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-primary" href="{{ path('adminpreguntassituacioncomunidad_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nueva Pregunta Situación Comunidad</a>
+{% endblock %}
