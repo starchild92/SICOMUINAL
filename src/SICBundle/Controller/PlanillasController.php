@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 use SICBundle\Entity\Planillas;
 use SICBundle\Entity\AdminVentaVivienda;
+use SICBundle\Entity\AdminTipoHabitacionesVivienda;
+use SICBundle\Entity\AdminTipoMascotas;
+use SICBundle\Entity\AdminTipoPlagas;
+use SICBundle\Entity\AdminTipoEnseres;
 use SICBundle\Entity\AdminProfesion;
 use SICBundle\Entity\Bitacora;
 use SICBundle\Form\PlanillasType;
@@ -262,6 +266,66 @@ class PlanillasController extends Controller
                 'codigo' => '500',
                 'nombre' => $form['nombre'],
                 'respuesta' => 'Se ha añadido "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_vivienda_habitaciones") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoHabitacionesVivienda')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoHabitacionesVivienda();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo tipo de habitación de vivienda, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_vivienda_enseres") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoEnseres')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoEnseres();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo enser, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_vivienda_presenciaInsectos") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoPlagas')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoPlagas();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un tipo de plaga nueva, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_vivienda_mascota") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoMascotas')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoMascotas();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un tipo de mascota nueva, llamado "'.$form['nombre'].'" a la base de datos',
                 'id'        => $nuevo->getId(),
                 ]));
             }
