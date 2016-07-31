@@ -4,8 +4,10 @@ namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 use SICBundle\Entity\SituacionEconomica;
+use SICBundle\Entity\AdminVentaVivienda;
 use SICBundle\Form\SituacionEconomicaType;
 
 /**
@@ -14,15 +16,12 @@ use SICBundle\Form\SituacionEconomicaType;
  */
 class SituacionEconomicaController extends Controller
 {
-    /**
-     * Lists all SituacionEconomica entities.
-     *
-     */
-    public function indexAction()
+    private function obtenerStats()
     {
         $em = $this->getDoctrine()->getManager();
 
         $situacionEconomicas = $em->getRepository('SICBundle:SituacionEconomica')->findAll();
+        $total = sizeof($situacionEconomicas);
 
         $ubic_trabajo = $em->getRepository('SICBundle:AdminUbicacionTrabajo')->findAll();
         $stat_ubic_trabajo = array();
@@ -73,13 +72,23 @@ class SituacionEconomicaController extends Controller
             array('nombre' => 'Sin Vehículo',
                 'cantidad' => $no));
 
-        return $this->render('situacioneconomica/index.html.twig', array(
-            // 'situacionEconomicas' => $situacionEconomicas,
+        return array(
             'stat_ubic_trabajo'  => $stat_ubic_trabajo,
             'stat_venta_vivienda'  => $stat_venta_vivienda,
             'stat_tipo_ingreso'  => $stat_tipo_ingreso,
             'stat_vehiculos'  => $stat_vehiculos,
-        ));
+            'total' => $total,
+        );
+    }
+    
+    /**
+     * Lists all SituacionEconomica entities.
+     *
+     */
+    public function indexAction()
+    {
+        $stats = $this->obtenerStats();
+        return $this->render('situacioneconomica/index.html.twig', $stats);
     }
 
     /**

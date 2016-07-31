@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('datatables/datatables.min.css') }}"/>
+{% endblock %}
+{% block body %}
+    <h2>Agenda de la Comunidad <small> conozca a los miembros de sus comunidad.</small></h2>
+    <hr>
+    {# {{ dump(personas) }}
+    {{ dump(jefes) }} #}
+
+    <table id="dataTable" class="table table-striped table-hover table-condensed">
+        <thead class="thead-info">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cédula</th>
+                <th>Profesión</th>
+                <th>Edad</th>
+                <th><i class="fa fa-cogs"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in personas %}
+            <tr>
+                <td>{{item.nombre}}</td>
+                <td>{{item.apellido}}</td>
+                <td>{{item.cedula}}</td>
+                <td>{{item.profesion}}</td>
+                <td>{{item.edad}} años</td>
+                <td><a href="{{ path('personas_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></td>
+
+            </tr>
+            {% endfor %}
+            {% for item in jefes %}
+            <tr>
+                <td>{{item.nombres}} <span class="label label-default">JGF</span></td>
+                <td>{{item.apellidos}}</td>
+                <td>{{item.cedula}}</td>
+                <td>{{item.profesion}}</td>
+                <td>{{item.edad}} años</td>
+                <td><a href="{{ path('jefegrupofamiliar_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            dataTable = $('#dataTable').DataTable( {
+                    "pageLength": 25,
+                    "bLengthChange": false,
+                    "info": true,
+                });
+        });
+    </script>
+{% endblock %}

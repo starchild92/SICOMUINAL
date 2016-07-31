@@ -9,7 +9,7 @@ sic_homepage_login:
     methods:  GET
 
 sic_administacion_entidades:
-    path:     /parametros/entidades
+    path:     /administrar/datos/cc
     defaults: { _controller: "SICBundle:Inicio:administrarEntidades"}
     methods:  GET
 

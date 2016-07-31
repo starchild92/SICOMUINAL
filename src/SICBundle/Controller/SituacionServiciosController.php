@@ -14,15 +14,12 @@ use SICBundle\Form\SituacionServiciosType;
  */
 class SituacionServiciosController extends Controller
 {
-    /**
-     * Lists all SituacionServicios entities.
-     *
-     */
-    public function indexAction()
-    {
+    private function obtenerStats(){
         $em = $this->getDoctrine()->getManager();
 
         $situacionServicios = $em->getRepository('SICBundle:SituacionServicios')->findAll();
+        
+        $total = sizeof($situacionServicios);
 
         $aguasb = $em->getRepository('SICBundle:AdminAguasBlancas')->findAll();
         $stat_aguasb = array();
@@ -141,7 +138,7 @@ class SituacionServiciosController extends Controller
             );
         }
 
-        return $this->render('situacionservicios/index.html.twig', array(
+        return array(
             'situacionServicios' => $situacionServicios,
             'stat_serviciosComunales' => $stat_serviciosComunales,
             'stat_mecanismoInformacion' => $stat_mecanismoInformacion,
@@ -152,7 +149,18 @@ class SituacionServiciosController extends Controller
             'stat_gas' => $stat_gas,
             'stat_aguasservidas' => $stat_aguasservidas,
             'stat_aguasb' => $stat_aguasb,
-        ));
+            'total' => $total,
+        );
+    }
+
+    /**
+     * Lists all SituacionServicios entities.
+     *
+     */
+    public function indexAction()
+    {
+        $stats = $this->obtenerStats();
+        return $this->render('situacionservicios/index.html.twig', $stats);
     }
 
     /**

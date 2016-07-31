@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\SituacionComunidad;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\SituacionComunidadType;
 
 /**
@@ -55,6 +56,10 @@ class SituacionComunidadController extends Controller
             $p->setSituacionComunidad($situacionComunidad);
             $p->setTerminada('100');
             $em->persist($p);
+
+            $bitacora = new Bitacora($this->getUser(),'agregó','La Situación de Comunidad a la planilla '.$id_planilla);
+            $em->persist($bitacora);
+
             $em->flush();
 
             $this->get('session')->getFlashBag()
@@ -93,8 +98,25 @@ class SituacionComunidadController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $questions = $situacionComunidad->getPreguntasSituacionComunidad();
+            foreach ($questions as $q) {
+                if ($q->getPregunta() == '') {
+                    $this->get('session')->getFlashBag()
+                    ->add('warning', 'No puede haber una pregunta en blanco. A continuación eliga la pregunta y coloque su respuesta.');
+                    return $this->render('situacioncomunidad/edit.html.twig', array(
+                        'situacionComunidad' => $situacionComunidad,
+                        'edit_form' => $editForm->createView(),
+                        'delete_form' => $deleteForm->createView(),
+                    ));
+                }
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionComunidad);
+
+            $bitacora = new Bitacora($this->getUser(),'modificó','La Situación de Comunidad de la planilla '.$situacionComunidad->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()

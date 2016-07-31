@@ -28,10 +28,10 @@ class SituacionEconomica
     private $dondeTrabaja;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminVentaVivienda", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="AdminVentaVivienda")
      * @ORM\JoinTable(name="sitVivi_ActComercial",
-     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="ActComercial", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ActComercial", referencedColumnName="id", onDelete="cascade")}
      *      )
      */
     private $actividadComercialenVivienda;

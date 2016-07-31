@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\Comunicado;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\ComunicadoType;
 
 /**
@@ -68,6 +69,8 @@ class ComunicadoController extends Controller
             }
 
             $em->persist($comunicado);
+            $bitacora = new Bitacora($this->getUser(),'envió','un comunicado másivo a '.sizeof($destinatarios).' personas.');
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'Se ha enviado el mensaje a los distintos usuarios.');
@@ -160,13 +163,13 @@ class ComunicadoController extends Controller
         $persona = $em->getRepository('SICBundle:Persona')->findBy(array('email' => $correo));
         if (sizeof($persona)>0) {
             $p = $persona[0];
-            $p->setRecibirCorreo('1'); //No recibirá correos
+            $p->setRecibirCorreo(false); //No recibirá correos
             $em->persist($p);
         }else{
             $persona = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('email' => $correo));
             if (sizeof($persona)>0) {
                 $p = $persona[0];
-                $p->setRecibirCorreo('1'); //No recibirá correos
+                $p->setRecibirCorreo(false); //No recibirá correos
                 $em->persist($p);
             }
         }

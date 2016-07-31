@@ -135,8 +135,8 @@ class JefeGrupoFamiliar
     /**
      * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist"})
      * @ORM\JoinTable(name="jgf_telefonos",
-     *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}
+     *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", onDelete="cascade", unique=true)}
      *      )
      */
     private $telefono;
@@ -179,6 +179,11 @@ class JefeGrupoFamiliar
     public function getId()
     {
         return $this->id;
+    }
+
+    public function nombreyapellido()
+    {
+        return $this->nombres.' '.$this->apellidos;
     }
 
     /**
@@ -734,5 +739,14 @@ class JefeGrupoFamiliar
     public function getRecibirCorreo()
     {
         return $this->recibir_correo;
+    }
+
+    public function recibir_correo()
+    {
+        if ($this->recibir_correo) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

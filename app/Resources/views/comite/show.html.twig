@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Comite</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comite.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ comite.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Cantvoceros</th>
+                <td>{{ comite.cantVoceros }}</td>
+            </tr>
+            <tr>
+                <th>Tipounidad</th>
+                <td>{{ comite.tipoUnidad }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('comites_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('comites_edit', { 'id': comite.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

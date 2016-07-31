@@ -22,9 +22,11 @@ class SituacionComunidad
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="preguntasSituacionComunidad", type="text")
+     * @ORM\ManyToMany(targetEntity="AdminPreguntasSituacionComunidad", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="situCom_pregSituComunidad",
+     *      joinColumns={@ORM\JoinColumn(name="situCom_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="pregSituComunidad_id", referencedColumnName="id", onDelete="cascade")}
+     *      )
      */
     private $preguntasSituacionComunidad;
 
@@ -32,6 +34,13 @@ class SituacionComunidad
      * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionComunidad")
      */
     private $planilla;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->preguntasSituacionComunidad = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -44,22 +53,32 @@ class SituacionComunidad
     }
 
     /**
-     * Set preguntasSituacionComunidad
+     * Add preguntasSituacionComunidad
      *
-     * @param string $preguntasSituacionComunidad
+     * @param \SICBundle\Entity\AdminPreguntasSituacionComunidad $preguntasSituacionComunidad
      * @return SituacionComunidad
      */
-    public function setPreguntasSituacionComunidad($preguntasSituacionComunidad)
+    public function addPreguntasSituacionComunidad(\SICBundle\Entity\AdminPreguntasSituacionComunidad $preguntasSituacionComunidad)
     {
-        $this->preguntasSituacionComunidad = $preguntasSituacionComunidad;
+        $this->preguntasSituacionComunidad[] = $preguntasSituacionComunidad;
 
         return $this;
     }
 
     /**
+     * Remove preguntasSituacionComunidad
+     *
+     * @param \SICBundle\Entity\AdminPreguntasSituacionComunidad $preguntasSituacionComunidad
+     */
+    public function removePreguntasSituacionComunidad(\SICBundle\Entity\AdminPreguntasSituacionComunidad $preguntasSituacionComunidad)
+    {
+        $this->preguntasSituacionComunidad->removeElement($preguntasSituacionComunidad);
+    }
+
+    /**
      * Get preguntasSituacionComunidad
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getPreguntasSituacionComunidad()
     {

@@ -58,7 +58,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Elija uno'))
 
             ->add('incapacitado', ChoiceType::class, array(
-                'label' => '¿Es Incapacitado?',
+                'label' => '¿Es Discapacitado?',
                 'choices'  => array(
                     'Seleccione' => '',
                     'Si' => 'si',
@@ -68,13 +68,14 @@ class JefeGrupoFamiliarType extends AbstractType
                 'choices_as_values' => true,
             ))
             ->add('incapacitadoTipo', EntityType::class, array(
-                'label' => '¿Cúal es la incapacidad que padece?',
+                'label' => '¿Cúal es la discapacidad que padece?',
                 'class' => 'SICBundle:AdminIncapacidades',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'incapacidad',
                 'attr'      => array(
-                    // 'class' => 'ui dropdown',
-                    'required'  => false)
+                    'required'  => false,
+                    // 'class' => 'ui fluid search dropdown'
+                    )
             ))
             ->add('pensionado', ChoiceType::class, array(
                 'label' => '¿Es pensionado?',
@@ -108,6 +109,8 @@ class JefeGrupoFamiliarType extends AbstractType
                 'class' => 'SICBundle:AdminNivelInstruccion',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
+                'attr' => array(
+                    'class' => 'ui dropdown')
             ))
             ->add('profesion', EntityType::class, array(
                 'class' => 'SICBundle:AdminProfesion',
@@ -115,8 +118,8 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'attr'      => array(
-                    'class' => 'search',
-                    'required'  => false)
+                    'required'  => false,
+                    'class' => 'ui fluid search dropdown')
             ))
             ->add('trabajaActualmente', EntityType::class, array(
                 'class' => 'SICBundle:AdminRespCerrada',

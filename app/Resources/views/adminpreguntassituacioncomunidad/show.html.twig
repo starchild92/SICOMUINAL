@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminPreguntasSituacionComunidad</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adminPreguntasSituacionComunidad.id }}</td>
+            </tr>
+            <tr>
+                <th>Pregunta</th>
+                <td>{{ adminPreguntasSituacionComunidad.pregunta }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('adminpreguntassituacioncomunidad_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('adminpreguntassituacioncomunidad_edit', { 'id': adminPreguntasSituacionComunidad.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

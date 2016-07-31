@@ -56,7 +56,7 @@ class SituacionViviendaType extends AbstractType
                 'label'     => '¿Cuales tipo de Habitaciones componen su hogar?',
                 'attr'  =>  array(
                     'multiple' => '',
-                    'class' => 'ui dropdown')))
+                    'class' => 'fluid multiple search selection')))
 
             ->add('paredes','entity', array(
                 'class' => 'SICBundle:AdminTipoParedes',
@@ -75,7 +75,7 @@ class SituacionViviendaType extends AbstractType
                 'multiple' => true,
                 'attr'  =>  array(
                     'multiple' => '',
-                    'class' => 'ui dropdown')))
+                    'class' => 'fluid multiple search selection')))
 
             ->add('salubridad','entity', array(
                 'class' => 'SICBundle:AdminSalubridadVivienda',
@@ -89,7 +89,7 @@ class SituacionViviendaType extends AbstractType
                 'required'  => false,
                 'attr'  =>  array(
                     'multiple' => '',
-                    'class' => 'ui dropdown')))
+                    'class' => 'fluid multiple search selection')))
 
             ->add('mascota','entity', array(
                 'class' => 'SICBundle:AdminTipoMascotas',
@@ -97,7 +97,7 @@ class SituacionViviendaType extends AbstractType
                 'required'  => false,
                 'attr'  =>  array(
                     'multiple' => '',
-                    'class' => 'ui dropdown')))
+                    'class' => 'fluid multiple search selection')))
         ;
     }
     

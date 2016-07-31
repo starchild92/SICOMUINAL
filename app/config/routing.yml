@@ -1,3 +1,7 @@
+sic_admin_preguntas_sit_com:
+    resource: "@SICBundle/Controller/AdminPreguntasSitComController.php"
+    type:     annotation
+
 sic:
     resource: "@SICBundle/Resources/config/routing.yml"
 

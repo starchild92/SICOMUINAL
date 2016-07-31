@@ -4,102 +4,122 @@
     <h2>Estadistícas Participación Comunitaria</h2>
     <hr>
     <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Organizaciones</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                    <thead>
-                        <tr>
-                            <th>Organización</th>
-                            <th>Cant</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in stat_orgs %}<tr>
-                            <td>{{item.orgs}}</td>
-                            <td>{{item.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
+        <div class="col-sm-3">
+            <div class="well well-sm">
+                <p>Esta información es referente a un total de {{ total }} familias.</p>
             </div>
+            <a class="btn btn-primary btn-block pull-rigth" href="#"><i class="fa fa-file-o"></i> Obtener como PDF</a>
         </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">¿Participa en alguna Organización?</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                    <thead>
-                        <tr>
-                            <th>Resp</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in stat_participacion %}<tr>
-                            <td>{{item.participacion}}</td>
-                            <td>{{item.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4 class="panel-title">Organizaciones</h4></div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Organización</th>
+                                        <th>Cant</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_orgs %}<tr>
+                                        <td>{{item.orgs}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4 class="panel-title">¿Participa en alguna Organización?</h4></div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Resp</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_participacion %}<tr>
+                                        <td>{{item.participacion}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4 class="panel-title">¿Participa algún mimebro de la familia?</h4></div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                         <th>Resp</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_parte_miembros %}<tr>
+                                        <td>{{item.parte_miembros}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">¿Participa algún mimebro de la familia?</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                    <thead>
-                        <tr>
-                             <th>Resp</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in stat_parte_miembros %}<tr>
-                            <td>{{item.parte_miembros}}</td>
-                            <td>{{item.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Misiones</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                    <thead>
-                        <tr>
-                            <th>Misión</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in stat_misiones %}<tr>
-                            <td>{{item.misiones}}</td>
-                            <td>{{item.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Area de Trabajo (En la que le gustaría actuar)</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
-                    <thead>
-                        <tr>
-                            <th>Areá</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in stat_areatrabajo %}<tr>
-                            <td>{{item.areatrabajo}}</td>
-                            <td>{{item.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4 class="panel-title">Misiones</h4></div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Misión</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_misiones %}<tr>
+                                        <td>{{item.misiones}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4 class="panel-title">Area de Trabajo (En la que le gustaría actuar)</h4></div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Areá</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_areatrabajo %}<tr>
+                                        <td>{{item.areatrabajo}}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -67,8 +67,8 @@ class Usuario extends BaseUser
     /**
      * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinTable(name="usuario_telefonos",
-     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", unique=true)}
+     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", onDelete="cascade", unique=true)}
      *      )
      */
     private $telefono;

@@ -137,7 +137,7 @@ class Persona
 
     public function __construct()
     {
-        $this->recibir_correo = false;
+        $this->recibir_correo = true;
     }
 
     /**
@@ -148,6 +148,11 @@ class Persona
     public function getId()
     {
         return $this->id;
+    }
+
+    public function nombreyapellido()
+    {
+        return $this->nombre.' '.$this->apellido;
     }
 
     public function fechaNacimiento()
@@ -548,5 +553,14 @@ class Persona
     public function getEmbarazoTemprano()
     {
         return $this->embarazoTemprano;
+    }
+
+    public function recibir_correo()
+    {
+        if ($this->recibir_correo) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

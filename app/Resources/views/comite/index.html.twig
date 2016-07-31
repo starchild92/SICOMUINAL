@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2 class="text-center">Comités</h2>
+    <hr>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-info">
+            <tr>
+                <th class="col-sm-3">Tipo Unidad</th>
+                <th>Cant Voceros</th>
+                <th>Voceros</th>
+                <th><i class="fa fa-cogs"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if comites|length == 0 %}
+            <tr>
+                <td class="text-center text-info negritas" colspan="5">No hay comités creados.</td>
+            </tr>
+        {% endif %}
+        {% for comite in comites %}
+            {% if comite.tipoUnidad != "Unidad Ejecutiva" %}
+            <tr>
+                {# <td><a href="{{ path('comites_show', { 'id': comite.id }) }}">{{ comite.id }}</a></td> #}
+                <td class="negritas">{{ comite.tipoUnidad }}</td>
+                <td>{{ comite.cantVoceros }}</td>
+                <td>
+                    {% for v in comite.voceros %}
+                        ({{ v.tipo }}) - {{ v.persona }} <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="{{ path('comites_show', { 'id': comite.id }) }}"><i class="fa fa-eye"></i> Ver</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('comites_edit', { 'id': comite.id }) }}"><i class="fa fa-edit"></i> Modificar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-info">
+            <tr>
+                <th class="col-sm-2">Tipo Unidad</th>
+                <th>Nombre</th>
+                <th>Cant Voceros</th>
+                <th>Voceros</th>
+                <th><i class="fa fa-cogs"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if comites|length == 0 %}
+        <tr>
+            <td class="text-center text-info negritas" colspan="6">No hay comités creados.</td>
+        </tr>
+        {% endif %}
+        {% for comite in comites %}
+            {% if comite.tipoUnidad == "Unidad Ejecutiva" %}
+            <tr>
+                {# <td><a href="{{ path('comites_show', { 'id': comite.id }) }}">{{ comite.id }}</a></td> #}
+                <td class="negritas">{{ comite.tipoUnidad }}</td>
+                <td>{{ comite.nombre }}</td>
+                <td>{{ comite.cantVoceros }}</td>
+                <td>
+                    {% for v in comite.voceros %}
+                        ({{ v.tipo }}) - {{ v.persona }} <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="{{ path('comites_show', { 'id': comite.id }) }}"><i class="fa fa-eye"></i> Ver</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('comites_edit', { 'id': comite.id }) }}"><i class="fa fa-edit"></i> Modificar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <a href="{{ path('comites_new') }}" class="btn btn-primary btn-block">Agregar Nuevo Comité</a>
+{% endblock %}

@@ -48,8 +48,8 @@ class SituacionVivienda
     /**
      * @ORM\ManyToMany(targetEntity="AdminTipoHabitacionesVivienda")
      * @ORM\JoinTable(name="sitVivi_tHV",
-     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tHabViv_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tHabViv_id", referencedColumnName="id", onDelete="cascade")}
      *      )
      */
     private $habitaciones;

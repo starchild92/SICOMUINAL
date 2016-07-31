@@ -35,7 +35,6 @@ class AdminPreguntasParticipacionComunitaria
 
     public function __toString(){ return $this->interrogante; }
 
-
     /**
      * Get id
      *

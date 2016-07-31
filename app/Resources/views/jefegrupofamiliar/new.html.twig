@@ -70,17 +70,13 @@
         </div>
         <input class="btn btn-primary btn-block" type="submit" value="Registrar Datos del Jefe Grupo Familiar y Continuar" />
     {{ form_end(form) }}
-
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('js/formTelefono.js') }}"></script>
-    <script src="{{ asset('js/funcionesExtras.js') }}"></script>
     <script>
         $(document).ready(function() {
             $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
-            $('.ui.dropdown').dropdown();
             $('.js-datepicker')
                 .datepicker({ format: 'yyyy-mm-dd' })
                     .on('hide', function() {
@@ -94,6 +90,49 @@
                     });
             AexcluyeB('jefe_grupo_familiar_incapacitado', 'jefe_grupo_familiar_incapacitadoTipo');
             AexcluyeB('jefe_grupo_familiar_pensionado', 'jefe_grupo_familiar_pensionadoInstitucion');
+            
+            $('.ui.dropdown').dropdown();
+            $('.ui.fluid.search.dropdown').dropdown({
+                allowAdditions: true,
+                onChange: function(addedValue, addedText, $addedChoice) {
+                    console.log('Feets');
+                    $('[name=jefe_grupo_familiar]').submit(function(e){ e.preventDefault(); }); //nombre del form
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : 'jgf_profesion', //caso del switch en el controlador
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#jefe_grupo_familiar_profesion').children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $.alert({
+                                theme: 'black',
+                                title: 'Error!',
+                                content: "No se ha podido agregar el valor al sistema, debido a un error desconocido. Intente otra vez.",
+                            });
+                        },
+                        complete: function(){
+                            $('[name=jefe_grupo_familiar]').unbind('submit'); //nombre del form
+                        },
+                    });
+                },
+            });
         })
     </script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/formTelefono.js') }}"></script>
+    <script src="{{ asset('js/funcionesExtras.js') }}"></script>
 {% endblock %}

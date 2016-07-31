@@ -1,0 +1,24 @@
+adminpreguntassituacioncomunidad_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminPreguntasSituacionComunidad:index" }
+    methods:  GET
+
+adminpreguntassituacioncomunidad_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminPreguntasSituacionComunidad:show" }
+    methods:  GET
+
+adminpreguntassituacioncomunidad_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminPreguntasSituacionComunidad:new" }
+    methods:  [GET, POST]
+
+adminpreguntassituacioncomunidad_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminPreguntasSituacionComunidad:edit" }
+    methods:  [GET, POST]
+
+adminpreguntassituacioncomunidad_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminPreguntasSituacionComunidad:delete" }
+    methods:  DELETE

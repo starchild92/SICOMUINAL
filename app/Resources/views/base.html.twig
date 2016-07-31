@@ -16,6 +16,7 @@
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/ie10-viewport-bug-workaround.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-confirm.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('datatables/datatables.min.css') }}"/>
 
 		{# Clases de Semantic UI #}
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/semantic.min.css') }}">
@@ -81,11 +82,13 @@
 					<a class="navbar-brand" href="{{ path('sic_homepage') }}"><img src="{{ asset('images/logo.png') }}" alt="logo" class="img-responsive"></a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
+				
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administar <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="{{ path('sic_administacion_entidades') }}"><i class="fa fa-users"></i> Datos Consejo Comunal</a></li>
+							<li><a href="{{ path('comites_index') }}"><i class="fa fa-list-alt"></i> Comités</a></li>
 							<li><a href="{{ path('sic_administacion_parametros_planilla') }}"><i class="fa fa-cogs"></i> Parámetros en Encuestas</a></li>
 							<li><a href="{{ path('noticia_index') }}"><i class="fa fa-newspaper-o"></i> Noticias</a></li>
 							<li><a href="{{ path('noticia_correo') }}"><i class="fa fa-envelope"></i> Correo Comunitario</a></li>
@@ -106,15 +109,15 @@
 						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estadísticas <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#"><i class="fa fa-bar-chart"></i> Generales</a></li>
-							<li><a href="{{ path('jefegrupofamiliar_index') }}"><i class="fa fa-caret-right"></i> Jefe Grupo Familiar</a></li>
+							<li><a href="{{ path('jefegrupofamiliar_index') }}"><i class="fa fa-chevron-right"></i> Jefe Grupo Familiar</a></li>
 							{# <li><a href="{{ path('grupofamiliar_index') }}"><i class="fa fa-bar-chart"></i> Grupo Familiar</a></li> #}
-							<li><a href="{{ path('personas_index') }}"><i class="fa fa-caret-right"></i> Miembros Grupo Familiar</a></li>
-							<li><a href="{{ path('situacioneconomica_index') }}"><i class="fa fa-caret-right"></i> Situación Ecónomica</a></li>
-							<li><a href="{{ path('situacionvivienda_index') }}"><i class="fa fa-caret-right"></i> Situación Vivienda</a></li>
-							<li><a href="{{ path('situacionsalud_index') }}"><i class="fa fa-caret-right"></i> Situación Salud</a></li>
-							<li><a href="{{ path('situacionservicios_index') }}"><i class="fa fa-caret-right"></i> Situación Servicios</a></li>
-							<li><a href="{{ path('participacioncomunitaria_index') }}"><i class="fa fa-caret-right"></i> Participación Comunitaria</a></li>
-							<li><a href="{{ path('situacioncomunidad_index') }}"><i class="fa fa-caret-right"></i> Situación Comunitaria</a></li>
+							<li><a href="{{ path('personas_index') }}"><i class="fa fa-chevron-right"></i> Miembros Grupo Familiar</a></li>
+							<li><a href="{{ path('situacioneconomica_index') }}"><i class="fa fa-chevron-right"></i> Situación Ecónomica</a></li>
+							<li><a href="{{ path('situacionvivienda_index') }}"><i class="fa fa-chevron-right"></i> Situación Vivienda</a></li>
+							<li><a href="{{ path('situacionsalud_index') }}"><i class="fa fa-chevron-right"></i> Situación Salud</a></li>
+							<li><a href="{{ path('situacionservicios_index') }}"><i class="fa fa-chevron-right"></i> Situación Servicios</a></li>
+							<li><a href="{{ path('participacioncomunitaria_index') }}"><i class="fa fa-chevron-right"></i> Participación Comunitaria</a></li>
+							{# <li><a href="{{ path('situacioncomunidad_index') }}"><i class="fa fa-chevron-right"></i> Situación Comunitaria</a></li> #}
 						</ul>
 					</li>
 
@@ -123,6 +126,13 @@
 						<ul class="dropdown-menu">
 							<li><a href="{{ path('usuarios_index') }}"><i class="fa fa-th-list"></i> Listar Usuarios</a></li>
 							<li><a href="{{ path('usuarios_new') }}"><i class="fa fa-plus"></i> Agregar Usuario</a></li>
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Otros <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ path('agenda_comunitaria') }}"><i class="fa fa-bullhorn"></i> Agenda Comunitaria</a></li>
 						</ul>
 					</li>
 
@@ -142,32 +152,32 @@
 		</nav>
 		
 		{% for flashMessage in app.session.flashbag.get('success') %}
-			<div class="alert alert-success text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-success text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>Éxito!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
 		{% for flashMessage in app.session.flashbag.get('info') %}
-			<div class="alert alert-info text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-info text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>Enhorabuena!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
 		{% for flashMessage in app.session.flashbag.get('warning') %}
-			<div class="alert alert-warning text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-warning text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>No puede continuar!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
 		{% for flashMessage in app.session.flashbag.get('error') %}
-			<div class="alert alert-danger text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-danger text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>Disculpe!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
 		{% for flashMessage in app.session.flashbag.get('danger') %}
-			<div class="alert alert-danger text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-danger text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>Disculpe!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
@@ -199,9 +209,7 @@
 		
 		<script>
 			$(document).ready(function() {
-				$('body').on('click','#mensaje-a-esconder', function(){
-					$(this).parent().fadeOut('slow');
-				});
+				$('body').on('click','#mensaje-a-esconder', function(){ $(this).fadeOut('slow'); });
 
 				$('[data-toggle="tooltip"]').tooltip()
 			});

@@ -14,15 +14,12 @@ use SICBundle\Form\PersonaType;
  */
 class PersonaController extends Controller
 {
-    /**
-     * Lists all Persona entities.
-     *
-     */
-    public function indexAction()
-    {
+    private function obtenerStats(){
         $em = $this->getDoctrine()->getManager();
 
         $personas = $em->getRepository('SICBundle:Persona')->findAll();
+
+        $total = sizeof($personas);
         $stat_edad = array();
         $mayor = 0;
         $menor = 0;
@@ -135,8 +132,7 @@ class PersonaController extends Controller
             );
         }
 
-        return $this->render('persona/index.html.twig', array(
-            // 'personas' => $personas,
+        return array(
             'stat_sexo' => $stat_sexo,
             'stat_cne' => $stat_cne,
             'stat_instruccion' => $stat_instruccion,
@@ -145,7 +141,17 @@ class PersonaController extends Controller
             'stat_pensionados' => $stat_pensionados,
             'stat_embarazo' => $stat_embarazo,
             'stat_edad' => $stat_edad,
-        ));
+            'total' => $total,
+        );
+    }
+    /**
+     * Lists all Persona entities.
+     *
+     */
+    public function indexAction()
+    {
+        $stat = $this->obtenerStats();
+        return $this->render('persona/index.html.twig', $stat);
     }
 
     /**
@@ -173,6 +179,11 @@ class PersonaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $Grupo->addMiembro($persona);
+            if ($persona->getEmail() != '') {
+                $persona->setRecibirCorreo(true);
+            }else{
+                $persona->setRecibirCorreo(false);
+            }
             $em->persist($persona);
             $em->persist($Grupo);
             $em->flush();
@@ -223,6 +234,12 @@ class PersonaController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            if ($persona->getEmail() != '') {
+                $persona->setRecibirCorreo(true);
+            }else{
+                $persona->setRecibirCorreo(false);
+            }
             $em->persist($persona);
             $em->flush();
 
@@ -270,5 +287,17 @@ class PersonaController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function agendaAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $jefes = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
+        $personas = $em->getRepository('SICBundle:Persona')->findAll();
+
+        return $this->render('persona/agenda_comunitaria.html.twig', array(
+            'jefes' => $jefes,
+            'personas' => $personas,
+        ));
     }
 }

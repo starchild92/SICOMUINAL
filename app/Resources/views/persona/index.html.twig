@@ -3,171 +3,201 @@
 {% block body %}
     <h2>Estadísticas Personas Comunidad <small>y miembros de grupos familiares</small></h2>
     <hr>
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Sexo</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                    <thead>
-                        <tr>
-                            <th>Sexo</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for sx in stat_sexo %}
-                        <tr>
-                            <td>{{sx.sexo}}</td>
-                            <td>{{sx.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="well well-sm">
+            <p>Esta información es referente a {{ total }} personas, de distintos Grupo Familiares. No incluye a los Jefes de Grupo Familiar.</p>
+        </div>
+        <a class="btn btn-primary btn-block pull-rigth" href="#"><i class="fa fa-file-o"></i> Obtener como PDF</a>
+    </div>
+    <div class="col-sm-9">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Sexo</h4></div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                        <thead>
+                            <tr>
+                                <th>Sexo</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for sx in stat_sexo %}
+                            <tr>
+                                <td>{{sx.sexo}}</td>
+                                <td>{{sx.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Inscrito en el CNE</h4></div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                        <thead>
+                            <tr>
+                                <th>Resp</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cne in stat_cne %}
+                            <tr>
+                                <td>{{cne.resp}}</td>
+                                <td>{{cne.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Edad</h4></div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Cant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for a in stat_edad %}<tr>
+                                <td>{{ a.a }}</td>
+                                <td>{{ a.cantidad }}</td>
+                            </tr>{% endfor %}
+                            <tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Niveles de Instrucción</h4></div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                        <thead>
+                            <tr>
+                                <th>Nivel</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for nivel in stat_instruccion %}<tr>
+                                <td>{{ nivel.instruccion }}</td>
+                                <td>{{ nivel.cantidad }}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Profesiones</h4></div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                        <thead>
+                            <tr>
+                                <th>Profesiones</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pr in stat_profesiones %}<tr>
+                                <td>{{pr.profesiones}}</td>
+                                <td>{{pr.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Incapacidades</h4></div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                        <thead>
+                            <tr>
+                                <th>Incapacidad</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for inc in stat_incapacidades %}<tr>
+                                <td>{{inc.incapacidades}}</td>
+                                <td>{{inc.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Inscrito en el CNE</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                    <thead>
-                        <tr>
-                            <th>Resp</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for cne in stat_cne %}
-                        <tr>
-                            <td>{{cne.resp}}</td>
-                            <td>{{cne.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Pensionados</h4></div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                        <thead>
+                            <tr>
+                                <th>Pensionados</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ins in stat_pensionados %}<tr>
+                                <td>{{ins.pensionados}}</td>
+                                <td>{{ins.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Niveles de Instrucción</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                    <thead>
-                        <tr>
-                            <th>Nivel</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for nivel in stat_instruccion %}<tr>
-                            <td>{{ nivel.instruccion }}</td>
-                            <td>{{ nivel.cantidad }}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Edad</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                    <thead>
-                        <tr>
-                            <th>Tipo</th>
-                            <th>Cant</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for a in stat_edad %}<tr>
-                            <td>{{ a.a }}</td>
-                            <td>{{ a.cantidad }}</td>
-                        </tr>{% endfor %}
-                        <tr>
-                    </tbody>
-                </table>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Embarazo Temprano</h4></div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
+                        <thead>
+                            <tr>
+                                <th>Resp</th>
+                                <th>Cant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for en in stat_embarazo %}<tr>
+                                <td>{{en.resp}}</td>
+                                <td>{{en.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Profesiones</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                    <thead>
-                        <tr>
-                            <th>Profesiones</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for pr in stat_profesiones %}<tr>
-                            <td>{{pr.profesiones}}</td>
-                            <td>{{pr.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Incapacidades</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                    <thead>
-                        <tr>
-                            <th>Incapacidad</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for inc in stat_incapacidades %}<tr>
-                            <td>{{inc.incapacidades}}</td>
-                            <td>{{inc.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Pensionados</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                    <thead>
-                        <tr>
-                            <th>Pensionados</th>
-                            <th>Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for ins in stat_pensionados %}<tr>
-                            <td>{{ins.pensionados}}</td>
-                            <td>{{ins.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Embarazo Temprano</div>
-                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                    <thead>
-                        <tr>
-                            <th>Resp</th>
-                            <th>Cant</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for en in stat_embarazo %}<tr>
-                            <td>{{en.resp}}</td>
-                            <td>{{en.cantidad}}</td>
-                        </tr>{% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+</div>
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/highchart.js') }}"></script>

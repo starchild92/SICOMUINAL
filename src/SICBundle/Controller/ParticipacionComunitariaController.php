@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\ParticipacionComunitaria;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\ParticipacionComunitariaType;
 
 /**
@@ -14,15 +15,12 @@ use SICBundle\Form\ParticipacionComunitariaType;
  */
 class ParticipacionComunitariaController extends Controller
 {
-    /**
-     * Lists all ParticipacionComunitaria entities.
-     *
-     */
-    public function indexAction()
-    {
+    private function obtenerStats(){
         $em = $this->getDoctrine()->getManager();
 
         $participacionComunitarias = $em->getRepository('SICBundle:ParticipacionComunitaria')->findAll();
+        
+        $total = sizeof($participacionComunitarias);
 
         $orgs = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
         $stat_orgs = array();
@@ -85,14 +83,23 @@ class ParticipacionComunitariaController extends Controller
             );
         }
 
-        return $this->render('participacioncomunitaria/index.html.twig', array(
-            // 'participacionComunitarias' => $participacionComunitarias,
+        return array(
             'stat_areatrabajo' => $stat_areatrabajo,
             'stat_misiones' => $stat_misiones,
             'stat_orgs' => $stat_orgs,
             'stat_participacion' => $stat_participacion,
             'stat_parte_miembros' => $stat_parte_miembros,
-        ));
+            'total' => $total,
+        );
+    }
+    /**
+     * Lists all ParticipacionComunitaria entities.
+     *
+     */
+    public function indexAction()
+    {
+        $stats = $this->obtenerStats();
+        return $this->render('participacioncomunitaria/index.html.twig', $stats);
     }
 
     /**
@@ -156,8 +163,23 @@ class ParticipacionComunitariaController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $questions = $participacionComunitarium->getPreguntasParticipacionComunitaria();
+            foreach ($questions as $q) {
+                if ($q->getInterrogante() == '') {
+                    $this->get('session')->getFlashBag()
+                    ->add('warning', 'No puede haber una Interrogante en blanco. A continuación eliga la pregunta y coloque su respuesta.');
+                    return $this->render('participacioncomunitaria/edit.html.twig', array(
+                        'participacionComunitarium' => $participacionComunitarium,
+                        'edit_form' => $editForm->createView(),
+                        'delete_form' => $deleteForm->createView(),
+                    ));
+                }
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($participacionComunitarium);
+            $bitacora = new Bitacora($this->getUser(),'modificó','La Participación Comunitaria de la planilla '.$participacionComunitarium->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'Se ha modificado la información de participación comunitaria de forma correcta');

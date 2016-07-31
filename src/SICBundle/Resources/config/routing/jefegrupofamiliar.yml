@@ -22,3 +22,13 @@ jefegrupofamiliar_delete:
     path:     /{id}/delete
     defaults: { _controller: "SICBundle:JefeGrupoFamiliar:delete" }
     methods:  DELETE
+
+resumen_documento_obtener:
+    path:     /obtener/documento
+    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:obtenerDocumento" }
+    methods:  GET
+
+jefegrupofamiliar_vista:
+    path:     /vista
+    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:vistaDoc" }
+    methods:  GET

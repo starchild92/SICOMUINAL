@@ -30,7 +30,16 @@ monolog:
         #chromephp:
         #    type:   chromephp
         #    level:  info
-        
+
+knp_snappy:
+    temporary_folder: %kernel.cache_dir%/snappy
+
+    pdf:
+        enabled:    true
+        #binary:     "\"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe\""
+        binary:     %kernel.root_dir%/../vendor/h4cc/wkhtmltopdf-i386/bin/wkhtmltopdf-i386
+        options:    []
+
 swiftmailer:
     transport:  smtp
     encryption: ssl
@@ -40,3 +49,4 @@ swiftmailer:
     username:   gpscaracas@registro1991.com.ve
     password:   gpscaracas2016
     delivery_address: 'mainstr3ammusic@gmail.com' #Direccion para enviar mensajes mientras estoy en desarrollo
+

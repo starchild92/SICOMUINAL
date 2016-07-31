@@ -60,8 +60,8 @@ class SituacionServicios
     /**
      * @ORM\ManyToMany(targetEntity="AdminTipoTransporte", cascade={"persist"})
      * @ORM\JoinTable(name="sitServ_tipTrans",
-     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tipTrans_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tipTrans_id", referencedColumnName="id", onDelete="cascade")}
      *      )
      */
     private $transporte;
@@ -69,8 +69,8 @@ class SituacionServicios
     /**
      * @ORM\ManyToMany(targetEntity="AdminMecanismoInformacion", cascade={"persist"})
      * @ORM\JoinTable(name="sitServ_mecInf",
-     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="mecInf_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="mecInf_id", referencedColumnName="id", onDelete="cascade")}
      *      )
      */
     private $mecanismoInformacion;
@@ -78,8 +78,8 @@ class SituacionServicios
     /**
      * @ORM\ManyToMany(targetEntity="AdminServiciosComunales", cascade={"persist"})
      * @ORM\JoinTable(name="sitServ_servCom",
-     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="servCom_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="servCom_id", referencedColumnName="id", onDelete="cascade")}
      *      )
      */
     private $serviciosComunales;

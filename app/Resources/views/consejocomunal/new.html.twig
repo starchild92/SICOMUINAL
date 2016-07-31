@@ -1,18 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>ConsejoComunal creation</h1>
+    <h1>Agregar Consejo Comunal</h1>
 
     <span id="modalCuerpo">
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input class="btn btn-primary" type="submit" value="Create" />
+        <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save"></i> Guardar Datos</button>
     {{ form_end(form) }}
     </span>
-    
-    <ul>
-        <li>
-            <a href="{{ path('consejocomunal_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

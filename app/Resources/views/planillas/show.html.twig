@@ -17,18 +17,20 @@
 					<div class="panel-body">
 						<p><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></p>
 						<p><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></p>
+						{% if planilla.jefeGrupoFamiliar != null %}
 						<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
+						{% endif %}
 						<p><span class="negritas">Fecha:</span> {{ planilla.fechayhora() }}</p>
 					</div>
 			</div>
 			<hr class="little">
-			<button id="modalButt" type="button" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="btn btn-default btn-block" data-toggle="modal" data-target=".bs-example-modal-sm">Agregar Observaciones</button>
-			<a class="btn btn-default btn-block" href="{{ path('planillas_index') }}">Ver Todas</a>
+			<button id="modalButt" type="button" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bs-example-modal-sm"> <i class="fa fa-edit"></i> Agregar Observaciones</button>
+			<a class="btn btn-primary btn-block" href="{{ path('planillas_index') }}"><i class="fa fa-eye"></i> Ver Todas las Encuestas</a>
 			{% if planilla.terminada != 100 %}
-				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Continuar Encuesta</a>
+				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}"><i class="fa fa-arrow-right"></i> Continuar Encuesta</a>
 			{% endif %}
 			<hr class="little">
-			{{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar esta Planilla">{{ form_end(delete_form) }}
+			{{ form_start(delete_form, {'attr': {'id': 'form_eliminar'}}) }}<button id="eliminarPlanilla" class="btn btn-block btn-danger" type="button"> <i class="fa fa-trash"></i> Eliminar esta Planilla</button>{{ form_end(delete_form) }}
 		</div>
 		<div class="col-sm-9">
 			{% if planilla.terminada != 100 %}
@@ -42,6 +44,7 @@
 						<a class="negritas" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 							1. Jefe Grupo Familiar
 						</a>
+						<a class="pull-right" href="{{ path('jefegrupofamiliar_edit', { 'id': planilla.jefeGrupoFamiliar.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">
@@ -139,6 +142,9 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<p class="bottom-line negritas text-info">Teléfono(s)</p>
+									{% if planilla.jefeGrupoFamiliar.telefono|length == 0 %}
+										<p>No tiene telefonos asociados.</p>
+									{% endif %}
 									<p>{% for telf in planilla.jefeGrupoFamiliar.telefono %}({{ telf.codigo }}) - {{ telf.numero }}<br>{% endfor %}</p>
 								</div>
 							</div>
@@ -164,6 +170,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 							2. Grupo Familiar
 						</a>
+						<a class="pull-right" href="{{path('grupofamiliar_edit',{'id':planilla.grupoFamiliar.id})}}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 						<div class="panel-body">
@@ -223,7 +230,7 @@
 													</button>
 													<ul class="dropdown-menu">
 														<li><a href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-user"></i> Ver persona</a></li>
-														<li><a href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-edit"></i> Editar persona</a></li>
+														<li><a href="{{ path('personas_edit', {'id': persona.id })}}"><i class="fa fa-edit"></i> Editar persona</a></li>
 													</ul>
 													</div>
 													</td>
@@ -249,6 +256,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 							3. Situación Económica
 						</a>
+						<a class="pull-right" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
 						<div class="panel-body">
@@ -298,6 +306,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 							4. Situación Vivienda
 						</a>
+						<a class="pull-right" href="{{ path('situacionvivienda_edit', { 'id': planilla.situacionVivienda.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
 						<div class="panel-body">
@@ -378,6 +387,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
 							5. Situación Salud
 						</a>
+						<a class="pull-right" href="{{ path('situacionsalud_edit', { 'id': planilla.situacionSalud.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
 						<div class="panel-body">
@@ -419,6 +429,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
 							6. Situación Servicios
 						</a>
+						<a class="pull-right" href="{{ path('situacionservicios_edit', { 'id': planilla.situacionServicios.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix">
 						<div class="panel-body">
@@ -476,6 +487,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
 							7. Participación Comunitaria
 						</a>
+						<a class="pull-right" href="{{ path('participacioncomunitaria_edit', { 'id': planilla.participacionComunitaria.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapse7" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading7">
 						<div class="panel-body">
@@ -504,8 +516,12 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Preguntas Participacion Comunitaria</p>
-									<p>{% for item in planilla.participacionComunitaria.preguntasParticipacionComunitaria %}
-										{{ item.interrogante }} <br> R. {{ item.respuesta }} {% endfor %}</p>
+									{% for item in planilla.participacionComunitaria.preguntasParticipacionComunitaria %}
+										<div class="well well-sm">
+											<p class="negritas">{{ item.interrogante }}</p>
+											r. {{ item.respuesta }}
+										</div>
+									{% endfor %}
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Area de Trabajo</p>
@@ -526,13 +542,18 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
 							8. Situación Comunitaria
 						</a>
+						<a class="pull-right" href="{{ path('situacioncomunidad_edit', { 'id': planilla.situacionComunidad.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapse8" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading8">
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-sm-12">
-									<p class="bottom-line negritas text-info"></p>
-									<p>{{ planilla.situacionComunidad.preguntasSituacionComunidad }}</p>
+									{% for preg in planilla.situacionComunidad.preguntasSituacionComunidad %}
+										<div class="well well-sm">
+											<p class="negritas">{{ preg.pregunta }}</p>
+											r. {{ preg.respuesta }}
+										</div>
+									{% endfor %}
 								</div>
 							</div>
 							<hr>
@@ -547,10 +568,15 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
 							Observaciones
 						</a>
+						<a id="modalButt" href="#" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="pull-right" data-toggle="modal" data-target=".bs-example-modal-sm"> <i class="fa fa-edit"></i> Agregar Observaciones</a>
 					</div>
 					<div id="collapse9" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading9">
 						<div class="panel-body">
-							{{ planilla.observaciones }}
+							{% if planilla.observaciones == "" %}
+								<p>No se han agregado observaciones a esta planilla.</p>
+							{% else %}
+								<p>{{ planilla.observaciones }}</p>
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -559,12 +585,12 @@
 		</div>
 	</div>
 
-	<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{# <h5 class="modal-title" id="myModalLabel"></h5> #}Observaciones de la Planilla
+					<button type="button" class="close" id="close_button_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span class="negritas">Observaciones de la Planilla</span>
 				</div>
 				<div class="modal-body">
 					<form role="form">
@@ -574,7 +600,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-block btn-primary" id="modalClose" data-dismiss="modal">Guardar Observaciones</button>
+					<button type="button" class="btn btn-block btn-primary" id="modalClose" data-dismiss="modal"><i class="fa fa-save"></i> Guardar Observaciones</button>
 				</div>
 			</div>
 		</div>
@@ -587,19 +613,69 @@ $(document).on('ready', function(){
 	$('.collapse').collapse();
 
 	$('#modalClose').on('click', function(){
+		$.confirm({
+			theme: 'black',
+			title: false, // hides the title.
+		    cancelButton: false, // hides the cancel button.
+		    confirmButton: false, // hides the confirm button.
+		    closeIcon: false, // hides the close icon.
+		    content: 'Se están almacenando los cambios, por favor espere.', // hides content block.
+		});
 		action = $('#modalButt').data('url');
-
 		$.ajax({
 			method: "POST",
 			url: action,
-			data: { observaciones: $('#observaciones').val()
+			data: { 
+				observaciones: $('#observaciones').val()
 			},
 			complete: function(){
 				window.location.reload();
 			}
 		});
-
 	})
+
+	$('#close_button_modal').on('click', function(e){
+        $.confirm({
+            title: 'Advertencia!',
+            content: 'Perderá lo que ha escrito si continua, ¿Desea continuar?',
+            confirmButton: 'Dejar Cerrado',
+            cancelButton: 'Continuar editando',
+            confirmButtonClass: 'btn-danger',
+            cancelButtonClass: 'btn-info',
+            theme: 'black',
+            confirm: function(){
+            },
+            cancel: function(){
+                e.preventDefault();
+                $('#myModal').modal('show');
+            }
+        });
+    });
+
+
+	$('#eliminarPlanilla').click(function(e){
+        $.confirm({
+            title: "¿Desea Eliminarla?",
+            content: "Está a punto de eliminar una planilla con todos sus datos, tenga en mente que puede modificar cualquier sección.",
+            theme: 'black',
+            confirmButtonClass: 'btn-danger',
+            cancelButtonClass: 'btn-info',
+            confirm: function(){
+            	$.confirm({
+            		theme: 'black',
+            		title: false,
+            		content: 'Si desea continuar con la eliminación haga click en OKAY',
+            		confirmButtonClass: 'btn-danger',
+            		cancelButtonClass: 'btn-default',
+            		confirm: function(){
+            			$('#form_eliminar').submit();
+            		}
+            	})
+            },
+            cancel: function(e){ $('#form_eliminar').submit(function(e){ e.preventDefault(); }); }
+        })
+    });
+    
 })
 </script>
 {% endblock %}

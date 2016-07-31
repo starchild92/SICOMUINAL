@@ -71,13 +71,17 @@
                     <i class="fa fa-send fa-fw pull-left"></i>
                     {% elseif entity.accion == 'generó' %}
                     <i class="fa fa-file fa-fw pull-left"></i>
+                    {% elseif entity.accion == 'continuó' %}
+                    <i class="fa fa-arrow-left fa-fw pull-left"></i>
                     {% elseif entity.accion == 'modificó' %}
                     <i class="fa fa-pencil fa-fw pull-left"></i>
                     {% else %}
                     <i class="fa fa-exclamation fa-fw pull-left"></i>
                 {% endif %}
-                <p>El usuario <span class="negritas">{{ entity.usuario.nombreyapellido() }}</span> {{ entity.accion }} {{ entity.detalles }}</p>
+                <p>{{ loop.index }}. El usuario <span class="negritas">{{ entity.usuario.nombreyapellido() }}</span> {{ entity.accion }} {{ entity.detalles }}</p>
                 <p><span class="label {% if entity.accion == 'agregó' %}label-success{% elseif entity.accion == 'eliminó' %}label-danger{% elseif entity.accion == 'envió' %}label-warning{% else %}label-info{% endif %} label-sm pull-left">{{ entity.fecha|date('Y-m-d h:i a') }}</span></p>
+
+
             </div>
         </div>
     {% endfor %}
@@ -126,8 +130,25 @@
                 });
             });
 
-            $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
+            $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) { $(this).val(''); });
+
+            $('#sel1').on('change', function(e){
+                if ($('input[name="datefilter"]').val() != '') {
+                    $("#cuerposs").fadeTo("slow", 0.15);
+                    $.ajax({
+                        url: $('#accion').val(),
+                        type: "POST",
+                        data: {
+                            fechaInicio: $('input[name="datefilter"]').data('daterangepicker').startDate.format('YYYY-MM-DD'),
+                            fechaFinal: $('input[name="datefilter"]').data('daterangepicker').endDate.format('YYYY-MM-DD'),
+                            criteria: $("#sel1").val(),
+                        },
+                        success: function(data, textStatus, xhr){
+                            $('#cuerposs').replaceWith($(data).find('#cuerposs'));
+                            $('#cuerposs').fadeIn('slow')
+                        },
+                    });
+                }
             });
         });
     </script>
