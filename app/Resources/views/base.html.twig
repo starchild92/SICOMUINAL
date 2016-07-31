@@ -152,32 +152,32 @@
 		</nav>
 		
 		{% for flashMessage in app.session.flashbag.get('success') %}
-			<div class="alert alert-success text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-success text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>Éxito!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
 		{% for flashMessage in app.session.flashbag.get('info') %}
-			<div class="alert alert-info text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-info text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>Enhorabuena!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
 		{% for flashMessage in app.session.flashbag.get('warning') %}
-			<div class="alert alert-warning text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-warning text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>No puede continuar!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
 		{% for flashMessage in app.session.flashbag.get('error') %}
-			<div class="alert alert-danger text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-danger text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>Disculpe!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
 		{% for flashMessage in app.session.flashbag.get('danger') %}
-			<div class="alert alert-danger text-center">
-				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #} id="mensaje-a-esconder">&times;</a>
+			<div class="alert alert-danger text-center" id="mensaje-a-esconder" style="cursor: pointer;">
+				<a href="#" class="close" {# data-dismiss="alert" aria-label="close" #}>&times;</a>
 				<strong>Disculpe!</strong> {{ flashMessage }}
 			</div>
 		{% endfor %}
@@ -209,9 +209,7 @@
 		
 		<script>
 			$(document).ready(function() {
-				$('body').on('click','#mensaje-a-esconder', function(){
-					$(this).parent().fadeOut('slow');
-				});
+				$('body').on('click','#mensaje-a-esconder', function(){ $(this).fadeOut('slow'); });
 
 				$('[data-toggle="tooltip"]').tooltip()
 			});

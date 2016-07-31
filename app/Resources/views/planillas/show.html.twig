@@ -44,6 +44,7 @@
 						<a class="negritas" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 							1. Jefe Grupo Familiar
 						</a>
+						<a class="pull-right" href="{{ path('jefegrupofamiliar_edit', { 'id': planilla.jefeGrupoFamiliar.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">
@@ -141,7 +142,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<p class="bottom-line negritas text-info">Teléfono(s)</p>
-									{% if planilla.jefeGrupoFamiliar.telefono %}
+									{% if planilla.jefeGrupoFamiliar.telefono|length == 0 %}
 										<p>No tiene telefonos asociados.</p>
 									{% endif %}
 									<p>{% for telf in planilla.jefeGrupoFamiliar.telefono %}({{ telf.codigo }}) - {{ telf.numero }}<br>{% endfor %}</p>
@@ -169,6 +170,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 							2. Grupo Familiar
 						</a>
+						<a class="pull-right" href="{{path('grupofamiliar_edit',{'id':planilla.grupoFamiliar.id})}}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 						<div class="panel-body">
@@ -254,6 +256,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 							3. Situación Económica
 						</a>
+						<a class="pull-right" href="{{ path('situacioneconomica_edit', { 'id': planilla.situacionEconomica.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
 						<div class="panel-body">
@@ -303,6 +306,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 							4. Situación Vivienda
 						</a>
+						<a class="pull-right" href="{{ path('situacionvivienda_edit', { 'id': planilla.situacionVivienda.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
 						<div class="panel-body">
@@ -383,6 +387,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
 							5. Situación Salud
 						</a>
+						<a class="pull-right" href="{{ path('situacionsalud_edit', { 'id': planilla.situacionSalud.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
 						<div class="panel-body">
@@ -424,6 +429,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
 							6. Situación Servicios
 						</a>
+						<a class="pull-right" href="{{ path('situacionservicios_edit', { 'id': planilla.situacionServicios.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix">
 						<div class="panel-body">
@@ -481,6 +487,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
 							7. Participación Comunitaria
 						</a>
+						<a class="pull-right" href="{{ path('participacioncomunitaria_edit', { 'id': planilla.participacionComunitaria.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapse7" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading7">
 						<div class="panel-body">
@@ -535,6 +542,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
 							8. Situación Comunitaria
 						</a>
+						<a class="pull-right" href="{{ path('situacioncomunidad_edit', { 'id': planilla.situacionComunidad.id }) }}"><i class="fa fa-edit"></i> Modificar datos</a>
 					</div>
 					<div id="collapse8" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading8">
 						<div class="panel-body">
@@ -560,6 +568,7 @@
 						<a class="negritas collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
 							Observaciones
 						</a>
+						<a id="modalButt" href="#" data-url="{{ path('planillas_observacion_carga', {'id_planilla' : planilla.id}) }}" class="pull-right" data-toggle="modal" data-target=".bs-example-modal-sm"> <i class="fa fa-edit"></i> Agregar Observaciones</a>
 					</div>
 					<div id="collapse9" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading9">
 						<div class="panel-body">
@@ -576,12 +585,12 @@
 		</div>
 	</div>
 
-	<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{# <h5 class="modal-title" id="myModalLabel"></h5> #}Observaciones de la Planilla
+					<button type="button" class="close" id="close_button_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span class="negritas">Observaciones de la Planilla</span>
 				</div>
 				<div class="modal-body">
 					<form role="form">
@@ -591,7 +600,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-block btn-primary" id="modalClose" data-dismiss="modal">Guardar Observaciones</button>
+					<button type="button" class="btn btn-block btn-primary" id="modalClose" data-dismiss="modal"><i class="fa fa-save"></i> Guardar Observaciones</button>
 				</div>
 			</div>
 		</div>
@@ -604,26 +613,33 @@ $(document).on('ready', function(){
 	$('.collapse').collapse();
 
 	$('#modalClose').on('click', function(){
+		$.confirm({
+			theme: 'black',
+			title: false, // hides the title.
+		    cancelButton: false, // hides the cancel button.
+		    confirmButton: false, // hides the confirm button.
+		    closeIcon: false, // hides the close icon.
+		    content: 'Se están almacenando los cambios, por favor espere.', // hides content block.
+		});
 		action = $('#modalButt').data('url');
-
 		$.ajax({
 			method: "POST",
 			url: action,
-			data: { observaciones: $('#observaciones').val()
+			data: { 
+				observaciones: $('#observaciones').val()
 			},
 			complete: function(){
 				window.location.reload();
 			}
 		});
-
 	})
 
-	$('#myModal').on('hide.bs.modal', function(e){
+	$('#close_button_modal').on('click', function(e){
         $.confirm({
             title: 'Advertencia!',
             content: 'Perderá lo que ha escrito si continua, ¿Desea continuar?',
-            onButton: 'Cerrar',
-            cancelButton: 'Continuar escribiendo',
+            confirmButton: 'Dejar Cerrado',
+            cancelButton: 'Continuar editando',
             confirmButtonClass: 'btn-danger',
             cancelButtonClass: 'btn-info',
             theme: 'black',
