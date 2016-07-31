@@ -261,7 +261,7 @@ class PlanillasController extends Controller
                 $response = new Response(json_encode([
                 'codigo' => '500',
                 'nombre' => $form['nombre'],
-                'respuesta' => 'Se ha añadido '.$form['nombre'].' a la base de datos',
+                'respuesta' => 'Se ha añadido "'.$form['nombre'].'" a la base de datos',
                 'id'        => $nuevo->getId(),
                 ]));
             }
