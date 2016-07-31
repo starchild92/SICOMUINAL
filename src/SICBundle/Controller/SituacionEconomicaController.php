@@ -202,35 +202,4 @@ class SituacionEconomicaController extends Controller
             ->getForm()
         ;
     }
-
-    public function new_ajaxAction(Request $request)
-    {
-        $form = $request->request->all();
-        $response = new Response(json_encode(null));
-        switch ($form['tipo']) {
-            case 'actividad_vivienda':
-                $em = $this->getDoctrine()->getManager();
-                $resultado = $em->getRepository('SICBundle:AdminVentaVivienda')->findBy(array('nombre' => $form['nombre']));
-                if (sizeof($resultado) == 0) {
-                    $nuevo = new AdminVentaVivienda();
-                    $nuevo->setNombre($form['nombre']);
-                    $em->persist($nuevo);
-                    $em->flush();
-
-                    $response = new Response(json_encode([
-                    'codigo' => '500',
-                    'nombre' => $form['nombre'],
-                    'respuesta' => 'Se ha añadido '.$form['nombre'].' a la base de datos',
-                    'id'        => $nuevo->getId(),
-                    ]));
-                }
-            break;
-            
-            default:
-            break;
-        }
-        
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
-    }
 }

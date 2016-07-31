@@ -32,3 +32,8 @@ planillas_observacion_carga:
     path:     /{id_planilla}/observacion/cargar
     defaults: { _controller: "SICBundle:Planillas:cargarObservacion" }
     methods:  [GET, POST]
+
+new_element_ajax:
+    path:     /nuevo/agregar/ajax
+    defaults: { _controller: "SICBundle:Planillas:new_element_ajax" }
+    methods:  [GET, POST]

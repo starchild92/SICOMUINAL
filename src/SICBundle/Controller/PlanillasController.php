@@ -4,8 +4,11 @@ namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 use SICBundle\Entity\Planillas;
+use SICBundle\Entity\AdminVentaVivienda;
+use SICBundle\Entity\AdminProfesion;
 use SICBundle\Entity\Bitacora;
 use SICBundle\Form\PlanillasType;
 
@@ -225,4 +228,47 @@ class PlanillasController extends Controller
         ->add('danger', 'La planilla que indicó no existe.');
         return $this->redirectToRoute('planillas_index');
     }
+
+    public function new_element_ajaxAction(Request $request)
+    {
+        $form = $request->request->all();
+        $response = new Response(json_encode(null));
+        $em = $this->getDoctrine()->getManager();
+
+        if ($form['tipo'] == "jgf_profesion") {
+            $resultado = $em->getRepository('SICBundle:AdminProfesion')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminProfesion();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido la profesión "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "actividad_vivienda") {
+            $resultado = $em->getRepository('SICBundle:AdminVentaVivienda')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminVentaVivienda();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido '.$form['nombre'].' a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }
+        
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
 }
