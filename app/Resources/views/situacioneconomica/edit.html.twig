@@ -26,12 +26,45 @@
         <div class="col-sm-12"><input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios en Situación Económica y Regresar a la Planilla" /></div>
     {{ form_end(edit_form) }}
     </div>
+    <input id="addAjax" type="hidden" data-url="{{ path('situacioneconomica_new_ajax') }}">
 {% endblock %}
 {% block javascripts %}
     <script>
         $(document).ready(function() {
             $('.ui.dropdown').dropdown();
-            $('.fluid.multiple.search.selection').dropdown({ allowAdditions: true });
+            $('.fluid.multiple.search.selection').dropdown({ 
+                allowAdditions: true,
+                onAdd: function(addedValue, addedText, $addedChoice) {
+                    $('[name=situacion_economica]').submit(function(e){ e.preventDefault(); });
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : 'actividad_vivienda',
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#situacion_economica_actividadComercialenVivienda').children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $addedChoice.remove();
+                        },
+                        complete: function(){
+                            $('[name=situacion_economica]').unbind('submit')
+                        },
+                    });
+                },
+            });
         })
     </script>
 {% endblock %}

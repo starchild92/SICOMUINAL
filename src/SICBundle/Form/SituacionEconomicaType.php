@@ -6,6 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\FormEvents;
+use SICBundle\Entity\AdminVentaVivienda;
+
 class SituacionEconomicaType extends AbstractType
 {
     /**
@@ -15,6 +18,10 @@ class SituacionEconomicaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->addEventListener(
+                FormEvents::PRE_SUBMIT,
+                array($this, 'onPreSubmit')
+            )
             ->add('dondeTrabaja', 'entity', array(
                 'class'     => 'SICBundle:AdminUbicacionTrabajo',
                 'label'     => '¿Dónde Trabaja?',
@@ -61,6 +68,11 @@ class SituacionEconomicaType extends AbstractType
                 'attr'        => array(
                     'placeholder'   => 'AAA000,BBB111,....')))
         ;
+    }
+
+    public function onPreSubmit(\Symfony\Component\Form\FormEvent $event)
+    {
+        
     }
     
     /**
