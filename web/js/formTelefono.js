@@ -13,7 +13,6 @@ jQuery(document).ready(function() {
     $padres = $removerTelf.parent();
     for (var i = 0; i < $padres.length; i++) {
         $($padres[i]).first().children(':first')[0].remove();
-        // $($padres[i]).first().children(':first').remove();
     }
 
     $removerTelf.click(function(e) {
