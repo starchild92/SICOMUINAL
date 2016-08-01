@@ -52,7 +52,7 @@ class ParticipacionComunitaria
     private $misionesComunidad;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminPreguntasParticipacionComunitaria", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="AdminPreguntasParticipacionComunitaria", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="partCom_pregPart",
      *      joinColumns={@ORM\JoinColumn(name="partCom_id", referencedColumnName="id", onDelete="cascade")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="pregPart_id", referencedColumnName="id", onDelete="cascade")}

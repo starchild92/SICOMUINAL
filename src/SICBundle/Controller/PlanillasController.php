@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use SICBundle\Entity\Planillas;
 use SICBundle\Entity\AdminVentaVivienda;
 use SICBundle\Entity\AdminTipoHabitacionesVivienda;
+use SICBundle\Entity\AdminRecoleccionBasura;
 use SICBundle\Entity\AdminServiciosComunales;
 use SICBundle\Entity\AdminMecanismoInformacion;
 use SICBundle\Entity\AdminTipoTransporte;
@@ -393,7 +394,23 @@ class PlanillasController extends Controller
                 'id'        => $nuevo->getId(),
                 ]));
             }
+        }elseif ($form['tipo'] == "situacion_servicios_recoleccionBasura") {
+            $resultado = $em->getRepository('SICBundle:AdminRecoleccionBasura')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminRecoleccionBasura();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo sistema de recolección de basura, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
         }
+
         
 
         $response->headers->set('Content-Type', 'application/json');

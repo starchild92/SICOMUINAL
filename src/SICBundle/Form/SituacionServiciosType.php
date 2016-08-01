@@ -48,7 +48,8 @@ class SituacionServiciosType extends AbstractType
                 'placeholder'   => 'Seleccione una',
                 'label' => 'Sistema de Recolección de Basura',
                 'attr'  =>  array(
-                    'class' => 'ui dropdown')))
+                    'multiple' => '',
+                    'class' => 'fluid multiple search selection')))
 
             ->add('telefonia','entity', array(
                 'class' => 'SICBundle:AdminTipoTelefonia',
