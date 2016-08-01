@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 use SICBundle\Entity\Planillas;
 use SICBundle\Entity\AdminVentaVivienda;
 use SICBundle\Entity\AdminTipoHabitacionesVivienda;
+use SICBundle\Entity\AdminServiciosComunales;
+use SICBundle\Entity\AdminMecanismoInformacion;
+use SICBundle\Entity\AdminTipoTransporte;
+use SICBundle\Entity\AdminTipoPadecencia;
 use SICBundle\Entity\AdminTipoMascotas;
 use SICBundle\Entity\AdminTipoPlagas;
 use SICBundle\Entity\AdminTipoEnseres;
@@ -329,8 +333,69 @@ class PlanillasController extends Controller
                 'id'        => $nuevo->getId(),
                 ]));
             }
+        }elseif ($form['tipo'] == "situacion_salud_padecencia") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoPadecencia')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoPadecencia();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un tipo de padecencia nueva, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_servicios_transporte") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoTransporte')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoTransporte();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un tipo de transporte, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_servicios_mecanismoInformacion") {
+            $resultado = $em->getRepository('SICBundle:AdminMecanismoInformacion')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminMecanismoInformacion();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un mecanismo de información, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_servicios_serviciosComunales") {
+            $resultado = $em->getRepository('SICBundle:AdminServiciosComunales')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminServiciosComunales();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo servicio comunal, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
         }
         
+
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }

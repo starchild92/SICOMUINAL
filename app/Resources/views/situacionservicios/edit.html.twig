@@ -30,12 +30,47 @@
 
         <input class="btn btn-primary btn-block" type="submit" value="Guardar Situación de Salud y regresar a la Planilla" />
     {{ form_end(edit_form) }}
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
 {% endblock %}
 {% block javascripts %}
     <script>
         $(document).ready(function() {
             $('.ui.dropdown').dropdown();
-            $('.fluid.multiple.search.selection').dropdown({ allowAdditions: true });
+            $('.fluid.multiple.search.selection').dropdown({ 
+                allowAdditions: true,
+                onAdd: function(addedValue, addedText, $addedChoice) {
+                    element = $(this).prop('id');
+                    console.log(element)
+                    $('[name=situacion_servicios]').submit(function(e){ e.preventDefault(); });
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : element,
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#'+element).children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $addedChoice.remove();
+                        },
+                        complete: function(){
+                            $('[name=situacion_servicios]').unbind('submit')
+                        },
+                    });
+                },
+            });
         })
     </script>
 {% endblock %}
