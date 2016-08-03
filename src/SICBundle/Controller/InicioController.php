@@ -185,6 +185,7 @@ class InicioController extends Controller
         }
     }
 
+    public function cmpcalles($a, $b){ return strcmp($a->getSector(), $b->getSector()); }
     public function resumenCensoAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -194,17 +195,17 @@ class InicioController extends Controller
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(16);
-            $votantes = array();
-            foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
-            foreach ($personas as $p) { array_push($votantes, $p); }
+            $gruposfamiliares = $em->getRepository('SICBundle:GrupoFamiliar')->findAll();
+            usort($gruposfamiliares, array($this, "cmpcalles"));
 
-            usort($votantes, array($this, "cmp"));
+            foreach ($gruposfamiliares as $gf) {
+                echo $gf->getSector()."<br>";
+            }
+            echo sizeof($gruposfamiliares);
+            die();
 
             return $this->render('inicio/resumen-censo.html.twig',
                 array(
-                    'votantes' => $votantes,
                     'comunidad' => $comunidad_info,
                     'consejo' => $cc->getNombre()));
         }else{
