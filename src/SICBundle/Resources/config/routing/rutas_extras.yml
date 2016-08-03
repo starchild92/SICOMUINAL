@@ -22,3 +22,23 @@ sic_volver_parametros:
     path:     /administrar/parametros/{index}
     defaults: { _controller: "SICBundle:Inicio:volverParametros"}
     methods:  GET
+
+sic_documentos_cuaderno_votacion:
+    path:     /documentos/cuaderno-votacion
+    defaults: { _controller: "SICBundle:Inicio:cuadernoVotacion"}
+    methods:  GET
+
+sic_documentos_resumen_censo:
+    path:     /documentos/resumen-censo
+    defaults: { _controller: "SICBundle:Inicio:resumenCenso"}
+    methods:  GET
+
+sic_documentos_registro_electoral:
+    path:     /documentos/registro-electoral
+    defaults: { _controller: "SICBundle:Inicio:registroElectoral"}
+    methods:  GET
+
+sic_documentos_registro_preliminar:
+    path:     /documentos/registro-preliminar
+    defaults: { _controller: "SICBundle:Inicio:registroPreliminar"}
+    methods:  GET

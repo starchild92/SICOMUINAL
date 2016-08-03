@@ -118,4 +118,35 @@ class InicioController extends Controller
     {
         return $this->render('administracion/parametros.html.twig');
     }
+
+    // Documentos
+
+    public function cuadernoVotacionAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        if (sizeof($comunidad) > 0) {
+            $comunidad_info = $comunidad[0];
+        }
+
+        return $this->render('inicio/cuaderno-votacion.html.twig',
+            array(
+                'votantes' => array(),
+                'comunidad' => $comunidad_info));
+    }
+
+    public function resumenCensoAction()
+    {
+        return $this->render('inicio/resumen-censo.html.twig');
+    }
+
+    public function registroElectoralAction()
+    {
+        return $this->render('inicio/registro-electoral.html.twig');
+    }
+
+    public function registroPreliminarAction()
+    {
+        return $this->render('inicio/registro-preliminar.html.twig');
+    }
 }

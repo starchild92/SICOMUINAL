@@ -132,7 +132,16 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Otros <span class="caret"></span></a>
 						<ul class="dropdown-menu">
+							<li class="dropdown-header">Funciones Especiales</li>
 							<li><a href="{{ path('agenda_comunitaria') }}"><i class="fa fa-bullhorn"></i> Agenda Comunitaria</a></li>
+							
+							<li role="separator" class="divider"></li>
+
+							<li class="dropdown-header">{# <i class="fa fa-file"></i> #} Documentos</li>
+							<li><a href="{{ path('sic_documentos_cuaderno_votacion') }}"><i class="fa fa-file-text-o"></i> Cuaderno de Votación</a></li>
+							<li><a href="{{ path('sic_documentos_resumen_censo') }}"><i class="fa fa-file-text-o"></i> Resumen del Censo Demográfico</a></li>
+							<li><a href="{{ path('sic_documentos_registro_electoral') }}"><i class="fa fa-file-text-o"></i> Registro Electoral</a></li>
+							<li><a href="{{ path('sic_documentos_registro_preliminar') }}"><i class="fa fa-file-text-o"></i> Registro Preliminar</a></li>
 						</ul>
 					</li>
 
