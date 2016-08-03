@@ -129,6 +129,11 @@ class InicioController extends Controller
             $comunidad_info = $comunidad[0];
         }
 
+        $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
+        $jefes_grupo_familiar = $em->getRepository('SICBundle:Persona')->mayores_de(16);
+        echo sizeof($jefes_grupo_familiar);
+        die();
+
         return $this->render('inicio/cuaderno-votacion.html.twig',
             array(
                 'votantes' => array(),

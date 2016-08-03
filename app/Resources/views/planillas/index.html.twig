@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1 class="text-center">Registros: "Estudio Demográfico y Socioeconomico"</h1>
+    <h1 class="text-center">Encuestas: "Estudio Demográfico y Socioeconomico"</h1>
     <hr>
     <table id="dataTable" class="table table-bordered table-striped table-hover table-button">
         <thead class="thead-info">
@@ -17,7 +17,7 @@
             {% for planilla in planillas %}
                 <tr>
                     <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></td>
-                    <td><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <p class="small marginless">{{ planilla.empadronador.cedula }}</p> </a></td>
+                    <td>{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}"><i class="fa fa-link"></i></a><p class="small marginless">{{ planilla.empadronador.cedula }}</p></td>
                     <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula }}</p> {% endif %}</td>
                     <td>{{ planilla.fechaCron() }}</td>
                     <td class="text-center">
