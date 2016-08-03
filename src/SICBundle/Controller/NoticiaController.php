@@ -167,9 +167,7 @@ class NoticiaController extends Controller
                 $entrada = new Bitacora($this->getUser(),'modificó','la visibilidad de '.$noticium->getTitulo().' haciendola invisible');
             }
             $em->persist($noticium);
-            
             $em->persist($entrada);
-
             $em->flush();
 
             return NULL;

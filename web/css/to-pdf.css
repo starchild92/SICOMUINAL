@@ -1,0 +1,10 @@
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+td,
+th {
+  padding: 0;
+}
+.negritas{ font-weight: bold; }
+.borderless td, .borderless th { border: none !important; }

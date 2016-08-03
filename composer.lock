@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4ddcc6b43b5e1f654be1d4d8aa17d520",
-    "content-hash": "b2b49ead08628a1095fe2947a3cf4972",
+    "hash": "8279aded558dec2f01df410cdcf9d1bf",
+    "content-hash": "1ab2a5b1affe4b62d129a75bba5c4e9c",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1414,6 +1414,58 @@
             "time": "2015-11-07 08:07:40"
         },
         {
+            "name": "slik/dompdf-bundle",
+            "version": "dev-master",
+            "target-dir": "Slik/DompdfBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SlikNL/DompdfBundle.git",
+                "reference": "c7d5b15d12d5c74f6844ffdee755df453f656098"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SlikNL/DompdfBundle/zipball/c7d5b15d12d5c74f6844ffdee755df453f656098",
+                "reference": "c7d5b15d12d5c74f6844ffdee755df453f656098",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "symfony/framework-bundle": "2.*",
+                "symfony/symfony": "2.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Slik\\DompdfBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "All Rights Reserved"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Vermeulen",
+                    "email": "info@christianvermeulen.net",
+                    "homepage": "http://christianvermeulen.net",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Slik Internetbureau Rotterdam",
+                    "email": "info@slik.eu",
+                    "homepage": "https://slik.eu",
+                    "role": "Copyright Owner"
+                }
+            ],
+            "description": "A wrapper for using DomPDF inside Symfony 2",
+            "keywords": [
+                "bundle",
+                "development",
+                "symfony"
+            ],
+            "time": "2015-10-30 15:48:22"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.3",
             "source": {
@@ -2403,7 +2455,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20
+        "friendsofsymfony/user-bundle": 20,
+        "slik/dompdf-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

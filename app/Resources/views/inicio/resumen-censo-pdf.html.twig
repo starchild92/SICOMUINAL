@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+    	<div class="col-sm-3">
+            <h2>Resumen Censo Demográfico</h2>
+            <p></p>
+            
+            <a href="{{ path('sic_documentos_cuaderno_votacion_pdf') }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Obtener Resumen del Censo Demográfico</a>
+        </div>
+        <div class="col-sm-9">
+            <table class="table table-bordered">
+            	<tbody>
+            		<tr>
+            			<td><span class="negritas">Estado:</span> {{ comunidad.estado }}</td>
+            			<td><span class="negritas">Municipio:</span> {{ comunidad.municipio }}</td>
+            			<td><span class="negritas">Parroquía:</span> {{ comunidad.parroquia }}</td>
+            		</tr>
+            		<tr>
+            			<td><span class="negritas">Organización:</span> </td>
+            			<td colspan="2"><span class="negritas">Lugar o Centro de Votación:</span> </td>
+            		</tr>
+            	</tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

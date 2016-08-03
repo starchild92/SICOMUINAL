@@ -28,6 +28,11 @@ sic_documentos_cuaderno_votacion:
     defaults: { _controller: "SICBundle:Inicio:cuadernoVotacion"}
     methods:  GET
 
+sic_documentos_cuaderno_votacion_pdf:
+    path:     /documentos/cuaderno-votacion/pdf
+    defaults: { _controller: "SICBundle:Inicio:cuadernoVotacionPDF"}
+    methods:  GET
+
 sic_documentos_resumen_censo:
     path:     /documentos/resumen-censo
     defaults: { _controller: "SICBundle:Inicio:resumenCenso"}
