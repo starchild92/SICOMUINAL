@@ -151,10 +151,9 @@ class Persona
         return $this->id;
     }
 
-    public function nombreyapellido()
-    {
-        return $this->nombre.' '.$this->apellido;
-    }
+    public function nombreyapellido(){ return $this->nombre.' '.$this->apellido; }
+    public function apellido_nombre_cuaderno(){ return $this->apellido.'<br>'.$this->nombre; }
+    public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
 
     public function fechaNacimiento()
     {

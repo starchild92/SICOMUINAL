@@ -181,10 +181,9 @@ class JefeGrupoFamiliar
         return $this->id;
     }
 
-    public function nombreyapellido()
-    {
-        return $this->nombres.' '.$this->apellidos;
-    }
+    public function nombreyapellido() { return $this->nombres.' '.$this->apellidos; }
+    public function apellido_nombre_cuaderno() { return $this->apellidos.'<br>'.$this->nombres; }
+    public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
 
     /**
      * Set nombres

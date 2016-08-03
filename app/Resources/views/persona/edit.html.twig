@@ -42,15 +42,50 @@
 
         <input class="btn btn-primary btn-block" type="submit" value="Guardar Datos de Persona" />
     {{ form_end(edit_form) }}
-
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/funcionesExtras.js') }}"></script>
     <script>
         $(document).ready(function() {
             $("#persona_edad").parent().addClass('hidden');
-            $('.ui.dropdown').dropdown();
-            $('.additions').dropdown({ allowAdditions: true });
+            $('.additions').dropdown({
+                allowAdditions: true,
+                onChange: function(addedValue, addedText, $addedChoice) {
+                    $('[name=persona]').submit(function(e){ e.preventDefault(); }); //nombre del form
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : 'jgf_profesion', //caso del switch en el controlador
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#persona_profesion').children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $.alert({
+                                theme: 'black',
+                                title: 'Error!',
+                                content: "No se ha podido agregar el valor al sistema, debido a un error desconocido. Intente otra vez.",
+                            });
+                        },
+                        complete: function(){
+                            $('[name=persona]').unbind('submit'); //nombre del form
+                        },
+                    });
+                },
+            });
             $('.js-datepicker')
                 .datepicker({ format: 'yyyy-mm-dd' })
                     .on('hide', function() {

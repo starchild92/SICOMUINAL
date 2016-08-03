@@ -120,7 +120,7 @@ class InicioController extends Controller
     }
 
     // Documentos
-
+    public function cmp($a, $b){ return strcmp($a->getCedula(), $b->getCedula()); }
     public function cuadernoVotacionAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -130,13 +130,16 @@ class InicioController extends Controller
         }
 
         $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
-        $jefes_grupo_familiar = $em->getRepository('SICBundle:Persona')->mayores_de(16);
-        echo sizeof($jefes_grupo_familiar);
-        die();
+        $personas = $em->getRepository('SICBundle:Persona')->mayores_de(16);
+        $votantes = array();
+        foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
+        foreach ($personas as $p) { array_push($votantes, $p); }
+
+        usort($votantes, array($this, "cmp"));
 
         return $this->render('inicio/cuaderno-votacion.html.twig',
             array(
-                'votantes' => array(),
+                'votantes' => $votantes,
                 'comunidad' => $comunidad_info));
     }
 
