@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class GrupoFamiliarRepository extends EntityRepository
 {
+	public function findSectores()
+	{
+		$query = $this->getEntityManager()
+                ->createQuery('SELECT gf 
+                FROM SICBundle:GrupoFamiliar gf
+                GROUP BY gf.sector');
+        $result = $query->getResult();
+        return $result;
+	}
 }

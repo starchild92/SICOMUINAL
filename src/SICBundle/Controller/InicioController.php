@@ -195,13 +195,13 @@ class InicioController extends Controller
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $gruposfamiliares = $em->getRepository('SICBundle:GrupoFamiliar')->findAll();
-            usort($gruposfamiliares, array($this, "cmpcalles"));
+            $sectores = $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(); //Cantidad de Sectores para realizar la contabilización de los datos
+            usort($sectores, array($this, "cmpcalles"));
 
-            foreach ($gruposfamiliares as $gf) {
+            foreach ($sectores as $gf) {
                 echo $gf->getSector()."<br>";
             }
-            echo sizeof($gruposfamiliares);
+            echo sizeof($sectores);
             die();
 
             return $this->render('inicio/resumen-censo.html.twig',
