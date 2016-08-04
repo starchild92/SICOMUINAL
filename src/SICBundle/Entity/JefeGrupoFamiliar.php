@@ -289,6 +289,11 @@ class JefeGrupoFamiliar
         return $this->fechaNacimiento;
     }
 
+    public function fechaNacimientoCorta()
+    {
+        $fecha = $this->getFechaNacimiento();
+        return $fecha->format('d-m-Y');
+    }
     public function fechaNacimiento()
     {
         $fecha = $this->getFechaNacimiento();

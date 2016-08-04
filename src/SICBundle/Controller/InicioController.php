@@ -372,6 +372,56 @@ class InicioController extends Controller
         }
     }
 
+    public function registroElectoralPDFAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        if (sizeof($comunidad) > 0) {
+            $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(16);
+            $votantes = array();
+            foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
+            foreach ($personas as $p) { array_push($votantes, $p); }
+
+            usort($votantes, array($this, "cmp"));
+
+            // return $this->render('inicio/registro-electoral-pdf.html.twig',
+            //     array(
+            //         'votantes' => $votantes,
+            //         'comunidad' => $comunidad_info,
+            //         'base_path' => $_SERVER["DOCUMENT_ROOT"],
+            //         'consejo' => $cc));
+
+            $dompdf = new \DOMPDF();
+            $dompdf->set_paper(array(0,0,612.00,792.00), 'portrait');
+            $dompdf->load_html($this->renderView('inicio/registro-electoral-pdf.html.twig',
+                array(
+                    'votantes' => $votantes,
+                    'comunidad' => $comunidad_info,
+                    'base_path' => $_SERVER["DOCUMENT_ROOT"],
+                    'consejo' => $cc)));
+
+            $dompdf->render();
+            $entrada = new Bitacora($this->getUser(),'generó','un Resumen del Censo Demográfico');
+            $em->persist($entrada);
+            $em->flush();
+
+            $response = new Response();
+            $response->setContent($dompdf->stream("registro-electoral.pdf", array("Attachment"=>0)));
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'application/pdf');
+            return $response;
+
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            return $this->redirectToRoute('sic_homepage');
+        }
+    }
+
     public function registroPreliminarAction()
     {
         return $this->render('inicio/registro-preliminar.html.twig');

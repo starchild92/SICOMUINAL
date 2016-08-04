@@ -48,6 +48,11 @@ sic_documentos_registro_electoral:
     defaults: { _controller: "SICBundle:Inicio:registroElectoral"}
     methods:  GET
 
+sic_documentos_registro_electoral_pdf:
+    path:     /documentos/registro-electoral/pdf
+    defaults: { _controller: "SICBundle:Inicio:registroElectoralPDF"}
+    methods:  GET
+
 sic_documentos_registro_preliminar:
     path:     /documentos/registro-preliminar
     defaults: { _controller: "SICBundle:Inicio:registroPreliminar"}

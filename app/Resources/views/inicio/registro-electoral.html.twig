@@ -7,7 +7,7 @@
         <div class="col-sm-3">
             <h2>Registro Electoral</h2>
             
-            <a href="{{ path('sic_documentos_cuaderno_votacion_pdf') }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Obtener Cuaderno de Votación</a>
+            <a href="{{ path('sic_documentos_registro_electoral_pdf') }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Obtener Cuaderno de Votación</a>
         </div>
         <div class="col-sm-9">
             <h3>Vista Preliminar de los Datos</h3>
@@ -69,7 +69,7 @@
         $(document).ready(function() {
             dataTable = $('#tabla_registro_electoral').DataTable( {
                     // "pageLength": 25,
-                    // "bLengthChange": false,
+                    "bLengthChange": false,
                     // "info": true,
                     'stateSave': true,
                     'pagingType': 'full_numbers',
@@ -79,10 +79,6 @@
                     "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
                     		"<'row'<'col-sm-12'tr>>" +
                     		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                    'columnDefs': [{
-				          "targets": [3,4,5],
-				          "orderable": false,
-				    }],
                 });
         });
     </script>
