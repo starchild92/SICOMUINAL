@@ -334,7 +334,7 @@ class InicioController extends Controller
             $em->flush();
 
             $response = new Response();
-            $response->setContent($dompdf->stream("resumen-censo-demografico.pdf", array("Attachment"=>0)));
+            $response->setContent($dompdf->stream("resumen-censo-demografico.pdf", array("Attachment"=>1)));
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;

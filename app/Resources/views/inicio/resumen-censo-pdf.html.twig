@@ -3,6 +3,7 @@
     <style>
         html {
             margin-top: 20px;
+            margin-bottom: 20px;
             margin-left: 20px;
             margin-right: 20px;
         }
@@ -20,7 +21,7 @@
 {% block body %}
     <div class="row">
         <div class="col-sm-12">
-            <img src="{{ base_path }}/images/banner_comunas_proteccion_social.jpg" class="img-responsive" alt="">
+            <img src="{{ base_path }}/images/banner_comunas_proteccion_social.jpg" width="80%" style="margin-left: 130px;" class="img-responsive" alt="">
         </div>
         <div class="col-sm-12">
             <h2 class="negritas text-center">RESUMEN DEL CENSO DEMOGRÁFICO</h2>
@@ -94,4 +95,10 @@
             </table>
         </div>
     </div>
+    <script type="text/php">
+        if ( isset($pdf) ) {
+            $font = Font_Metrics::get_font("arial", "regular");
+            $pdf->page_text(520, 735, "Pagina {PAGE_NUM} de {PAGE_COUNT}", $font, 10, array(0,0,0));
+        }
+    </script>
 {% endblock %}
