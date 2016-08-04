@@ -30,7 +30,8 @@ class PersonaType extends AbstractType
                 'placeholder' => 'Elija uno',
                 'attr' => array('class' => 'ui dropdown')))
             ->add('cedula','text', array(
-                'label'     => 'Cédula de Identidad'))
+                'label'     => 'Cédula de Identidad',
+                'required' => false,))
             
             ->add('email')
             

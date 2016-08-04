@@ -135,6 +135,12 @@ class Persona
      */
     private $recibir_correo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="GrupoFamiliar", cascade={"persist", "remove"}, inversedBy="miembros")
+     * @ORM\JoinColumn(name="grupo_fam_id", referencedColumnName="id")
+     */
+    private $grupofamiliar;
+
     public function __construct()
     {
         $this->recibir_correo = true;
@@ -152,7 +158,22 @@ class Persona
 
     public function nombreyapellido(){ return $this->nombre.' '.$this->apellido; }
     public function apellido_nombre_cuaderno(){ return $this->apellido.'<br>'.$this->nombre; }
-    public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
+    public function apellido_nombre(){ return $this->apellido.' '.$this->nombre; }
+    public function cedula(){ 
+        if($this->cedula == ''){
+            return 'No especificó';
+        }else{
+            return number_format($this->cedula, 0, '', '.');
+        }
+    }
+    public function direccion(){
+        $grupo = $this->grupofamiliar;
+        if ($grupo != NULL) {
+            return $grupo->getDireccionCompleta();
+        }
+
+        return "";
+    }
 
     public function fechaNacimiento()
     {
@@ -561,5 +582,28 @@ class Persona
         }else{
             return false;
         }
+    }
+
+    /**
+     * Set grupofamiliar
+     *
+     * @param \SICBundle\Entity\GrupoFamiliar $grupofamiliar
+     * @return Persona
+     */
+    public function setGrupofamiliar(\SICBundle\Entity\GrupoFamiliar $grupofamiliar = null)
+    {
+        $this->grupofamiliar = $grupofamiliar;
+
+        return $this;
+    }
+
+    /**
+     * Get grupofamiliar
+     *
+     * @return \SICBundle\Entity\GrupoFamiliar 
+     */
+    public function getGrupofamiliar()
+    {
+        return $this->grupofamiliar;
     }
 }

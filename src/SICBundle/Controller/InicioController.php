@@ -346,7 +346,30 @@ class InicioController extends Controller
 
     public function registroElectoralAction()
     {
-        return $this->render('inicio/registro-electoral.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        if (sizeof($comunidad) > 0) {
+            $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(16);
+            $votantes = array();
+            foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
+            foreach ($personas as $p) { array_push($votantes, $p); }
+
+            usort($votantes, array($this, "cmp"));
+
+            return $this->render('inicio/registro-electoral.html.twig',
+                array(
+                    'votantes' => $votantes,
+                    'comunidad' => $comunidad_info,
+                    'consejo' => $cc));
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            return $this->redirectToRoute('sic_homepage');
+        }
     }
 
     public function registroPreliminarAction()

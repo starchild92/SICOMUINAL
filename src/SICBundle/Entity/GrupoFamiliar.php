@@ -64,13 +64,8 @@ class GrupoFamiliar
      */
     private $tiempoResidencia;
 
-
     /**
-     * @ORM\ManyToMany(targetEntity="Persona", cascade={"remove", "persist"})
-     * @ORM\JoinTable(name="grupo_familiar_personas",
-     *      joinColumns={@ORM\JoinColumn(name="grupo_familiar", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="persona", referencedColumnName="id", unique=true, onDelete="CASCADE")}
-     *      )
+     * @ORM\OneToMany(targetEntity="Persona", cascade={"remove", "persist"}, mappedBy="grupofamiliar")
      */
     private $miembros;
     
@@ -86,6 +81,11 @@ class GrupoFamiliar
     public function updateCantMiembros()
     {
         $this->cantidadMiembros = sizeof($this->miembros) + 1;
+    }
+
+    public function getDireccionCompleta()
+    {
+        return $this->sector.", ".$this->direccion.", ".$this->numeroCasa;
     }
     
     /**
@@ -235,6 +235,29 @@ class GrupoFamiliar
     {
         return $this->tiempoResidencia;
     }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return GrupoFamiliar
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
+    }
     /**
      * Constructor
      */
@@ -274,28 +297,5 @@ class GrupoFamiliar
     public function getMiembros()
     {
         return $this->miembros;
-    }
-
-    /**
-     * Set planilla
-     *
-     * @param \SICBundle\Entity\Planillas $planilla
-     * @return GrupoFamiliar
-     */
-    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
-    {
-        $this->planilla = $planilla;
-
-        return $this;
-    }
-
-    /**
-     * Get planilla
-     *
-     * @return \SICBundle\Entity\Planillas 
-     */
-    public function getPlanilla()
-    {
-        return $this->planilla;
     }
 }

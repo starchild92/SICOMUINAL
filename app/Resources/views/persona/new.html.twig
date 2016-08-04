@@ -49,10 +49,12 @@
             </div>
         </div>
 
-        <input class="btn btn-primary btn-block" type="submit" value="Agregar Miembro al Grupo Familiar" />
+        <div class="row">
+            <div class="col-sm-6"><input class="btn btn-primary btn-block" form="persona" type="submit" value="Agregar Miembro al Grupo Familiar" /></div>
+            <div class="col-sm-6"><a class="btn-block btn btn-success" href="{{ path('situacioneconomica_new', {'id_planilla':id_planilla}) }}">No hay más miembros, Continuar</a></div>
+        </div>
     {{ form_end(form) }}
-    <br>
-    <a class="btn-block btn btn-success" href="{{ path('situacioneconomica_new', {'id_planilla':id_planilla}) }}">No hay más miembros, Continuar</a>
+    
     <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
 {% endblock %}
 

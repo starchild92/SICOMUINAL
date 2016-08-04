@@ -183,7 +183,19 @@ class JefeGrupoFamiliar
 
     public function nombreyapellido() { return $this->nombres.' '.$this->apellidos; }
     public function apellido_nombre_cuaderno() { return $this->apellidos.'<br>'.$this->nombres; }
+    public function apellido_nombre() { return $this->apellidos.' '.$this->nombres; }
     public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
+    public function direccion(){
+        $planilla = $this->planilla;
+        if ($planilla != NULL) {
+            $grupo = $planilla->getGrupoFamiliar();
+            if ($grupo != NULL) {
+                return $grupo->getDireccionCompleta();
+            }
+        }
+
+        return "";
+    }
 
     /**
      * Set nombres

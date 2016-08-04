@@ -185,6 +185,7 @@ class PersonaController extends Controller
             }else{
                 $persona->setRecibirCorreo(false);
             }
+            $persona->setGrupofamiliar($Grupo);
             $em->persist($persona);
             $em->persist($Grupo);
             $em->flush();
@@ -323,6 +324,9 @@ class PersonaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $Grupo->addMiembro($persona);
+
+            $persona->setGrupofamiliar($Grupo);
+
             if ($persona->getEmail() != '') {
                 $persona->setRecibirCorreo(true);
             }else{
