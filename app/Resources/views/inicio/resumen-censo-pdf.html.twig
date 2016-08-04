@@ -6,17 +6,29 @@
             margin-left: 20px;
             margin-right: 20px;
         }
+        .img-responsive,
+        .thumbnail > img,
+        .thumbnail a > img,
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+        }
     </style>
 {% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-sm-12">
+            <img src="{{ base_path }}/images/banner_comunas_proteccion_social.jpg" class="img-responsive" alt="">
+        </div>
+        <div class="col-sm-12">
             <h2 class="negritas text-center">RESUMEN DEL CENSO DEMOGRÁFICO</h2>
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <td class="col-sm-6"><span class="negritas">Consejo Comunal:</span> {{ consejo }}</td>
-                        <td class="col-sm-6"><span class="negritas">Parroquía:</span> {{ comunidad.parroquia }}</td>
+                        <td style="width: 50%"><span class="negritas">Consejo Comunal:</span> {{ consejo }}</td>
+                        <td style="width: 50%"><span class="negritas">Parroquía:</span> {{ comunidad.parroquia }}</td>
                     </tr>
                     <tr>
                         <td><span class="negritas">Municipio:</span> {{ comunidad.municipio }}</td>

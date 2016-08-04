@@ -226,6 +226,7 @@ class InicioController extends Controller
                     $personas = $grupo->getMiembros();
                     foreach ($personas as $p) {
                         if ($p->getEdad() >= 15 && $p->getEdad() <= 17) { $entreQyD++; }
+                        if ($p->getEdad() >= 15) { $electores++; }
                         if ($p->getEdad() >= 18) { $mayor_edad++; }
                         if ($p->getCne()->getRespuesta() == 'Si') { $cne++; }
                     }
@@ -233,6 +234,7 @@ class InicioController extends Controller
                         $jfg = $grupo->getPlanilla()->getJefeGrupoFamiliar();
                         if ($jfg != null) {
                             if ($jfg->getEdad() >= 15 && $jfg->getEdad() <= 17) { $entreQyD++; }
+                            if ($jfg->getEdad() >= 15) { $electores++; }
                             if ($jfg->getEdad() >= 18) { $mayor_edad++; }
                             if ($jfg->getCne()->getRespuesta() == 'Si') { $cne++; }
                         }
@@ -292,6 +294,7 @@ class InicioController extends Controller
                     $personas = $grupo->getMiembros();
                     foreach ($personas as $p) {
                         if ($p->getEdad() >= 15 && $p->getEdad() <= 17) { $entreQyD++; }
+                        if ($p->getEdad() >= 15) { $electores++; }
                         if ($p->getEdad() >= 18) { $mayor_edad++; }
                         if ($p->getCne()->getRespuesta() == 'Si') { $cne++; }
                     }
@@ -299,6 +302,7 @@ class InicioController extends Controller
                         $jfg = $grupo->getPlanilla()->getJefeGrupoFamiliar();
                         if ($jfg != null) {
                             if ($jfg->getEdad() >= 15 && $jfg->getEdad() <= 17) { $entreQyD++; }
+                            if ($jfg->getEdad() >= 15) { $electores++; }
                             if ($jfg->getEdad() >= 18) { $mayor_edad++; }
                             if ($jfg->getCne()->getRespuesta() == 'Si') { $cne++; }
                         }
@@ -321,6 +325,7 @@ class InicioController extends Controller
                 array(
                     'sectores' => $datos,
                     'comunidad' => $comunidad_info,
+                    'base_path' => $_SERVER["DOCUMENT_ROOT"],
                     'consejo' => $cc->getNombre()))
             );
             $dompdf->render();

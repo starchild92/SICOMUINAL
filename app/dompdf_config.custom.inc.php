@@ -7,7 +7,7 @@
 define("DOMPDF_DEFAULT_PAPER_SIZE", "a4");
 define("DOMPDF_DEFAULT_FONT", "helvetica");
 define("DOMPDF_DPI", 150);
-//define("DOMPDF_ENABLE_PHP", true);
+define("DOMPDF_ENABLE_PHP", true);
 define("DOMPDF_ENABLE_REMOTE", true);
 define("DOMPDF_ENABLE_CSS_FLOAT", true);
 //define("DOMPDF_ENABLE_JAVASCRIPT", true);
