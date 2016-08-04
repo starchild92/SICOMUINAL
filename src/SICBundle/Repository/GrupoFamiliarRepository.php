@@ -21,4 +21,29 @@ class GrupoFamiliarRepository extends EntityRepository
         $result = $query->getResult();
         return $result;
 	}
+
+	public function findNumeroViviendas($sector)
+	{
+		$query = $this->getEntityManager()
+			->createQuery('
+				SELECT gf FROM SICBundle:GrupoFamiliar gf
+				WHERE gf.sector = :sector
+				GROUP BY 
+					gf.direccion, gf.numeroCasa');
+        $query->setparameter('sector', $sector);
+		$result = $query->getResult();
+		return $result;
+	}
+
+	public function findCantidadMiembros($sector)
+	{
+		$query = $this->getEntityManager()
+		->createQuery('
+			SELECT SUM(gf.cantidadMiembros) as cantidad
+			FROM SICBundle:GrupoFamiliar gf
+			WHERE gf.sector = :sector');
+		$query->setparameter('sector', $sector);
+		$result = $query->getResult();
+		return $result[0];
+	}
 }

@@ -6,7 +6,7 @@
             <h2>Resumen Censo Demográfico</h2>
             <p></p>
             
-            <a href="{{ path('sic_documentos_cuaderno_votacion_pdf') }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Obtener Resumen del Censo Demográfico</a>
+            <a href="{{ path('sic_documentos_resumen_censo_pdf') }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Obtener Resumen del Censo Demográfico</a>
         </div>
         <div class="col-sm-9">
         	<h3>Vista Preliminar de los Datos</h3>
@@ -23,7 +23,7 @@
             		</tr>
             	</tbody>
             </table>
-			<table class="table table-bordered table-striped table-hover table-condensed">
+			<table id="tabla_sectores" class="table table-bordered table-striped table-hover table-condensed">
 				<thead>
 					<tr>
 						<th>CALLE / VEREDA / MANZANA / CALLEJÓN</th>
@@ -37,8 +37,9 @@
 					</tr>
 				</thead>
 				<tbody>
+					{% for sector in sectores %}
 					<tr>
-						<td></td>
+						<td>{{ sector.sector }}</td>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -47,8 +48,33 @@
 						<td></td>
 						<td></td>
 					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            dataTable = $('#tabla_sectores').DataTable( {
+                    // "pageLength": 25,
+                    // "bLengthChange": false,
+                    // "info": true,
+                    'stateSave': true,
+                    'pagingType': 'full_numbers',
+                    "language": {
+                        "url": "{{ asset('datatables/espanol.js') }}"
+                    },
+                    "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                    		"<'row'<'col-sm-12'tr>>" +
+                    		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                    'columnDefs': [{
+				          "targets": [3,4,5],
+				          "orderable": false,
+				    }],
+                });
+        });
+    </script>
 {% endblock %}

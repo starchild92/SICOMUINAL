@@ -185,7 +185,8 @@ class InicioController extends Controller
         }
     }
 
-    public function cmpcalles($a, $b){ return strcmp($a->getSector(), $b->getSector()); }
+    // public function cmpsector($a, $b){ return strcmp($a->getSector(), $b->getSector()); }
+    public function cmpdireccion($a, $b){ return strcmp($a->getDireccion(), $b->getDireccion()); }
     public function resumenCensoAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -196,22 +197,46 @@ class InicioController extends Controller
             $cc = $consejo[0];
 
             $sectores = $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(); //Cantidad de Sectores para realizar la contabilización de los datos
-            usort($sectores, array($this, "cmpcalles"));
+            // usort($sectores, array($this, "cmpsector")); //esto los organizará, lo que no tiene sentido porque todos son diferentes
 
-            foreach ($sectores as $gf) {
-                echo $gf->getSector()."<br>";
+            foreach ($sectores as $s) {
+                $nombre_sector = $s->getSector();
+                $grupos_del_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findBy(array('sector' => $nombre_sector));
+                usort($grupos_del_sector, array($this, "cmpdireccion"));
+                $num_viviendas = sizeof($em->getRepository('SICBundle:GrupoFamiliar')->findNumeroViviendas($nombre_sector));
+                $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_sector);
+
+                //Variables para construir la tabla del resultados
+                echo "En el sector: ".$nombre_sector;
+                echo ", hay ".sizeof($grupos_del_sector). " grupos familiares con ";
+                echo $num_viviendas." viviendas";
+                echo " y en este sector viven ".$habitantes_sector['cantidad']." personas <br>";
+
+                // Me toca anidar un foreach para consultar el resto de la informacion de cada miemnro del grupo familiar y jefe de grupo familiar
+                // echo sizeof($grupos_del_sector);
+                $miembros = 0;
+                foreach ($grupos_del_sector as $grupo) {
+                    echo $grupo->getSector()."/".$grupo->getDireccion()." miembros ".sizeof($grupo->getMiembros())."<br>";
+                    $miembros = sizeof($grupo->getMiembros()) + $miembros + 1;
+                }
+                echo $miembros;
+                die();
             }
-            echo sizeof($sectores);
             die();
 
             return $this->render('inicio/resumen-censo.html.twig',
                 array(
+                    'sectores' => $sectores,
                     'comunidad' => $comunidad_info,
                     'consejo' => $cc->getNombre()));
         }else{
             $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
             return $this->redirectToRoute('sic_homepage');
         }
+    }
+    public function resumenCensoPDFAction()
+    {
+        return null;
     }
 
     public function registroElectoralAction()

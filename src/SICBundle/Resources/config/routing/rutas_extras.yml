@@ -38,6 +38,11 @@ sic_documentos_resumen_censo:
     defaults: { _controller: "SICBundle:Inicio:resumenCenso"}
     methods:  GET
 
+sic_documentos_resumen_censo_pdf:
+    path:     /documentos/resumen-censo/pdf
+    defaults: { _controller: "SICBundle:Inicio:resumenCensoPDF"}
+    methods:  GET
+
 sic_documentos_registro_electoral:
     path:     /documentos/registro-electoral
     defaults: { _controller: "SICBundle:Inicio:registroElectoral"}
