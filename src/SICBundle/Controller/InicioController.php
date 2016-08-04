@@ -215,11 +215,33 @@ class InicioController extends Controller
                 // Me toca anidar un foreach para consultar el resto de la informacion de cada miemnro del grupo familiar y jefe de grupo familiar
                 // echo sizeof($grupos_del_sector);
                 $miembros = 0;
+                $entreQyD = 0;
+                $mayor_edad = 0;
+                $cne = 0;
+                $electores = 0;
                 foreach ($grupos_del_sector as $grupo) {
                     echo $grupo->getSector()."/".$grupo->getDireccion()." miembros ".sizeof($grupo->getMiembros())."<br>";
                     $miembros = sizeof($grupo->getMiembros()) + $miembros + 1;
+                    $personas = $grupo->getMiembros();
+                    foreach ($personas as $p) {
+                        if ($p->getEdad() >= 15 && $p->getEdad() <= 17) { $entreQyD++; }
+                        if ($p->getEdad() >= 18) { $mayor_edad++; }
+                        if ($p->getCne()->getRespuesta() == 'Si') { $cne++; }
+                    }
+                    if ($grupo->getPlanilla() != null) {
+                        $jfg = $grupo->getPlanilla()->getJefeGrupoFamiliar();
+                        if ($jfg != null) {
+                            if ($jfg->getEdad() >= 15 && $jfg->getEdad() <= 17) { $entreQyD++; }
+                            if ($jfg->getEdad() >= 18) { $mayor_edad++; }
+                            if ($jfg->getCne()->getRespuesta() == 'Si') { $cne++; }
+                        }
+                    }
                 }
-                echo $miembros;
+                echo "Total personas: ".$miembros."<br>";
+                echo "15 - 17 años: ".$entreQyD."<br>";
+                echo "18 >= ".$mayor_edad."<br>";
+                echo "CNE: ".$cne."<br>";
+                echo "Electores:  ".$electores."<br>";
                 die();
             }
             die();
