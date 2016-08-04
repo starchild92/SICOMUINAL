@@ -11,7 +11,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="persona")
  * @ORM\Entity()
- * @UniqueEntity("cedula")
  * @ORM\Entity(repositoryClass="SICBundle\Repository\PersonaRepository")
  */
 class Persona
@@ -49,7 +48,7 @@ class Persona
     /**
      * @var string
      *
-     * @ORM\Column(name="cedula", type="string", length=255, unique=true)
+     * @ORM\Column(name="cedula", type="string", length=255)
      */
     private $cedula;
 

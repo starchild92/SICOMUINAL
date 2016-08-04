@@ -27,3 +27,8 @@ agenda_comunitaria:
     path:     /agenda/comunitaria
     defaults: { _controller: "SICBundle:Persona:agenda" }
     methods:  GET
+
+personas_nuevo_miembro:
+    path:     /nuevo/miembro/{id_planilla}/{id_grupofamiliar}
+    defaults: { _controller: "SICBundle:Persona:nuevoMiembro" }
+    methods:  [GET, POST]

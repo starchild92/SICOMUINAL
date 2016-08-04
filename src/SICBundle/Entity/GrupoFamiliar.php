@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * GrupoFamiliar
  *
  * @ORM\Table(name="grupo_familiar")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="SICBundle\Repository\GrupoFamiliarRepository")
  */
 class GrupoFamiliar
@@ -77,6 +78,15 @@ class GrupoFamiliar
      * @ORM\OneToOne(targetEntity="Planillas", mappedBy="grupoFamiliar")
      */
     private $planilla;
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updateCantMiembros()
+    {
+        $this->cantidadMiembros = sizeof($this->miembros) + 1;
+    }
     
     /**
      * Get id

@@ -144,6 +144,7 @@ class PersonaController extends Controller
             'total' => $total,
         );
     }
+
     /**
      * Lists all Persona entities.
      *
@@ -270,7 +271,7 @@ class PersonaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('personas_index');
+        return $this->redirectToRoute('planillas_index');
     }
 
     /**
@@ -298,6 +299,53 @@ class PersonaController extends Controller
         return $this->render('persona/agenda_comunitaria.html.twig', array(
             'jefes' => $jefes,
             'personas' => $personas,
+        ));
+    }
+
+    public function nuevoMiembroAction(Request $request, $id_planilla, $id_grupofamiliar)
+    {
+        $persona = new Persona();
+        $form = $this->createForm('SICBundle\Form\PersonaType', $persona);
+        $form->handleRequest($request);
+        
+        $em = $this->getDoctrine()->getManager();
+        $GrupoFam = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
+        // $cantMiembros = 1;
+        if ($GrupoFam != NULL) {
+            $Grupo = $GrupoFam[0];
+            // $aux = $Grupo->getCantidadMiembros();
+            // $Grupo->setCantidadMiembros($aux+1);
+        }else{
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $Grupo->addMiembro($persona);
+            if ($persona->getEmail() != '') {
+                $persona->setRecibirCorreo(true);
+            }else{
+                $persona->setRecibirCorreo(false);
+            }
+            $em->persist($persona);
+            $em->persist($Grupo);
+            $em->flush();
+
+            $cantMiembros = $Grupo->getCantidadMiembros();
+            $this->get('session')->getFlashBag()->add('success','Se agregó el miembro al grupo familiar de forma correcta.');
+
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
+        $cantMiembros = $Grupo->getCantidadMiembros();
+
+        return $this->render('persona/new.html.twig', array(
+            'persona' => $persona,
+            'id_planilla' => $id_planilla,
+            'id_grupofamiliar' => $id_grupofamiliar,
+            'cantMiembros' => $cantMiembros,
+            'form' => $form->createView(),
         ));
     }
 }
