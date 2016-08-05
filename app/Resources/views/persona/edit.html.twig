@@ -25,10 +25,13 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
-                            <div class="col-sm-6">{{ form_row(edit_form.sexo) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.nacionalidad) }}</div>
                         </div>
                         {{ form_row(edit_form.email) }}
-                        {{ form_row(edit_form.fechaNacimiento) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.fechaNacimiento) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.sexo) }}</div>
+                        </div>
                         {{ form_row(edit_form.edad) }}
                         {{ form_row(edit_form.embarazoTemprano) }}
                         {{ form_row(edit_form.incapacitado) }}

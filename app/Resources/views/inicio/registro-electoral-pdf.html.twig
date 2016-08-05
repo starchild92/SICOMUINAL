@@ -67,9 +67,9 @@
             		<tr style="background-color: transparent !important;">
             			<td style="background-color: transparent !important;" class="text-center">{{ loop.index }}</td>
             			<td style="background-color: transparent !important;" class="text-center">{{ votante.cedula() }}</td>
-            			<td style="background-color: transparent !important;">{{ votante.apellido_nombre }}</td>
-            			<td style="background-color: transparent !important;">{{ votante.direccion() }}</td>
-            			<td style="background-color: transparent !important;" class="text-center">{{ votante.fechaNacimientoCorta() }}</td>
+            			<td style="background-color: transparent !important;">{# {{ votante.apellido_nombre }} #}</td>
+            			<td style="background-color: transparent !important;">{# {{ votante.direccion() }} #}</td>
+            			<td style="background-color: transparent !important;" class="text-center">{# {{ votante.fechaNacimientoCorta() }} #}</td>
             		</tr>
             		{% endfor %}
             	</tbody>

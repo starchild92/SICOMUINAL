@@ -53,6 +53,12 @@ class Persona
     private $cedula;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist"})
+     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $nacionalidad;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechaNacimiento", type="date")
@@ -186,6 +192,12 @@ class Persona
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
         return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
+    }
+    public function fechaNacimientoRegistroPreliminar()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+        return $fecha->format('d')."-".$meses[$fecha->format('n')-1]."-".$fecha->format('Y');
     }
 
     /**
@@ -609,5 +621,28 @@ class Persona
     public function getGrupofamiliar()
     {
         return $this->grupofamiliar;
+    }
+
+    /**
+     * Set nacionalidad
+     *
+     * @param \SICBundle\Entity\AdminNacionalidad $nacionalidad
+     * @return Persona
+     */
+    public function setNacionalidad(\SICBundle\Entity\AdminNacionalidad $nacionalidad = null)
+    {
+        $this->nacionalidad = $nacionalidad;
+
+        return $this;
+    }
+
+    /**
+     * Get nacionalidad
+     *
+     * @return \SICBundle\Entity\AdminNacionalidad 
+     */
+    public function getNacionalidad()
+    {
+        return $this->nacionalidad;
     }
 }

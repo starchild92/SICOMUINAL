@@ -196,7 +196,13 @@ class JefeGrupoFamiliar
 
         return "";
     }
-
+    public function fechaNacimientoRegistroPreliminar()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+        return $fecha->format('d')."-".$meses[$fecha->format('n')-1]."-".$fecha->format('Y');
+    }
+    
     /**
      * Set nombres
      *

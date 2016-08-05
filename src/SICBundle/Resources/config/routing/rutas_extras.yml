@@ -57,3 +57,8 @@ sic_documentos_registro_preliminar:
     path:     /documentos/registro-preliminar
     defaults: { _controller: "SICBundle:Inicio:registroPreliminar"}
     methods:  GET
+
+sic_documentos_registro_preliminar_pdf:
+    path:     /documentos/registro-preliminar-pdf
+    defaults: { _controller: "SICBundle:Inicio:registroPreliminarPDF"}
+    methods:  GET

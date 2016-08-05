@@ -32,18 +32,21 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(form.cedula) }}
                         <div class="row">
-                            <div class="col-sm-6">{{ form_row(form.fechaNacimiento) }}</div>
-                            <div class="col-sm-6">{{ form_row(form.email) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.nacionalidad) }}</div>
                         </div>
-                        {{ form_row(form.edad) }}
-                        {{ form_row(form.sexo) }}
-                        {{ form_row(form.embarazoTemprano) }}
-                        {{ form_row(form.incapacitado) }}
-                        {{ form_row(form.incapacitadoTipo) }}
-                        {{ form_row(form.pensionado) }}
-                        {{ form_row(form.pensionadoInstitucion) }}
+                        {{ form_row(edit_form.email) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.fechaNacimiento) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.sexo) }}</div>
+                        </div>
+                        {{ form_row(edit_form.edad) }}
+                        {{ form_row(edit_form.embarazoTemprano) }}
+                        {{ form_row(edit_form.incapacitado) }}
+                        {{ form_row(edit_form.incapacitadoTipo) }}
+                        {{ form_row(edit_form.pensionado) }}
+                        {{ form_row(edit_form.pensionadoInstitucion) }}
                     </div>
                 </div>
             </div>

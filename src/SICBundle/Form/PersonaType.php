@@ -29,6 +29,18 @@ class PersonaType extends AbstractType
             ->add('sexo', GeneroType::class, array(
                 'placeholder' => 'Elija uno',
                 'attr' => array('class' => 'ui dropdown')))
+
+            ->add('nacionalidad', EntityType::class, array(
+                // query choices from this entity
+                'class' => 'SICBundle:AdminNacionalidad',
+                'placeholder' => 'Selecciona una',
+                'choice_label' => 'Nacionalidad',
+
+                // used to render a select box, check boxes or radios
+                 // 'multiple' => true,
+                 // 'expanded' => true,
+            ))
+            
             ->add('cedula','text', array(
                 'label'     => 'Cédula de Identidad',
                 'required' => false,))
