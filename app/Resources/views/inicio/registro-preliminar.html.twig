@@ -37,7 +37,7 @@
             		</tr>
             	</tbody>
             </table>
-            <table id="tabla_registro_electoral" class="table table-bordered table-condensed table-hover">
+            <table class="dataTable table table-bordered table-condensed table-hover">
             	<thead>
             		<tr class="text-uppercase" style="background-color: #FFFF00 !important;">
             			<th class="text-center">N°</th>
@@ -48,7 +48,30 @@
             		</tr>
             	</thead>
             	<tbody>
-            		{% for votante in votantes %}
+            		{% for votante in votantesV %}
+            		<tr>
+            			<td class="text-center">{{ loop.index }}</td>
+            			<td class="text-center">{{ votante.nacionalidad }}-{{ votante.cedula() }}</td>
+            			<td class="text-center">{{ votante.apellido_nombre }}</td>
+            			<td class="text-center">{{ votante.fechaNacimientoRegistroPreliminar() }}</td>
+            			<td class="text-center">{{ votante.direccion() }}</td>
+            		</tr>
+            		{% endfor %}
+            	</tbody>
+            </table>
+
+            <table class="dataTable table table-bordered table-condensed table-hover">
+            	<thead>
+            		<tr class="text-uppercase" style="background-color: #FFFF00 !important;">
+            			<th class="text-center">N°</th>
+            			<th class="text-center col-sm-2">Cédula de Identidad</th>
+            			<th class="text-center col-sm-3">Apellido y Nombre</th>
+            			<th class="text-center col-sm-1">Fecha de Nacimiento</th>
+            			<th class="text-center">Dirección</th>
+            		</tr>
+            	</thead>
+            	<tbody>
+            		{% for votante in votantesE %}
             		<tr>
             			<td class="text-center">{{ loop.index }}</td>
             			<td class="text-center">{{ votante.nacionalidad }}-{{ votante.cedula() }}</td>
@@ -67,7 +90,7 @@
     <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            dataTable = $('#tabla_registro_electoral').DataTable( {
+            dataTable = $('.dataTable').DataTable( {
                     // "pageLength": 25,
                     "bLengthChange": false,
                     // "info": true,

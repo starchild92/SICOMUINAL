@@ -128,8 +128,8 @@ class InicioController extends Controller
         $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(16);
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
@@ -152,8 +152,8 @@ class InicioController extends Controller
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(16);
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
@@ -353,8 +353,8 @@ class InicioController extends Controller
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(16);
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
@@ -381,8 +381,8 @@ class InicioController extends Controller
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(16);
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
@@ -424,17 +424,26 @@ class InicioController extends Controller
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(16);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(16);
-            $votantes = array();
-            foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
-            foreach ($personas as $p) { array_push($votantes, $p); }
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $votantesV = array();
+            $votantesE = array();
+            foreach ($jefes_grupo_familiar as $j) {
+                if ($j->getNacionalidad() == 'V') { array_push($votantesV, $j); }
+                if ($j->getNacionalidad() == 'E') { array_push($votantesE, $j); }
+            }
+            foreach ($personas as $p) {
+                if ($p->getNacionalidad() == 'V') { array_push($votantesV, $p); }
+                if ($p->getNacionalidad() == 'E') { array_push($votantesE, $p); }
+            }
 
-            usort($votantes, array($this, "cmp"));
+            usort($votantesV, array($this, "cmp"));
+            usort($votantesE, array($this, "cmp"));
 
             return $this->render('inicio/registro-preliminar.html.twig',
                 array(
-                    'votantes' => $votantes,
+                    'votantesV' => $votantesV,
+                    'votantesE' => $votantesE,
                     'comunidad' => $comunidad_info,
                     'consejo' => $cc));
         }else{
