@@ -3,8 +3,8 @@
 {% block stylesheets %}
     <style>
         html {
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin-top: 30px;
+            margin-bottom: 80px;
             margin-left: 20px;
             margin-right: 20px;
         }
@@ -25,12 +25,14 @@
           color: inherit;
         }
         h2, .h2 { font-size: 30px; }
-        .col-sm-2 { width: 300px; }
+        .col-sm-2 { width: 300px; } 
+        #watermarks { position: fixed; top: 500px; left: 200px; width: 200px; height: 200px; opacity: .1; }
     </style>
 {% endblock %}
 
 {% block body %}
     <div class="row">
+        <div id="watermarks"><img src="{{ base_path }}/images/cne_logo.jpg" width="800" class="img-responsive" alt="cne_logo"></div>
         <div class="col-sm-12">
             <table class="table table-bordered">
             	<tbody>
@@ -41,7 +43,7 @@
                                 <br> <br>Oficina Nacional de Participación Ciudadana</p>
             			</td>
             			<td >
-                            <p class="text-center negritas text-uppercase" style="font-size: 30px"><span>Registro Electoral</span></p>
+                            <p class="text-center negritas text-uppercase" style="font-size: 30px; background-color: #CCC; margin-top: 0px;"><span>Registro Electoral</span></p>
                             <p class="text-uppercase"><span class="negritas">Estado:</span> {{ comunidad.estado }}</p>
                             <p class="text-uppercase"><span class="negritas">Municipio:</span> {{ comunidad.municipio }}</p>
                             <p class="text-uppercase"><span class="negritas">Parroquía:</span> {{ comunidad.parroquia }}</p>
@@ -52,7 +54,7 @@
             </table>
             <table class="table table-bordered">
             	<thead>
-            		<tr>
+            		<tr style="background-color: transparent !important;">
             			<th class="text-center" width="35px">N°</th>
             			<th class="text-center" width="150px">Cédula de Identidad</th>
             			<th class="text-center col-sm-3">Apellido y Nombre</th>
@@ -62,16 +64,22 @@
             	</thead>
             	<tbody>
             		{% for votante in votantes %}
-            		<tr>
-            			<td class="text-center">{{ loop.index }}</td>
-            			<td class="text-center">{{ votante.cedula() }}</td>
-            			<td>{{ votante.apellido_nombre }}</td>
-            			<td>{{ votante.direccion() }}</td>
-            			<td class="text-center">{{ votante.fechaNacimientoCorta() }}</td>
+            		<tr style="background-color: transparent !important;">
+            			<td style="background-color: transparent !important;" class="text-center">{{ loop.index }}</td>
+            			<td style="background-color: transparent !important;" class="text-center">{{ votante.cedula() }}</td>
+            			<td style="background-color: transparent !important;">{{ votante.apellido_nombre }}</td>
+            			<td style="background-color: transparent !important;">{{ votante.direccion() }}</td>
+            			<td style="background-color: transparent !important;" class="text-center">{{ votante.fechaNacimientoCorta() }}</td>
             		</tr>
             		{% endfor %}
             	</tbody>
             </table>
         </div>
     </div>
+    <script type="text/php">
+        if ( isset($pdf) ) {
+            $font = Font_Metrics::get_font("arial", "regular");
+            $pdf->page_text(520, 750, "Pagina {PAGE_NUM} de {PAGE_COUNT}", $font, 10, array(0,0,0));
+        }
+    </script>
 {% endblock %}

@@ -389,13 +389,6 @@ class InicioController extends Controller
 
             usort($votantes, array($this, "cmp"));
 
-            // return $this->render('inicio/registro-electoral-pdf.html.twig',
-            //     array(
-            //         'votantes' => $votantes,
-            //         'comunidad' => $comunidad_info,
-            //         'base_path' => $_SERVER["DOCUMENT_ROOT"],
-            //         'consejo' => $cc));
-
             $dompdf = new \DOMPDF();
             $dompdf->set_paper(array(0,0,612.00,792.00), 'portrait');
             $dompdf->load_html($this->renderView('inicio/registro-electoral-pdf.html.twig',
