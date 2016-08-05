@@ -21,7 +21,7 @@
             			</td>
             		</tr>
             		<tr>
-            			<td class="text-center negritas text-uppercase h2"><span>Registro Electoral</span></td>
+            			<td class="text-center negritas text-uppercase h2"><span>Registro Electoral Preliminar {{ consejo.nombre }}</span></td>
             		</tr>
             		<tr>
             			<td class="text-left text-uppercase"><span class="negritas">Estado:</span> {{ comunidad.estado }}</td>
@@ -33,15 +33,15 @@
             			<td class="text-left text-uppercase"><span class="negritas">Parroquía:</span> {{ comunidad.parroquia }}</td>
             		</tr>
             		<tr>
-            			<td class="text-left text-uppercase"><span class="negritas">Nombre De La Instancía Del Poder Popular:</span> {{ consejo.nombre }}</td>
+            			<td class="text-left text-uppercase"><span class="negritas">Nombre De La Instancía Del Poder Popular: Equipo Promotor Provisional </span> {{ consejo.nombre }}</td>
             		</tr>
             	</tbody>
             </table>
             <table id="tabla_registro_electoral" class="table table-bordered table-condensed table-hover">
             	<thead>
-            		<tr class="text-uppercase">
+            		<tr class="text-uppercase" style="background-color: #FFFF00 !important;">
             			<th class="text-center">N°</th>
-            			<th class="text-center col-sm-1">Cédula de Identidad</th>
+            			<th class="text-center col-sm-2">Cédula de Identidad</th>
             			<th class="text-center col-sm-3">Apellido y Nombre</th>
             			<th class="text-center col-sm-1">Fecha de Nacimiento</th>
             			<th class="text-center">Dirección</th>
@@ -51,7 +51,7 @@
             		{% for votante in votantes %}
             		<tr>
             			<td class="text-center">{{ loop.index }}</td>
-            			<td class="text-center">{{ votante.cedula() }}</td>
+            			<td class="text-center">{{ votante.nacionalidad }}-{{ votante.cedula() }}</td>
             			<td class="text-center">{{ votante.apellido_nombre }}</td>
             			<td class="text-center">{{ votante.fechaNacimientoRegistroPreliminar() }}</td>
             			<td class="text-center">{{ votante.direccion() }}</td>
