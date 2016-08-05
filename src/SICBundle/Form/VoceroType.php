@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class VoceroType extends AbstractType
 {
@@ -27,7 +28,8 @@ class VoceroType extends AbstractType
                 ))
 
             ->add('votosElecto')
-            ->add('persona')
+            ->add('persona', TextType::class, array(
+                'label' => 'Cédula Persona'))
         ;
     }
     

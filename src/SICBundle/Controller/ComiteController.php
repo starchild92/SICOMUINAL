@@ -211,6 +211,7 @@ class ComiteController extends Controller
             // die();
 
             $voceros = $comite->getVoceros();
+            /* En la cedulas solo se permiten numeros */
             foreach ($voceros as $vocero) {
                 $int = filter_var($vocero->getPersona(), FILTER_SANITIZE_NUMBER_INT);
                 $vocero->setPersona($int);
