@@ -95,7 +95,7 @@ class ComiteController extends Controller
         */
         switch ( $comite->getTipoUnidad() ) {
             case 'Unidad Ejecutiva':
-                if ( $comite->getCantVoceros() < 2) {
+                if ( $comite->getCantVoceros() <= 2) {
                     return true;
                 }else{
                     $this->get('session')->getFlashBag()
@@ -105,7 +105,7 @@ class ComiteController extends Controller
                 break;
             
             default:
-                if ( $comite->getCantVoceros() < 10) {
+                if ( $comite->getCantVoceros() <= 10) {
                     return true;
                 }else{
                     $this->get('session')->getFlashBag()
@@ -211,6 +211,10 @@ class ComiteController extends Controller
             // die();
 
             $voceros = $comite->getVoceros();
+            foreach ($voceros as $vocero) {
+                $int = filter_var($vocero->getPersona(), FILTER_SANITIZE_NUMBER_INT);
+                $vocero->setPersona($int);
+            }
             if ($this->PermitirNuevoVocero($comite)) {
                 $comite->setCantVoceros(sizeof($voceros));
 

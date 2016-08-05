@@ -34,6 +34,7 @@ class InicioController extends Controller
         foreach ($unidad_ejecutiva as $ue) {
             $personas = array();
             $voceros = $ue->getVoceros();
+
             foreach ($voceros as $v) {
                 $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $v->getPersona()));
                 if (sizeof($r)>0) {
@@ -43,6 +44,7 @@ class InicioController extends Controller
                     if (sizeof($r)>0) {
                         $voce = $r[0];
                     }else{
+                        print_r($v->getPersona());
                         echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
                         die();
                     }
@@ -120,7 +122,7 @@ class InicioController extends Controller
         return $this->render('administracion/parametros.html.twig');
     }
 
-    // Documentos
+    // Reportes Solicitados
     public function cmp($a, $b){ return strcmp($a->getCedula(), $b->getCedula()); }
     public function cuadernoVotacionAction()
     {
@@ -344,6 +346,7 @@ class InicioController extends Controller
         }
     }
 
+    /**/
     public function registroElectoralAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -371,7 +374,6 @@ class InicioController extends Controller
             return $this->redirectToRoute('sic_homepage');
         }
     }
-
     public function registroElectoralPDFAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -415,6 +417,7 @@ class InicioController extends Controller
         }
     }
 
+    /**/
     public function registroPreliminarAction()
     {
         $em = $this->getDoctrine()->getManager();
