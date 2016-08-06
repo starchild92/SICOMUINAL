@@ -200,8 +200,8 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('js/highchart.js') }}"></script>
-    <script src="{{ asset('js/highchart/highcharts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/highchart.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/highchart/highcharts.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('table.highchart').highchartTable();

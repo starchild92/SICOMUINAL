@@ -3,7 +3,7 @@
 {% block body %}
 <div class="row">
 	<div class="col-sm-12">
-		<h1>Usuario</h1>
+		<h1>Usuario <small>{{ usuario.primerNombre }} {{ usuario.primerApellido }}</small></h1>
 		<hr>
 	</div>
 	<div class="col-sm-9">
@@ -27,10 +27,10 @@
 	    </table>
 	</div>
 	<div class="col-sm-3">
-		<a class="btn btn-default button-line btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
-        <a class="btn btn-default button-line btn-block" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">Modificar Datos</a>
+		<a class="btn btn-default btn-primary btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
+        <a class="btn btn-default btn-primary btn-block" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}"> <i class="fa fa-edit"></i> Modificar Datos</a>
         <hr class="little">
-		{{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar">{{ form_end(delete_form) }}
+		{{ form_start(delete_form) }} <button class="btn btn-block btn-danger" type="submit"><i class="fa fa-trash"></i> Eliminar</button>{{ form_end(delete_form) }}
 	</div>
 </div>
 {% endblock %}

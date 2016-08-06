@@ -21,17 +21,29 @@ class PersonaController extends Controller
 
         $total = sizeof($personas);
         $stat_edad = array();
-        $mayor = 0;
-        $menor = 0;
+        $mayorh = 0;
+        $menorh = 0;
+        $mayorm = 0;
+        $menorm = 0;
         foreach ($personas as $p) {
             if ($p->getEdad() >= 18 ) {
-                $mayor++;
+                if ($p->getSexo() == 'Femenino') {
+                    $mayorm++;
+                }else{
+                    $mayorh++;
+                }
             }else{
-                $menor++;
+                if ($p->getSexo() == 'Femenino') {
+                    $menorm++;
+                }else{
+                    $menorh++;
+                }
             }
         }
-        array_push($stat_edad, array('a' => 'Mayores de Edad', 'cantidad' => $mayor));
-        array_push($stat_edad, array('a' => 'Menores de Edad', 'cantidad' => $menor));
+        array_push($stat_edad, array('a' => 'Hombres Mayores de Edad', 'cantidad' => $mayorh));
+        array_push($stat_edad, array('a' => 'Hombres Menores de Edad', 'cantidad' => $menorh));
+        array_push($stat_edad, array('a' => 'Mujeres Mayores de Edad', 'cantidad' => $mayorm));
+        array_push($stat_edad, array('a' => 'Mujeres Menores de Edad', 'cantidad' => $menorm));
 
         $stat_sexo = array();
         array_push(

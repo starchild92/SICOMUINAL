@@ -92,18 +92,18 @@
     <script>
         $(document).ready(function() {
             dataTable = $('#tabla_sectores').DataTable( {
-                    // "pageLength": 25,
-                    // "bLengthChange": false,
-                    // "info": true,
-                    'stateSave': true,
-                    'pagingType': 'full_numbers',
-                    "language": {
-                        "url": "{{ asset('datatables/espanol.js') }}"
-                    },
-                    "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
-                    		"<'row'<'col-sm-12'tr>>" +
-                    		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                });
+                // "pageLength": 25,
+                // "bLengthChange": false,
+                // "info": true,
+                'stateSave': true,
+                'pagingType': 'full_numbers',
+                "language": {
+                    "url": "{{ asset('datatables/espanol.js') }}"
+                },
+                "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                		"<'row'<'col-sm-12'tr>>" +
+                		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            });
         });
     </script>
 {% endblock %}
