@@ -20,8 +20,16 @@
                     <a href="#" data-url="{{ path('comunicado_new') }}" id="forModal" class="btn btn-success btn-block"><i class="fa fa-edit"></i> Redactar Mensaje</a>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Personas Suscritas</div>
+                <div class="panel-body text-center">
+                    <h1>{{ reciben_correo }}</h1>
+                    <small>Cantidad de personas recibiendo su estos correos</small>
+                </div>
+            </div>
+            <a href="{{ path('noticia_correo_usuarios') }}" class="btn btn-block btn-success">Ver Cuentas de Usuarios</a>
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-9">
             <div class="panel panel-primary">
                 <div class="panel-heading">Comunicados Enviados <i class="fa fa-inbox pull-right"></i></div>
                     {# <div class="pre-scrollable"> #}
@@ -47,16 +55,6 @@
                     </table>
                     {# </div> #}
             </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Personas Suscritas</div>
-                <div class="panel-body text-center">
-                    <h1>{{ reciben_correo }}</h1>
-                    <small>Cantidad de personas recibiendo su estos correos</small>
-                </div>
-            </div>
-            <a href="{{ path('noticia_correo_usuarios') }}" class="btn btn-block btn-success">Ver Cuentas de Usuarios</a>
         </div>
     </div>
 
