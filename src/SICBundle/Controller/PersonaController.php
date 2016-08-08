@@ -183,7 +183,7 @@ class PersonaController extends Controller
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
             $aux = $Grupo->getCantidadMiembros();
-            $Grupo->setCantidadMiembros($aux+1);
+            // $Grupo->setCantidadMiembros($aux+1);
         }else{
             $this->get('session')->getFlashBag()
             ->add('error', 'Seleccione la sección que desea modificar');

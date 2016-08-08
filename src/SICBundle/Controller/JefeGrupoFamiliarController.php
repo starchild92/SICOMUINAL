@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\JefeGrupoFamiliar;
 use SICBundle\Form\JefeGrupoFamiliarType;
 

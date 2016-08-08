@@ -13,7 +13,7 @@
 
     <h1>Miembro Grupo Familiar <small>Actualmente hay {{ cantMiembros }} miembros</small></h1>
 
-    {{ form_start(form) }}
+    {{ form_start(form, { 'attr' : {'id':'persona'}}) }}
         <div class="row">
             <div class="col-sm-6">
                 <div class="panel panel-primary">
@@ -33,27 +33,27 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
-                            <div class="col-sm-6">{{ form_row(edit_form.nacionalidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.cedula) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.nacionalidad) }}</div>
                         </div>
-                        {{ form_row(edit_form.email) }}
+                        {{ form_row(form.email) }}
                         <div class="row">
-                            <div class="col-sm-6">{{ form_row(edit_form.fechaNacimiento) }}</div>
-                            <div class="col-sm-6">{{ form_row(edit_form.sexo) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.fechaNacimiento) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.sexo) }}</div>
                         </div>
-                        {{ form_row(edit_form.edad) }}
-                        {{ form_row(edit_form.embarazoTemprano) }}
-                        {{ form_row(edit_form.incapacitado) }}
-                        {{ form_row(edit_form.incapacitadoTipo) }}
-                        {{ form_row(edit_form.pensionado) }}
-                        {{ form_row(edit_form.pensionadoInstitucion) }}
+                        {{ form_row(form.edad) }}
+                        {{ form_row(form.embarazoTemprano) }}
+                        {{ form_row(form.incapacitado) }}
+                        {{ form_row(form.incapacitadoTipo) }}
+                        {{ form_row(form.pensionado) }}
+                        {{ form_row(form.pensionadoInstitucion) }}
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-sm-6"><input class="btn btn-primary btn-block" form="persona" type="submit" value="Agregar Miembro al Grupo Familiar" /></div>
+            <div class="col-sm-6"><input class="btn btn-primary btn-block" form="persona" type="submit" value="Guardar Datos y Agregar Otro Miembro" /></div>
             <div class="col-sm-6"><a class="btn-block btn btn-success" href="{{ path('situacioneconomica_new', {'id_planilla':id_planilla}) }}">No hay más miembros, Continuar</a></div>
         </div>
     {{ form_end(form) }}

@@ -13,7 +13,7 @@
     <hr>
     <div class="row">
         <div class="col-sm-3">
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
                 <div class="panel-heading">Enviar Comunicado Masivo <i class="fa fa-envelope-o pull-right"></i></div>
                 <div class="panel-body">
                     <p>Haga llegar un mensaje a todos los miembros de la comunidad con una dirección de correo electrónico.</p>
@@ -25,10 +25,11 @@
                 <div class="panel-body text-center">
                     <h1>{{ reciben_correo }}</h1>
                     <small>Cantidad de personas recibiendo su estos correos</small>
+                    <a href="{{ path('noticia_correo_usuarios') }}" class="btn btn-block btn-success"><i class="fa fa-envelope-o"></i> Ver Cuentas de Usuarios</a>
                 </div>
             </div>
-            <a href="{{ path('noticia_correo_usuarios') }}" class="btn btn-block btn-success">Ver Cuentas de Usuarios</a>
         </div>
+
         <div class="col-sm-9">
             <div class="panel panel-primary">
                 <div class="panel-heading">Comunicados Enviados <i class="fa fa-inbox pull-right"></i></div>
@@ -79,6 +80,17 @@
         $(document).ready(function() {
             dataTable = $('#dataTable').DataTable( {
                 "pageLength": 10,
+                // "bLengthChange": false,
+                // "info": true,
+                'stateSave': true,
+                'pagingType': 'full_numbers',
+                "language": {
+                    "url": "{{ asset('datatables/espanol.js') }}"
+                },
+                "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                "order": [[ 3, "desc" ]],
             });
         });
 

@@ -26,6 +26,7 @@ class SituacionEconomicaType extends AbstractType
                 'class'     => 'SICBundle:AdminUbicacionTrabajo',
                 'label'     => '¿Dónde Trabaja?',
                 'placeholder' => 'Selecciona una',
+                'required' => false,
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))
 
@@ -47,7 +48,10 @@ class SituacionEconomicaType extends AbstractType
 
             ->add('ingresoFamiliar','text',array(
                 'attr'      => array(
-                    'placeholder'   => 'Monto en Bs')))
+                    'placeholder'   => 'Monto en Bs',
+                    'value' => 0),
+                'required' => false,
+                ))
 
             ->add('ingresoFamiliarEspecifico', 'entity', array(
                 'class'     => 'SICBundle:AdminTipoIngresos',
