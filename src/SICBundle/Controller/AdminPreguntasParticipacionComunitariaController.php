@@ -43,9 +43,12 @@ class AdminPreguntasParticipacionComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPreguntasParticipacionComunitarium);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nueva Pregunta de Partición Comunitaria a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->flush();
 
-        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'particiapcioncomunitaria'));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'particiapcioncomunitaria'));
             // return $this->redirectToRoute('configurables_preguntas_participacion_comunitaria_show', array('id' => $adminPreguntasParticipacionComunitarium->getId()));
         }
 
@@ -82,6 +85,9 @@ class AdminPreguntasParticipacionComunitariaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPreguntasParticipacionComunitarium);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Pregunta de Partición Comunitaria');
+            $em->persist($bitacora);
             $em->flush();
 
         return $this->redirectToRoute('sic_volver_parametros', array('index' => 'particiapcioncomunitaria'));
@@ -107,6 +113,9 @@ class AdminPreguntasParticipacionComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminPreguntasParticipacionComunitarium);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminPreguntasParticipacionComunitarium->getInterrogante().' de los parámetros de Pregunta Partición Comunitaria del sistema');
+            $em->persist($bitacora);
             $em->flush();
         }
 

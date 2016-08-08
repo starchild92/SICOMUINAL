@@ -43,6 +43,9 @@ class AdminTipoMascotasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoMascota);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo Mascota a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->flush();
 
         return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipomascotas'));
@@ -82,6 +85,9 @@ class AdminTipoMascotasController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoMascota);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Mascota');
+            $em->persist($bitacora);
             $em->flush();
 
         return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipomascotas'));
@@ -107,6 +113,9 @@ class AdminTipoMascotasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoMascota);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoMascota->getNombre().' de los parámetros de Tipo de Mascota del sistema');
+            $em->persist($bitacora);
             $em->flush();
         }
 

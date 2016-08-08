@@ -43,6 +43,9 @@ class AdminPreguntasSituacionComunidadController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPreguntasSituacionComunidad);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Pregunta Situación Comunidad a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->flush();
 
             return $this->redirectToRoute('sic_volver_parametros', array('index' => 'situacioncomunidad'));
@@ -82,6 +85,9 @@ class AdminPreguntasSituacionComunidadController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPreguntasSituacionComunidad);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Pregunta Situación Comunidad');
+            $em->persist($bitacora);
             $em->flush();
 
             return $this->redirectToRoute('sic_volver_parametros', array('index' => 'situacioncomunidad'));
@@ -107,6 +113,9 @@ class AdminPreguntasSituacionComunidadController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminPreguntasSituacionComunidad);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminPreguntasSituacionComunidad->getPregunta().' de los parámetros de Pregunta Situación Comunidad del sistema');
+            $em->persist($bitacora);
             $em->flush();
         }
 
