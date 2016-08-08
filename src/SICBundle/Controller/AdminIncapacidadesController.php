@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\AdminIncapacidades;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\AdminIncapacidadesType;
 
 /**
@@ -41,6 +42,9 @@ class AdminIncapacidadesController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Discapacidad a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->persist($adminIncapacidade);
             $em->flush();
 
@@ -80,6 +84,9 @@ class AdminIncapacidadesController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Discapacidades');
+            $em->persist($bitacora);
             $em->persist($adminIncapacidade);
             $em->flush();
 
@@ -105,6 +112,9 @@ class AdminIncapacidadesController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminIncapacidade->getIncapacidad().' de los parámetros de Discapacidades del sistema');
+            $em->persist($bitacora);
             $em->remove($adminIncapacidade);
             $em->flush();
         }

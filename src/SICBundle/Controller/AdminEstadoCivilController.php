@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\AdminEstadoCivil;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\AdminEstadoCivilType;
 
 /**
@@ -41,6 +42,9 @@ class AdminEstadoCivilController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Estado Civil a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->persist($adminEstadoCivil);
             $em->flush();
 
@@ -80,6 +84,9 @@ class AdminEstadoCivilController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Estado Civil');
+            $em->persist($bitacora);
             $em->persist($adminEstadoCivil);
             $em->flush();
 
@@ -105,6 +112,9 @@ class AdminEstadoCivilController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminEstadoCivil->getNombre().' de los parámetros de Estado Civil del sistema');
+            $em->persist($bitacora);
             $em->remove($adminEstadoCivil);
             $em->flush();
         }

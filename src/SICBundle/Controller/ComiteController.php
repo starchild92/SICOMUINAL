@@ -65,12 +65,14 @@ class ComiteController extends Controller
         return false;
     }
 
-    public function personaEsVocero($cedula)
+    public function personaEsVocero($cedula, $comite = '')
     {
         $em = $this->getDoctrine()->getManager();
         //En la entidad el atributo es unique, esto debe ser binario
-        $resultado = $em->getRepository('SICBundle:Vocero')->findBy(array('persona' => $cedula));
-        if (sizeof($resultado) > 0) {
+        $vocero = $em->getRepository('SICBundle:Vocero')->findBy(array('persona' => $cedula));
+        if (sizeof($vocero) > 0) {
+            $comites = $vocero[0]->getComite();
+            foreach ($comites as $com) { if ($com->getId() == $comite) { return false; } }
             $persona = $this->getPersonaByCedula($cedula);
             $this->get('session')->getFlashBag()
             ->add('error', 'El usuario "'.$persona->nombreyapellido().'" ya es miembro de un comité.');
@@ -149,7 +151,7 @@ class ComiteController extends Controller
                     $voceros = $comite->getVoceros();
                     foreach ($voceros as $v) {
                         //Pasa la cedula a la función para verificar si es miembro de un comité
-                        if ($this->personaEsVocero($v->getPersona())) {
+                        if ($this->personaEsVocero($v->getPersona(), '')) {
                             return $this->render('comite/new.html.twig', array(
                                 'comite' => $comite,
                                 'form' => $form->createView(),
@@ -157,8 +159,10 @@ class ComiteController extends Controller
                         }
                     }
                     $comite->setCantVoceros(sizeof($voceros));
+
                     $bitacora = new Bitacora($this->getUser(),'agregó', sizeof($voceros).' miembro(s) a '.$comite->getTipoUnidad());
                     $em->persist($bitacora);
+
                     $em->persist($comite);
                     $em->flush();
 
@@ -203,29 +207,29 @@ class ComiteController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            // $comite_db = $em->getRepository('SICBundle:Comite')->findById($comite->getId());
-
-            // print_r($comite_db[0]->getTipoUnidad()); echo "<br>";
-            // echo $request->get('comite')->getTipoUnidad(); echo "<br>";
-            // print_r($comite->getTipoUnidad()); echo "<br>";           
-            // die();
-
             $voceros = $comite->getVoceros();
             /* En la cedulas solo se permiten numeros */
             foreach ($voceros as $vocero) {
-                $int = filter_var($vocero->getPersona(), FILTER_SANITIZE_NUMBER_INT);
-                $vocero->setPersona($int);
+                $cedula = filter_var($vocero->getPersona(), FILTER_SANITIZE_NUMBER_INT);
+                $vocero->setPersona($cedula);
+                if ($this->personaEsVocero($cedula, $comite->getId())) {
+                    return $this->render('comite/edit.html.twig', array(
+                        'comite' => $comite,
+                        'edit_form' => $editForm->createView(),
+                        'delete_form' => $deleteForm->createView(),
+                    ));
+                }
             }
             if ($this->PermitirNuevoVocero($comite)) {
                 $comite->setCantVoceros(sizeof($voceros));
 
                 $bitacora = new Bitacora($this->getUser(),'modificó', $comite->getTipoUnidad());
                 $em->persist($bitacora);
+
                 $em->persist($comite);
                 $em->flush();
 
                 $this->get('session')->getFlashBag()->add('success', 'Se modificó con exito '.$comite->getTipoUnidad());
-
                 return $this->redirectToRoute('comites_index');
             }
         }

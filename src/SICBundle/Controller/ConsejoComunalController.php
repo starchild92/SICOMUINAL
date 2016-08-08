@@ -45,7 +45,6 @@ class ConsejoComunalController extends Controller
             $em->persist($consejoComunal);
             $bitacora = new Bitacora($this->getUser(),'agregó','la información del Consejo Comunal.');
             $em->persist($bitacora);
-            
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'Ha agregado la información basé del Consejo Comunal de forma exitosa.');

@@ -5,6 +5,7 @@ namespace SICBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminRecoleccionBasura;
 use SICBundle\Form\AdminRecoleccionBasuraType;
 

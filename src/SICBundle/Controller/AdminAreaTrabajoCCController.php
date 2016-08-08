@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\AdminAreaTrabajoCC;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\AdminAreaTrabajoCCType;
 
 /**
@@ -41,6 +42,9 @@ class AdminAreaTrabajoCCController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nueva Area de Trabajo del Consejo Comunal a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->persist($adminAreaTrabajoCC);
             $em->flush();
 
@@ -80,6 +84,9 @@ class AdminAreaTrabajoCCController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Area de Trabajo del Consejo Comunal');
+            $em->persist($bitacora);
             $em->persist($adminAreaTrabajoCC);
             $em->flush();
 
@@ -105,6 +112,9 @@ class AdminAreaTrabajoCCController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminAreaTrabajoCC->getNombre().' de los parámetros de Area de Trabajo del sistema');
+            $em->persist($bitacora);
             $em->remove($adminAreaTrabajoCC);
             $em->flush();
         }

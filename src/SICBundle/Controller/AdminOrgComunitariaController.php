@@ -5,6 +5,7 @@ namespace SICBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminOrgComunitaria;
 use SICBundle\Form\AdminOrgComunitariaType;
 
@@ -42,9 +43,12 @@ class AdminOrgComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminOrgComunitarium);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Organizaciones Comunitarias a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->flush();
 
-        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'organizacionescomunitarias'));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'organizacionescomunitarias'));
             // return $this->redirectToRoute('configurables_tipos_organizaciones_comunitarias_show', array('id' => $adminOrgComunitarium->getId()));
         }
 
@@ -81,6 +85,9 @@ class AdminOrgComunitariaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminOrgComunitarium);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro Organizaciones Comunitarias');
+            $em->persist($bitacora);
             $em->flush();
 
         return $this->redirectToRoute('sic_volver_parametros', array('index' => 'organizacionescomunitarias'));
@@ -106,6 +113,9 @@ class AdminOrgComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminOrgComunitarium);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminOrgComunitarium->getNombre().' de los parámetros de Organizaciones Comunitarias del sistema');
+            $em->persist($bitacora);
             $em->flush();
         }
 

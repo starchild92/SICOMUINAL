@@ -44,7 +44,7 @@ class ComunidadController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($comunidad);
 
-            $bitacora = new Bitacora($this->getUser(),'agregó','la información de la comunidad.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','la información de la Comunidad.');
             $em->persist($bitacora);
             
             $em->flush();
@@ -88,7 +88,7 @@ class ComunidadController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($comunidad);
 
-            $bitacora = new Bitacora($this->getUser(),'modificó','la información de la comunidad.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','la información de la Comunidad.');
             $em->persist($bitacora);
             $em->flush();
 
