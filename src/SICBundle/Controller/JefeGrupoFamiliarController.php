@@ -54,7 +54,7 @@ class JefeGrupoFamiliarController extends Controller
 
         if($p->getJefeGrupoFamiliar() != NULL){
             $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            ->add('danger', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -68,6 +68,9 @@ class JefeGrupoFamiliarController extends Controller
 	            $p->setJefeGrupoFamiliar($jefeGrupoFamiliar);
 	            $em->persist($jefeGrupoFamiliar);
 	            $em->persist($p);
+                $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Jefe de Grupo Familiar');
+                $bitacora = new Bitacora($this->getUser(),'agregó','un Jefe de Grupo Familiar');
+                $em->persist($bitacora);
 	            $em->flush();
 
 	            // redirigir a (Caracteristicas Grupo Familiar)
@@ -111,10 +114,11 @@ class JefeGrupoFamiliarController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($jefeGrupoFamiliar);
+            $bitacora = new Bitacora($this->getUser(),'modificó','un Jefe de Grupo Familiar');
+            $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se han guardado los cambios del Jefe de Grupo Familiar');
+            $this->get('session')->getFlashBag()->add('success', 'Se han guardado los cambios del Jefe de Grupo Familiar');
 
             return $this->redirectToRoute('planillas_show', array('id' => $jefeGrupoFamiliar->getPlanilla()->getId()));
         }
@@ -138,6 +142,9 @@ class JefeGrupoFamiliarController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($jefeGrupoFamiliar);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado al Jefe de Grupo Familiar');
+            $bitacora = new Bitacora($this->getUser(),'eliminó','un Jefe de Grupo Familiar');
+            $em->persist($bitacora);
             $em->flush();
         }
 
@@ -324,19 +331,21 @@ class JefeGrupoFamiliarController extends Controller
         $stats = $this->obtenerEstadisticas($request);
         $html = $this->renderView('jefegrupofamiliar/resumen_doc.html.twig', $stats);
         
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, 
-                array(
-                    'images'            => true,
-                    'no-background'     => false,
-                    'footer-right'      => utf8_decode('Pagina [page] de [topage] - '.date('\ d-m-Y\ h:i a')),
-                    'footer-left'       => utf8_decode('Sistema de Información Comunal')
-                    )),
-            200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="ReporteJefesGrupoFamiliar.pdf"'
-        ));
+        echo "Actualizar a DOMPDF";
+        die();
+        // return new Response(
+        //     $this->get('knp_snappy.pdf')->getOutputFromHtml($html, 
+        //         array(
+        //             'images'            => true,
+        //             'no-background'     => false,
+        //             'footer-right'      => utf8_decode('Pagina [page] de [topage] - '.date('\ d-m-Y\ h:i a')),
+        //             'footer-left'       => utf8_decode('Sistema de Información Comunal')
+        //             )),
+        //     200,
+        //     array(
+        //         'Content-Type'          => 'application/pdf',
+        //         'Content-Disposition'   => 'attachment; filename="ReporteJefesGrupoFamiliar.pdf"'
+        // ));
 
     }
 }

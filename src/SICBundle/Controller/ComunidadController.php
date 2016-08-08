@@ -46,7 +46,6 @@ class ComunidadController extends Controller
 
             $bitacora = new Bitacora($this->getUser(),'agregó','la información de la Comunidad.');
             $em->persist($bitacora);
-            
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'Se ha agregado la información de la Comunidad de forma exitosa.');

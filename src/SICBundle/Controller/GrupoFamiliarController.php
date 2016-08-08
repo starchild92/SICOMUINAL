@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\GrupoFamiliar;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\GrupoFamiliarType;
 
 /**
@@ -55,6 +56,9 @@ class GrupoFamiliarController extends Controller
             $p->setGrupoFamiliar($grupoFamiliar);
             $em->persist($grupoFamiliar);
             $em->persist($p);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Grupo Familiar');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un Grupo Familiar');
+            $em->persist($bitacora);
             $em->flush();
 
             return $this->redirectToRoute('personas_new', array(
@@ -96,6 +100,9 @@ class GrupoFamiliarController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($grupoFamiliar);
+
+            $bitacora = new Bitacora($this->getUser(),'modificó','un Grupo Familiar');
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()
@@ -122,6 +129,9 @@ class GrupoFamiliarController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($grupoFamiliar);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado la información del Grupo Familiar de forma exitosa.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó','la información del Grupo Familiar.');
+            $em->persist($bitacora);
             $em->flush();
         }
 
