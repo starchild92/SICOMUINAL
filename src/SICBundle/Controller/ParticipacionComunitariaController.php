@@ -19,9 +19,7 @@ class ParticipacionComunitariaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $participacionComunitarias = $em->getRepository('SICBundle:ParticipacionComunitaria')->findAll();
-        
         $total = sizeof($participacionComunitarias);
-
         $orgs = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
         $stat_orgs = array();
         foreach ($orgs as $elemento) {
@@ -127,6 +125,9 @@ class ParticipacionComunitariaController extends Controller
             $em->persist($participacionComunitarium);
             $p->setParticipacionComunitaria($participacionComunitarium);
             $em->persist($p);
+            $this->get('session')->getFlashBag()->add('success', 'Se han agregado una Participación Comunitaria');
+            $entrada = new Bitacora($this->getUser(),'agregó','información de Participación Comunitaria');
+            $em->persist($entrada);
             $em->flush();
 
             return $this->redirectToRoute('situacioncomunidad_new', array('id_planilla' => $id_planilla));
@@ -206,6 +207,9 @@ class ParticipacionComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($participacionComunitarium);
+            $this->get('session')->getFlashBag()->add('success', 'Se han eliminado información de Participación Comunitaria');
+            $entrada = new Bitacora($this->getUser(),'eliminó','información de Participación Comunitaria');
+            $em->persist($entrada);
             $em->flush();
         }
 

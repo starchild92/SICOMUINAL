@@ -115,6 +115,7 @@ class NoticiaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se eliminó la noticia: '.$noticium->getTitulo());
             $entrada = new Bitacora($this->getUser(),'eliminó','una Noticia '.$noticium->getTitulo());
             $em->remove($noticium);
             $em->persist($entrada);
