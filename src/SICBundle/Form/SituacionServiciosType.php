@@ -84,6 +84,23 @@ class SituacionServiciosType extends AbstractType
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
+
+            ->add('lts_tanque','integer',array(
+                'label'     => '¿Tanque? (Lts)',
+                'required'  => false,
+                'attr'      => array(
+                    'value' => 0)))
+
+            ->add('cant_pipotes','integer',array(
+                'label'     => 'Cantidad de Pipotes',
+                'required'  => false,
+                'attr'      => array(
+                    'value' => 0)))
+
+            ->add('medidor', 'entity', array(
+                'label'     => '¿Tiene medidor de Aguas Blancas?',
+                'placeholder'   => 'Elija una',
+                'class'         => 'SICBundle:AdminRespCerrada'))
         ;
     }
     

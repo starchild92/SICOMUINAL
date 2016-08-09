@@ -46,7 +46,7 @@ class GrupoFamiliar
     /**
      * @var int
      *
-     * @ORM\Column(name="numeroCasa", type="integer")
+     * @ORM\Column(name="numeroCasa", type="string", length=255)
      */
     private $numeroCasa;
 

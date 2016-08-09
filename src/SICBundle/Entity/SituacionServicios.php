@@ -90,6 +90,26 @@ class SituacionServicios
     private $planilla;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="lts_tanque", type="integer")
+     */
+    private $lts_tanque;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cant_pipotes", type="integer")
+     */
+    private $cant_pipotes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="medidor", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $medidor;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -367,5 +387,74 @@ class SituacionServicios
     public function getPlanilla()
     {
         return $this->planilla;
+    }
+
+    /**
+     * Set lts_tanque
+     *
+     * @param integer $ltsTanque
+     * @return SituacionServicios
+     */
+    public function setLtsTanque($ltsTanque)
+    {
+        $this->lts_tanque = $ltsTanque;
+
+        return $this;
+    }
+
+    /**
+     * Get lts_tanque
+     *
+     * @return integer 
+     */
+    public function getLtsTanque()
+    {
+        return $this->lts_tanque;
+    }
+
+    /**
+     * Set cant_pipotes
+     *
+     * @param integer $cantPipotes
+     * @return SituacionServicios
+     */
+    public function setCantPipotes($cantPipotes)
+    {
+        $this->cant_pipotes = $cantPipotes;
+
+        return $this;
+    }
+
+    /**
+     * Get cant_pipotes
+     *
+     * @return integer 
+     */
+    public function getCantPipotes()
+    {
+        return $this->cant_pipotes;
+    }
+
+    /**
+     * Set medidor
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $medidor
+     * @return SituacionServicios
+     */
+    public function setMedidor(\SICBundle\Entity\AdminRespCerrada $medidor = null)
+    {
+        $this->medidor = $medidor;
+
+        return $this;
+    }
+
+    /**
+     * Get medidor
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getMedidor()
+    {
+        return $this->medidor;
     }
 }

@@ -138,6 +138,32 @@ class SituacionServiciosController extends Controller
             );
         }
 
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_medidor = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push(
+                $stat_medidor, 
+                array(
+                    'resp' => $resp->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                                        array('medidor' => $resp->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $si = 0; $no = 0;
+        $tanques = $em->getRepository('SICBundle:SituacionServicios')->findAll();
+        $stat_tanque = array();
+        $stat_pipotes = array();
+        foreach ($tanques as $t) { if ($t->getLtsTanque() > 0) { $si++; }else{ $no++; } }
+        array_push($stat_tanque, array('resp' => 'Si', 'cantidad' => $si));
+        array_push($stat_tanque, array('resp' => 'No', 'cantidad' => $no));
+        $si = 0; $no = 0;
+        foreach ($tanques as $t) { if ($t->getCantPipotes() > 0) { $si++; }else{ $no++; } }
+        array_push($stat_pipotes, array('resp' => 'Si', 'cantidad' => $si));
+        array_push($stat_pipotes, array('resp' => 'No', 'cantidad' => $no));
+
         return array(
             'situacionServicios' => $situacionServicios,
             'stat_serviciosComunales' => $stat_serviciosComunales,
@@ -149,6 +175,9 @@ class SituacionServiciosController extends Controller
             'stat_gas' => $stat_gas,
             'stat_aguasservidas' => $stat_aguasservidas,
             'stat_aguasb' => $stat_aguasb,
+            'stat_medidor' => $stat_medidor,
+            'stat_tanque' => $stat_tanque,
+            'stat_pipotes' => $stat_pipotes,
             'total' => $total,
         );
     }
