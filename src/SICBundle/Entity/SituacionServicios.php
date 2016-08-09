@@ -123,6 +123,12 @@ class SituacionServicios
     private $cantBombonas;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AdminCapacidadBombona", cascade={"persist"})
+     * @ORM\JoinColumn(name="recoleccionBasura", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $capacidadBombona;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -515,5 +521,28 @@ class SituacionServicios
     public function getCantBombonas()
     {
         return $this->cantBombonas;
+    }
+
+    /**
+     * Set capacidadBombona
+     *
+     * @param \SICBundle\Entity\AdminCapacidadBombona $capacidadBombona
+     * @return SituacionServicios
+     */
+    public function setCapacidadBombona(\SICBundle\Entity\AdminCapacidadBombona $capacidadBombona = null)
+    {
+        $this->capacidadBombona = $capacidadBombona;
+
+        return $this;
+    }
+
+    /**
+     * Get capacidadBombona
+     *
+     * @return \SICBundle\Entity\AdminCapacidadBombona 
+     */
+    public function getCapacidadBombona()
+    {
+        return $this->capacidadBombona;
     }
 }

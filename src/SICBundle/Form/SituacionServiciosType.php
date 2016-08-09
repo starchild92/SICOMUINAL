@@ -115,6 +115,14 @@ class SituacionServiciosType extends AbstractType
                 'required'  => false,
                 'attr'      => array(
                     'value' => 0)))
+
+            ->add('capacidadBombona','entity', array(
+                'class' => 'SICBundle:AdminCapacidadBombona',
+                'required'  => false,
+                'placeholder'   => 'Seleccione una',
+                'label' => 'Capacidad Bombona',
+                'attr'  =>  array(
+                    'class' => 'ui dropdown')))
         ;
     }
     

@@ -216,6 +216,10 @@ sic_adminempresagas:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminempresagas.yml"
     prefix:   /administrar/configurables/tipos/empresagas
 
+sic_admincapacidadbombona:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admincapacidadbombona.yml"
+    prefix:   /administrar/configurables/tipos/capacidad/bombona
+
 # --------------------------------------------------------------------
 
 sic_configurables_tipos_organizaciones_comunitarias:

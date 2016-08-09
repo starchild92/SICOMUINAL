@@ -27,7 +27,14 @@
                             <div class="col-sm-6">{{ form_row(form.medidor) }}</div>
                         </div>
                         {{ form_row(form.aguasServidas) }}
-                        {{ form_row(form.gas) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.gas) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.empresaGas) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.cantBombonas) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.capacidadBombona) }}</div>
+                        </div>
                         {{ form_row(form.sistemaElectrico) }}
                     </div>
                 </div>
