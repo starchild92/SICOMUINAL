@@ -5,12 +5,12 @@ namespace SICBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AdminEstadoCivil
+ * AdminEmpresaGas
  *
- * @ORM\Table(name="admin_estado_civil")
- * @ORM\Entity(repositoryClass="SICBundle\Repository\AdminEstadoCivilRepository")
+ * @ORM\Table(name="admin_empresa_gas")
+ * @ORM\Entity(repositoryClass="SICBundle\Repository\AdminEmpresaGasRepository")
  */
-class AdminEstadoCivil
+class AdminEmpresaGas
 {
     /**
      * @var int
@@ -24,7 +24,7 @@ class AdminEstadoCivil
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=255, unique=true)
+     * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
 
@@ -44,7 +44,7 @@ class AdminEstadoCivil
      * Set nombre
      *
      * @param string $nombre
-     * @return AdminEstadoCivil
+     * @return AdminEmpresaGas
      */
     public function setNombre($nombre)
     {

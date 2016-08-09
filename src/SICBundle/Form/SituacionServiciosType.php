@@ -101,6 +101,14 @@ class SituacionServiciosType extends AbstractType
                 'label'     => '¿Tiene medidor de Aguas Blancas?',
                 'placeholder'   => 'Elija una',
                 'class'         => 'SICBundle:AdminRespCerrada'))
+
+            ->add('empresaGas','entity', array(
+                'class' => 'SICBundle:AdminEmpresaGas',
+                'placeholder'   => 'Seleccione una',
+                'label' => 'Proveedor de Gas',
+                'attr'  =>  array(
+                    'multiple' => '',
+                    'class' => 'ui dropdown')))
         ;
     }
     

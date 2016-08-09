@@ -110,6 +110,12 @@ class SituacionServicios
     private $medidor;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AdminEmpresaGas", cascade={"persist"})
+     * @ORM\JoinColumn(name="recoleccionBasura", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $empresaGas;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -456,5 +462,28 @@ class SituacionServicios
     public function getMedidor()
     {
         return $this->medidor;
+    }
+
+    /**
+     * Set empresaGas
+     *
+     * @param \SICBundle\Entity\AdminEmpresaGas $empresaGas
+     * @return SituacionServicios
+     */
+    public function setEmpresaGas(\SICBundle\Entity\AdminEmpresaGas $empresaGas = null)
+    {
+        $this->empresaGas = $empresaGas;
+
+        return $this;
+    }
+
+    /**
+     * Get empresaGas
+     *
+     * @return \SICBundle\Entity\AdminEmpresaGas 
+     */
+    public function getEmpresaGas()
+    {
+        return $this->empresaGas;
     }
 }

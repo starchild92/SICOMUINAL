@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Proveedores de Gas</div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminEmpresaGa in adminEmpresaGas %}
+                <tr>
+                    <td>{{ adminEmpresaGa.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('adminempresagas_edit', { 'id': adminEmpresaGa.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="{{ path('adminempresagas_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Proveedor de Gas</a>
+{% endblock %}

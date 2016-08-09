@@ -212,6 +212,10 @@ sic_adminpreguntassitcom:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminpreguntassitcom.yml"
     prefix:   /administrar/configurables/tipos/preguntassitcom
 
+sic_adminempresagas:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminempresagas.yml"
+    prefix:   /administrar/configurables/tipos/empresagas
+
 # --------------------------------------------------------------------
 
 sic_configurables_tipos_organizaciones_comunitarias:
