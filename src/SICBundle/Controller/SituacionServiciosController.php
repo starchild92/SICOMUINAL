@@ -164,6 +164,18 @@ class SituacionServiciosController extends Controller
         array_push($stat_pipotes, array('resp' => 'Si', 'cantidad' => $si));
         array_push($stat_pipotes, array('resp' => 'No', 'cantidad' => $no));
 
+        $empresaGas = $em->getRepository('SICBundle:AdminEmpresaGas')->findAll();
+        $stat_empresaGas = array();
+        foreach ($empresaGas as $elemento) {
+            array_push(
+                $stat_empresaGas, 
+                array(
+                    'empresaGas' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                        array('empresaGas' => $elemento->getId()))))
+            );
+        }
+
         return array(
             'situacionServicios' => $situacionServicios,
             'stat_serviciosComunales' => $stat_serviciosComunales,
@@ -178,6 +190,7 @@ class SituacionServiciosController extends Controller
             'stat_medidor' => $stat_medidor,
             'stat_tanque' => $stat_tanque,
             'stat_pipotes' => $stat_pipotes,
+            'stat_empresaGas' => $stat_empresaGas,
             'total' => $total,
         );
     }

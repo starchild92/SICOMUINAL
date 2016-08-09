@@ -116,6 +116,13 @@ class SituacionServicios
     private $empresaGas;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="cantBombonas", type="integer")
+     */
+    private $cantBombonas;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -485,5 +492,28 @@ class SituacionServicios
     public function getEmpresaGas()
     {
         return $this->empresaGas;
+    }
+
+    /**
+     * Set cantBombonas
+     *
+     * @param integer $cantBombonas
+     * @return SituacionServicios
+     */
+    public function setCantBombonas($cantBombonas)
+    {
+        $this->cantBombonas = $cantBombonas;
+
+        return $this;
+    }
+
+    /**
+     * Get cantBombonas
+     *
+     * @return integer 
+     */
+    public function getCantBombonas()
+    {
+        return $this->cantBombonas;
     }
 }

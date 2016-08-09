@@ -274,6 +274,29 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4 class="panel-title">Proveedores de Gas</h4></div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Provedor</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_empresaGas %}<tr>
+                                        <td>{{item.empresaGas }}</td>
+                                        <td>{{item.cantidad }}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

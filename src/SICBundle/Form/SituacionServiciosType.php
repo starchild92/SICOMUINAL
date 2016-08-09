@@ -109,6 +109,12 @@ class SituacionServiciosType extends AbstractType
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'ui dropdown')))
+
+            ->add('cantBombonas','integer',array(
+                'label'     => 'Cantidad de Bombonas',
+                'required'  => false,
+                'attr'      => array(
+                    'value' => 0)))
         ;
     }
     
