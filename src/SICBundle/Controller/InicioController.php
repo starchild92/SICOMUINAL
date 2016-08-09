@@ -123,7 +123,11 @@ class InicioController extends Controller
     }
 
     // Reportes Solicitados
-    public function cmp($a, $b){ return strcmp($a->getCedula(), $b->getCedula()); }
+    public function cmp($a, $b){
+        if((int)$a->getCedula() == (int)$b->getCedula())return 0;
+        if((int)$a->getCedula()  > (int)$b->getCedula())return 1;
+        if((int)$a->getCedula()  < (int)$b->getCedula())return -1;
+    }
     public function cuadernoVotacionAction()
     {
         $em = $this->getDoctrine()->getManager();
