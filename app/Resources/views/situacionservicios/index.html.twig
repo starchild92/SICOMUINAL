@@ -208,6 +208,72 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4 class="panel-title">Medidor de Aguas Blancas</h4></div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_medidor %}<tr>
+                                        <td>{{item.resp }}</td>
+                                        <td>{{item.cantidad }}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4 class="panel-title">Tanques</h4></div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_tanque %}<tr>
+                                        <td>{{item.resp }}</td>
+                                        <td>{{item.cantidad }}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4 class="panel-title">Pipotes</h4></div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="400">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in stat_pipotes %}<tr>
+                                        <td>{{item.resp }}</td>
+                                        <td>{{item.cantidad }}</td>
+                                    </tr>{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

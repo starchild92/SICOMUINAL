@@ -8,11 +8,17 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(edit_form.aguasBlancas) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.aguasBlancas) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.lts_tanque) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.cant_pipotes) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.medidor) }}</div>
+                        </div>
                         {{ form_row(edit_form.aguasServidas) }}
                         {{ form_row(edit_form.gas) }}
                         {{ form_row(edit_form.sistemaElectrico) }}
-                        {{ form_row(edit_form.recoleccionBasura) }}
                     </div>
                 </div>
             </div>
@@ -20,6 +26,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         {{ form_row(edit_form.telefonia) }}
+                        {{ form_row(edit_form.recoleccionBasura) }}
                         {{ form_row(edit_form.transporte) }}
                         {{ form_row(edit_form.mecanismoInformacion) }}
                         {{ form_row(edit_form.serviciosComunales) }}

@@ -263,7 +263,11 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">¿Dónde trabaja?</p>
-									<p>{{ planilla.situacionEconomica.dondeTrabaja }}</p>
+									<p>
+										{% if planilla.situacionEconomica.dondeTrabaja == '' %}
+										No especificó
+										{% endif %}
+										{{ planilla.situacionEconomica.dondeTrabaja }}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Actividad comercial en la vivienda</p>
@@ -281,7 +285,7 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Ingreso Familiar (Bs)</p>
-									<p>{{ planilla.situacionEconomica.ingresoFamiliar }}</p>
+									<p>{{ planilla.situacionEconomica.ingresoFamiliar }} Bs.</p>
 								</div>
 							</div>
 							<div class="row">
@@ -439,6 +443,18 @@
 									<p>{{ planilla.situacionServicios.aguasBlancas }}</p>
 								</div>
 								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Medidor de Consumo</p>
+									<p>{{ planilla.situacionServicios.medidor }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Capacidad del Tanque</p>
+									<p>{{ planilla.situacionServicios.ltsTanque }} lts</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Cant. Pipotes</p>
+									<p>{{ planilla.situacionServicios.cantPipotes }} pipotes</p>
+								</div>
+								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Servicio de Aguas Servidas</p>
 									<p>{{ planilla.situacionServicios.aguasServidas }}</p>
 								</div>
@@ -494,7 +510,9 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Organizaciones</p>
-									<p>{% for item in planilla.participacionComunitaria.existenOrganizaciones %}
+									<p>
+										{% if planilla.participacionComunitaria.existenOrganizaciones|length == 0 %}No ha especificado alguna{% endif %}
+										{% for item in planilla.participacionComunitaria.existenOrganizaciones %}
 										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
 								</div>
 								<div class="col-sm-6">
@@ -509,7 +527,9 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Misiones Comunidad</p>
-									<p>{% for item in planilla.participacionComunitaria.misionesComunidad %}
+									<p>
+										{% if planilla.participacionComunitaria.misionesComunidad|length == 0 %}No ha especificado alguna{% endif %}
+										{% for item in planilla.participacionComunitaria.misionesComunidad %}
 										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
 								</div>
 							</div>
@@ -525,7 +545,9 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Area de Trabajo</p>
-									<p>{% for item in planilla.participacionComunitaria.areaTabajoCC %}
+									<p>
+										{% if planilla.participacionComunitaria.areaTabajoCC|length == 0 %}No ha especificado alguna{% endif %}
+										{% for item in planilla.participacionComunitaria.areaTabajoCC %}
 										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
 								</div>
 							</div>
