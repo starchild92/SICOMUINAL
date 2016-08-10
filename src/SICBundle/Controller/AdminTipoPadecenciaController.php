@@ -90,7 +90,8 @@ class AdminTipoPadecenciaController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            return $this->redirectToRoute('configurable_tipo_padecencia_edit', array('id' => $adminTipoPadecencium->getId()));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipopadecencia'));
+            // return $this->redirectToRoute('configurable_tipo_padecencia_edit', array('id' => $adminTipoPadecencium->getId()));
         }
 
         return $this->render('admintipopadecencia/edit.html.twig', array(
@@ -118,7 +119,8 @@ class AdminTipoPadecenciaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('configurable_tipo_padecencia_index');
+        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipopadecencia'));
+        // return $this->redirectToRoute('configurable_tipo_padecencia_index');
     }
 
     /**

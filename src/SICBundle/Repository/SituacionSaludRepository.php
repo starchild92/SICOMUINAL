@@ -38,16 +38,14 @@ class SituacionSaludRepository extends EntityRepository
                 ->getResult();
     }
 
-    public function situacionExclusion($situacion)
+    public function situacionExclusion()
     {
-         return $this->getEntityManager()
-                ->createQueryBuilder()
-                ->select('m')
-                ->from('SICBundle:SituacionSalud', 'm')
-                ->innerJoin('m.situacionExclusion', 'e')
-                ->where('e.id = :exampleid' )
-                ->setParameter('exampleid', $situacion->getId() )
-                ->getQuery()
-                ->getResult();
+        $query = $this->getEntityManager()
+                ->createQuery('SELECT x.situacion, SUM(x.cantidad) as cantidad
+                    FROM SICBundle:AdminTipoSituacionExclusion x
+                    GROUP BY x.situacion
+                ');
+        $result = $query->getResult();
+        return $result;
     }
 }

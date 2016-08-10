@@ -43,14 +43,14 @@ class SituacionSaludController extends Controller
             );
         }
 
-        $situacion_exclusion = $em->getRepository('SICBundle:AdminTipoSituacionExclusion')->findAll();
+        $situacion_exclusion = $em->getRepository('SICBundle:SituacionSalud')->situacionExclusion();
         $stat_situacion_exclusion = array();
         foreach ($situacion_exclusion as $elemento) {
             array_push(
                 $stat_situacion_exclusion, 
                 array(
-                    'situacion_exclusion' => $elemento->getSituacion(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionSalud')->situacionExclusion($elemento)))
+                    'situacion_exclusion' => $elemento['situacion'],
+                    'cantidad' => $elemento['cantidad'])
             );
         }
 

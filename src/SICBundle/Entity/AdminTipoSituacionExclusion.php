@@ -35,6 +35,7 @@ class AdminTipoSituacionExclusion
      */
     private $cantidad;
 
+    public function __toString(){ return $this->situacion; }
 
     /**
      * Get id
