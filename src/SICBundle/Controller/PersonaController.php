@@ -182,7 +182,7 @@ class PersonaController extends Controller
         // $cantMiembros = 1;
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
-            $aux = $Grupo->getCantidadMiembros();
+            $aux = sizeof($Grupo->getMiembros()) + 1;
             // $Grupo->setCantidadMiembros($aux+1);
         }else{
             $this->get('session')->getFlashBag()
@@ -202,7 +202,7 @@ class PersonaController extends Controller
             $em->persist($Grupo);
             $em->flush();
 
-            $cantMiembros = $Grupo->getCantidadMiembros();
+            $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
             $this->get('session')->getFlashBag()->add('success','Se agregó el miembro al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('personas_new', array(
@@ -211,7 +211,7 @@ class PersonaController extends Controller
                 'cantMiembros' => $cantMiembros));
         }
 
-        $cantMiembros = $Grupo->getCantidadMiembros();
+        $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
 
         return $this->render('persona/new.html.twig', array(
             'persona' => $persona,
@@ -326,7 +326,7 @@ class PersonaController extends Controller
         // $cantMiembros = 1;
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
-            // $aux = $Grupo->getCantidadMiembros();
+            // $aux = sizeof($Grupo->getMiembros()) + 1;
             // $Grupo->setCantidadMiembros($aux+1);
         }else{
             $this->get('session')->getFlashBag()
@@ -348,13 +348,13 @@ class PersonaController extends Controller
             $em->persist($Grupo);
             $em->flush();
 
-            $cantMiembros = $Grupo->getCantidadMiembros();
+            $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
             $this->get('session')->getFlashBag()->add('success','Se agregó el miembro al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
-        $cantMiembros = $Grupo->getCantidadMiembros();
+        $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
 
         return $this->render('persona/new.html.twig', array(
             'persona' => $persona,

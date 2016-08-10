@@ -111,7 +111,7 @@ class SituacionServicios
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminEmpresaGas", cascade={"persist"})
-     * @ORM\JoinColumn(name="recoleccionBasura", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="empresaGas", referencedColumnName="id", onDelete="CASCADE")
      */
     private $empresaGas;
 
@@ -124,7 +124,7 @@ class SituacionServicios
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminCapacidadBombona", cascade={"persist"})
-     * @ORM\JoinColumn(name="recoleccionBasura", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="capacidadBombona", referencedColumnName="id", onDelete="CASCADE")
      */
     private $capacidadBombona;
 

@@ -61,6 +61,7 @@ class SituacionServiciosType extends AbstractType
             ->add('transporte','entity', array(
                 'class' => 'SICBundle:AdminTipoTransporte',
                 'placeholder'   => 'Seleccione todas las que apliquen',
+                'required'  => false,
                 'multiple' => true,
                 'label' => 'Sistema de transporte',
                 'attr'  =>  array(
@@ -71,6 +72,7 @@ class SituacionServiciosType extends AbstractType
                 'class' => 'SICBundle:AdminMecanismoInformacion',
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'label' => 'Mecanismos de Información',
+                'required'  => false,
                 'multiple' => true,
                 'attr'  =>  array(
                     'multiple' => '',
@@ -80,6 +82,7 @@ class SituacionServiciosType extends AbstractType
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'class' => 'SICBundle:AdminServiciosComunales',
                 'label' => 'Servicios Comunales',
+                'required'  => false,
                 'multiple' => true,
                 'attr'  =>  array(
                     'multiple' => '',

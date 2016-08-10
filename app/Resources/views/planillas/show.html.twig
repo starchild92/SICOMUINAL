@@ -460,8 +460,7 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Suministro de Gas</p>
-									<p>{{ planilla.situacionServicios.gas }}</p>
-									<p>{{ planilla.situacionServicios.cantBombonas }} bombonas</p>
+									<p>{{ planilla.situacionServicios.gas }}, {{ planilla.situacionServicios.cantBombonas }} bombonas de {{ planilla.situacionServicios.capacidadBombona }}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Proveedor de Gas</p>
@@ -481,17 +480,23 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Transporte</p>
-									<p>{% for transporte in planilla.situacionServicios.transporte %}
+									<p>
+										{% if planilla.situacionServicios.transporte|length == 0 %}No especificó alguno.{% endif %}
+										{% for transporte in planilla.situacionServicios.transporte %}
 										<span class="label label-default">{{ transporte.nombre }}</span>{% endfor %}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Mecanismos de Información</p>
-									<p>{% for mecanismoInformacion in planilla.situacionServicios.mecanismoInformacion %}
+									<p>
+										{% if planilla.situacionServicios.mecanismoInformacion|length == 0 %}No especificó alguno.{% endif %}
+										{% for mecanismoInformacion in planilla.situacionServicios.mecanismoInformacion %}
 										<span class="label label-default">{{ mecanismoInformacion.nombre }}</span>{% endfor %}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Servicios Comunales</p>
-									<p>{% for serviciosComunales in planilla.situacionServicios.serviciosComunales %}
+									<p>
+										{% if planilla.situacionServicios.serviciosComunales|length == 0 %}No especificó alguno.{% endif %}
+										{% for serviciosComunales in planilla.situacionServicios.serviciosComunales %}
 										<span class="label label-default">{{ serviciosComunales.nombre }}</span>{% endfor %}</p>
 								</div>
 							</div>
