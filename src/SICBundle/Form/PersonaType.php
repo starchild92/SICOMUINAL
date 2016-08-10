@@ -118,6 +118,7 @@ class PersonaType extends AbstractType
                 ),
                 'choices_as_values' => true,
             ))
+            
             ->add('pensionadoInstitucion', EntityType::class, array(
                 'class' => 'SICBundle:AdminPensionadoInstitucion',
                 'placeholder' => 'Selecciona una',
@@ -126,6 +127,12 @@ class PersonaType extends AbstractType
                     // 'class' => 'ui dropdown',
                     'required'  => false)
             ))
+
+            ->add('ingresoMensual','text', array(
+                'label' => 'Estimado de Ingreso Mensual',
+                'attr' => array(
+                    'value' => 0)
+                ))
         ;
     }
     

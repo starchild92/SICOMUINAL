@@ -155,7 +155,7 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Ingreso Mensual</p>
-									<p>{{ planilla.jefeGrupoFamiliar.ingresoMensual }}</p>
+									<p>{{ planilla.jefeGrupoFamiliar.ingresoMensual_fmt }}</p>
 								</div>
 							</div>
 							<hr>
@@ -648,10 +648,10 @@ $(document).on('ready', function(){
 		$.confirm({
 			theme: 'black',
 			title: false, // hides the title.
-		    cancelButton: false, // hides the cancel button.
-		    confirmButton: false, // hides the confirm button.
-		    closeIcon: false, // hides the close icon.
-		    content: 'Se están almacenando los cambios, por favor espere.', // hides content block.
+			cancelButton: false, // hides the cancel button.
+			confirmButton: false, // hides the confirm button.
+			closeIcon: false, // hides the close icon.
+			content: 'Se están almacenando los cambios, por favor espere.', // hides content block.
 		});
 		action = $('#modalButt').data('url');
 		$.ajax({
@@ -667,47 +667,46 @@ $(document).on('ready', function(){
 	})
 
 	$('#close_button_modal').on('click', function(e){
-        $.confirm({
-            title: 'Advertencia!',
-            content: 'Perderá lo que ha escrito si continua, ¿Desea continuar?',
-            confirmButton: 'Dejar Cerrado',
-            cancelButton: 'Continuar editando',
-            confirmButtonClass: 'btn-danger',
-            cancelButtonClass: 'btn-info',
-            theme: 'black',
-            confirm: function(){
-            },
-            cancel: function(){
-                e.preventDefault();
-                $('#myModal').modal('show');
-            }
-        });
-    });
-
+		$.confirm({
+			title: 'Advertencia!',
+			content: 'Perderá lo que ha escrito si continua, ¿Desea continuar?',
+			confirmButton: 'Dejar Cerrado',
+			cancelButton: 'Continuar editando',
+			confirmButtonClass: 'btn-danger',
+			cancelButtonClass: 'btn-info',
+			theme: 'black',
+			confirm: function(){
+			},
+			cancel: function(){
+				e.preventDefault();
+				$('#myModal').modal('show');
+			}
+		});
+	});
 
 	$('#eliminarPlanilla').click(function(e){
-        $.confirm({
-            title: "¿Desea Eliminarla?",
-            content: "Está a punto de eliminar una planilla con todos sus datos, tenga en mente que puede modificar cualquier sección.",
-            theme: 'black',
-            confirmButtonClass: 'btn-danger',
-            cancelButtonClass: 'btn-info',
-            confirm: function(){
-            	$.confirm({
-            		theme: 'black',
-            		title: false,
-            		content: 'Si desea continuar con la eliminación haga click en OKAY',
-            		confirmButtonClass: 'btn-danger',
-            		cancelButtonClass: 'btn-default',
-            		confirm: function(){
-            			$('#form_eliminar').submit();
-            		}
-            	})
-            },
-            cancel: function(e){ $('#form_eliminar').submit(function(e){ e.preventDefault(); }); }
-        })
-    });
-    
+		$.confirm({
+			title: "¿Desea Eliminarla?",
+			content: "Está a punto de eliminar una planilla con todos sus datos, tenga en mente que puede modificar cualquier sección.",
+			theme: 'black',
+			confirmButtonClass: 'btn-danger',
+			cancelButtonClass: 'btn-info',
+			confirm: function(){
+				$.confirm({
+					theme: 'black',
+					title: false,
+					content: 'Si desea continuar con la eliminación haga click en OKAY',
+					confirmButtonClass: 'btn-danger',
+					cancelButtonClass: 'btn-default',
+					confirm: function(){
+						$('#form_eliminar').submit();
+					}
+				})
+			},
+			cancel: function(e){ $('#form_eliminar').submit(function(e){ e.preventDefault(); }); }
+		})
+	});
+	
 })
 </script>
 {% endblock %}

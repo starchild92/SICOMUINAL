@@ -130,6 +130,13 @@ class Persona
     private $pensionadoInstitucion;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="ingresoMensual", type="float")
+     */
+    private $ingresoMensual;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
@@ -172,6 +179,7 @@ class Persona
             return number_format($this->cedula, 0, '', '.');
         }
     }
+    public function ingresoMensual_fmt(){ return number_format($this->ingresoMensual, 2, ',', '.'); }
     public function direccion(){
         $grupo = $this->grupofamiliar;
         if ($grupo != NULL) {
@@ -644,5 +652,28 @@ class Persona
     public function getNacionalidad()
     {
         return $this->nacionalidad;
+    }
+
+    /**
+     * Set ingresoMensual
+     *
+     * @param float $ingresoMensual
+     * @return Persona
+     */
+    public function setIngresoMensual($ingresoMensual)
+    {
+        $this->ingresoMensual = $ingresoMensual;
+
+        return $this;
+    }
+
+    /**
+     * Get ingresoMensual
+     *
+     * @return float 
+     */
+    public function getIngresoMensual()
+    {
+        return $this->ingresoMensual;
     }
 }

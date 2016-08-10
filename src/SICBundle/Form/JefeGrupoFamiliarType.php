@@ -149,8 +149,11 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
             ))
+            
             ->add('ingresoMensual','text', array(
                 'label' => 'Estimado de Ingreso Mensual',
+                'attr' => array(
+                    'value' => 0)
                 ))
         ;
     }

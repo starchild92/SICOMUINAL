@@ -18,7 +18,7 @@
                 <tr>
                     <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></td>
                     <td>{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}"><i class="fa fa-link"></i></a><p class="small marginless">{{ planilla.empadronador.cedula }}</p></td>
-                    <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula }}</p> {% endif %}</td>
+                    <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula() }}</p> {% endif %}</td>
                     <td>{{ planilla.fechaCron() }}</td>
                     <td class="text-center">
                         {% if planilla.terminada != 100 %}
@@ -51,7 +51,15 @@
         $(document).ready(function() {
             dataTable = $('#dataTable').DataTable( {
                 "pageLength": 25,
-                "order": [[ 3, "desc" ]]
+                "order": [[ 3, "desc" ]],
+                'stateSave': true,
+                'pagingType': 'full_numbers',
+                "language": {
+                    "url": "{{ asset('datatables/espanol.js') }}"
+                },
+                "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             });
         });
     </script>
