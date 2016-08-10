@@ -29,7 +29,7 @@
                     </tr>
                     <tr>
                         <th>Correo</th>
-                        <td>{{ persona.email }}</td>
+                        <td>{% if persona.email == '' %}No especificó alguno.{% endif %} {{ persona.email }}</td>
                     </tr>
                     <tr>
                         <th>Fechanacimiento</th>
@@ -50,6 +50,10 @@
                     <tr>
                         <th>Profesión</th>
                         <td>{{ persona.profesion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ingreso Mensual</th>
+                        <td>{{ persona.ingresoMensual_fmt }} Bs.</td>
                     </tr>
                     <tr>
                         <th>CNE</th>
