@@ -24,18 +24,6 @@ class SituacionSaludType extends AbstractType
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
-            
-            // ->add('ayudaEspecial','collection',array(
-            //         'required' => false,
-            //         'type' => new AdminTipoAyudaEspecialType(),
-            //         'cascade_validation' => true,
-            //         'attr' => array('class' => 'ayudas'),
-            //         'allow_add'=>'true',
-            //         'by_reference'=>'false',
-            //         'allow_delete' =>'true',
-            //         'data_class' => null,
-            //         'label'     => '¿Necesita Usted De Alguna Ayuda Especial Para Familiares Enfermos En Su Hogar? - ¿Cuál(es)?'
-            //     ))
 
             ->add('ayudaEspecial', 'entity', array(
                 'class'     => 'SICBundle:AdminTipoAyudaEspecial',

@@ -186,6 +186,7 @@ class JefeGrupoFamiliar
     public function apellido_nombre() { return $this->apellidos.' '.$this->nombres; }
     public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
     public function ingresoMensual_fmt(){ return number_format($this->ingresoMensual, 2, ',', '.'); }
+    public function edad_fmt(){ if ($this->edad > 0 && $this->edad < 10) { return '0'.$this->edad;}else{ return $this->edad; } }
     public function direccion(){
         $planilla = $this->planilla;
         if ($planilla != NULL) {

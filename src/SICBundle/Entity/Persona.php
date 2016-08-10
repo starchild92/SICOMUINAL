@@ -172,6 +172,7 @@ class Persona
     public function nombreyapellido(){ return $this->nombre.' '.$this->apellido; }
     public function apellido_nombre_cuaderno(){ return $this->apellido.'<br>'.$this->nombre; }
     public function apellido_nombre(){ return $this->apellido.' '.$this->nombre; }
+    public function edad_fmt(){ if ($this->edad > 0 && $this->edad < 10) { return '0'.$this->edad;}else{ return $this->edad; } }
     public function cedula(){ 
         if($this->cedula == ''){
             return 'No especificó';

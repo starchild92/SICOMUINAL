@@ -183,7 +183,7 @@ class PersonaController extends Controller
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
             $aux = sizeof($Grupo->getMiembros()) + 1;
-            // $Grupo->setCantidadMiembros($aux+1);
+            $Grupo->setCantidadMiembros($aux);
         }else{
             $this->get('session')->getFlashBag()
             ->add('error', 'Seleccione la sección que desea modificar');
@@ -326,8 +326,8 @@ class PersonaController extends Controller
         // $cantMiembros = 1;
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
-            // $aux = sizeof($Grupo->getMiembros()) + 1;
-            // $Grupo->setCantidadMiembros($aux+1);
+            $aux = sizeof($Grupo->getMiembros()) + 1;
+            $Grupo->setCantidadMiembros($aux);
         }else{
             $this->get('session')->getFlashBag()
             ->add('error', 'Seleccione la sección que desea modificar');

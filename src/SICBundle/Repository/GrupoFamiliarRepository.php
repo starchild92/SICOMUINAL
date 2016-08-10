@@ -29,7 +29,8 @@ class GrupoFamiliarRepository extends EntityRepository
 				SELECT gf FROM SICBundle:GrupoFamiliar gf
 				WHERE gf.sector = :sector
 				GROUP BY 
-					gf.direccion, gf.numeroCasa');
+					gf.direccion, gf.numeroCasa
+				');
         $query->setparameter('sector', $sector);
 		$result = $query->getResult();
 		return $result;
