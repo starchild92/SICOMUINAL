@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\SituacionServicios;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\SituacionServiciosType;
 
 /**
@@ -230,7 +231,12 @@ class SituacionServiciosController extends Controller
             $em->persist($situacionServicio);
             $p->setSituacionServicios($situacionServicio);
             $em->persist($p);
+            $bitacora = new Bitacora($this->getUser(),'agregó','un Situación de Servicios a la planilla '.$id_planilla);
+            $em->persist($bitacora);
             $em->flush();
+
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha agregado la informacion de Servicios de forma exitosa');
 
             return $this->redirectToRoute('participacioncomunitaria_new', array('id_planilla' => $id_planilla));
         }
@@ -268,6 +274,8 @@ class SituacionServiciosController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionServicio);
+            $bitacora = new Bitacora($this->getUser(),'modificó','la informacion Situación de Servicios de la planilla '.$situacionServicio->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()

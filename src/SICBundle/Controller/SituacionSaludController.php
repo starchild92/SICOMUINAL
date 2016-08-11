@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\SituacionSalud;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\SituacionSaludType;
 
 /**
@@ -98,7 +99,12 @@ class SituacionSaludController extends Controller
             $em->persist($situacionSalud);
             $p->setSituacionSalud($situacionSalud);
             $em->persist($p);
+            $bitacora = new Bitacora($this->getUser(),'agregó','un Situación de Salud a la planilla '.$id_planilla);
+            $em->persist($bitacora);
             $em->flush();
+
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha agregado la informacion de Salud de forma exitosa');
 
             return $this->redirectToRoute('situacionservicios_new', array('id_planilla' => $id_planilla));
         }
@@ -136,6 +142,8 @@ class SituacionSaludController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionSalud);
+            $bitacora = new Bitacora($this->getUser(),'modificó','la informacion Situación de Salud de la planilla '.$situacionSalud->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()

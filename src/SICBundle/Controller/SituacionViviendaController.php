@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\SituacionVivienda;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\SituacionViviendaType;
 
 /**
@@ -224,7 +225,12 @@ class SituacionViviendaController extends Controller
             $em->persist($situacionVivienda);
             $p->setSituacionVivienda($situacionVivienda);
             $em->persist($p);
+            $bitacora = new Bitacora($this->getUser(),'agregó','un Situación de Vivienda a la planilla '.$id_planilla);
+            $em->persist($bitacora);
             $em->flush();
+
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha agregado la informacion de Situación de Vivienda de forma exitosa');
 
             return $this->redirectToRoute('situacionsalud_new', array('id_planilla' => $id_planilla));
             // return $this->redirectToRoute('situacionvivienda_show', array('id' => $situacionVivienda->getId()));
@@ -263,10 +269,13 @@ class SituacionViviendaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionVivienda);
+            $bitacora = new Bitacora($this->getUser(),'modificó','la informacion Situación de Salud de la planilla '.$situacionVivienda->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()
             ->add('success', 'Se han actualizado los datos de la Situación de Vivienda de forma exitosa.');
+
             return $this->redirectToRoute('planillas_show', array('id' => $situacionVivienda->getPlanilla()->getId()));
             // return $this->redirectToRoute('situacionvivienda_edit', array('id' => $situacionVivienda->getId()));
         }
