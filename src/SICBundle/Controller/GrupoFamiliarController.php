@@ -39,38 +39,43 @@ class GrupoFamiliarController extends Controller
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
         $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
-        $p = $planilla[0];
+        if (sizeof($planilla) > 0) {
+            $p = $planilla[0];
 
-        if($p->getGrupoFamiliar() != NULL){
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
-            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+            if($p->getGrupoFamiliar() != NULL){
+                $this->get('session')->getFlashBag()
+                ->add('error', 'Seleccione la sección que desea modificar');
+                return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+            }
+
+            $grupoFamiliar = new GrupoFamiliar();
+            $form = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $grupoFamiliar->setCantidadMiembros(0);
+                $p->setGrupoFamiliar($grupoFamiliar);
+                $em->persist($grupoFamiliar);
+                $em->persist($p);
+                $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Grupo Familiar');
+                $bitacora = new Bitacora($this->getUser(),'agregó','un Grupo Familiar');
+                $em->persist($bitacora);
+                $em->flush();
+
+                return $this->redirectToRoute('personas_new', array(
+                    'id_planilla' => $id_planilla,
+                    'id_grupofamiliar' => $grupoFamiliar->getId()));
+                // return $this->redirectToRoute('grupofamiliar_show', array('id' => $grupoFamiliar->getId()));
+            }
+
+            return $this->render('grupofamiliar/new.html.twig', array(
+                'grupoFamiliar' => $grupoFamiliar,
+                'form' => $form->createView(),
+            ));
         }
-
-        $grupoFamiliar = new GrupoFamiliar();
-        $form = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $grupoFamiliar->setCantidadMiembros(0);
-            $p->setGrupoFamiliar($grupoFamiliar);
-            $em->persist($grupoFamiliar);
-            $em->persist($p);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Grupo Familiar');
-            $bitacora = new Bitacora($this->getUser(),'agregó','un Grupo Familiar');
-            $em->persist($bitacora);
-            $em->flush();
-
-            return $this->redirectToRoute('personas_new', array(
-                'id_planilla' => $id_planilla,
-                'id_grupofamiliar' => $grupoFamiliar->getId()));
-            // return $this->redirectToRoute('grupofamiliar_show', array('id' => $grupoFamiliar->getId()));
-        }
-
-        return $this->render('grupofamiliar/new.html.twig', array(
-            'grupoFamiliar' => $grupoFamiliar,
-            'form' => $form->createView(),
-        ));
+        
+        $this->get('session')->getFlashBag()->add('danger', 'Operación no permitida.');
+        return $this->redirectToRoute('planillas_index');
     }
 
     /**
