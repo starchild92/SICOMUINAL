@@ -114,7 +114,7 @@ class SituacionServiciosType extends AbstractType
                     'class' => 'ui dropdown')))
 
             ->add('cantBombonas','integer',array(
-                'label'     => 'Cantidad de Bombonas',
+                'label'     => 'Cantidad de Cilindros',
                 'required'  => false,
                 'attr'      => array(
                     'value' => 0)))
@@ -126,6 +126,28 @@ class SituacionServiciosType extends AbstractType
                 'label' => 'Capacidad Bombona',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
+
+            ->add('medidorElectrico', 'entity', array(
+                'label'     => '¿Tiene medidor electrico?',
+                'placeholder'   => 'Elija una',
+                'class'         => 'SICBundle:AdminRespCerrada'))
+
+            ->add('bombillosAhorradores', 'entity', array(
+                'label'     => '¿Tiene Bombillos Ahorradores?',
+                'placeholder'   => 'Elija una',
+                'class'         => 'SICBundle:AdminRespCerrada'))
+
+            ->add('precioBombona','text',array(
+                'label'     => 'Precio del Cilindro',
+                'required'  => false,
+                'attr'      => array(
+                    'value' => 0)))
+
+            ->add('duracionBombona','text',array(
+                'label'     => 'Duración del Gas',
+                'required'  => false,
+                'attr'      => array(
+                    'placeholder' => 'Ejemplo. 15 días')))
         ;
     }
     

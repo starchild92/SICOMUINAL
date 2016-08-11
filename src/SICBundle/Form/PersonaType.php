@@ -92,6 +92,7 @@ class PersonaType extends AbstractType
             ))
 
             ->add('incapacitado', ChoiceType::class, array(
+                'label' => 'Discapacidad',
                 'choices'  => array(
                     'Seleccione' => '',
                     'Si' => 'si',
