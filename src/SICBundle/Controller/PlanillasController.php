@@ -14,6 +14,7 @@ use SICBundle\Entity\AdminServiciosComunales;
 use SICBundle\Entity\AdminMecanismoInformacion;
 use SICBundle\Entity\AdminTipoTransporte;
 use SICBundle\Entity\AdminTipoPadecencia;
+use SICBundle\Entity\AdminTipoAyudaEspecial;
 use SICBundle\Entity\AdminTipoMascotas;
 use SICBundle\Entity\AdminTipoPlagas;
 use SICBundle\Entity\AdminTipoEnseres;
@@ -406,6 +407,21 @@ class PlanillasController extends Controller
                 'codigo' => '500',
                 'nombre' => $form['nombre'],
                 'respuesta' => 'Se ha añadido un nuevo sistema de recolección de basura, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_salud_ayudaEspecial") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoAyudaEspecial();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo tipo de ayuda especial, llamado "'.$form['nombre'].'" a la base de datos',
                 'id'        => $nuevo->getId(),
                 ]));
             }
