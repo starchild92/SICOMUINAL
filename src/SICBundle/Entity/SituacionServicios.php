@@ -123,10 +123,37 @@ class SituacionServicios
     private $cantBombonas;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="precioBombona", type="float")
+     */
+    private $precioBombona;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="duracionBombona", type="string", length=255, nullable=true)
+     */
+    private $duracionBombona;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AdminCapacidadBombona", cascade={"persist"})
      * @ORM\JoinColumn(name="capacidadBombona", referencedColumnName="id", onDelete="CASCADE")
      */
     private $capacidadBombona;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="medidorElectrico", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $medidorElectrico;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="bombillosAhorradores", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $bombillosAhorradores;
+
 
     /**
      * Constructor
@@ -544,5 +571,97 @@ class SituacionServicios
     public function getCapacidadBombona()
     {
         return $this->capacidadBombona;
+    }
+
+    /**
+     * Set medidorElectrico
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $medidorElectrico
+     * @return SituacionServicios
+     */
+    public function setMedidorElectrico(\SICBundle\Entity\AdminRespCerrada $medidorElectrico = null)
+    {
+        $this->medidorElectrico = $medidorElectrico;
+
+        return $this;
+    }
+
+    /**
+     * Get medidorElectrico
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getMedidorElectrico()
+    {
+        return $this->medidorElectrico;
+    }
+
+    /**
+     * Set bombillosAhorradores
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $bombillosAhorradores
+     * @return SituacionServicios
+     */
+    public function setBombillosAhorradores(\SICBundle\Entity\AdminRespCerrada $bombillosAhorradores = null)
+    {
+        $this->bombillosAhorradores = $bombillosAhorradores;
+
+        return $this;
+    }
+
+    /**
+     * Get bombillosAhorradores
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getBombillosAhorradores()
+    {
+        return $this->bombillosAhorradores;
+    }
+
+    /**
+     * Set precioBombona
+     *
+     * @param float $precioBombona
+     * @return SituacionServicios
+     */
+    public function setPrecioBombona($precioBombona)
+    {
+        $this->precioBombona = $precioBombona;
+
+        return $this;
+    }
+
+    /**
+     * Get precioBombona
+     *
+     * @return float 
+     */
+    public function getPrecioBombona()
+    {
+        return $this->precioBombona;
+    }
+
+    /**
+     * Set duracionBombona
+     *
+     * @param string $duracionBombona
+     * @return SituacionServicios
+     */
+    public function setDuracionBombona($duracionBombona)
+    {
+        $this->duracionBombona = $duracionBombona;
+
+        return $this;
+    }
+
+    /**
+     * Get duracionBombona
+     *
+     * @return string 
+     */
+    public function getDuracionBombona()
+    {
+        return $this->duracionBombona;
     }
 }

@@ -203,7 +203,7 @@ class PersonaController extends Controller
             $em->flush();
 
             $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
-            $this->get('session')->getFlashBag()->add('success','Se agregó el miembro al grupo familiar de forma correcta.');
+            $this->get('session')->getFlashBag()->add('success','Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('personas_new', array(
                 'id_planilla' => $id_planilla,
