@@ -70,7 +70,7 @@
     <script>
         $(document).ready(function() {
             dataTable = $('#tabla_registro_electoral').DataTable( {
-                    // "pageLength": 25,
+                    "pageLength": 20,
                     "bLengthChange": false,
                     // "info": true,
                     'stateSave': true,
@@ -79,8 +79,8 @@
                         "url": "{{ asset('datatables/espanol.js') }}"
                     },
                     "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
-                    		"<'row'<'col-sm-12'tr>>" +
-                    		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 });
         });
     </script>
