@@ -591,6 +591,9 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-sm-12">
+									{% if planilla.situacionComunidad.preguntasSituacionComunidad|length == 0 %}
+										<p class="negritas">No se agrego ninguna</p>
+									{% endif %}
 									{% for preg in planilla.situacionComunidad.preguntasSituacionComunidad %}
 										<div class="well well-sm">
 											<p class="negritas">{{ preg.pregunta }}</p>
