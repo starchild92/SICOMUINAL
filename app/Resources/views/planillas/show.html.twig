@@ -471,8 +471,16 @@
 									<p>{{ planilla.situacionServicios.sistemaElectrico }}</p>
 								</div>
 								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Posee Medidor Electrico</p>
+									<p>{{ planilla.situacionServicios.medidorElectrico }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Posee Bombillos Ahorradores de Energía</p>
+									<p>{{ planilla.situacionServicios.bombillosAhorradores }}</p>
+								</div>
+								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Recolección de Basura</p>
-									<p>{{ planilla.situacionServicios.recoleccionBasura }}</p>
+									<p>{% if planilla.situacionServicios.recoleccionBasura == '' %}No especificó ninguno{% endif %}{{ planilla.situacionServicios.recoleccionBasura }}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Telefonía</p>
@@ -526,13 +534,13 @@
 										<span class="label label-default">{{ item.nombre }}</span>{% endfor %}</p>
 								</div>
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Participación Organizaciones</p>
+									<p class="bottom-line negritas text-info">¿Participa Usted en alguna de ellas?</p>
 									<p>{{ planilla.participacionComunitaria.participaOrganizacion }}</p>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Participa Miembro Organización</p>
+									<p class="bottom-line negritas text-info">¿Participa algun miembro de la Familia?</p>
 									<p>{{ planilla.participacionComunitaria.participaMiembroOrganizacion }}</p>
 								</div>
 								<div class="col-sm-6">
@@ -546,6 +554,9 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Preguntas Participacion Comunitaria</p>
+									{% if planilla.participacionComunitaria.preguntasParticipacionComunitaria|length == 0 %}
+									<p>No respondió ninguna.</p>
+									{% endif %}
 									{% for item in planilla.participacionComunitaria.preguntasParticipacionComunitaria %}
 										<div class="well well-sm">
 											<p class="negritas">{{ item.interrogante }}</p>

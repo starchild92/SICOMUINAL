@@ -25,15 +25,23 @@
                             <div class="col-sm-6">{{ form_row(edit_form.cantBombonas) }}</div>
                             <div class="col-sm-6">{{ form_row(edit_form.capacidadBombona) }}</div>
                         </div>
-                        {{ form_row(edit_form.sistemaElectrico) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.duracionBombona) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.precioBombona) }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(edit_form.telefonia) }}
+                        {{ form_row(edit_form.sistemaElectrico) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.medidorElectrico) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.bombillosAhorradores) }}</div>
+                        </div>
                         {{ form_row(edit_form.recoleccionBasura) }}
+                        {{ form_row(edit_form.telefonia) }}
                         {{ form_row(edit_form.transporte) }}
                         {{ form_row(edit_form.mecanismoInformacion) }}
                         {{ form_row(edit_form.serviciosComunales) }}

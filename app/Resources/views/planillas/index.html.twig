@@ -9,22 +9,17 @@
                 <th>Empadronador</th>
                 <th>Encuestado</th>
                 <th>Fecha Modificada</th>
-                <th>Estado</th>
                 <th><i class="fa fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
             {% for planilla in planillas %}
-                <tr>
-                    <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></td>
+                <tr class="{% if planilla.terminada != 100 %}warning{% else %}success{% endif %}">
+                    <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a>
+                        <p class="small marginless">{% if planilla.terminada != 100 %}Sin terminar</span>{% else %}Terminada</span>{% endif %}</p></td>
                     <td>{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}"><i class="fa fa-link"></i></a><p class="small marginless">{{ planilla.empadronador.cedula }}</p></td>
                     <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombreyapellido }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula() }}</p> {% endif %}</td>
                     <td>{{ planilla.fechaCron() }}</td>
-                    <td class="text-center">
-                        {% if planilla.terminada != 100 %}<span class="label label-warning">Sin terminar</span>
-                        {% else %}<span class="label label-primary">Terminada</span>
-                        {% endif %}
-                    </td>
                     <td>
                         <div class="btn-group">
                             <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>

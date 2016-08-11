@@ -75,7 +75,6 @@
             $('.additions').dropdown({
                 allowAdditions: true,
                 onChange: function(addedValue, addedText, $addedChoice) {
-                    console.log('Feets');
                     $('[name=persona]').submit(function(e){ e.preventDefault(); }); //nombre del form
                     $.ajax({
                         url: $('#addAjax').data('url'),
