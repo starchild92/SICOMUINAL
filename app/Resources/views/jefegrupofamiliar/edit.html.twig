@@ -11,6 +11,10 @@
                             <div class="col-sm-6">{{ form_row(edit_form.nombres) }}</div>
                             <div class="col-sm-6">{{ form_row(edit_form.apellidos) }}</div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.nacionalidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
+                        </div>
                         {{ form_row(edit_form.sexo) }}
                         {{ form_row(edit_form.fechaNacimiento) }}
                         {{ form_row(edit_form.edad) }}
@@ -20,8 +24,6 @@
                             <div class="col-sm-5">{{ form_row(edit_form.trabajaActualmente) }}</div>
                             <div class="col-sm-7">{{ form_row(edit_form.profesion) }}</div>
                         </div>
-                        {{ form_row(edit_form.pensionado) }}
-                        {{ form_row(edit_form.pensionadoInstitucion) }}
                     </div>
                 </div>
             </div>
@@ -29,8 +31,8 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-5">{{ form_row(edit_form.cedula) }}</div>
-                            <div class="col-sm-7">{{ form_row(edit_form.nacionalidad) }}</div>
+                            <div class="col-sm-5">{{ form_row(edit_form.pensionado) }}</div>
+                            <div class="col-sm-7">{{ form_row(edit_form.pensionadoInstitucion) }}</div>
                         </div>
                         {{ form_row(edit_form.estadoCivil) }}
                         <div class="row">

@@ -1,90 +1,96 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Estadísticas Situación de Salud</h2>
-    <hr>
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="well well-sm">
-                <p>Esta información es referente a un total de {{ total }} familias.</p>
-            </div>
-            <a class="btn btn-primary btn-block pull-rigth" href="#"><i class="fa fa-file-o"></i> Obtener como PDF</a>
+<h2>Estadísticas Situación de Salud</h2>
+<hr>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="well well-sm">
+            <p>Esta información es referente a un total de {{ total }} familias.</p>
         </div>
-        <div class="col-sm-9">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading"><h4 class="panel-title">Padecencias</h4></div>
-                        <div class="panel-body">
-                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                                <thead>
-                                    <tr>
-                                        <th>Tipo</th>
-                                        <th>Cant.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for item in stat_padecencias %}<tr>
-                                        <td>{{item.padecencias}}</td>
-                                        <td>{{item.cantidad}}</td>
-                                    </tr>{% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading"><h4 class="panel-title">Ayudas Especiales</h4></div>
-                        <div class="panel-body">
-                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                                <thead>
-                                    <tr>
-                                        <th>Tipo</th>
-                                        <th>Cant.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for item in stat_ayuda_especial %}<tr>
-                                        <td>{{item.ayuda_especial}}</td>
-                                        <td>{{item.cantidad}}</td>
-                                    </tr>{% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading"><h4 class="panel-title">Situación de Exclusión</h4></div>
-                        <div class="panel-body">
-                            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="300">
-                                <thead>
-                                    <tr>
-                                        <th>Tipo</th>
-                                        <th>Cant.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for item in stat_situacion_exclusion %}<tr>
-                                        <td>{{item.situacion_exclusion}}</td>
-                                        <td>{{item.cantidad}}</td>
-                                    </tr>{% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+    </div>
+    <div class="col-lg-4">
+        <a class="btn btn-lg btn-primary btn-block pull-rigth" href="{{ path('resumen_documento_obtener') }}"><i class="fa fa-file-o"></i> Obtener como PDF</a>
+        <hr class="little"></hr>
+    </div>
+</div>
+
+<div class="row grid">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4 class="panel-title">Padecencias</h4></div>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_padecencias %}<tr>
+                            <td>{{item.padecencias}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4 class="panel-title">Ayudas Especiales</h4></div>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_ayuda_especial %}<tr>
+                            <td>{{item.ayuda_especial}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4 class="panel-title">Situación de Exclusión</h4></div>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Cant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stat_situacion_exclusion %}<tr>
+                            <td>{{item.situacion_exclusion}}</td>
+                            <td>{{item.cantidad}}</td>
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('js/highchart.js') }}"></script>
-    <script src="{{ asset('js/highchart/highcharts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/packery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/highchart.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/highchart/highcharts.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('table.highchart').highchartTable();
+            $('.row.grid').packery({
+              itemSelector: 'div[class*="col-"',
+            });
         });
     </script>
 {% endblock %}
