@@ -469,7 +469,11 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Proveedor de Gas</p>
-									<p>{{ planilla.situacionServicios.empresaGas }}</p>
+									{% if planilla.situacionServicios.empresaGas == '' %}
+										<p>No aplica</p>
+									{% else %}
+										<p>{{ planilla.situacionServicios.empresaGas }}</p>
+									{% endif %}
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Suministro Eléctrico</p>
