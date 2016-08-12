@@ -181,6 +181,9 @@ class JefeGrupoFamiliar
         return $this->id;
     }
 
+    public function isJGF() { return true; }
+    public function nombre() { return $this->nombres; }
+    public function apellido() { return $this->apellidos; }
     public function nombreyapellido() { return $this->nombres.' '.$this->apellidos; }
     public function apellido_nombre_cuaderno() { return $this->apellidos.'<br>'.$this->nombres; }
     public function apellido_nombre() { return $this->apellidos.' '.$this->nombres; }

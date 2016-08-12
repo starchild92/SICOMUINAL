@@ -303,14 +303,24 @@ class PersonaController extends Controller
         ;
     }
 
+    public function cmp($a, $b){
+        if((int)$a->getCedula() == (int)$b->getCedula())return 0;
+        if((int)$a->getCedula()  > (int)$b->getCedula())return 1;
+        if((int)$a->getCedula()  < (int)$b->getCedula())return -1;
+    }
     public function agendaAction()
     {
         $em = $this->getDoctrine()->getManager();
         $jefes = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
-        $personas = $em->getRepository('SICBundle:Persona')->findAll();
+        $personass = $em->getRepository('SICBundle:Persona')->findAll();
+
+        $personas = array();
+        foreach ($jefes as $j) { array_push($personas, $j); }
+        foreach ($personass as $p) { array_push($personas, $p); }
+
+        usort($personas, array($this, "cmp"));
 
         return $this->render('persona/agenda_comunitaria.html.twig', array(
-            'jefes' => $jefes,
             'personas' => $personas,
         ));
     }

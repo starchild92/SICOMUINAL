@@ -169,6 +169,7 @@ class Persona
         return $this->id;
     }
 
+    public function isJGF(){ return false; }
     public function nombreyapellido(){ return $this->nombre.' '.$this->apellido; }
     public function apellido_nombre_cuaderno(){ return $this->apellido.'<br>'.$this->nombre; }
     public function apellido_nombre(){ return $this->apellido.' '.$this->nombre; }
