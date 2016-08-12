@@ -18,20 +18,28 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(form.tenencia) }}
-                        {{ form_row(form.tipo) }}
                         {{ form_row(form.habitaciones) }}
                         {{ form_row(form.cantidadHabitaciones) }}
-                        {{ form_row(form.ovc) }}
-                        {{ form_row(form.terrenoPropio) }}
+                        {{ form_row(form.tipo) }}
+                        {{ form_row(form.tenencia) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.terrenoPropio) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.ovc) }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(form.paredes) }}
-                        {{ form_row(form.techo) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.paredes) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.techo) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.sivih) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.leypoliticahabitacional) }}</div>
+                        </div>
                         {{ form_row(form.enseres) }}
                         {{ form_row(form.salubridad) }}
                         {{ form_row(form.presenciaInsectos) }}
@@ -53,7 +61,6 @@
                 allowAdditions: true,
                 onAdd: function(addedValue, addedText, $addedChoice) {
                     element = $(this).prop('id');
-                    console.log(element)
                     $('[name=situacion_vivienda]').submit(function(e){ e.preventDefault(); });
                     $.ajax({
                         url: $('#addAjax').data('url'),

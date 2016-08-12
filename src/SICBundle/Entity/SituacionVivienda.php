@@ -107,10 +107,21 @@ class SituacionVivienda
     private $mascota;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="leypoliticahabitacional", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $leypoliticahabitacional;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="sivih", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $sivih;
+
+    /**
      * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionVivienda")
      */
     private $planilla;
-    
     
     /**
      * Constructor
@@ -470,5 +481,51 @@ class SituacionVivienda
     public function getPlanilla()
     {
         return $this->planilla;
+    }
+
+    /**
+     * Set leypoliticahabitacional
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $leypoliticahabitacional
+     * @return SituacionVivienda
+     */
+    public function setLeypoliticahabitacional(\SICBundle\Entity\AdminRespCerrada $leypoliticahabitacional = null)
+    {
+        $this->leypoliticahabitacional = $leypoliticahabitacional;
+
+        return $this;
+    }
+
+    /**
+     * Get leypoliticahabitacional
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getLeypoliticahabitacional()
+    {
+        return $this->leypoliticahabitacional;
+    }
+
+    /**
+     * Set sivih
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $sivih
+     * @return SituacionVivienda
+     */
+    public function setSivih(\SICBundle\Entity\AdminRespCerrada $sivih = null)
+    {
+        $this->sivih = $sivih;
+
+        return $this;
+    }
+
+    /**
+     * Get sivih
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getSivih()
+    {
+        return $this->sivih;
     }
 }
