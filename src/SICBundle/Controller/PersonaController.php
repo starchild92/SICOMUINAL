@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\Persona;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\PersonaType;
 
 /**
@@ -200,6 +201,8 @@ class PersonaController extends Controller
             $persona->setGrupofamiliar($Grupo);
             $em->persist($persona);
             $em->persist($Grupo);
+            $bitacora = new Bitacora($this->getUser(),'agregó','a '.$persona->nombreyapellido().' al Grupo Familiar '.$Grupo->getApellidos());
+            $em->persist($bitacora);
             $em->flush();
 
             $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
@@ -255,6 +258,8 @@ class PersonaController extends Controller
                 $persona->setRecibirCorreo(false);
             }
             $em->persist($persona);
+            $bitacora = new Bitacora($this->getUser(),'modificó','los datos de '.$persona->nombreyapellido());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'Se han actualizado los datos de forma correcta.');
@@ -281,10 +286,15 @@ class PersonaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($persona);
+            $bitacora = new Bitacora($this->getUser(),'eliminó','a '.$persona->nombreyapellido().' del Sistema');
+            $em->persist($bitacora);
+
+            $this->get('session')->getFlashBag()->add('success','Se ha Eliminado a '.$persona->nombreyapellido().' del Grupo Familiar de forma correcta.');
+
             $em->flush();
         }
 
-        return $this->redirectToRoute('planillas_index');
+        return $this->redirectToRoute('planillas_show', array('id' => $persona->getGrupofamiliar()->getPlanilla()->getId()));
     }
 
     /**
@@ -356,6 +366,8 @@ class PersonaController extends Controller
             }
             $em->persist($persona);
             $em->persist($Grupo);
+            $bitacora = new Bitacora($this->getUser(),'agregó','a '.$persona->nombreyapellido().' al Grupo Familiar '.$Grupo->getApellidos());
+            $em->persist($bitacora);
             $em->flush();
 
             $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
