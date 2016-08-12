@@ -31,6 +31,7 @@
 			{% endif %}
 			<hr class="little">
 			{{ form_start(delete_form, {'attr': {'id': 'form_eliminar'}}) }}<button id="eliminarPlanilla" class="btn btn-block btn-danger" type="button"> <i class="fa fa-trash"></i> Eliminar esta Planilla</button>{{ form_end(delete_form) }}
+			<hr class="little">
 		</div>
 		<div class="col-sm-9">
 			{% if planilla.terminada != 100 %}
@@ -151,7 +152,7 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Ingreso Familiar</p>
-									<p>{{ planilla.jefeGrupoFamiliar.ingresoFamiliar }}</p>
+									<p>{{ planilla.jefeGrupoFamiliar.ingresoFamiliar }} Bs</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Ingreso Mensual</p>
@@ -199,10 +200,10 @@
 									<p class="bottom-line negritas text-info">Sector</p>
 									<p>{{ planilla.grupoFamiliar.sector }}</p>
 								</div>
-								<div class="col-sm-6">
+								{# <div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Tiempo Residencia</p>
 									<p>{{ planilla.grupoFamiliar.tiempoResidencia }} años</p>
-								</div>
+								</div> #}
 							</div>
 
 							<div class="row">
@@ -226,7 +227,7 @@
 												<td>
 													<div class="btn-group">
 														<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													Opciones <span class="caret"></span>
+													<i class="fa fa-cogs"></i> Opciones <span class="caret"></span>
 													</button>
 													<ul class="dropdown-menu">
 														<li><a href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-user"></i> Ver persona</a></li>
@@ -280,8 +281,12 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Ingreso Familiar (Bs)</p>
-									<p>{{ planilla.situacionEconomica.ingresoFamiliarEspecifico }}</p>
+									<p class="bottom-line negritas text-info">Ingreso Familiar Especifico</p>
+									{% if planilla.situacionEconomica.ingresoFamiliarEspecifico == '' %}
+										<p>No especificó alguno</p>
+									{% else %}
+										<p>{{ planilla.situacionEconomica.ingresoFamiliarEspecifico }}</p>
+									{% endif %}
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Ingreso Familiar (Bs)</p>

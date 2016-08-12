@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <h1>Miembro Grupo Familiar <small>Actualmente hay {{ cantMiembros }} miembros</small></h1>
+    <h1>Miembro Grupo Familiar <small>Actualmente hay {{ cantMiembros }} {% if cantMiembros > 1 %}miembros{% else %}miembro{% endif %}</small></h1>
 
     {{ form_start(form, { 'attr' : {'id':'persona'}}) }}
         <div class="row">
@@ -22,36 +22,41 @@
                             <div class="col-sm-6">{{ form_row(form.nombre) }}</div>
                             <div class="col-sm-6">{{ form_row(form.apellido) }}</div>
                         </div>
+                        {{ form_row(form.sexo) }}
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.nacionalidad) }}</div>
                             <div class="col-sm-6">{{ form_row(form.cedula) }}</div>
                         </div>
-                        {{ form_row(form.parentesco) }}
-                        {{ form_row(form.gradoInstruccion) }}
-                        {{ form_row(form.cne) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.fechaNacimiento) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.edad) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.incapacitado) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.incapacitadoTipo) }}</div>
+                        </div>
+                        {{ form_row(form.embarazoTemprano) }}
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
+                        {{ form_row(form.parentesco) }}
+                        {{ form_row(form.gradoInstruccion) }}
+                        {{ form_row(form.cne) }}
                         
-                        {{ form_row(form.email) }}
-                        <div class="row">
-                            <div class="col-sm-6">{{ form_row(form.fechaNacimiento) }}</div>
-                            <div class="col-sm-6">{{ form_row(form.sexo) }}</div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.profesion) }}</div>
                             <div class="col-sm-6">{{ form_row(form.ingresoMensual) }}</div>
                         </div>
 
-                        {{ form_row(form.edad) }}
-                        {{ form_row(form.embarazoTemprano) }}
-                        {{ form_row(form.incapacitado) }}
-                        {{ form_row(form.incapacitadoTipo) }}
-                        {{ form_row(form.pensionado) }}
-                        {{ form_row(form.pensionadoInstitucion) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.pensionado) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.pensionadoInstitucion) }}</div>
+                        </div>
+                        
+                        {{ form_row(form.email) }}
                     </div>
                 </div>
             </div>
@@ -70,7 +75,7 @@
     <script src="{{ asset('js/funcionesExtras.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $("#persona_edad").parent().addClass('hidden');
+            // $("#persona_edad").parent().addClass('hidden');
             $('.ui.dropdown').dropdown();
             $('.additions').dropdown({
                 allowAdditions: true,

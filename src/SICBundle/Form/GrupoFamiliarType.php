@@ -18,8 +18,8 @@ class GrupoFamiliarType extends AbstractType
             ->add('apellidos','text', array(
                 'label'     => 'Apellidos del Grupo Familiar'))
             // ->add('cantidadMiembros') //Se calcula a medida que se agregan nuevos miembros
-            ->add('tiempoResidencia','text', array(
-                'label'     => 'Tiempo de Residencia'))
+            // ->add('tiempoResidencia','text', array(
+            //     'label'     => 'Tiempo de Residencia'))
             ->add('sector','text', array(
                 'label'     => 'Sector'))
             ->add('direccion','text', array(

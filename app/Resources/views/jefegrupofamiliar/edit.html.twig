@@ -15,14 +15,22 @@
                             <div class="col-sm-6">{{ form_row(edit_form.nacionalidad) }}</div>
                             <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
                         </div>
-                        {{ form_row(edit_form.sexo) }}
-                        {{ form_row(edit_form.fechaNacimiento) }}
-                        {{ form_row(edit_form.edad) }}
-                        {{ form_row(edit_form.cne) }}
-                        {{ form_row(edit_form.email) }}
                         <div class="row">
-                            <div class="col-sm-5">{{ form_row(edit_form.trabajaActualmente) }}</div>
-                            <div class="col-sm-7">{{ form_row(edit_form.profesion) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.fechaNacimiento) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.cne) }}</div>
+                        </div>
+                        {{ form_row(edit_form.edad) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.tiempoEnComunidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.sexo) }}</div>
+                        </div>                        
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.pensionado) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.incapacitado) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.pensionadoInstitucion) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.incapacitadoTipo) }}</div>
                         </div>
                     </div>
                 </div>
@@ -30,17 +38,12 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-5">{{ form_row(edit_form.pensionado) }}</div>
-                            <div class="col-sm-7">{{ form_row(edit_form.pensionadoInstitucion) }}</div>
-                        </div>
                         {{ form_row(edit_form.estadoCivil) }}
-                        <div class="row">
-                            <div class="col-sm-5">{{ form_row(edit_form.incapacitado) }}</div>
-                            <div class="col-sm-7">{{ form_row(edit_form.incapacitadoTipo) }}</div>
-                        </div>
-                        {{ form_row(edit_form.tiempoEnComunidad) }}
                         {{ form_row(edit_form.nivelInstruccion) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.profesion) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.trabajaActualmente) }}</div>
+                        </div>
                         {{ form_row(edit_form.ingresoFamiliar) }}
                         {{ form_row(edit_form.ingresoMensual) }}
                     </div>
@@ -52,11 +55,13 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
+                        {{ form_row(edit_form.email) }}
                         {{ form_row(edit_form.telefono) }}
                     </div>
                 </div>  
             </div>
         </div>
+
         <input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios del Jefe del Grupo Familiar y Regresar a la Planilla" />
         
     {{ form_end(edit_form) }}

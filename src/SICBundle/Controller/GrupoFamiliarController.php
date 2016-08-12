@@ -49,6 +49,8 @@ class GrupoFamiliarController extends Controller
             }
 
             $grupoFamiliar = new GrupoFamiliar();
+            if ($grupoFamiliar->getApellidos() == '') { $grupoFamiliar->setApellidos($p->getJefeGrupoFamiliar()->getApellidos()); } //Si no hay apellido, coloco los del JGF
+
             $form = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
             $form->handleRequest($request);
 

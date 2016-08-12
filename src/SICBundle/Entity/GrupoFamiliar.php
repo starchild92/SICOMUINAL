@@ -57,12 +57,11 @@ class GrupoFamiliar
      */
     private $sector;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="tiempoResidencia", type="integer")
-     */
-    private $tiempoResidencia;
+    // *
+    //  * @var int
+    //  *
+    //  * @ORM\Column(name="tiempoResidencia", type="integer")
+    // private $tiempoResidencia;
 
     /**
      * @ORM\OneToMany(targetEntity="Persona", cascade={"remove", "persist"}, mappedBy="grupofamiliar")
@@ -211,29 +210,6 @@ class GrupoFamiliar
     public function getSector()
     {
         return $this->sector;
-    }
-
-    /**
-     * Set tiempoResidencia
-     *
-     * @param integer $tiempoResidencia
-     * @return GrupoFamiliar
-     */
-    public function setTiempoResidencia($tiempoResidencia)
-    {
-        $this->tiempoResidencia = $tiempoResidencia;
-
-        return $this;
-    }
-
-    /**
-     * Get tiempoResidencia
-     *
-     * @return integer 
-     */
-    public function getTiempoResidencia()
-    {
-        return $this->tiempoResidencia;
     }
 
     /**
