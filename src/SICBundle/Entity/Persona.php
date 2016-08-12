@@ -149,7 +149,7 @@ class Persona
     private $recibir_correo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="GrupoFamiliar", cascade={"persist", "remove"}, inversedBy="miembros")
+     * @ORM\ManyToOne(targetEntity="GrupoFamiliar", cascade={"persist"}, inversedBy="miembros")
      * @ORM\JoinColumn(name="grupo_fam_id", referencedColumnName="id")
      */
     private $grupofamiliar;
