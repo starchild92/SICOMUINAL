@@ -1,106 +1,81 @@
-{% extends 'base.html.twig' %}
+{% embed 'graficos.html.twig' %}
 
-{% block stylesheet %}<style> svg{width:100% !important; height:100% !important;}</style>{% endblock %}
+	{% block stylesheet %}<style> svg{width:100% !important; height:100% !important;}</style>{% endblock %}
 
-{% block body %}
-<h2>Estadísticas Jefes de Grupos Familiares</h2> 
-<hr>
+	{% block body %}
+	<h2>Estadísticas Jefes de Grupos Familiares</h2> 
+	<hr>
 
-<div class="row">
-    <div class="col-lg-8">
-        <div class="well well-sm">
-            <p>Se tienen registrados {{ total }} Jefes de Grupos Familiares, las respuestas a sus encuestas están distribuidas según el item de la siguiente forma.</p>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <a class="btn btn-lg btn-primary btn-block pull-rigth" href="{{ path('resumen_documento_obtener') }}"><i class="fa fa-file-o"></i> Obtener como PDF</a>
-        <hr class="little"></hr>
-    </div>
-</div>
-<div class="row grid">
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title">Nacionalidad</h4>
-			</div>
-			<div class="panel-body">
-				<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-				<thead>
-					<tr>
-						<th>Nacionalidad</th>
-						<th>Cant.</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for n in stat_nacionalidad %}
-						<tr>
-							<td>{{n.nacionalidad}}</td>
-							<td>{{n.cantidad}}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-				</table>
-			</div>
-		</div>
+	<div class="row">
+	    <div class="col-lg-8">
+	        <div class="well well-sm">
+	            <p>Se tienen registrados {{ total }} Jefes de Grupos Familiares, las respuestas a sus encuestas están distribuidas según el item de la siguiente forma.</p>
+	        </div>
+	    </div>
+	    <div class="col-lg-4">
+	        <a class="btn btn-lg btn-primary btn-block pull-rigth" href="{{ path('resumen_documento_obtener') }}"><i class="fa fa-file-o"></i> Obtener como PDF</a>
+	        <hr class="little"></hr>
+	    </div>
 	</div>
-
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title">Sexo</h4>
-			</div>
+	<div class="row grid">
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Nacionalidad</h4>
+				</div>
 				<div class="panel-body">
-				<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
 					<thead>
 						<tr>
-							<th>Sexo</th>
+							<th>Nacionalidad</th>
 							<th>Cant.</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for sx in stat_sexo %}
+						{% for n in stat_nacionalidad %}
 							<tr>
-								<td>{{sx.sexo}}</td>
-								<td>{{sx.cantidad}}</td>
-							</tr>{% endfor %}
+								<td>{{n.nacionalidad}}</td>
+								<td>{{n.cantidad}}</td>
+							</tr>
+						{% endfor %}
 					</tbody>
-				</table>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title">Inscrito en el CNE</h4>
-			</div>
-				<div class="panel-body">
-				<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-				<thead>
-					<tr>
-						<th>Resp</th>
-						<th>Cant.</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for cne in stat_cne %}
-						<tr>
-							<td>{{cne.resp}}</td>
-							<td>{{cne.cantidad}}</td>
-						</tr>{% endfor %}
-					</tbody>
-				</table>
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Sexo</h4>
+				</div>
+					<div class="panel-body">
+					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+						<thead>
+							<tr>
+								<th>Sexo</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for sx in stat_sexo %}
+								<tr>
+									<td>{{sx.sexo}}</td>
+									<td>{{sx.cantidad}}</td>
+								</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title">Situación de Empleo</h4>
-			</div>
-			<div class="panel-body">
-				<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Inscrito en el CNE</h4>
+				</div>
+					<div class="panel-body">
+					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
 					<thead>
 						<tr>
 							<th>Resp</th>
@@ -108,150 +83,163 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for emp in stat_empleado %}<tr>
-							<td>{{emp.resp}}</td>
-							<td>{{emp.cantidad}}</td>
-						</tr>{% endfor %}
-					</tbody>
-				</table>
-				{# <p class="negritas">¿Se encuentra usted empleado actualmente?</p> #}
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title">Estado Civil</h4>
-			</div>
-				<div class="panel-body">
-					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-					<thead>
-						<tr>
-							<th>Estado Civil</th>
-							<th>Cant.</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for edo in stat_edo_civil %}
+						{% for cne in stat_cne %}
 							<tr>
-								<td>{{edo.edo_civil}}</td>
-								<td>{{edo.cantidad}}</td>
-							</tr>{% endfor %}
-						</tbody>
-					</table>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title">Niveles de Instrucción</h4>
-			</div>
-				<div class="panel-body">
-					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-						<thead>
-							<tr>
-								<th>Nivel</th>
-								<th>Cant.</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for nivel in stat_instruccion %}<tr>
-								<td>{{ nivel.instruccion }}</td>
-								<td>{{ nivel.cantidad }}</td>
+								<td>{{cne.resp}}</td>
+								<td>{{cne.cantidad}}</td>
 							</tr>{% endfor %}
 						</tbody>
 					</table>
 				</div>
-		</div>
-	</div>
-
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title">Profesiones</h4>
 			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Situación de Empleo</h4>
+				</div>
 				<div class="panel-body">
 					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
 						<thead>
 							<tr>
-								<th>Profesiones</th>
+								<th>Resp</th>
 								<th>Cant.</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for pr in stat_profesiones %}<tr>
-								<td>{{pr.profesiones}}</td>
-								<td>{{pr.cantidad}}</td>
+							{% for emp in stat_empleado %}<tr>
+								<td>{{emp.resp}}</td>
+								<td>{{emp.cantidad}}</td>
 							</tr>{% endfor %}
 						</tbody>
 					</table>
+					{# <p class="negritas">¿Se encuentra usted empleado actualmente?</p> #}
 				</div>
-		</div>
-	</div>
-
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title">Discapacidades</h4>
 			</div>
-				<div class="panel-body">
-					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+		</div>
+
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Estado Civil</h4>
+				</div>
+					<div class="panel-body">
+						<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
 						<thead>
 							<tr>
-								<th>Discapacidad</th>
+								<th>Estado Civil</th>
 								<th>Cant.</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for inc in stat_incapacidades %}<tr>
-								<td>{{inc.incapacidades}}</td>
-								<td>{{inc.cantidad}}</td>
-							</tr>{% endfor %}
-						</tbody>
-					</table>
+							{% for edo in stat_edo_civil %}
+								<tr>
+									<td>{{edo.edo_civil}}</td>
+									<td>{{edo.cantidad}}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
 				</div>
-		</div>
-	</div>
-
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title">Pensionados</h4>
 			</div>
-				<div class="panel-body">
-					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-						<thead>
-							<tr>
-								<th>Pensionados</th>
-								<th>Cant.</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for ins in stat_pensionados %}<tr>
-								<td>{{ins.pensionados}}</td>
-								<td>{{ins.cantidad}}</td>
-							</tr>{% endfor %}
-						</tbody>
-					</table>
+		</div>
+
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Niveles de Instrucción</h4>
 				</div>
+					<div class="panel-body">
+						<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+							<thead>
+								<tr>
+									<th>Nivel</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for nivel in stat_instruccion %}<tr>
+									<td>{{ nivel.instruccion }}</td>
+									<td>{{ nivel.cantidad }}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Profesiones</h4>
+				</div>
+					<div class="panel-body">
+						<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+							<thead>
+								<tr>
+									<th>Profesiones</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for pr in stat_profesiones %}<tr>
+									<td>{{pr.profesiones}}</td>
+									<td>{{pr.cantidad}}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Discapacidades</h4>
+				</div>
+					<div class="panel-body">
+						<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+							<thead>
+								<tr>
+									<th>Discapacidad</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for inc in stat_incapacidades %}<tr>
+									<td>{{inc.incapacidades}}</td>
+									<td>{{inc.cantidad}}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Pensionados</h4>
+				</div>
+					<div class="panel-body">
+						<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+							<thead>
+								<tr>
+									<th>Pensionados</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for ins in stat_pensionados %}<tr>
+									<td>{{ins.pensionados}}</td>
+									<td>{{ins.cantidad}}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+			</div>
 		</div>
 	</div>
-</div>
-{% endblock %}
-
-{% block javascripts %}
-    <script type="text/javascript" src="{{ asset('js/packery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/highchart.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/highchart/highcharts.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('table.highchart').highchartTable();
-            $('.row.grid').packery({
-              itemSelector: 'div[class*="col-"',
-            });
-        });
-    </script>
-{% endblock %}
+	{% endblock %}
+	
+{% endembed %}

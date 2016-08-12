@@ -172,6 +172,19 @@ class SituacionViviendaController extends Controller
             );
         }
 
+        $condicion_terreno = $em->getRepository('SICBundle:AdminTipoCondicionTerreno')->findAll();
+        $stat_condicion_terreno = array();
+        foreach ($condicion_terreno as $elemento) {
+            array_push(
+                $stat_condicion_terreno, 
+                array(
+                    'condicion_terreno' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('condicionesTerreno' => $elemento->getId()))
+                                    ))
+            );
+        }
+
         return array(
             'situacionViviendas' => $situacionViviendas,
             'stat_tipo_vivienda' => $stat_tipo_vivienda,
@@ -186,6 +199,7 @@ class SituacionViviendaController extends Controller
             'stat_salubridad' => $stat_salubridad,
             'stat_techo' => $stat_techo,
             'stat_paredes' => $stat_paredes,
+            'stat_condicion_terreno' => $stat_condicion_terreno,
             'total' => $total,
         );
     }

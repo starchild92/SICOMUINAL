@@ -1,118 +1,104 @@
-{% extends 'base.html.twig' %}
+{% embed 'graficos.html.twig' %}
+    {% block body %}
+        <h2>Estadísticas: Situación Económica</h2>
+        <hr>
 
-{% block body %}
-<h2>Estadísticas: Situación Económica</h2>
-<hr>
-
-<div class="row">
-    <div class="col-lg-8">
-        <div class="well well-sm">
-            <p>Esta información es referente a un total de {{ total }} familias.</p>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <a class="btn btn-lg btn-primary btn-block pull-rigth" href="{{ path('resumen_documento_obtener') }}"><i class="fa fa-file-o"></i> Obtener como PDF</a>
-        <hr class="little"></hr>
-    </div>
-</div>
-<div class="row grid">
-    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Actividad Comercial Vivienda</div>
-            <div class="panel-body">
-            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie">
-                <thead>
-                    <tr>
-                        <th>Venta de</th>
-                        <th>Cant.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in stat_venta_vivienda %}<tr>
-                        <td>{{item.venta_vivienda}}</td>
-                        <td>{{item.cantidad}}</td>
-                    </tr>{% endfor %}
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="well well-sm">
+                    <p>Esta información es referente a un total de {{ total }} familias.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <a class="btn btn-lg btn-primary btn-block pull-rigth" href="{{ path('resumen_documento_obtener') }}"><i class="fa fa-file-o"></i> Obtener como PDF</a>
+                <hr class="little"></hr>
             </div>
         </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Ubicación Trabajo</div>
-            <div class="panel-body">
-            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie">
-                <thead>
-                    <tr>
-                        <th>Trabajo</th>
-                        <th>Cant.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for trab in stat_ubic_trabajo %}<tr>
-                        <td>{{ trab.trabajo }}</td>
-                        <td>{{ trab.cantidad }}</td>
-                    </tr>{% endfor %}
-                </tbody>
-            </table>
+        <div class="row grid">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Actividad Comercial Vivienda</div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie">
+                        <thead>
+                            <tr>
+                                <th>Venta de</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in stat_venta_vivienda %}<tr>
+                                <td>{{item.venta_vivienda}}</td>
+                                <td>{{item.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Ingresos</div>
-            <div class="panel-body">
-            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie">
-                <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Cant.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in stat_tipo_ingreso %}<tr>
-                        <td>{{item.tipo_ingreso}}</td>
-                        <td>{{item.cantidad}}</td>
-                    </tr>{% endfor %}
-                </tbody>
-            </table>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Ubicación Trabajo</div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie">
+                        <thead>
+                            <tr>
+                                <th>Trabajo</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for trab in stat_ubic_trabajo %}<tr>
+                                <td>{{ trab.trabajo }}</td>
+                                <td>{{ trab.cantidad }}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Vehículos</div>
-            <div class="panel-body">
-            <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie">
-                <thead>
-                    <tr>
-                        <th>Estatus</th>
-                        <th>Cant.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in stat_vehiculos %}<tr>
-                        <td>{{item.nombre}}</td>
-                        <td>{{item.cantidad}}</td>
-                    </tr>{% endfor %}
-                </tbody>
-            </table>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Ingresos</div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in stat_tipo_ingreso %}<tr>
+                                <td>{{item.tipo_ingreso}}</td>
+                                <td>{{item.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>        
-{% endblock %}
-
-{% block javascripts %}
-    <script type="text/javascript" src="{{ asset('js/packery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/highchart.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/highchart/highcharts.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('table.highchart').highchartTable();
-            $('.row.grid').packery({
-              itemSelector: 'div[class*="col-"',
-            });
-        });
-    </script>
-{% endblock %}
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Vehículos</div>
+                    <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie">
+                        <thead>
+                            <tr>
+                                <th>Estatus</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in stat_vehiculos %}<tr>
+                                <td>{{item.nombre}}</td>
+                                <td>{{item.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    {% endblock %}
+{% endembed %}
