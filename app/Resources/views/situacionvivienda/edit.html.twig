@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1 class="text-center">Actualizar Situación Vivienda</h1>
+    <div class="row">
+        <div class="col-sm-6"><h1 class="text-center">Actualizar Situación Vivienda</h1></div>
+        <div class="col-sm-6">
+            <p class="marginless"><span class="negritas">Planilla # {{ edit_form.vars.value.planilla.id }}</span></p>
+            <p class="marginless"><span class="negritas">Jefe Grupo Familiar:</span> {{ edit_form.vars.value.planilla.JefeGrupoFamiliar.nombreyapellido() }}</p>
+            <p class="marginless"><span class="negritas">Fecha última edición: </span>{{ edit_form.vars.value.planilla.fechayhora() }}</p>
+        </div>
+    </div>
     <hr>
     {{ form_start(edit_form) }}
         <div class="row">
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
+                        {{ form_row(edit_form.condicionesTerreno) }}
                         {{ form_row(edit_form.habitaciones) }}
                         {{ form_row(edit_form.cantidadHabitaciones) }}
                         {{ form_row(edit_form.tipo) }}

@@ -90,7 +90,7 @@ class AdminTipoAyudaEspecialController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ayudaespecial'));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ayudaespecial'));
             // return $this->redirectToRoute('configurable_tipo_ayuda_especial_edit', array('id' => $adminTipoAyudaEspecial->getId()));
         }
 

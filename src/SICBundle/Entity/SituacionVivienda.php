@@ -119,6 +119,12 @@ class SituacionVivienda
     private $sivih;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AdminTipoCondicionTerreno", cascade={"persist"})
+     * @ORM\JoinColumn(name="condicionesTerreno", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $condicionesTerreno;
+
+    /**
      * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionVivienda")
      */
     private $planilla;
@@ -527,5 +533,28 @@ class SituacionVivienda
     public function getSivih()
     {
         return $this->sivih;
+    }
+
+    /**
+     * Set condicionesTerreno
+     *
+     * @param \SICBundle\Entity\AdminTipoCondicionTerreno $condicionesTerreno
+     * @return SituacionVivienda
+     */
+    public function setCondicionesTerreno(\SICBundle\Entity\AdminTipoCondicionTerreno $condicionesTerreno = null)
+    {
+        $this->condicionesTerreno = $condicionesTerreno;
+
+        return $this;
+    }
+
+    /**
+     * Get condicionesTerreno
+     *
+     * @return \SICBundle\Entity\AdminTipoCondicionTerreno 
+     */
+    public function getCondicionesTerreno()
+    {
+        return $this->condicionesTerreno;
     }
 }

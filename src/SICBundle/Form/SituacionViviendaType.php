@@ -113,6 +113,13 @@ class SituacionViviendaType extends AbstractType
                 'choice_label' => 'respuesta',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
+
+            ->add('condicionesTerreno', 'entity', array(
+                'label' => 'Condiciones del Terreno',
+                'class' => 'SICBundle:AdminTipoCondicionTerreno',
+                'placeholder' => 'Selecciona una',
+                'attr'  =>  array(
+                    'class' => 'ui dropdown')))
         ;
     }
     

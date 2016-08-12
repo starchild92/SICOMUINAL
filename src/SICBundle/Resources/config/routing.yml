@@ -220,6 +220,10 @@ sic_admincapacidadbombona:
     resource: "@SICBundle/Resources/config/routing/Configurables/admincapacidadbombona.yml"
     prefix:   /administrar/configurables/tipos/capacidad/bombona
 
+sic_admintipocondicionterreno:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipocondicionterreno.yml"
+    prefix:   /administrar/configurables/tipo/condiciones/terreno
+
 # --------------------------------------------------------------------
 
 sic_configurables_tipos_organizaciones_comunitarias:
