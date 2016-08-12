@@ -142,6 +142,16 @@ hr.little {
     border: 0;
 }
 
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 15px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
 /* ültima fila de las tablas */
 table[class*="table-button"] > tbody > tr > td:last-child {
 	text-align: center;
