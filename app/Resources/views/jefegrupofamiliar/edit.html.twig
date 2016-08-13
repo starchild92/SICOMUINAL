@@ -23,7 +23,8 @@
                             <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">{{ form_row(edit_form.fechaNacimiento) }}</div>
+                            <div class="col-sm-4">{{ form_row(edit_form.fechaNacimiento) }}</div>
+                            <div class="col-sm-2">{{ form_row(edit_form.edad) }}</div>
                             <div class="col-sm-6">{{ form_row(edit_form.cne) }}</div>
                         </div>
                         {{ form_row(edit_form.edad) }}
@@ -78,7 +79,7 @@
 {% block javascripts %}
     <script>
         $(document).ready(function() {
-            $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
+            // $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
             $('.js-datepicker')
                 .datepicker({ format: 'yyyy-mm-dd' })
                     .on('hide', function() {
@@ -97,7 +98,6 @@
             $('.ui.fluid.search.dropdown').dropdown({
                 allowAdditions: true,
                 onChange: function(addedValue, addedText, $addedChoice) {
-                    console.log('Feets');
                     $('[name=jefe_grupo_familiar]').submit(function(e){ e.preventDefault(); }); //nombre del form
                     $.ajax({
                         url: $('#addAjax').data('url'),
