@@ -185,12 +185,14 @@
 
 		$('#myModal').on('hide.bs.modal', function(e){
             $.confirm({
+            	theme: 'bootstrap',
                 title: 'Advertencia!',
-                content: 'Si acepta, perderá los cambios que ha realizado.',
-                cancelButton: 'No Cerrar',
+                content: 'Perderá los cambios si continua. Haga clic en Cancelar para seguir editando el parametro.',
+                confirmButton: 'Cerrar',
+                cancelButton: 'Cancelar',
                 confirmButtonClass: 'btn-danger',
-                cancelButtonClass: 'btn-info',
-                theme: 'black',
+                cancelButtonClass: 'btn-success',
+                // theme: 'black',
                 confirm: function(){
                     html = "<div class='panel-body'><span id='modal-body'><div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr><br>Cargando el formulario</div></span></div>";
 					$('.panel-body').replaceWith(html);
