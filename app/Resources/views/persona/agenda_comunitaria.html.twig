@@ -27,12 +27,26 @@
                 <td>{{item.profesion}}</td>
                 <td>{{item.edad_fmt}} años</td>
                 <td>
-                    {% if item.isJGF() %}
-                        <a href="{{ path('jefegrupofamiliar_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></td>
-                    {% else %}
-                        <a href="{{ path('personas_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></td>
-                    {% endif %}
-                </tr>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cogs"></i> Opciones <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            {% if item.isJGF() %}
+                                <li><a href="{{ path('jefegrupofamiliar_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></li>
+                                {% if item.planilla != NULL %}
+                                    <li><a href="{{ path('planillas_show',{'id' : item.planilla.id }) }}"><i class="fa fa-file-o"></i> ver Planilla</a></li>
+                                {% endif %}
+                            {% else %}
+                                <li><a href="{{ path('personas_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></li>
+                                {% if item.grupofamiliar.planilla != NULL %}
+                                    <li><a href="{{ path('planillas_show',{'id' : item.grupofamiliar.planilla.id }) }}"><i class="fa fa-file-o"></i> ver Planilla</a></li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
