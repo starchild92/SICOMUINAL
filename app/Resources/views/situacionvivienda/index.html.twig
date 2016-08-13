@@ -18,7 +18,7 @@
     <div class="row grid">
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">Condiciones Terreno</div>
+                <div class="panel-heading">Condiciones del Terreno</div>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
                         <thead>
@@ -40,28 +40,7 @@
 
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">Tipo Vivienda</div>
-                <div class="panel-body">
-                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-                        <thead>
-                            <tr>
-                                <th>Tipo</th>
-                                <th>Cant.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in stat_tipo_vivienda %}<tr>
-                                <td>{{item.tipo_vivienda}}</td>
-                                <td>{{item.cantidad}}</td>
-                            </tr>{% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Tenencia</div>
+                <div class="panel-heading">Forma de Tenencia</div>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
                         <thead>
@@ -80,20 +59,43 @@
                 </div>
             </div>
         </div>
+
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">Terreno Propio</div>
+                <div class="panel-heading">Tipos de Vivienda</div>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
                         <thead>
                             <tr>
-                                <th>Resp.</th>
+                                <th>Tipo</th>
                                 <th>Cant.</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for item in stat_terreno %}<tr>
-                                <td>{{item.resp}}</td>
+                            {% for item in stat_tipo_vivienda %}<tr>
+                                <td>{{item.tipo_vivienda}}</td>
+                                <td>{{item.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Habitaciones</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in stat_habitaciones %}<tr>
+                                <td>{{item.habitaciones}}</td>
                                 <td>{{item.cantidad}}</td>
                             </tr>{% endfor %}
                         </tbody>
@@ -123,6 +125,52 @@
                 </div>
             </div>
         </div>
+        
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Terreno Propio</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                        <thead>
+                            <tr>
+                                <th>Resp.</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in stat_terreno %}<tr>
+                                <td>{{item.resp}}</td>
+                                <td>{{item.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">¿Pertenece Ud a una OVC?</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                        <thead>
+                            <tr>
+                                <th>Resp.</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in stat_ovc %}<tr>
+                                <td>{{item.resp}}</td>
+                                <td>{{item.cantidad}}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">Paredes</div>
@@ -168,6 +216,72 @@
 
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div class="panel panel-primary">
+                <div class="panel-heading">¿Está inscrita en el SIVIH?</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                        <thead>
+                            <tr>
+                                <th>Respuesta</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in stat_sivih %}<tr>
+                                <td>{{ item.resp }}</td>
+                                <td>{{ item.cantidad }}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">¿Cotiza Ley Política Habitacional?</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                        <thead>
+                            <tr>
+                                <th>Respuesta</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in stat_leypoliticahabitacional %}<tr>
+                                <td>{{ item.resp }}</td>
+                                <td>{{ item.cantidad }}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Enseres</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in stat_enseres %}<tr>
+                                <td>{{ item.enseres }}</td>
+                                <td>{{ item.cantidad }}</td>
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="panel panel-primary">
                 <div class="panel-heading">Salubridad</div>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
@@ -188,6 +302,7 @@
                 </table>
             </div>
         </div>
+        
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">Insectos</div>
@@ -209,6 +324,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">Mascotas</div>
@@ -231,69 +347,6 @@
             </div>
         </div> 
 
-        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Habitaciones</div>
-                <div class="panel-body">
-                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-                        <thead>
-                            <tr>
-                                <th>Tipo</th>
-                                <th>Cant.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in stat_habitaciones %}<tr>
-                                <td>{{item.habitaciones}}</td>
-                                <td>{{item.cantidad}}</td>
-                            </tr>{% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Enseres</div>
-                <div class="panel-body">
-                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-                        <thead>
-                            <tr>
-                                <th>Tipo</th>
-                                <th>Cant.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in stat_enseres %}<tr>
-                                <td>{{ item.enseres }}</td>
-                                <td>{{ item.cantidad }}</td>
-                            </tr>{% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">¿Pertenece Ud a una OVC?</div>
-                <div class="panel-body">
-                    <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-                        <thead>
-                            <tr>
-                                <th>Resp.</th>
-                                <th>Cant.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in stat_ovc %}<tr>
-                                <td>{{item.resp}}</td>
-                                <td>{{item.cantidad}}</td>
-                            </tr>{% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
     {% endblock %}
 
