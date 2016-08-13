@@ -371,17 +371,18 @@ class PersonaController extends Controller
             $em->flush();
 
             $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
-            $this->get('session')->getFlashBag()->add('success','Se agregó el miembro al grupo familiar de forma correcta.');
+            $this->get('session')->getFlashBag()->add('success','Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
         $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
 
-        return $this->render('persona/new.html.twig', array(
+        return $this->render('persona/nuevomiembro.html.twig', array(
             'persona' => $persona,
             'id_planilla' => $id_planilla,
             'id_grupofamiliar' => $id_grupofamiliar,
+            'grupoFamiliarApellidos' => $Grupo->getApellidos(),
             'cantMiembros' => $cantMiembros,
             'form' => $form->createView(),
         ));

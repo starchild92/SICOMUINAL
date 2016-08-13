@@ -16,7 +16,7 @@
 				<div class="panel-heading text-center negritas">Información Planilla</div>
 					<div class="panel-body">
 						<p><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></p>
-						<p><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></p>
+						<p><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}" title="ver información del empadronador">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></p>
 						{% if planilla.jefeGrupoFamiliar != null %}
 						<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
 						{% endif %}
@@ -215,7 +215,7 @@
 											<tr>
 												<th>Nombre, edad</th>
 												<th>Cédula</th>
-												<th>Parentezo Jefe Grupo Fam</th>
+												<th>Parentezo</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -498,7 +498,10 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Telefonía</p>
-									<p>{{ planilla.situacionServicios.telefonia }}</p>
+									<p>
+										{% if planilla.situacionServicios.telefonia|length == 0 %}No especificó alguno.{% endif %}
+										{% for telefonia in planilla.situacionServicios.telefonia %}
+										<span class="label label-default">{{ telefonia.nombre }}</span>{% endfor %}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Transporte</p>

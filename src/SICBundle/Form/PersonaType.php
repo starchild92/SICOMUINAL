@@ -28,7 +28,8 @@ class PersonaType extends AbstractType
 
             ->add('sexo', GeneroType::class, array(
                 'placeholder' => 'Elija uno',
-                'attr' => array('class' => 'ui dropdown')))
+                // 'attr' => array('class' => 'ui dropdown')
+                ))
 
             ->add('nacionalidad', EntityType::class, array(
                 // query choices from this entity
