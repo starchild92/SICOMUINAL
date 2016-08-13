@@ -1,104 +1,105 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>JefeGrupoFamiliar</h1>
+    <div class="row">
+        <div class="col-sm-6"><h1 class="text-center">Detalles de Jefe Grupo Familiar <small>{{ jefeGrupoFamiliar.nombre|title }} {{ jefeGrupoFamiliar.apellido|title }}</small></h1></div>
+        <div class="col-sm-6">
+            <p class="marginless negritas">Planilla # {{ jefeGrupoFamiliar.planilla.id }}</p>
+            <p class="marginless"><span class="negritas">Empadronado por:</span> {{ jefeGrupoFamiliar.planilla.empadronador.nombreyapellido() }}</p>
+            <p class="marginless"><span class="negritas">Fecha:</span> {{ jefeGrupoFamiliar.planilla.fecha }}</p>
+        </div>
+    </div>
+    <hr>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ jefeGrupoFamiliar.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombres</th>
-                <td>{{ jefeGrupoFamiliar.nombres }}</td>
-            </tr>
-            <tr>
-                <th>Apellidos</th>
-                <td>{{ jefeGrupoFamiliar.apellidos }}</td>
-            </tr>
-            <tr>
-                <th>Cedula</th>
-                <td>{{ jefeGrupoFamiliar.cedula }}</td>
-            </tr>
-            <tr>
-                <th>Nacionalidad</th>
-                <td>{{ jefeGrupoFamiliar.nacionalidad }}</td>
-            </tr>
-            <tr>
-                <th>Fechanacimiento</th>
-                <td>{% if jefeGrupoFamiliar.fechaNacimiento %}{{ jefeGrupoFamiliar.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Edad</th>
-                <td>{{ jefeGrupoFamiliar.edad }}</td>
-            </tr>
-            <tr>
-                <th>Cne</th>
-                <td>{{ jefeGrupoFamiliar.cne }}</td>
-            </tr>
-            <tr>
-                <th>Tiempoencomunidad</th>
-                <td>{{ jefeGrupoFamiliar.tiempoEnComunidad }}</td>
-            </tr>
-            <tr>
-                <th>Sexo</th>
-                <td>{{ jefeGrupoFamiliar.sexo }}</td>
-            </tr>
-            <tr>
-                <th>Incapacitadotipo</th>
-                <td>{{ jefeGrupoFamiliar.incapacitadoTipo }}</td>
-            </tr>
-            <tr>
-                <th>Pensionadoinstitucion</th>
-                <td>{{ jefeGrupoFamiliar.pensionadoInstitucion }}</td>
-            </tr>
-            <tr>
-                <th>Estadocivil</th>
-                <td>{{ jefeGrupoFamiliar.estadoCivil }}</td>
-            </tr>
-            <tr>
-                <th>Nivelinstruccion</th>
-                <td>{{ jefeGrupoFamiliar.nivelInstruccion }}</td>
-            </tr>
-            <tr>
-                <th>Profesion</th>
-                <td>{{ jefeGrupoFamiliar.profesion }}</td>
-            </tr>
-            <tr>
-                <th>Trabajaactualmente</th>
-                <td>{{ jefeGrupoFamiliar.trabajaActualmente }}</td>
-            </tr>
-            <tr>
-                <th>Telefono</th>
-                <td>{% for tlf in jefeGrupoFamiliar.telefono %}{{tlf.codigo}} {{ tlf.numero }}<br>{% endfor %}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ jefeGrupoFamiliar.email }}</td>
-            </tr>
-            <tr>
-                <th>Ingresofamiliar</th>
-                <td>{{ jefeGrupoFamiliar.ingresoFamiliar }}</td>
-            </tr>
-            <tr>
-                <th>Ingresomensual</th>
-                <td>{{ jefeGrupoFamiliar.ingresoMensual }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('jefegrupofamiliar_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('jefegrupofamiliar_edit', { 'id': jefeGrupoFamiliar.id }) }}">Edit</a>
-        </li>
-        <li>
+    <div class="row">
+        <div class="col-sm-9">
+            <table class="table borderless table-hover">
+                <tbody>
+                    <tr>
+                        <th>Nombres</th>
+                        <td>{{ jefeGrupoFamiliar.nombres }}</td>
+                    </tr>
+                    <tr>
+                        <th>Apellidos</th>
+                        <td>{{ jefeGrupoFamiliar.apellidos }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cédula</th>
+                        <td>{{ jefeGrupoFamiliar.cedula }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nacionalidad</th>
+                        <td>{{ jefeGrupoFamiliar.nacionalidad }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Nacimiento</th>
+                        <td>{% if jefeGrupoFamiliar.fechaNacimiento %}{{ jefeGrupoFamiliar.fechaNacimiento }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Edad</th>
+                        <td>{{ jefeGrupoFamiliar.edad }}</td>
+                    </tr>
+                    <tr>
+                        <th>¿está ud inscrito en el CNE?</th>
+                        <td>{{ jefeGrupoFamiliar.cne }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tiempo en la Comunidad</th>
+                        <td>{{ jefeGrupoFamiliar.tiempoEnComunidad }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sexo</th>
+                        <td>{{ jefeGrupoFamiliar.sexo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo de Incapacidad</th>
+                        <td>{{ jefeGrupoFamiliar.incapacitadoTipo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Instituación Pensionado</th>
+                        <td>{{ jefeGrupoFamiliar.pensionadoInstitucion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Estado Civil</th>
+                        <td>{{ jefeGrupoFamiliar.estadoCivil }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nivel Instruccion</th>
+                        <td>{{ jefeGrupoFamiliar.nivelInstruccion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Profesión</th>
+                        <td>{{ jefeGrupoFamiliar.profesion }}</td>
+                    </tr>
+                    <tr>
+                        <th>¿Trabaja Actualmente?</th>
+                        <td>{{ jefeGrupoFamiliar.trabajaActualmente }}</td>
+                    </tr>
+                    <tr>
+                        <th>Teléfono(s)</th>
+                        <td>{% for tlf in jefeGrupoFamiliar.telefono %}{{tlf.codigo}} {{ tlf.numero }}<br>{% endfor %}</td>
+                    </tr>
+                    <tr>
+                        <th>Dirección de Correo Electronico</th>
+                        <td>{{ jefeGrupoFamiliar.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ingreso Familiar</th>
+                        <td>{{ jefeGrupoFamiliar.ingresoFamiliar }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ingreso Mensual</th>
+                        <td>{{ jefeGrupoFamiliar.ingresoMensual }} Bs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-block btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': jefeGrupoFamiliar.id }) }}">Edit</a>
+            <hr class="little">
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input class="btn-block btn btn-danger" type="submit" value="Eliminar a {{ jefeGrupoFamiliar.nombreyapellido|title }}">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </div>
+    </div>
 {% endblock %}

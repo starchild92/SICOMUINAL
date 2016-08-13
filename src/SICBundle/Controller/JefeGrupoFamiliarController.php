@@ -65,7 +65,11 @@ class JefeGrupoFamiliarController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
         	if ($this->getPersonaByCedula($jefeGrupoFamiliar->getCedula()) == NULL) {
-        		$jefeGrupoFamiliar->setRecibirCorreo(true);
+                if ($jefeGrupoFamiliar->getEmail() != '') {
+                    $jefeGrupoFamiliar->setRecibirCorreo(true);
+                }else{
+                    $jefeGrupoFamiliar->setRecibirCorreo(false);
+                }
 	            $p->setJefeGrupoFamiliar($jefeGrupoFamiliar);
 	            $em->persist($jefeGrupoFamiliar);
 	            $em->persist($p);
@@ -113,6 +117,11 @@ class JefeGrupoFamiliarController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            if ($jefeGrupoFamiliar->getEmail() != '') {
+                $jefeGrupoFamiliar->setRecibirCorreo(true);
+            }else{
+                $jefeGrupoFamiliar->setRecibirCorreo(false);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($jefeGrupoFamiliar);
             $bitacora = new Bitacora($this->getUser(),'modificó','un Jefe de Grupo Familiar');

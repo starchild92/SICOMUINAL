@@ -1,18 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1 class="text-center">Persona <small>{{ persona.nombre|title }} {{ persona.apellido|title }}</small></h1>
+    <div class="row">
+        <div class="col-sm-6"><h1 class="text-center">Detalles de Persona <small>{{ persona.nombre|title }} {{ persona.apellido|title }}</small></h1></div>
+        <div class="col-sm-6">
+            <p class="marginless negritas">Planilla # {{ persona.grupofamiliar.planilla.id }}</p>
+            <p class="marginless"><span class="negritas">Empadronado por:</span> {{ persona.grupofamiliar.planilla.empadronador.nombreyapellido() }}</p>
+            <p class="marginless"><span class="negritas">Fecha:</span> {{ persona.grupofamiliar.planilla.fecha }}</p>
+        </div>
+    </div>
+    
     <hr>
     <div class="row">
         <div class="col-sm-9">
             <table class="table borderless table-hover">
                 <tbody>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Nombre(s)</th>
                         <td>{{ persona.nombre|title }}</td>
                     </tr>
                     <tr>
-                        <th>Apellido</th>
+                        <th>Apellido(s)</th>
                         <td>{{ persona.apellido|title }}</td>
                     </tr>
                     <tr>
@@ -32,7 +40,7 @@
                         <td>{% if persona.email == '' %}No especificó alguno.{% endif %} {{ persona.email }}</td>
                     </tr>
                     <tr>
-                        <th>Fechanacimiento</th>
+                        <th>Fecha de Nacimiento</th>
                         <td>{% if persona.fechaNacimiento %}{{ persona.fechaNacimiento() }}{% endif %}</td>
                     </tr>
                     <tr>
