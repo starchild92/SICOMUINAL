@@ -71,6 +71,7 @@ class JefeGrupoFamiliarController extends Controller
                     $jefeGrupoFamiliar->setRecibirCorreo(false);
                 }
 	            $p->setJefeGrupoFamiliar($jefeGrupoFamiliar);
+                $p->setTerminada('10');
 	            $em->persist($jefeGrupoFamiliar);
 	            $em->persist($p);
                 $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Jefe de Grupo Familiar');
