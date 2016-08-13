@@ -124,6 +124,7 @@ class ParticipacionComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($participacionComunitarium);
             $p->setParticipacionComunitaria($participacionComunitarium);
+            $p->setTerminada('85');
             $em->persist($p);
             $this->get('session')->getFlashBag()->add('success', 'Se han agregado una Participación Comunitaria');
             $entrada = new Bitacora($this->getUser(),'agregó','información de Participación Comunitaria');
