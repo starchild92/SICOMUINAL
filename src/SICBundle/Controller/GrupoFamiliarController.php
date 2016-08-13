@@ -58,6 +58,7 @@ class GrupoFamiliarController extends Controller
                 $grupoFamiliar->setCantidadMiembros(0);
                 $p->setGrupoFamiliar($grupoFamiliar);
                 $em->persist($grupoFamiliar);
+                $p->setTerminada('20');
                 $em->persist($p);
                 $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Grupo Familiar');
                 $bitacora = new Bitacora($this->getUser(),'agregó','un Grupo Familiar');
