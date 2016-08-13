@@ -117,6 +117,7 @@ class SituacionEconomicaController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionEconomica);
             $p->setSituacionEconomica($situacionEconomica);
+            $p->setTerminada('30');
             $bitacora = new Bitacora($this->getUser(),'agregó','un Situación Económica a la planilla '.$id_planilla);
             $em->persist($bitacora);
             $em->persist($p);
