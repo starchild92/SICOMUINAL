@@ -12,7 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class SituacionServiciosRepository extends EntityRepository
 {
-	public function transporte($situacion)
+	public function telefonia($situacion)
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:SituacionServicios', 'm')
+                ->innerJoin('m.telefonia', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function transporte($situacion)
     {
          return $this->getEntityManager()
                 ->createQueryBuilder()

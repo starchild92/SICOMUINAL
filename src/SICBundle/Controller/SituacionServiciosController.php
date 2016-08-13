@@ -99,10 +99,7 @@ class SituacionServiciosController extends Controller
                 $stat_telefonia, 
                 array(
                     'telefonia' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
-                                        array('telefonia' => $elemento->getId())
-                                        ))
-                    )
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionServicios')->telefonia($elemento)))
             );
         }
 
@@ -160,6 +157,7 @@ class SituacionServiciosController extends Controller
         foreach ($tanques as $t) { if ($t->getLtsTanque() > 0) { $si++; }else{ $no++; } }
         array_push($stat_tanque, array('resp' => 'Si', 'cantidad' => $si));
         array_push($stat_tanque, array('resp' => 'No', 'cantidad' => $no));
+
         $si = 0; $no = 0;
         foreach ($tanques as $t) { if ($t->getCantPipotes() > 0) { $si++; }else{ $no++; } }
         array_push($stat_pipotes, array('resp' => 'Si', 'cantidad' => $si));
@@ -230,6 +228,7 @@ class SituacionServiciosController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($situacionServicio);
             $p->setSituacionServicios($situacionServicio);
+            $p->setTerminada('75');
             $em->persist($p);
             $bitacora = new Bitacora($this->getUser(),'agregó','un Situación de Servicios a la planilla '.$id_planilla);
             $em->persist($bitacora);
