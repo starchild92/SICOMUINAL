@@ -185,6 +185,34 @@ class SituacionViviendaController extends Controller
             );
         }
 
+        $sivih = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_sivih = array();
+        foreach ($sivih as $elemento) {
+            array_push(
+                $stat_sivih, 
+                array(
+                    'resp' => $elemento->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('sivih' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $leypoliticahabitacional = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_leypoliticahabitacional = array();
+        foreach ($leypoliticahabitacional as $elemento) {
+            array_push(
+                $stat_leypoliticahabitacional, 
+                array(
+                    'resp' => $elemento->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('leypoliticahabitacional' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
         return array(
             'situacionViviendas' => $situacionViviendas,
             'stat_tipo_vivienda' => $stat_tipo_vivienda,
@@ -200,6 +228,8 @@ class SituacionViviendaController extends Controller
             'stat_techo' => $stat_techo,
             'stat_paredes' => $stat_paredes,
             'stat_condicion_terreno' => $stat_condicion_terreno,
+            'stat_sivih' => $stat_sivih,
+            'stat_leypoliticahabitacional' => $stat_leypoliticahabitacional,
             'total' => $total,
         );
     }
@@ -238,6 +268,7 @@ class SituacionViviendaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($situacionVivienda);
             $p->setSituacionVivienda($situacionVivienda);
+            $p->setTerminada('45');
             $em->persist($p);
             $bitacora = new Bitacora($this->getUser(),'agregó','un Situación de Vivienda a la planilla '.$id_planilla);
             $em->persist($bitacora);
