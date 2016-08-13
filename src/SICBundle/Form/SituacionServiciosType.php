@@ -54,9 +54,11 @@ class SituacionServiciosType extends AbstractType
             ->add('telefonia','entity', array(
                 'class' => 'SICBundle:AdminTipoTelefonia',
                 'placeholder'   => 'Seleccione una',
+                'multiple' => true,
                 'label' => 'Telefonía',
                 'attr'  =>  array(
-                    'class' => 'ui dropdown')))
+                    'multiple' => '',
+                    'class' => 'fluid multiple search selection')))
 
             ->add('transporte','entity', array(
                 'class' => 'SICBundle:AdminTipoTransporte',
