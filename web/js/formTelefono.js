@@ -5,6 +5,15 @@ var $newLinkLiTelefonos = $('<div></div>').append($addTagLinkTelefonos);
 
 jQuery(document).ready(function() {
     $collectionTelefonos = $('div.telefonos');
+
+    // $labels = $collectionTelefonos.find('div.form-group>label.control-label');
+    // for (var i = 0; i < $labels.length; i++) {
+    //     if (i != 0) {
+    //         $dad = $($labels[i]).parent('.form-group');
+    //         $dad.wrap( "<div class='col-sm-6'></div>" );
+    //     }
+    // }
+
     $collectionTelefonos.children().append('<a href="#" class="remove-tag-telf btn btn-danger btn-block"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Quitar Teléfono</a>');
     $removerTelf = $collectionTelefonos.find('.remove-tag-telf');
     $cantHijos = $removerTelf.length;
@@ -36,7 +45,7 @@ function addTagFormTelefono($collectionTelefonos, $newLinkLiTelefonos) {
     var prototypet = $collectionTelefonos.data('prototype');
     var index = $collectionTelefonos.data('index');
     var newFormt = prototypet.replace(/__name__/g, index);
-    var $newFormLiTelefonos = $('<div></div>').append(newFormt);
+    var $newFormLiTelefonos = $('<div class="nuevo"></div>').append(newFormt);
 
     $collectionTelefonos.data('index', index + 1);
     $newFormLiTelefonos.find('.control-label').first().remove();
