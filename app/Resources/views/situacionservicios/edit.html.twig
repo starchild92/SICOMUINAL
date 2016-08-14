@@ -69,7 +69,6 @@
                 allowAdditions: true,
                 onAdd: function(addedValue, addedText, $addedChoice) {
                     element = $(this).prop('id');
-                    console.log(element)
                     $('[name=situacion_servicios]').submit(function(e){ e.preventDefault(); });
                     $.ajax({
                         url: $('#addAjax').data('url'),

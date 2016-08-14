@@ -44,9 +44,10 @@ class InicioController extends Controller
                     if (sizeof($r)>0) {
                         $voce = $r[0];
                     }else{
-                        print_r($v->getPersona());
-                        echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
-                        die();
+                        $em->remove($v);
+                        // print_r($v->getPersona());
+                        // echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
+                        // die();
                     }
                 }
 
@@ -63,6 +64,8 @@ class InicioController extends Controller
                 ));
         }
 
+        $em->flush();
+
         $unidades_restantes = array();
         $unid_res = $em->getRepository('SICBundle:Comite')->findAll();
         foreach ($unid_res as $ue) {
@@ -78,8 +81,9 @@ class InicioController extends Controller
                         if (sizeof($r)>0) {
                             $voce = $r[0];
                         }else{
-                            echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
-                            die();
+                            $em->remove($v);
+                            // echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
+                            // die();
                         }
                     }
 
@@ -96,6 +100,7 @@ class InicioController extends Controller
                 ));
             }
         }
+        $em->flush();
 
         //die();
 

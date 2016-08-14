@@ -7,7 +7,7 @@
         <hr>
     </div>    
     <div class="col-sm-10">
-        {{ form_start(edit_form) }}
+        {{ form_start(edit_form, { 'attr' : { 'id' : 'form_usuario' }}) }}
             <div class="row">
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
@@ -38,7 +38,7 @@
                                 {{ form_row(edit_form.plainPassword) }}
                             {% else %}
                             <p class="text-center text-danger negritas">Importante <i class="fa fa-exclamation"></i></p>
-                            <p class="text-danger">Sólo el usuario identificado puede cambiar su contraseña en línea, de otro modo deberá solicitar el cambio por correo electronico atravez de la opción, he olvidado mi clave del Login.</p>
+                            <p class="text-danger">Sólo el usuario identificado puede cambiar su contraseña en línea, de otro modo deberá solicitar el cambio por correo electronico a traves de la opción, he olvidado mi clave del Login.</p>
                             {% endif %}
                         </div>
                     </div>
@@ -70,23 +70,39 @@
                 </div>
                 
             </div>
-            <input class="btn btn-primary btn-block" type="submit" value="Guardar cambios del usuario" />
+            <input class="btn btn-primary btn-block" form="form_usuario" type="submit" value="Guardar cambios del usuario" />
         {{ form_end(edit_form) }}
     </div>
     <div class="col-sm-2">
         <a class="btn btn-default button-line btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
         <hr class="little">
-        {{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar Usuario">{{ form_end(delete_form) }}
+        {{ form_start(delete_form, { 'attr' : { 'id' : 'formulario_eliminar' }}) }}<a class="btn btn-block btn-danger" id="formulario_eliminar"><i class="fa fa-trash"></i> Deshabilitar Usuario</a>{{ form_end(delete_form) }}
     </div>
 </div>
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('js/formTelefono.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $('.ui.dropdown').dropdown();
-        $('.js-datepicker').datepicker({ format: 'yyyy-mm-dd' });
-    })
-</script>
+    <script src="{{ asset('js/formTelefono.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+            $('.js-datepicker').datepicker({ format: 'yyyy-mm-dd' });
+            /*Formularios con Confirmación al Eliminar*/
+            $(document).on('click', 'a#formulario_eliminar', function(){
+                $.confirm({
+                    theme: 'black',
+                    title: '¿Seguro?',
+                    content: 'Se continua se colocará al usuario, {{ edit_form.vars.value.primerNombre }} {{ edit_form.vars.value.primerApellido }}, como inhabilitado, lo cual no permitirá su ingreso al sistema',
+                    confirmButton: 'Continuar',
+                    cancelButton: 'Cancelar',
+                    confirmButtonClass: 'btn-info',
+                    cancelButtonClass: 'btn-danger',
+                    confirm: function(){
+                        $('form#formulario_eliminar').submit();
+                    },
+                    cancel: function(){}
+                });
+            });
+        });
+    </script>
 {% endblock %}
