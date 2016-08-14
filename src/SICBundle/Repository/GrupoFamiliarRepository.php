@@ -22,6 +22,16 @@ class GrupoFamiliarRepository extends EntityRepository
         return $result;
 	}
 
+	public function GrupoDireccion()
+	{
+		$query = $this->getEntityManager()
+                ->createQuery('SELECT gf 
+                FROM SICBundle:GrupoFamiliar gf
+                GROUP BY gf.direccion');
+        $result = $query->getResult();
+        return $result;
+	}
+
 	public function findNumeroViviendas($sector)
 	{
 		$query = $this->getEntityManager()

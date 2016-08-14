@@ -38,6 +38,7 @@ class GrupoFamiliarController extends Controller
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
+        $grupos = $em->getRepository('SICBundle:GrupoFamiliar')->GrupoDireccion();
         $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
         if (sizeof($planilla) > 0) {
             $p = $planilla[0];
@@ -65,14 +66,16 @@ class GrupoFamiliarController extends Controller
                 $em->persist($bitacora);
                 $em->flush();
 
+
                 return $this->redirectToRoute('personas_new', array(
                     'id_planilla' => $id_planilla,
+                    'grupos' => $grupos,
                     'id_grupofamiliar' => $grupoFamiliar->getId()));
-                // return $this->redirectToRoute('grupofamiliar_show', array('id' => $grupoFamiliar->getId()));
             }
 
             return $this->render('grupofamiliar/new.html.twig', array(
                 'grupoFamiliar' => $grupoFamiliar,
+                'grupos' => $grupos,
                 'form' => $form->createView(),
             ));
         }
@@ -101,12 +104,13 @@ class GrupoFamiliarController extends Controller
      */
     public function editAction(Request $request, GrupoFamiliar $grupoFamiliar)
     {
+        $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($grupoFamiliar);
         $editForm = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
         $editForm->handleRequest($request);
+        $grupos = $em->getRepository('SICBundle:GrupoFamiliar')->GrupoDireccion();
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($grupoFamiliar);
 
             $bitacora = new Bitacora($this->getUser(),'modificó','un Grupo Familiar');
@@ -120,6 +124,7 @@ class GrupoFamiliarController extends Controller
 
         return $this->render('grupofamiliar/edit.html.twig', array(
             'grupoFamiliar' => $grupoFamiliar,
+            'grupos' => $grupos,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

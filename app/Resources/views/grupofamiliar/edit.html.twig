@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.estructure.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.theme.css') }}">
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-sm-6"><h1 class="text-center">Modificar Datos del Grupo Familiar</h1></div>
@@ -38,13 +42,22 @@
     </div>
         <input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios en Información Económica y Regresar a la Planilla" />
     {{ form_end(edit_form) }}
+    
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('.ui.dropdown')
-              .dropdown();
+            var availableTags = [
+            {% for item in grupos %}
+                '{{ item.direccion }}',
+            {% endfor %}
+            ];
+
+            $( "#grupo_familiar_direccion" ).autocomplete({
+                source: availableTags
+            });
         })
     </script>
 {% endblock %}

@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.estructure.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.theme.css') }}">
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-xs-6"><small class="text-info">ant. Jefe Grupo Familiar</small></div>
@@ -48,12 +52,19 @@
         <input class="btn btn-primary btn-block" type="submit" value="Registrar Datos del Grupo Familiar y Continuar" />
     {{ form_end(form) }}
 {% endblock %}
-
 {% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('.ui.dropdown')
-              .dropdown();
+            var availableTags = [
+            {% for item in grupos %}
+                '{{ item.direccion }}',
+            {% endfor %}
+            ];
+
+            $( "#grupo_familiar_direccion" ).autocomplete({
+                source: availableTags
+            });
         })
     </script>
 {% endblock %}
