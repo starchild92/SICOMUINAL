@@ -92,15 +92,11 @@ class SituacionServiciosType extends AbstractType
 
             ->add('lts_tanque','integer',array(
                 'label'     => '¿Tanque? (Lts)',
-                'required'  => false,
-                'attr'      => array(
-                    'value' => 0)))
+                'required'  => false))
 
             ->add('cant_pipotes','integer',array(
                 'label'     => 'Cantidad de Pipotes',
-                'required'  => false,
-                'attr'      => array(
-                    'value' => 0)))
+                'required'  => false))
 
             ->add('medidor', 'entity', array(
                 'label'     => '¿Tiene medidor de Aguas Blancas?',
@@ -117,9 +113,7 @@ class SituacionServiciosType extends AbstractType
 
             ->add('cantBombonas','integer',array(
                 'label'     => 'Cantidad de Cilindros',
-                'required'  => false,
-                'attr'      => array(
-                    'value' => 0)))
+                'required'  => false))
 
             ->add('capacidadBombona','entity', array(
                 'class' => 'SICBundle:AdminCapacidadBombona',
@@ -141,9 +135,7 @@ class SituacionServiciosType extends AbstractType
 
             ->add('precioBombona','text',array(
                 'label'     => 'Precio del Cilindro',
-                'required'  => false,
-                'attr'      => array(
-                    'value' => 0)))
+                'required'  => false))
 
             ->add('duracionBombona','text',array(
                 'label'     => 'Duración del Gas',

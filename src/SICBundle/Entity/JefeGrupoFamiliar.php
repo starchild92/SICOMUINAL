@@ -133,10 +133,10 @@ class JefeGrupoFamiliar
     private $trabajaActualmente;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="jgf_telefonos",
-     *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", onDelete="cascade", unique=true)}
+     *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", onDelete="CASCADE", unique=true)}
      *      )
      */
     private $telefono;

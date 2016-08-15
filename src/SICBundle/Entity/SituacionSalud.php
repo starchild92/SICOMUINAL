@@ -22,7 +22,7 @@ class SituacionSalud
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoPadecencia", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AdminTipoPadecencia", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitSalud_padecencia",
      *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="padecencia_id", referencedColumnName="id", onDelete="CASCADE")}

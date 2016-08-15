@@ -23,14 +23,14 @@ class SituacionEconomica
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminUbicacionTrabajo", cascade={"persist"})
-     * @ORM\JoinColumn(name="ubcTrab", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="ubcTrab", referencedColumnName="id", onDelete="SET NULL")
      */
     private $dondeTrabaja;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminVentaVivienda")
+     * @ORM\ManyToMany(targetEntity="AdminVentaVivienda", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitEco_ActComercial",
-     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="CASCADE")},
+     *      joinColumns={@ORM\JoinColumn(name="sitEco", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="ActComercial", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
@@ -38,7 +38,7 @@ class SituacionEconomica
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoIngresos", cascade={"persist"})
-     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $ingresoFamiliarEspecifico;
 

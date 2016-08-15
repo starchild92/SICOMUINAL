@@ -49,8 +49,7 @@ class SituacionEconomicaType extends AbstractType
 
             ->add('ingresoFamiliar','text',array(
                 'attr'      => array(
-                    'placeholder'   => 'Monto en Bs',
-                    'value' => 0),
+                    'placeholder'   => 'Monto en Bs'),
                 'required' => false,
                 ))
 

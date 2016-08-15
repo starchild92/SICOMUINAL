@@ -23,30 +23,30 @@ class SituacionVivienda
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoVivienda", cascade={"persist"})
-     * @ORM\JoinColumn(name="tipoVivienda", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="tipoVivienda", referencedColumnName="id", onDelete="SET NULL")
      */
     private $tipo;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoTenencia", cascade={"persist"})
-     * @ORM\JoinColumn(name="tipoTenencia", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="tipoTenencia", referencedColumnName="id", onDelete="SET NULL")
      */
     private $tenencia;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="terrenoPropio", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="terrenoPropio", referencedColumnName="id", onDelete="SET NULL")
      */
     private $terrenoPropio;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="ovc", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="ovc", referencedColumnName="id", onDelete="SET NULL")
      */
     private $ovc;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoHabitacionesVivienda")
+     * @ORM\ManyToMany(targetEntity="AdminTipoHabitacionesVivienda", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitVivi_tHV",
      *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="cascade")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tHabViv_id", referencedColumnName="id", onDelete="cascade")}
@@ -63,18 +63,18 @@ class SituacionVivienda
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoParedes", cascade={"persist"})
-     * @ORM\JoinColumn(name="tipoParedes", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="tipoParedes", referencedColumnName="id", onDelete="SET NULL")
      */
     private $paredes;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoTecho", cascade={"persist"})
-     * @ORM\JoinColumn(name="tipoTecho", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="tipoTecho", referencedColumnName="id", onDelete="SET NULL")
      */
     private $techo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoEnseres")
+     * @ORM\ManyToMany(targetEntity="AdminTipoEnseres", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitVivi_enseres",
      *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="enseres_id", referencedColumnName="id")}
@@ -84,12 +84,12 @@ class SituacionVivienda
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminSalubridadVivienda", cascade={"persist"})
-     * @ORM\JoinColumn(name="salubridad", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="salubridad", referencedColumnName="id", onDelete="SET NULL")
      */
     private $salubridad;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoPlagas")
+     * @ORM\ManyToMany(targetEntity="AdminTipoPlagas", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitVivi_plaga",
      *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="plaga_id", referencedColumnName="id")}
@@ -98,7 +98,7 @@ class SituacionVivienda
     private $presenciaInsectos;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoMascotas")
+     * @ORM\ManyToMany(targetEntity="AdminTipoMascotas", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitVivi_mascota",
      *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="masco_id", referencedColumnName="id")}
@@ -108,19 +108,19 @@ class SituacionVivienda
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="leypoliticahabitacional", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="leypoliticahabitacional", referencedColumnName="id", onDelete="SET NULL")
      */
     private $leypoliticahabitacional;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="sivih", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="sivih", referencedColumnName="id", onDelete="SET NULL")
      */
     private $sivih;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoCondicionTerreno", cascade={"persist"})
-     * @ORM\JoinColumn(name="condicionesTerreno", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="condicionesTerreno", referencedColumnName="id", onDelete="SET NULL")
      */
     private $condicionesTerreno;
 

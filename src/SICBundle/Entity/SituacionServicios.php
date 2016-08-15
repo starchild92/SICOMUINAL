@@ -23,66 +23,66 @@ class SituacionServicios
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminAguasBlancas", cascade={"persist"})
-     * @ORM\JoinColumn(name="aguasBlancas", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="aguasBlancas", referencedColumnName="id", onDelete="SET NULL")
      */
     private $aguasBlancas;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminAguasServidas", cascade={"persist"})
-     * @ORM\JoinColumn(name="aguasServidas", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="aguasServidas", referencedColumnName="id", onDelete="SET NULL")
      */
     private $aguasServidas;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoGas", cascade={"persist"})
-     * @ORM\JoinColumn(name="gas", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="gas", referencedColumnName="id", onDelete="SET NULL")
      */
     private $gas;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminSistemaElectrico", cascade={"persist"})
-     * @ORM\JoinColumn(name="sistemaElectrico", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="sistemaElectrico", referencedColumnName="id", onDelete="SET NULL")
      */
     private $sistemaElectrico;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRecoleccionBasura", cascade={"persist"})
-     * @ORM\JoinColumn(name="recoleccionBasura", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="recoleccionBasura", referencedColumnName="id", onDelete="SET NULL")
      */
     private $recoleccionBasura;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoTelefonia", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AdminTipoTelefonia", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitServ_telefonia",
-     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="telefonia_id", referencedColumnName="id", onDelete="cascade")}
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefonia_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $telefonia;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoTransporte", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AdminTipoTransporte", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitServ_tipTrans",
-     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tipTrans_id", referencedColumnName="id", onDelete="cascade")}
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tipTrans_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $transporte;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminMecanismoInformacion", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AdminMecanismoInformacion", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitServ_mecInf",
-     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="mecInf_id", referencedColumnName="id", onDelete="cascade")}
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="mecInf_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $mecanismoInformacion;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminServiciosComunales", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AdminServiciosComunales", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitServ_servCom",
-     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="servCom_id", referencedColumnName="id", onDelete="cascade")}
+     *      joinColumns={@ORM\JoinColumn(name="sitServ_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="servCom_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $serviciosComunales;
@@ -108,13 +108,13 @@ class SituacionServicios
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="medidor", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="medidor", referencedColumnName="id", onDelete="SET NULL")
      */
     private $medidor;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminEmpresaGas", cascade={"persist"})
-     * @ORM\JoinColumn(name="empresaGas", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="empresaGas", referencedColumnName="id", onDelete="SET NULL")
      */
     private $empresaGas;
 
@@ -141,26 +141,31 @@ class SituacionServicios
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminCapacidadBombona", cascade={"persist"})
-     * @ORM\JoinColumn(name="capacidadBombona", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="capacidadBombona", referencedColumnName="id", onDelete="SET NULL")
      */
     private $capacidadBombona;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="medidorElectrico", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="medidorElectrico", referencedColumnName="id", onDelete="SET NULL")
      */
     private $medidorElectrico;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="bombillosAhorradores", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="bombillosAhorradores", referencedColumnName="id", onDelete="SET NULL")
      */
     private $bombillosAhorradores;
+
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->cantBombonas = 0;
+        $this->precioBombona = 0;
+        $this->lts_tanque = 0;
+        $this->cant_pipotes = 0;
         $this->telefonia = new \Doctrine\Common\Collections\ArrayCollection();
         $this->transporte = new \Doctrine\Common\Collections\ArrayCollection();
         $this->mecanismoInformacion = new \Doctrine\Common\Collections\ArrayCollection();
