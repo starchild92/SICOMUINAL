@@ -29,9 +29,9 @@ class SituacionEconomica
 
     /**
      * @ORM\ManyToMany(targetEntity="AdminVentaVivienda")
-     * @ORM\JoinTable(name="sitVivi_ActComercial",
-     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="ActComercial", referencedColumnName="id", onDelete="cascade")}
+     * @ORM\JoinTable(name="sitEco_ActComercial",
+     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ActComercial", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $actividadComercialenVivienda;
@@ -57,7 +57,7 @@ class SituacionEconomica
     private $placa;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionEconomica")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionEconomica", cascade={"remove"})
      */
     private $planilla;
 

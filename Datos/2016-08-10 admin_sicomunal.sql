@@ -187,7 +187,6 @@ TRUNCATE TABLE `admin_nacionalidad`;
 
 INSERT IGNORE INTO `admin_nacionalidad` (`id`, `nacionalidad`) VALUES
 (4, 'E'),
-(3, 'N'),
 (1, 'V');
 
 --
@@ -278,8 +277,6 @@ TRUNCATE TABLE `admin_preguntas_situacion_comunidad`;
 --
 
 INSERT IGNORE INTO `admin_preguntas_situacion_comunidad` (`id`, `pregunta`, `pregunta_sit_com`) VALUES
-(2, 'Michael Jackson', 1),
-(5, 'Fuck you Jesus', 2),
 (6, 'Holis', 1),
 (7, 'So many', 2),
 (8, 'Agua, Inseguridad, Alumbrado Público, Mercados Vecinales', 2);
@@ -314,7 +311,6 @@ INSERT IGNORE INTO `admin_profesion` (`id`, `nombre`) VALUES
 (16, 'Costurera'),
 (10, 'del Hogar'),
 (15, 'Diseñador Gráfico'),
-(6, 'Entrenador Pokemón'),
 (5, 'Escritor'),
 (12, 'Estudiante'),
 (7, 'Ingenieria Civil'),
@@ -340,8 +336,7 @@ INSERT IGNORE INTO `admin_recoleccion_basura` (`id`, `nombre`) VALUES
 (3, 'Bajante'),
 (4, 'Camión'),
 (2, 'Container'),
-(6, 'Quemada'),
-(8, 'Run Lola Run');
+(6, 'Quemada');
 
 --
 -- Truncar tablas antes de insertar `admin_resp_cerrada`
@@ -442,7 +437,6 @@ INSERT IGNORE INTO `admin_tipo_enseres` (`id`, `nombre`) VALUES
 (7, 'Muebles de Sala'),
 (1, 'Nevera'),
 (12, 'Películas'),
-(11, 'PlayStation 4'),
 (10, 'TV'),
 (9, 'Utensilios de Cocina'),
 (5, 'Ventilador');
@@ -477,7 +471,6 @@ INSERT IGNORE INTO `admin_tipo_habitaciones_vivienda` (`id`, `nombre`) VALUES
 (6, 'Jacuzzi'),
 (7, 'Jardin'),
 (1, 'Sala'),
-(8, 'sla'),
 (5, 'Terraza');
 
 --
@@ -526,8 +519,7 @@ TRUNCATE TABLE `admin_tipo_padecencia`;
 INSERT IGNORE INTO `admin_tipo_padecencia` (`id`, `nombre`) VALUES
 (3, 'Daltonismo'),
 (2, 'Diabetes'),
-(5, 'Hipertensión'),
-(1, 'SIDA');
+(5, 'Hipertensión');
 
 --
 -- Truncar tablas antes de insertar `admin_tipo_paredes`
@@ -690,8 +682,7 @@ INSERT IGNORE INTO `admin_venta_vivienda` (`id`, `nombre`) VALUES
 (3, 'Empanadas'),
 (7, 'Hielo'),
 (6, 'Maltas'),
-(4, 'Refrescos'),
-(26, 'Shake It Out');
+(4, 'Refrescos');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

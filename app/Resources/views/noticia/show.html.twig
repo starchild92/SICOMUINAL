@@ -23,11 +23,11 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <a class="btn btn-block btn-default" href="{{ path('noticia_index') }}">Ver todas</a>
+            <a class="btn btn-block btn-default" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver Todas</a>
             <a class="btn btn-block btn-default" href="{{ path('noticia_edit', { 'id': noticium.id }) }}"> <i class="fa fa-edit"></i> Modificar detalles</a>
             <hr class="little">
             {{ form_start(delete_form) }}
-                <input class="btn btn-danger btn-block" type="submit" value="Eliminar Noticia">
+                <button class="btn btn-danger btn-block" type="submit"><i class="fa fa-trash"></i> Eliminar Noticia</button>
             {{ form_end(delete_form) }}
         </div>
     </div>

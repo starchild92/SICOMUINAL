@@ -44,7 +44,7 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist"})
-     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $nacionalidad;
 
@@ -162,7 +162,7 @@ class JefeGrupoFamiliar
     private $ingresoMensual;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="jefeGrupoFamiliar")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="jefeGrupoFamiliar", cascade={"remove"})
      */
     private $planilla;
 

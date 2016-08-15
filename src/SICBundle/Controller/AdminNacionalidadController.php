@@ -114,7 +114,7 @@ class AdminNacionalidadController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminNacionalidad);
             $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
-            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminNacionalidad->getNombre().' de los parámetros de Tipo de Nacionalidad del sistema');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminNacionalidad->getNacionalidad().' de los parámetros de Tipo de Nacionalidad del sistema');
             $em->persist($bitacora);
             $em->flush();
         }

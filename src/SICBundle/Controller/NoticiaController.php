@@ -144,6 +144,7 @@ class NoticiaController extends Controller
     public function newsletterAction()
     {
         $em = $this->getDoctrine()->getManager();
+        /* Obtiene las últimas 5 noticias en orden descendiente y que están visibles */
         $noticias = $em->getRepository('SICBundle:Noticia')->NoticiasOrdenDesc(); //solo las noticias que están visibles
 
         return $this->render('noticia/newsletter.html.twig', array(

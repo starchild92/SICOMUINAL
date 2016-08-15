@@ -4,7 +4,7 @@
     <h1>Modificar Comité <a href="{{ path('comites_index') }}" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Ver Todas</a></h1>
     <hr>
 
-    {{ form_start(edit_form, { 'attr' : { 'form' : 'formulario_guardar'}}) }}
+    {{ form_start(edit_form, { 'attr' : { 'id' : 'formulario_guardar'}}) }}
     <div class="row">
         <div class="col-sm-6">
             {{ form_row(edit_form.tipoUnidad) }}

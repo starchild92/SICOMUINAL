@@ -54,7 +54,7 @@ class Persona
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist"})
-     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $nacionalidad;
 
@@ -149,10 +149,11 @@ class Persona
     private $recibir_correo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="GrupoFamiliar", cascade={"persist"}, inversedBy="miembros")
-     * @ORM\JoinColumn(name="grupo_fam_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="GrupoFamiliar", cascade={"persist", "remove"}, inversedBy="miembros")
+     * @ORM\JoinColumn(name="grupo_fam_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $grupofamiliar;
+    
 
     public function __construct()
     {

@@ -125,7 +125,7 @@ class SituacionVivienda
     private $condicionesTerreno;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionVivienda")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionVivienda", cascade={"remove"})
      */
     private $planilla;
     

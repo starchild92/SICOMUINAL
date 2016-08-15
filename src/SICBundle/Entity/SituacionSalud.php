@@ -24,8 +24,8 @@ class SituacionSalud
     /**
      * @ORM\ManyToMany(targetEntity="AdminTipoPadecencia", cascade={"persist"})
      * @ORM\JoinTable(name="sitSalud_padecencia",
-     *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="padecencia_id", referencedColumnName="id", onDelete="cascade")}
+     *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="padecencia_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $padecencia;
@@ -33,8 +33,8 @@ class SituacionSalud
     /**
      * @ORM\ManyToMany(targetEntity="AdminTipoAyudaEspecial", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitSalud_ayu",
-     *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="ayuda_id", referencedColumnName="id", onDelete="cascade")}
+     *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ayuda_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $ayudaEspecial;
@@ -42,14 +42,14 @@ class SituacionSalud
     /**
      * @ORM\ManyToMany(targetEntity="AdminTipoSituacionExclusion", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitSalud_exc",
-     *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="exclusion_id", referencedColumnName="id", onDelete="cascade")}
+     *      joinColumns={@ORM\JoinColumn(name="sitSalud_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="exclusion_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $situacionExclusion;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionSalud")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionSalud", cascade={"remove"})
      */
     private $planilla;
 

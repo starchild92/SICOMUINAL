@@ -9,7 +9,7 @@
     <hr>
     <div class="row">
         <div class="col-sm-2">
-            <a class="btn btn-default btn-block" href="{{ path('noticia_newsletter') }}"><i class="fa fa-newspaper-o"></i> Ver Página de Noticias</a>
+            <a target="__NEW" class="btn btn-default btn-block" href="{{ path('noticia_newsletter') }}"><i class="fa fa-newspaper-o"></i> Ver Página de Noticias</a>
             <a class="btn btn-primary btn-block" href="{{ path('noticia_new') }}"><i class="fa fa-plus"></i> Crear Noticia</a>
         </div>
         <div class="col-sm-10">
@@ -70,7 +70,7 @@
                 "language": {
                     "url": "{{ asset('datatables/espanol.js') }}"
                 },
-                "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                "dom": "<'row'<'col-sm-6'f><'col-sm-6'l>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             });
@@ -78,7 +78,6 @@
     </script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
-
             $('body').on('click', '#visibleAction', function(e){
                 url = $(this).data('url');
                 $.confirm({
@@ -97,8 +96,6 @@
                             confirmButton: false, // hides the confirm button.
                             closeIcon: false, // hides the close icon.
                         });
-
-                        console.log(url)
                         $.ajax({
                             url: url,
                             type: "GET",
