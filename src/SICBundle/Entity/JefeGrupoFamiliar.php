@@ -64,7 +64,7 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="cne", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="cne", referencedColumnName="id", onDelete="SET NULL")
      */
     private $cne;
 
@@ -91,7 +91,7 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminIncapacidades", cascade={"persist"})
-     * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $incapacitadoTipo;
 
@@ -104,31 +104,31 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminPensionadoInstitucion", cascade={"persist"})
-     * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $pensionadoInstitucion;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminEstadoCivil", cascade={"persist"})
-     * @ORM\JoinColumn(name="edoCivil_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="edoCivil_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $estadoCivil;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminNivelInstruccion", cascade={"persist"})
-     * @ORM\JoinColumn(name="nivelIns_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="nivelIns_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $nivelInstruccion;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminProfesion", cascade={"persist"})
-     * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $profesion;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="respC_id_3", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="respC_id_3", referencedColumnName="id", onDelete="SET NULL")
      */
     private $trabajaActualmente;
 
@@ -150,7 +150,7 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminClasIngresoFamiliar", cascade={"persist"})
-     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $ingresoFamiliar;
 
