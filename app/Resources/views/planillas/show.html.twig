@@ -544,7 +544,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Organizaciones</p>
+									<p class="bottom-line negritas text-info">¿Existen Organizaciones Comunitarias?</p>
 									<p>
 										{% if planilla.participacionComunitaria.existenOrganizaciones|length == 0 %}No ha especificado alguna{% endif %}
 										{% for item in planilla.participacionComunitaria.existenOrganizaciones %}
@@ -561,7 +561,7 @@
 									<p>{{ planilla.participacionComunitaria.participaMiembroOrganizacion }}</p>
 								</div>
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Misiones Comunidad</p>
+									<p class="bottom-line negritas text-info">¿Cúales Misiones se están implementando en la Comunidad?</p>
 									<p>
 										{% if planilla.participacionComunitaria.misionesComunidad|length == 0 %}No ha especificado alguna{% endif %}
 										{% for item in planilla.participacionComunitaria.misionesComunidad %}
@@ -582,7 +582,7 @@
 									{% endfor %}
 								</div>
 								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Area de Trabajo</p>
+									<p class="bottom-line negritas text-info">¿De crearse un Consejo Comunal en su comunidad, en cual área de trabajo le gustaría participar?</p>
 									<p>
 										{% if planilla.participacionComunitaria.areaTabajoCC|length == 0 %}No ha especificado alguna{% endif %}
 										{% for item in planilla.participacionComunitaria.areaTabajoCC %}
