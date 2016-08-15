@@ -216,7 +216,7 @@ class JefeGrupoFamiliar
      */
     public function setNombres($nombres)
     {
-        $this->nombres = $nombres;
+        $this->nombres = ucwords($nombres);
 
         return $this;
     }
@@ -239,7 +239,7 @@ class JefeGrupoFamiliar
      */
     public function setApellidos($apellidos)
     {
-        $this->apellidos = $apellidos;
+        $this->apellidos = ucwords($apellidos);
 
         return $this;
     }

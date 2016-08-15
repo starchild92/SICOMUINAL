@@ -220,6 +220,7 @@ class PersonaController extends Controller
 
         return $this->render('persona/new.html.twig', array(
             'persona' => $persona,
+            'parentescos' => $this->obtener_parentescos(),
             'id_planilla' => $id_planilla,
             'id_grupofamiliar' => $id_grupofamiliar,
             'cantMiembros' => $cantMiembros,
@@ -271,6 +272,7 @@ class PersonaController extends Controller
 
         return $this->render('persona/edit.html.twig', array(
             'persona' => $persona,
+            'parentescos' => $this->obtener_parentescos(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -389,5 +391,13 @@ class PersonaController extends Controller
             'cantMiembros' => $cantMiembros,
             'form' => $form->createView(),
         ));
+    }
+
+    /*Obtiene todos los parentescos que se han agregado a la base de datos*/
+    public function obtener_parentescos()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $parentescos = $em->getRepository('SICBundle:Persona')->findParentescos();
+        return $parentescos;
     }
 }

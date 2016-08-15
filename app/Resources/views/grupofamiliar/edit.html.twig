@@ -23,18 +23,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    {# {{ form_row(edit_form.tiempoResidencia) }} #}
                     {{ form_row(edit_form.sector) }}
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     {{ form_row(edit_form.direccion) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body">
                     {{ form_row(edit_form.numeroCasa) }}
                 </div>
             </div>
@@ -49,12 +54,7 @@
     <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function() {
-            var availableTags = [
-            {% for item in grupos %}
-                '{{ item.direccion }}',
-            {% endfor %}
-            ];
-
+            var availableTags = [{% for item in grupos %}'{{ item.direccion }}',{% endfor %}];
             $( "#grupo_familiar_direccion" ).autocomplete({
                 source: availableTags,
                 minLength: 0,

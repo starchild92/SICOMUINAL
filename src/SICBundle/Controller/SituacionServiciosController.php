@@ -241,6 +241,7 @@ class SituacionServiciosController extends Controller
         }
 
         return $this->render('situacionservicios/new.html.twig', array(
+            'duracionesBombona' => $this->duracionesBombonas(),
             'situacionServicio' => $situacionServicio,
             'form' => $form->createView(),
         ));
@@ -284,6 +285,7 @@ class SituacionServiciosController extends Controller
 
         return $this->render('situacionservicios/edit.html.twig', array(
             'situacionServicio' => $situacionServicio,
+            'duracionesBombona' => $this->duracionesBombonas(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -321,5 +323,12 @@ class SituacionServiciosController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function duracionesBombonas()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $res = $em->getRepository('SICBundle:SituacionServicios')->findDuracionesBombona();
+        return $res;
     }
 }

@@ -15,8 +15,10 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(edit_form.condicionesTerreno) }}
-                        {{ form_row(edit_form.tenencia) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.condicionesTerreno) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.tenencia) }}</div>
+                        </div>
                         {{ form_row(edit_form.tipo) }}
                         {{ form_row(edit_form.habitaciones) }}
                         {{ form_row(edit_form.cantidadHabitaciones) }}

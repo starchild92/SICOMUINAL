@@ -10,6 +10,7 @@
                     <th>Encuesta #</th>
                     <th>Empadronador</th>
                     <th class="hidden-xs">Encuestado</th>
+                    <th class="hidden-xs">#Personas<br>Grupo</th>
                     <th>Fecha Modificada</th>
                     <th class="hidden-xs">%</th>
                     <th><i class="fa fa-cogs"></i></th>
@@ -22,6 +23,7 @@
                             <p class="small marginless">{% if planilla.terminada != 100 %}Sin terminar</span>{% else %}Terminada</span>{% endif %}</p></td>
                         <td class="hidden-xs">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}"><i class="fa fa-link"></i></a><p class="small marginless">{{ planilla.empadronador.cedula }}</p></td>
                         <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombreyapellido }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula() }}</p> {% endif %}</td>
+                        <td class="hidden-xs">{{ planilla.grupoFamiliar.cantidadMiembros }} personas</td>
                         <td>{{ planilla.fechaCron() }}</td>
                         <td class="hidden-xs">{{ planilla.terminada }}%</td>
                         <td>
@@ -50,7 +52,7 @@
         $(document).ready(function() {
             dataTable = $('#dataTable').DataTable( {
                 "pageLength": 25,
-                "order": [[ 3, "desc" ]],
+                "order": [[ 4, "desc" ]],
                 'stateSave': true,
                 'pagingType': 'full_numbers',
                 "language": {

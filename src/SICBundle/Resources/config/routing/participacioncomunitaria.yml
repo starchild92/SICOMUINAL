@@ -1,5 +1,5 @@
 participacioncomunitaria_index:
-    path:     /
+    path:     /estadisticas
     defaults: { _controller: "SICBundle:ParticipacionComunitaria:index" }
     methods:  GET
 

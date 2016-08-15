@@ -1,5 +1,5 @@
 personas_index:
-    path:     /
+    path:     /estadisticas
     defaults: { _controller: "SICBundle:Persona:index" }
     methods:  GET
 

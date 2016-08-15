@@ -63,4 +63,14 @@ class SituacionServiciosRepository extends EntityRepository
                 ->getQuery()
                 ->getResult();
     }
+
+    public function findDuracionesBombona()
+    {
+        $query = $this->getEntityManager()
+                ->createQuery('SELECT ss 
+                FROM SICBundle:SituacionServicios ss
+                GROUP BY ss.duracionBombona');
+        $result = $query->getResult();
+        return $result;
+    }
 }

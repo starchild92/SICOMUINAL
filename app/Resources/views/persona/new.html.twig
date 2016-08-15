@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.structure.css') }}">
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-xs-6"><small class="text-info">ant. Datos Grupo Familiar</small></div>
@@ -73,6 +76,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/funcionesExtras.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -115,17 +119,19 @@
                     });
                 },
             });
-            $('.js-datepicker')
-                .datepicker({ format: 'yyyy-mm-dd' })
-                    .on('hide', function() {
-                        var birthDay = document.getElementById("persona_fechaNacimiento").value;
-                        var DOB = new Date(birthDay);
-                        var today = new Date();
-                        var age = today.getTime() - DOB.getTime();
-                        age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
 
-                        document.getElementById('persona_edad').value = age;
-                    });
+            $('.js-datepicker')
+                .datepicker({ format: 'yyyy-mm-dd', autoclose: true })
+                .on('hide', function() {
+                    var birthDay = document.getElementById("persona_fechaNacimiento").value;
+                    var DOB = new Date(birthDay);
+                    var today = new Date();
+                    var age = today.getTime() - DOB.getTime();
+                    age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+
+                    document.getElementById('persona_edad').value = age;
+                });
+
             AexcluyeB('persona_incapacitado', 'persona_incapacitadoTipo');
             AexcluyeB('persona_pensionado', 'persona_pensionadoInstitucion');
 
@@ -150,8 +156,14 @@
                         $('#persona_embarazoTemprano').parent().addClass('hidden');
                     break;
                 }
-            })
-            
+            });
+
+            /*AUTO COMPLETAR DE PARENTEZCO CON LOS VALORES DE LA BASE DE DATOS*/
+            var availableTags = [{% for item in parentescos %}'{{ item.parentesco }}',{% endfor %}];
+            $( "#persona_parentesco" ).autocomplete({
+                source: availableTags,
+                minLength: 0,
+            });
         });
     </script>
 {% endblock %}

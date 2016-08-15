@@ -26,4 +26,15 @@ class PersonaRepository extends EntityRepository
         $result = $query->getResult();
         return $result;
 	}
+
+    public function findParentescos()
+    {
+        $query = $this->getEntityManager()
+                ->createQuery('SELECT u 
+                FROM SICBundle:Persona u
+                GROUP BY
+                    u.parentesco');
+        $result = $query->getResult();
+        return $result;
+    }
 }

@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.structure.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.theme.css') }}">
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-xs-6"><small class="text-info">ant. Situación Salud</small></div>
@@ -65,6 +69,7 @@
     <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
 {% endblock %}
 {% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('.ui.dropdown').dropdown();
@@ -101,6 +106,11 @@
                         },
                     });
                 },
+            });
+            var availableTags = [{% for item in duracionesBombona %}'{{ item.duracionBombona }}',{% endfor %}];
+            $( "#situacion_servicios_duracionBombona" ).autocomplete({
+                source: availableTags,
+                minLength: 0,
             });
         })
     </script>

@@ -45,7 +45,7 @@ class SituacionEconomica
     /**
      * @var string
      *
-     * @ORM\Column(name="ingresoFamiliar", type="string", length=255)
+     * @ORM\Column(name="ingresoFamiliar", type="string", length=255, nullable=true)
      */
     private $ingresoFamiliar;
 

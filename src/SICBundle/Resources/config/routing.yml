@@ -8,7 +8,7 @@ sic_rutas_extras:
 
 sic_personas:
     resource: "@SICBundle/Resources/config/routing/persona.yml"
-    prefix:   /miembro/grupo/familiar
+    prefix:   /grupo/familiar
 
 sic_comunidades:
     resource: "@SICBundle/Resources/config/routing/comunidad.yml"

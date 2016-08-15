@@ -219,7 +219,7 @@ class Persona
      */
     public function setNombre($nombre)
     {
-        $this->nombre = $nombre;
+        $this->nombre = ucwords($nombre);
 
         return $this;
     }
@@ -242,7 +242,7 @@ class Persona
      */
     public function setApellido($apellido)
     {
-        $this->apellido = $apellido;
+        $this->apellido = ucwords($apellido);
 
         return $this;
     }

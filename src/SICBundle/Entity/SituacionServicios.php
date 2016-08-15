@@ -156,7 +156,6 @@ class SituacionServicios
      * @ORM\JoinColumn(name="bombillosAhorradores", referencedColumnName="id", onDelete="SET NULL")
      */
     private $bombillosAhorradores;
-
     /**
      * Constructor
      */
@@ -166,6 +165,7 @@ class SituacionServicios
         $this->precioBombona = 0;
         $this->lts_tanque = 0;
         $this->cant_pipotes = 0;
+
         $this->telefonia = new \Doctrine\Common\Collections\ArrayCollection();
         $this->transporte = new \Doctrine\Common\Collections\ArrayCollection();
         $this->mecanismoInformacion = new \Doctrine\Common\Collections\ArrayCollection();

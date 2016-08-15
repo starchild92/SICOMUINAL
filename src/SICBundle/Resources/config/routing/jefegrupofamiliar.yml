@@ -1,5 +1,5 @@
 jefegrupofamiliar_index:
-    path:     /
+    path:     /estadisticas
     defaults: { _controller: "SICBundle:JefeGrupoFamiliar:index" }
     methods:  GET
 

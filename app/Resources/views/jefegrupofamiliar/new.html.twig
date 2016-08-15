@@ -84,7 +84,7 @@
         $(document).ready(function() {
             // $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
             $('.js-datepicker')
-                .datepicker({ format: 'yyyy-mm-dd' })
+                .datepicker({ format: 'yyyy-mm-dd', autoclose: true })
                     .on('hide', function() {
                         var birthDay = document.getElementById("jefe_grupo_familiar_fechaNacimiento").value;
                         var DOB = new Date(birthDay);

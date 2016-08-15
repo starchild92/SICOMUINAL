@@ -12,8 +12,10 @@ use SICBundle\Entity\AdminTipoHabitacionesVivienda;
 use SICBundle\Entity\AdminRecoleccionBasura;
 use SICBundle\Entity\AdminServiciosComunales;
 use SICBundle\Entity\AdminMecanismoInformacion;
+use SICBundle\Entity\AdminOrgComunitaria;
 use SICBundle\Entity\AdminTipoTransporte;
 use SICBundle\Entity\AdminTipoPadecencia;
+use SICBundle\Entity\AdminMisionesComunidad;
 use SICBundle\Entity\AdminTipoAyudaEspecial;
 use SICBundle\Entity\AdminTipoMascotas;
 use SICBundle\Entity\AdminTipoPlagas;
@@ -425,9 +427,37 @@ class PlanillasController extends Controller
                 'id'        => $nuevo->getId(),
                 ]));
             }
-        }
+        }elseif ($form['tipo'] == "participacion_comunitaria_existenOrganizaciones") {
+            $resultado = $em->getRepository('SICBundle:AdminOrgComunitaria')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminOrgComunitaria();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
 
-        
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido una nueva Organización Comunitaria, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "participacion_comunitaria_misionesComunidad") {
+            $resultado = $em->getRepository('SICBundle:AdminMisionesComunidad')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminMisionesComunidad();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido una nueva Misión a la Comunidad, llamada "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;

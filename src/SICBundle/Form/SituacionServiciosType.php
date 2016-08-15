@@ -18,6 +18,7 @@ class SituacionServiciosType extends AbstractType
             ->add('aguasBlancas','entity', array(
                 'class' => 'SICBundle:AdminAguasBlancas',
                 'placeholder'   => 'Seleccione una',
+                'required'  => false,
                 'label' => 'Aguas Blancas',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
@@ -25,6 +26,7 @@ class SituacionServiciosType extends AbstractType
             ->add('aguasServidas','entity', array(
                 'class' => 'SICBundle:AdminAguasServidas',
                 'placeholder'   => 'Seleccione una',
+                'required'  => false,
                 'label' => 'Aguas Servidas',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
@@ -39,12 +41,14 @@ class SituacionServiciosType extends AbstractType
             ->add('sistemaElectrico','entity', array(
                 'class' => 'SICBundle:AdminSistemaElectrico',
                 'placeholder'   => 'Seleccione una',
+                'required'  => false,
                 'label' => 'Sistema Eléctrico',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
             ->add('recoleccionBasura','entity', array(
                 'class' => 'SICBundle:AdminRecoleccionBasura',
+                'required'  => false,
                 'placeholder'   => 'Seleccione una',
                 'label' => 'Sistema de Recolección de Basura',
                 'attr'  =>  array(
@@ -53,8 +57,9 @@ class SituacionServiciosType extends AbstractType
 
             ->add('telefonia','entity', array(
                 'class' => 'SICBundle:AdminTipoTelefonia',
-                'placeholder'   => 'Seleccione una',
+                'placeholder'   => 'Seleccione todas las que apliquen',
                 'multiple' => true,
+                'required'  => false,
                 'label' => 'Telefonía',
                 'attr'  =>  array(
                     'multiple' => '',
@@ -63,8 +68,8 @@ class SituacionServiciosType extends AbstractType
             ->add('transporte','entity', array(
                 'class' => 'SICBundle:AdminTipoTransporte',
                 'placeholder'   => 'Seleccione todas las que apliquen',
-                'required'  => false,
                 'multiple' => true,
+                'required'  => false,
                 'label' => 'Sistema de transporte',
                 'attr'  =>  array(
                     'multiple' => '',
@@ -74,8 +79,8 @@ class SituacionServiciosType extends AbstractType
                 'class' => 'SICBundle:AdminMecanismoInformacion',
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'label' => 'Mecanismos de Información',
-                'required'  => false,
                 'multiple' => true,
+                'required'  => false,
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
@@ -84,8 +89,8 @@ class SituacionServiciosType extends AbstractType
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'class' => 'SICBundle:AdminServiciosComunales',
                 'label' => 'Servicios Comunales',
-                'required'  => false,
                 'multiple' => true,
+                'required'  => false,
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
