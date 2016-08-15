@@ -193,6 +193,8 @@ class PersonaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $Grupo->addMiembro($persona);
+            $aux = sizeof($Grupo->getMiembros()) + 1;
+            $Grupo->setCantidadMiembros($aux);
             if ($persona->getEmail() != '') {
                 $persona->setRecibirCorreo(true);
             }else{
@@ -356,7 +358,8 @@ class PersonaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $Grupo->addMiembro($persona);
-
+            $aux = sizeof($Grupo->getMiembros()) + 1;
+            $Grupo->setCantidadMiembros($aux);
             $persona->setGrupofamiliar($Grupo);
 
             if ($persona->getEmail() != '') {
