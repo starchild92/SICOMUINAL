@@ -14,6 +14,7 @@ use SICBundle\Entity\AdminServiciosComunales;
 use SICBundle\Entity\AdminMecanismoInformacion;
 use SICBundle\Entity\AdminOrgComunitaria;
 use SICBundle\Entity\AdminTipoTransporte;
+use SICBundle\Entity\AdminTipoTelefonia;
 use SICBundle\Entity\AdminTipoPadecencia;
 use SICBundle\Entity\AdminMisionesComunidad;
 use SICBundle\Entity\AdminTipoAyudaEspecial;
@@ -412,6 +413,21 @@ class PlanillasController extends Controller
                 'id'        => $nuevo->getId(),
                 ]));
             }
+        }elseif ($form['tipo'] == "situacion_servicios_telefonia") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoTelefonia')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoTelefonia();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido una nuevo Tipo de Telefonía, llamada "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
         }elseif ($form['tipo'] == "situacion_salud_ayudaEspecial") {
             $resultado = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
@@ -458,6 +474,8 @@ class PlanillasController extends Controller
                 ]));
             }
         }
+
+
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;

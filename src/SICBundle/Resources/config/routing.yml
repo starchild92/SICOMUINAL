@@ -56,7 +56,7 @@ sic_planillas:
 
 sic_noticia:
     resource: "@SICBundle/Resources/config/routing/noticia.yml"
-    prefix:   /noticia
+    prefix:   /noticias
 
 sic_bitacora:
     resource: "@SICBundle/Resources/config/routing/bitacora.yml"

@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.structure.css') }}">
+{% endblock %}
 {% block body %}
     <h1>Miembro Grupo Familiar ({{ grupoFamiliarApellidos }}) <small>Actualmente hay {{ cantMiembros }} {% if cantMiembros > 1 %}miembros{% else %}miembro{% endif %}</small></h1>
     <hr>
@@ -63,6 +66,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/funcionesExtras.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -139,8 +143,14 @@
                         $('#persona_embarazoTemprano').parent().addClass('hidden');
                     break;
                 }
-            })
+            });
             
+            /*AUTO COMPLETAR DE PARENTEZCO CON LOS VALORES DE LA BASE DE DATOS*/
+            var availableTags = [{% for item in parentescos %}'{{ item.parentesco }}',{% endfor %}];
+            $( "#persona_parentesco" ).autocomplete({
+                source: availableTags,
+                minLength: 0,
+            });
         });
     </script>
 {% endblock %}

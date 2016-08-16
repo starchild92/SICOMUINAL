@@ -388,6 +388,7 @@ class PersonaController extends Controller
             'id_planilla' => $id_planilla,
             'id_grupofamiliar' => $id_grupofamiliar,
             'grupoFamiliarApellidos' => $Grupo->getApellidos(),
+            'parentescos' => $this->obtener_parentescos(),
             'cantMiembros' => $cantMiembros,
             'form' => $form->createView(),
         ));
