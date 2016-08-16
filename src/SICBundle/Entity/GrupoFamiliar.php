@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,7 +25,7 @@ class GrupoFamiliar
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="apellidos", type="string", length=255)
      */
     private $apellidos;
@@ -38,14 +39,13 @@ class GrupoFamiliar
 
     /**
      * @var string
-     *
      * @ORM\Column(name="avenida", type="string", length=255)
      */
     private $avenida;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Debe especificar una calle")
      * @ORM\Column(name="calle", type="string", length=255)
      */
     private $calle;
