@@ -7,7 +7,6 @@ use Slik\DompdfBundle\DomPDF;
 use Symfony\Component\HttpFoundation\Response;
 use SICBundle\Entity\Bitacora;
 
-
 class InicioController extends Controller
 {
     public function inicioAction(){
@@ -196,8 +195,8 @@ class InicioController extends Controller
         }
     }
 
-    // public function cmpsector($a, $b){ return strcmp($a->getSector(), $b->getSector()); }
-    public function cmpdireccion($a, $b){ return strcmp($a->getDireccion(), $b->getDireccion()); }
+    // public function cmpsector($a, $b){ return strcmp($a->getAvenida(), $b->getAvenida()); }
+    public function cmpdireccion($a, $b){ return strcmp($a->getAvenidaCalle(), $b->getAvenidaCalle()); }
     public function resumenCensoAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -212,14 +211,14 @@ class InicioController extends Controller
 
             $datos =  array();
             foreach ($sectores as $s) {
-                $nombre_sector = $s->getSector();
-                $grupos_del_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findBy(array('sector' => $nombre_sector));
+                $nombre_avenida = $s->getAvenida();
+                $grupos_del_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findBy(array('avenida' => $nombre_avenida));
                 usort($grupos_del_sector, array($this, "cmpdireccion"));
-                $num_viviendas = sizeof($em->getRepository('SICBundle:GrupoFamiliar')->findNumeroViviendas($nombre_sector));
-                $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_sector);
+                $num_viviendas = sizeof($em->getRepository('SICBundle:GrupoFamiliar')->findNumeroViviendas($nombre_avenida));
+                $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_avenida);
 
                 //Variables para construir la tabla del resultados
-                // echo "En el sector: ".$nombre_sector;
+                // echo "En el sector: ".$nombre_avenida;
                 // echo ", hay ".sizeof($grupos_del_sector). " grupos familiares con ";
                 // echo $num_viviendas." viviendas";
                 // echo " y en este sector viven ".$habitantes_sector['cantidad']." personas <br>";
@@ -232,7 +231,7 @@ class InicioController extends Controller
                 $cne = 0;
                 $electores = 0;
                 foreach ($grupos_del_sector as $grupo) {
-                    // echo $grupo->getSector()."/".$grupo->getDireccion()." miembros ".sizeof($grupo->getMiembros())."<br>";
+                    // echo $grupo->getAvenida()."/".$grupo->getAvenidaCalle()." miembros ".sizeof($grupo->getMiembros())."<br>";
                     $miembros = sizeof($grupo->getMiembros()) + $miembros + 1;
                     $personas = $grupo->getMiembros();
                     foreach ($personas as $p) {
@@ -259,7 +258,7 @@ class InicioController extends Controller
 
                 array_push($datos,
                     array(
-                        'sector' => $nombre_sector,
+                        'sector' => $nombre_avenida,
                         'num_viviendas' => $num_viviendas,
                         'num_familias' => sizeof($grupos_del_sector),
                         'num_habitantes' => $habitantes_sector['cantidad'],
@@ -290,11 +289,11 @@ class InicioController extends Controller
             $sectores = $em->getRepository('SICBundle:GrupoFamiliar')->findSectores();
             $datos =  array();
             foreach ($sectores as $s) {
-                $nombre_sector = $s->getSector();
-                $grupos_del_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findBy(array('sector' => $nombre_sector));
+                $nombre_avenida = $s->getAvenida();
+                $grupos_del_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findBy(array('avenida' => $nombre_avenida));
                 usort($grupos_del_sector, array($this, "cmpdireccion"));
-                $num_viviendas = sizeof($em->getRepository('SICBundle:GrupoFamiliar')->findNumeroViviendas($nombre_sector));
-                $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_sector);
+                $num_viviendas = sizeof($em->getRepository('SICBundle:GrupoFamiliar')->findNumeroViviendas($nombre_avenida));
+                $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_avenida);
                 $miembros = 0;
                 $entreQyD = 0;
                 $mayor_edad = 0;
@@ -320,7 +319,7 @@ class InicioController extends Controller
                     }
                 }
                 array_push($datos,array(
-                    'sector' => $nombre_sector,
+                    'sector' => $nombre_avenida,
                     'num_viviendas' => $num_viviendas,
                     'num_familias' => sizeof($grupos_del_sector),
                     'num_habitantes' => $habitantes_sector['cantidad'],

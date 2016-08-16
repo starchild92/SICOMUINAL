@@ -38,7 +38,6 @@ class GrupoFamiliarController extends Controller
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $grupos = $em->getRepository('SICBundle:GrupoFamiliar')->GrupoDireccion();
         $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
         if (sizeof($planilla) > 0) {
             $p = $planilla[0];
@@ -75,7 +74,8 @@ class GrupoFamiliarController extends Controller
 
             return $this->render('grupofamiliar/new.html.twig', array(
                 'grupoFamiliar' => $grupoFamiliar,
-                'grupos' => $grupos,
+                'grupos_calle' => $em->getRepository('SICBundle:GrupoFamiliar')->findCalles(),
+                'grupos_avenida' => $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(),
                 'form' => $form->createView(),
             ));
         }
@@ -108,7 +108,7 @@ class GrupoFamiliarController extends Controller
         $deleteForm = $this->createDeleteForm($grupoFamiliar);
         $editForm = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
         $editForm->handleRequest($request);
-        $grupos = $em->getRepository('SICBundle:GrupoFamiliar')->GrupoDireccion();
+        $grupos = $em->getRepository('SICBundle:GrupoFamiliar')->findCalles();
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em->persist($grupoFamiliar);
@@ -124,7 +124,8 @@ class GrupoFamiliarController extends Controller
 
         return $this->render('grupofamiliar/edit.html.twig', array(
             'grupoFamiliar' => $grupoFamiliar,
-            'grupos' => $grupos,
+            'grupos_calle' => $em->getRepository('SICBundle:GrupoFamiliar')->findCalles(),
+            'grupos_avenida' => $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

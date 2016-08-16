@@ -20,10 +20,10 @@ class GrupoFamiliarType extends AbstractType
             // ->add('cantidadMiembros') //Se calcula a medida que se agregan nuevos miembros
             // ->add('tiempoResidencia','text', array(
             //     'label'     => 'Tiempo de Residencia'))
-            ->add('sector','text', array(
-                'label'     => 'Sector'))
-            ->add('direccion','text', array(
-                'label'     => 'Calle o Avenida'))
+            ->add('avenida','text', array(
+                'label'     => 'Avenida'))
+            ->add('calle','text', array(
+                'label'     => 'Calle'))
             ->add('numeroCasa','text', array(
                 'label'     => 'Número de Casa'))
         ;

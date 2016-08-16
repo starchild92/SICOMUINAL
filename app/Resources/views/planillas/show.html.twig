@@ -176,35 +176,39 @@
 					<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-sm-3">
 									<p class="bottom-line negritas text-info">Apellidos del Grupo</p>
 									<p>{{ planilla.grupoFamiliar.apellidos }}</p>
 								</div>
-								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Calle o Avenida</p>
-									<p>{{ planilla.grupoFamiliar.direccion }}</p>
+								<div class="col-sm-3">
+									<p class="bottom-line negritas text-info">Avenida</p>
+									<p>{{ planilla.grupoFamiliar.avenida }}</p>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Este Grupo está formado por</p>
-									<p>{{ planilla.grupoFamiliar.cantidadMiembros }} personas</p>
+								<div class="col-sm-3">
+									<p class="bottom-line negritas text-info">Calle</p>
+									<p>{{ planilla.grupoFamiliar.calle }}</p>
 								</div>
-								<div class="col-sm-6">
+							{# </div>
+							<div class="row"> #}
+								<div class="col-sm-3">
 									<p class="bottom-line negritas text-info">Número Casa</p>
 									<p>{{ planilla.grupoFamiliar.numeroCasa }}</p>
 								</div>
+								<div class="col-sm-12">
+									<p class="bottom-line negritas text-info">Este Grupo está formado por</p>
+									<p>{{ planilla.grupoFamiliar.cantidadMiembros }} personas</p>
+								</div>
 							</div>
-							<div class="row">
+							{# <div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Sector</p>
 									<p>{{ planilla.grupoFamiliar.sector }}</p>
 								</div>
-								{# <div class="col-sm-6">
+								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Tiempo Residencia</p>
 									<p>{{ planilla.grupoFamiliar.tiempoResidencia }} años</p>
-								</div> #}
-							</div>
+								</div>
+							</div> #}
 
 							<div class="row">
 								<div class="col-sm-12">

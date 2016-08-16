@@ -19,29 +19,28 @@
     
     {{ form_start(form) }}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     {{ form_row(form.apellidos) }}
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    {# {{ form_row(form.tiempoResidencia) }} #}
-                    {{ form_row(form.sector) }}
+                    {{ form_row(form.avenida) }}
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    {{ form_row(form.direccion) }}
+                    {{ form_row(form.calle) }}
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     {{ form_row(form.numeroCasa) }}
@@ -56,14 +55,14 @@
     <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function() {
-            var availableTags = [
-            {% for item in grupos %}
-                '{{ item.direccion }}',
-            {% endfor %}
-            ];
-
-            $( "#grupo_familiar_direccion" ).autocomplete({
-                source: availableTags,
+            var calles = [{% for item in grupos %}'{{ item.calle }}',{% endfor %}];
+            var avenidas = [{% for item in grupos %}'{{ item.avenida }}',{% endfor %}];
+            $( "#grupo_familiar_calle" ).autocomplete({
+                source: calles,
+                minLength: 0,
+            });
+            $( "#grupo_familiar_avenida" ).autocomplete({
+                source: avenidas,
                 minLength: 0,
             });
         })

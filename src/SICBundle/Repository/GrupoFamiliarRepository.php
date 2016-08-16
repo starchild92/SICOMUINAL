@@ -17,43 +17,43 @@ class GrupoFamiliarRepository extends EntityRepository
 		$query = $this->getEntityManager()
                 ->createQuery('SELECT gf 
                 FROM SICBundle:GrupoFamiliar gf
-                GROUP BY gf.sector');
+                GROUP BY gf.avenida');
         $result = $query->getResult();
         return $result;
 	}
 
-	public function GrupoDireccion()
+	public function findCalles()
 	{
 		$query = $this->getEntityManager()
                 ->createQuery('SELECT gf 
                 FROM SICBundle:GrupoFamiliar gf
-                GROUP BY gf.direccion');
+                GROUP BY gf.calle');
         $result = $query->getResult();
         return $result;
 	}
 
-	public function findNumeroViviendas($sector)
+	public function findNumeroViviendas($avenida)
 	{
 		$query = $this->getEntityManager()
 			->createQuery('
 				SELECT gf FROM SICBundle:GrupoFamiliar gf
-				WHERE gf.sector = :sector
+				WHERE gf.avenida = :avenida
 				GROUP BY 
-					gf.direccion, gf.numeroCasa
+					gf.calle, gf.numeroCasa
 				');
-        $query->setparameter('sector', $sector);
+        $query->setparameter('avenida', $avenida);
 		$result = $query->getResult();
 		return $result;
 	}
 
-	public function findCantidadMiembros($sector)
+	public function findCantidadMiembros($avenida)
 	{
 		$query = $this->getEntityManager()
 		->createQuery('
 			SELECT SUM(gf.cantidadMiembros) as cantidad
 			FROM SICBundle:GrupoFamiliar gf
-			WHERE gf.sector = :sector');
-		$query->setparameter('sector', $sector);
+			WHERE gf.avenida = :avenida');
+		$query->setparameter('avenida', $avenida);
 		$result = $query->getResult();
 		return $result[0];
 	}

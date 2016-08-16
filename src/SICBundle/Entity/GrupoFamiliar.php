@@ -30,13 +30,6 @@ class GrupoFamiliar
     private $apellidos;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="direccion", type="string", length=255)
-     */
-    private $direccion;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="cantidadMiembros", type="integer")
@@ -44,18 +37,25 @@ class GrupoFamiliar
     private $cantidadMiembros;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="avenida", type="string", length=255)
+     */
+    private $avenida;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="calle", type="string", length=255)
+     */
+    private $calle;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="numeroCasa", type="string", length=255)
      */
     private $numeroCasa;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="sector", type="string", length=255)
-     */
-    private $sector;
 
     // *
     //  * @var int
@@ -84,9 +84,27 @@ class GrupoFamiliar
 
     public function getDireccionCompleta()
     {
-        return $this->sector.", ".$this->direccion.", ".$this->numeroCasa;
+        $result = '';
+
+        if ($this->avenida != '') { $result = $result.'Av. '.$this->avenida; }
+        if ($this->calle != '') { $result = $result.', c/'.$this->calle; }
+        if ($this->numeroCasa != 0) { $result = $result.', #'.$this->numeroCasa; }
+        return $result;
+    }
+
+    public function getAvenidaCalle()
+    {
+        return $this->avenida.", ".$this->calle;
     }
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->miembros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
@@ -121,29 +139,6 @@ class GrupoFamiliar
     }
 
     /**
-     * Set direccion
-     *
-     * @param string $direccion
-     * @return GrupoFamiliar
-     */
-    public function setDireccion($direccion)
-    {
-        $this->direccion = $direccion;
-
-        return $this;
-    }
-
-    /**
-     * Get direccion
-     *
-     * @return string 
-     */
-    public function getDireccion()
-    {
-        return $this->direccion;
-    }
-
-    /**
      * Set cantidadMiembros
      *
      * @param integer $cantidadMiembros
@@ -167,9 +162,55 @@ class GrupoFamiliar
     }
 
     /**
+     * Set avenida
+     *
+     * @param string $avenida
+     * @return GrupoFamiliar
+     */
+    public function setAvenida($avenida)
+    {
+        $this->avenida = $avenida;
+
+        return $this;
+    }
+
+    /**
+     * Get avenida
+     *
+     * @return string 
+     */
+    public function getAvenida()
+    {
+        return $this->avenida;
+    }
+
+    /**
+     * Set calle
+     *
+     * @param string $calle
+     * @return GrupoFamiliar
+     */
+    public function setCalle($calle)
+    {
+        $this->calle = $calle;
+
+        return $this;
+    }
+
+    /**
+     * Get calle
+     *
+     * @return string 
+     */
+    public function getCalle()
+    {
+        return $this->calle;
+    }
+
+    /**
      * Set numeroCasa
      *
-     * @param integer $numeroCasa
+     * @param string $numeroCasa
      * @return GrupoFamiliar
      */
     public function setNumeroCasa($numeroCasa)
@@ -182,64 +223,11 @@ class GrupoFamiliar
     /**
      * Get numeroCasa
      *
-     * @return integer 
+     * @return string 
      */
     public function getNumeroCasa()
     {
         return $this->numeroCasa;
-    }
-
-    /**
-     * Set sector
-     *
-     * @param string $sector
-     * @return GrupoFamiliar
-     */
-    public function setSector($sector)
-    {
-        $this->sector = $sector;
-
-        return $this;
-    }
-
-    /**
-     * Get sector
-     *
-     * @return string 
-     */
-    public function getSector()
-    {
-        return $this->sector;
-    }
-
-    /**
-     * Set planilla
-     *
-     * @param \SICBundle\Entity\Planillas $planilla
-     * @return GrupoFamiliar
-     */
-    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
-    {
-        $this->planilla = $planilla;
-
-        return $this;
-    }
-
-    /**
-     * Get planilla
-     *
-     * @return \SICBundle\Entity\Planillas 
-     */
-    public function getPlanilla()
-    {
-        return $this->planilla;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->miembros = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -273,5 +261,28 @@ class GrupoFamiliar
     public function getMiembros()
     {
         return $this->miembros;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return GrupoFamiliar
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

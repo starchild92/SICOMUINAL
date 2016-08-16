@@ -111,6 +111,7 @@ class SituacionServiciosType extends AbstractType
             ->add('empresaGas','entity', array(
                 'class' => 'SICBundle:AdminEmpresaGas',
                 'placeholder'   => 'Seleccione una',
+                'required'  => false,
                 'label' => 'Proveedor de Gas',
                 'attr'  =>  array(
                     'multiple' => '',
