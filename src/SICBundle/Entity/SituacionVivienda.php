@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -56,7 +57,10 @@ class SituacionVivienda
 
     /**
      * @var integer
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "La cantidad de habitaciones debe ser superior o igual a 0"
+     * )
      * @ORM\Column(name="cantidadHabitaciones", type="integer")
      */
     private $cantidadHabitaciones;
