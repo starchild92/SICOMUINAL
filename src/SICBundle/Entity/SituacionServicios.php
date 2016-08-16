@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -94,14 +95,20 @@ class SituacionServicios
 
     /**
      * @var integer
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "La capacidad del tanque debe ser superior o igual a 0"
+     * )
      * @ORM\Column(name="lts_tanque", type="integer")
      */
     private $lts_tanque;
 
     /**
      * @var integer
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "La cantidad de pipotes debe ser superior o igual a 0"
+     * )
      * @ORM\Column(name="cant_pipotes", type="integer")
      */
     private $cant_pipotes;
@@ -120,14 +127,20 @@ class SituacionServicios
 
     /**
      * @var integer
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "La cantidad de bombonas debe ser superior o igual a 0"
+     * )
      * @ORM\Column(name="cantBombonas", type="integer")
      */
     private $cantBombonas;
 
     /**
      * @var float
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "El precio debe ser superior o igual a 0"
+     * )
      * @ORM\Column(name="precioBombona", type="float")
      */
     private $precioBombona;
