@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -44,7 +45,10 @@ class SituacionEconomica
 
     /**
      * @var string
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "El Ingreso Familiar debe ser superior {{ compared_value }}"
+     * )
      * @ORM\Column(name="ingresoFamiliar", type="string", length=255, nullable=true)
      */
     private $ingresoFamiliar;
