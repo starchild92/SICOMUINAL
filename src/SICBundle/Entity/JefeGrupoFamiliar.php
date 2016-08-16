@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -57,7 +58,10 @@ class JefeGrupoFamiliar
 
     /**
      * @var int
-     *
+     * @Assert\GreaterThan(
+     *     value = 0,
+     *     message = "La Edad debe ser mayor que {{ compared_value }}"
+     * )
      * @ORM\Column(name="edad", type="integer")
      */
     private $edad;
@@ -70,7 +74,10 @@ class JefeGrupoFamiliar
 
     /**
      * @var string
-     *
+     * @Assert\GreaterThan(
+     *     value = 0,
+     *     message = "El tiempo en la comunidad debe ser mayor a {{ compared_value }}"
+     * )
      * @ORM\Column(name="tiempoEnComunidad", type="string", length=255)
      */
     private $tiempoEnComunidad;
@@ -156,7 +163,10 @@ class JefeGrupoFamiliar
 
     /**
      * @var float
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "El Ingreso Mensual debe ser superior {{ compared_value }}"
+     * )
      * @ORM\Column(name="ingresoMensual", type="float")
      */
     private $ingresoMensual;
