@@ -14,6 +14,7 @@
                 <th>Cédula</th>
                 <th>Profesión</th>
                 <th>Edad</th>
+                <th>Dirección</th>
                 <th><i class="fa fa-cogs"></i></th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                 <td>{{item.cedula}}</td>
                 <td>{{item.profesion}}</td>
                 <td>{{item.edad_fmt}} años</td>
+                <td>{{item.direccion}}</td>
                 <td>
                     <div class="btn-group">
                         <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,7 +62,7 @@
                 "language": {
                     "url": "{{ asset('datatables/espanol.js') }}"
                 },
-                "pageLength": 10,
+                "pageLength": 25,
                 'stateSave': true,
                 'pagingType': 'full_numbers',
                 "language": {
