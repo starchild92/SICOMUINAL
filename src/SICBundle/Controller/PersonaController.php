@@ -334,8 +334,14 @@ class PersonaController extends Controller
 
         usort($personas, array($this, "cmp"));
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $personas,
+            $this->get('request')->query->get('page', 1),10
+        );
+
         return $this->render('persona/agenda_comunitaria.html.twig', array(
-            'personas' => $personas,
+            'pagination' => $pagination
         ));
     }
 
