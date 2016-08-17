@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new SICBundle\SICBundle(),
             new Slik\DompdfBundle\SlikDompdfBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new LanKit\DatatablesBundle\LanKitDatatablesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
