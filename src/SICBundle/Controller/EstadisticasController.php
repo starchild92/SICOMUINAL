@@ -10,9 +10,9 @@ use SICBundle\Entity\Bitacora;
 
 class EstadisticasController extends Controller
 {
-    public function estadisticasGeneralesAction(Request $request){
+    public function egPersonasAction(Request $request){
     	$estadisticas_jgf = JefeGrupoFamiliarController::obtenerEstadisticas($request);
 
-        return $this->render('planillas/estadisticas-generales.html.twig', array('jfg' => $estadisticas_jgf));   
+        return $this->render('estadisticas/estadisticas-generales-personas.html.twig', array('jfg' => $estadisticas_jgf));   
     }
 }

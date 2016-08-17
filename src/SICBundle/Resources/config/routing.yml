@@ -10,6 +10,10 @@ sic_personas:
     resource: "@SICBundle/Resources/config/routing/persona.yml"
     prefix:   /grupo/familiar
 
+sic_estadisticas:
+    resource: "@SICBundle/Resources/config/routing/estadisticas.yml"
+    prefix:   /estadisticas
+
 sic_comunidades:
     resource: "@SICBundle/Resources/config/routing/comunidad.yml"
     prefix:   /comunidades
