@@ -14,9 +14,9 @@
 		{# <link rel="stylesheet" type="text/css" href="{{ asset('css/darkly-bootstrap.css') }}"> #}
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/ie10-viewport-bug-workaround.css') }}">
-    	<link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}">
+    	{# <link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}"> #}
 		
-		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
 		<style>
 		@font-face {
 		    font-family: 'Open Sans';
@@ -44,22 +44,18 @@
 		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.ttf")}}') format('truetype'),
 		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.svg#OpenSans")}}') format('svg');
 		}
-		html, body{ font-family: "Open Sans", sans-serif; }
+		* { font-family: "Open Sans", sans-serif; }
 		</style>
 	</head>
-	<body style="background-color: #eee !important;">
-		<div class="container-fluid">
+	<body style="background-color: #ggg !important;">
+		<div class="container">
 			{% block body %}{% endblock %}
 		</div>
 
 		<script src="{{ asset('js/jquery2.1.4.js') }}"></script>
 		<script src="{{ asset('js/bootstrap.js') }}"></script>
 		<script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
-		<script>
-			$(function () {
-				$('[data-toggle="tooltip"]').tooltip()
-			})
-		</script>
+		<script>$(function () { $('[data-toggle="tooltip"]').tooltip(); })</script>
 		{% block javascripts %}{% endblock %}
 	</body>
 </html>
