@@ -42,5 +42,5 @@ swiftmailer:
     delivery_address: 'mainstr3ammusic@gmail.com' #Direccion para enviar mensajes mientras estoy en desarrollo
 
 lankit_datatables:
-    services:
+    service:
         serializer: jms_serializer.serializer # Defaults to jms_serializer.serializer

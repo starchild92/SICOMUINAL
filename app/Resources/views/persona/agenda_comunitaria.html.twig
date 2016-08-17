@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in personas %}
+            {# {% for item in personas %}
             <tr>
                 <td>{{loop.index}}</td>
                 <td>{{item.nombre}} {% if item.isJGF() %}<span class="label label-default">JGF</span>{% endif %}</td>
@@ -47,7 +47,7 @@
                     </div>
                 </td>
             </tr>
-            {% endfor %}
+            {% endfor %} #}
         </tbody>
     </table>
 {% endblock %}
@@ -66,7 +66,16 @@
                     'pagingType': 'full_numbers',
                     "language": {
                         "url": "{{ asset('datatables/espanol.js') }}"
-                    }
+                    },
+                    "iColumns": [
+                        { "mData": "persona.id" },
+                        { "mData": "persona.nombre" },
+                        { "mData": "persona.apellido" },
+                        { "mData": "persona.cedula" },
+                        { "mData": "persona.profesion" },
+                        { "mData": "persona.edad" }
+                    ],
+                    'ajax': '{{ path("agenda_comunitaria_personas") }}'
                 });
         });
     </script>

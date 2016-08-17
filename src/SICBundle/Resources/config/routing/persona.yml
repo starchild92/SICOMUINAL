@@ -28,6 +28,11 @@ agenda_comunitaria:
     defaults: { _controller: "SICBundle:Persona:agenda" }
     methods:  GET
 
+agenda_comunitaria_personas:
+    path:     /agenda/comunitaria/personas
+    defaults: { _controller: "SICBundle:Persona:getDatatable" }
+    methods:  GET
+
 personas_nuevo_miembro:
     path:     /nuevo/{id_planilla}/{id_grupofamiliar}
     defaults: { _controller: "SICBundle:Persona:nuevoMiembro" }

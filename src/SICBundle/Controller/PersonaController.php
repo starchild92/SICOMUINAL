@@ -339,6 +339,13 @@ class PersonaController extends Controller
         ));
     }
 
+    /*Para probar el bundle*/
+    public function getDatatableAction()
+    {
+        $datatable = $this->get('lankit_datatables')->getDatatable('SICBundle:Persona');
+        $datatableArray = $datatable->getSearchResults(Datatable::RESULT_ARRAY);
+    }
+
     public function nuevoMiembroAction(Request $request, $id_planilla, $id_grupofamiliar)
     {
         $persona = new Persona();
