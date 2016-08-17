@@ -23,7 +23,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "knplabs/knp-snappy-bundle": "~1.4",
-        "slik/dompdf-bundle": "dev-master"
+        "slik/dompdf-bundle": "dev-master",
+        "jms/serializer-bundle": "~0.13"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
