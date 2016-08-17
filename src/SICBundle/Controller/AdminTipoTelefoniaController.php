@@ -5,6 +5,7 @@ namespace SICBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoTelefonia;
 use SICBundle\Form\AdminTipoTelefoniaType;
 
@@ -42,6 +43,9 @@ class AdminTipoTelefoniaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTelefonium);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Telefonía a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->flush();
 
         return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotelefonia'));
@@ -81,6 +85,9 @@ class AdminTipoTelefoniaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTelefonium);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Telefonía');
+            $em->persist($bitacora);
             $em->flush();
 
         return $this->redirectToRoute('sic_volver_parametros', array('index' => 'tipotelefonia'));
@@ -106,6 +113,9 @@ class AdminTipoTelefoniaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoTelefonium);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoTelefonium->getNombre().' de los parámetros de Tipo de Telefonía del sistema');
+            $em->persist($bitacora);
             $em->flush();
         }
 

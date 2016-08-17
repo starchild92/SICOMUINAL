@@ -1,5 +1,5 @@
 situacionservicios_index:
-    path:     /
+    path:     /estadisticas
     defaults: { _controller: "SICBundle:SituacionServicios:index" }
     methods:  GET
 

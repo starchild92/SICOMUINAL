@@ -46,10 +46,9 @@ class NoticiaController extends Controller
             $noticium->setUsuario($this->getUser());
             $noticium->setFecha(new \DateTime('now'));
             $noticium->setFechaPub(new \DateTime('now'));
-
-            $em->persist($noticium);
-
+            $this->get('session')->getFlashBag()->add('success', 'Se han agregado una noticia nueva');
             $entrada = new Bitacora($this->getUser(),'agregó','una Noticia nueva, titulada: '.$noticium->getTitulo().'.');
+            $em->persist($noticium);
             $em->persist($entrada);
 
             $em->flush();
@@ -90,6 +89,7 @@ class NoticiaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($noticium);
+            $this->get('session')->getFlashBag()->add('success', 'Se han modificado una noticia');
             $entrada = new Bitacora($this->getUser(),'modificó','una la noticia '.$noticium->getTitulo().'.');
             $em->persist($entrada);
             $em->flush();
@@ -115,8 +115,9 @@ class NoticiaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se eliminó la noticia: '.$noticium->getTitulo());
+            $entrada = new Bitacora($this->getUser(),'eliminó','una Noticia '.$noticium->getTitulo());
             $em->remove($noticium);
-            $entrada = new Bitacora($this->getUser(),'eliminó','una Noticia');
             $em->persist($entrada);
             $em->flush();
         }
@@ -143,6 +144,7 @@ class NoticiaController extends Controller
     public function newsletterAction()
     {
         $em = $this->getDoctrine()->getManager();
+        /* Obtiene las últimas 5 noticias en orden descendiente y que están visibles */
         $noticias = $em->getRepository('SICBundle:Noticia')->NoticiasOrdenDesc(); //solo las noticias que están visibles
 
         return $this->render('noticia/newsletter.html.twig', array(
@@ -167,9 +169,7 @@ class NoticiaController extends Controller
                 $entrada = new Bitacora($this->getUser(),'modificó','la visibilidad de '.$noticium->getTitulo().' haciendola invisible');
             }
             $em->persist($noticium);
-            
             $em->persist($entrada);
-
             $em->flush();
 
             return NULL;

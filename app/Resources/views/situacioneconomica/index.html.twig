@@ -1,19 +1,21 @@
-{% extends 'base.html.twig' %}
+{% embed 'graficos.html.twig' %}
+    {% block body %}
+        <h2>Estadísticas: Situación Económica</h2>
+        <hr>
 
-{% block body %}
-    <h2>Estadísticas: Situación Económica</h2>
-    <hr>
-
-<div class="row">
-    <div class="col-lg-3">
-        <div class="well well-sm">
-            <p>Esta información es referente a un total de {{ total }} familias.</p>
-        </div>
-        <a class="btn btn-primary btn-block pull-rigth" href="#"><i class="fa fa-file-o"></i> Obtener como PDF</a>
-    </div>
-    <div class="col-lg-9">
         <div class="row">
-            <div class="col-sm-6 col-md-6">
+            <div class="col-lg-8">
+                <div class="well well-sm">
+                    <p>Esta información es referente a un total de {{ total }} familias.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <a class="btn btn-lg btn-primary btn-block pull-rigth" href="{{ path('resumen_documento_obtener') }}"><i class="fa fa-file-o"></i> Obtener como PDF</a>
+                <hr class="little"></hr>
+            </div>
+        </div>
+        <div class="row grid">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">Actividad Comercial Vivienda</div>
                     <div class="panel-body">
@@ -34,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">Ubicación Trabajo</div>
                     <div class="panel-body">
@@ -55,9 +57,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-md-6">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">Ingresos</div>
                     <div class="panel-body">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">Vehículos</div>
                     <div class="panel-body">
@@ -99,17 +99,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-        
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ asset('js/highchart.js') }}"></script>
-    <script src="{{ asset('js/highchart/highcharts.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('table.highchart').highchartTable();
-        });
-    </script>
-{% endblock %}
+        </div>        
+    {% endblock %}
+{% endembed %}

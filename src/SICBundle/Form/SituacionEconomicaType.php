@@ -18,14 +18,16 @@ class SituacionEconomicaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->addEventListener(
-                FormEvents::PRE_SUBMIT,
-                array($this, 'onPreSubmit')
-            )
+            // ->addEventListener(
+            //     FormEvents::PRE_SUBMIT,
+            //     array($this, 'onPreSubmit')
+            // )
+            
             ->add('dondeTrabaja', 'entity', array(
                 'class'     => 'SICBundle:AdminUbicacionTrabajo',
                 'label'     => '¿Dónde Trabaja?',
                 'placeholder' => 'Selecciona una',
+                'required' => false,
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))
 
@@ -47,10 +49,13 @@ class SituacionEconomicaType extends AbstractType
 
             ->add('ingresoFamiliar','text',array(
                 'attr'      => array(
-                    'placeholder'   => 'Monto en Bs')))
+                    'placeholder'   => 'Monto en Bs'),
+                'required' => false,
+                ))
 
             ->add('ingresoFamiliarEspecifico', 'entity', array(
                 'class'     => 'SICBundle:AdminTipoIngresos',
+                'required'  => false,
                 'label'     => 'Ingreso estimado',
                 'placeholder' => 'Selecciona una',
                 'attr'  =>  array(
@@ -70,10 +75,10 @@ class SituacionEconomicaType extends AbstractType
         ;
     }
 
-    public function onPreSubmit(\Symfony\Component\Form\FormEvent $event)
-    {
+    // public function onPreSubmit(\Symfony\Component\Form\FormEvent $event)
+    // {
         
-    }
+    // }
     
     /**
      * @param OptionsResolver $resolver

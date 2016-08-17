@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,41 +24,44 @@ class SituacionEconomica
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminUbicacionTrabajo", cascade={"persist"})
-     * @ORM\JoinColumn(name="ubcTrab", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="ubcTrab", referencedColumnName="id", onDelete="SET NULL")
      */
     private $dondeTrabaja;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminVentaVivienda")
-     * @ORM\JoinTable(name="sitVivi_ActComercial",
-     *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="ActComercial", referencedColumnName="id", onDelete="cascade")}
+     * @ORM\ManyToMany(targetEntity="AdminVentaVivienda", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="sitEco_ActComercial",
+     *      joinColumns={@ORM\JoinColumn(name="sitEco", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ActComercial", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $actividadComercialenVivienda;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoIngresos", cascade={"persist"})
-     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $ingresoFamiliarEspecifico;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="ingresoFamiliar", type="string", length=255)
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "El Ingreso Familiar debe ser superior {{ compared_value }}"
+     * )
+     * @ORM\Column(name="ingresoFamiliar", type="string", length=255, nullable=true)
      */
     private $ingresoFamiliar;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="placa", type="string", length=255)
+     * @ORM\Column(name="placa", type="string", length=255, nullable=true)
      */
     private $placa;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionEconomica")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionEconomica", cascade={"remove"})
      */
     private $planilla;
 

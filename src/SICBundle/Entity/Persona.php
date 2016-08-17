@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="persona")
  * @ORM\Entity()
- * @UniqueEntity("cedula")
+ * @ORM\Entity(repositoryClass="SICBundle\Repository\PersonaRepository")
  */
 class Persona
 {
@@ -48,9 +48,15 @@ class Persona
     /**
      * @var string
      *
-     * @ORM\Column(name="cedula", type="string", length=255, unique=true)
+     * @ORM\Column(name="cedula", type="string", length=255, nullable=true)
      */
     private $cedula;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist"})
+     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $nacionalidad;
 
     /**
      * @var \DateTime
@@ -124,6 +130,13 @@ class Persona
     private $pensionadoInstitucion;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="ingresoMensual", type="float")
+     */
+    private $ingresoMensual;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
@@ -134,6 +147,13 @@ class Persona
      * @ORM\Column(name="recibir_correo", type="boolean")
      */
     private $recibir_correo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GrupoFamiliar", cascade={"persist", "remove"}, inversedBy="miembros")
+     * @ORM\JoinColumn(name="grupo_fam_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $grupofamiliar;
+    
 
     public function __construct()
     {
@@ -150,11 +170,32 @@ class Persona
         return $this->id;
     }
 
-    public function nombreyapellido()
-    {
-        return $this->nombre.' '.$this->apellido;
+    public function isJGF(){ return false; }
+    public function nombreyapellido(){ return $this->nombre.' '.$this->apellido; }
+    public function apellido_nombre_cuaderno(){ return $this->apellido.'<br>'.$this->nombre; }
+    public function apellido_nombre(){ return $this->apellido.' '.$this->nombre; }
+    public function edad_fmt(){ if ($this->edad > 0 && $this->edad < 10) { return '0'.$this->edad;}else{ return $this->edad; } }
+    public function cedula(){ 
+        if($this->cedula == ''){
+            return 'No especificó';
+        }else{
+            return number_format($this->cedula, 0, '', '.');
+        }
     }
+    public function ingresoMensual_fmt(){ return number_format($this->ingresoMensual, 2, ',', '.'); }
+    public function direccion(){
+        $grupo = $this->grupofamiliar;
+        if ($grupo != NULL) {
+            return $grupo->getDireccionCompleta();
+        }
 
+        return "";
+    }
+    public function fechaNacimientoCorta()
+    {
+        $fecha = $this->getFechaNacimiento();
+        return $fecha->format('d-m-Y');
+    }
     public function fechaNacimiento()
     {
         $fecha = $this->getFechaNacimiento();
@@ -162,6 +203,12 @@ class Persona
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
         return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
+    }
+    public function fechaNacimientoRegistroPreliminar()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+        return $fecha->format('d')."-".$meses[$fecha->format('n')-1]."-".$fecha->format('Y');
     }
 
     /**
@@ -172,7 +219,7 @@ class Persona
      */
     public function setNombre($nombre)
     {
-        $this->nombre = $nombre;
+        $this->nombre = ucwords($nombre);
 
         return $this;
     }
@@ -195,7 +242,7 @@ class Persona
      */
     public function setApellido($apellido)
     {
-        $this->apellido = $apellido;
+        $this->apellido = ucwords($apellido);
 
         return $this;
     }
@@ -562,5 +609,74 @@ class Persona
         }else{
             return false;
         }
+    }
+
+    /**
+     * Set grupofamiliar
+     *
+     * @param \SICBundle\Entity\GrupoFamiliar $grupofamiliar
+     * @return Persona
+     */
+    public function setGrupofamiliar(\SICBundle\Entity\GrupoFamiliar $grupofamiliar = null)
+    {
+        $this->grupofamiliar = $grupofamiliar;
+
+        return $this;
+    }
+
+    /**
+     * Get grupofamiliar
+     *
+     * @return \SICBundle\Entity\GrupoFamiliar 
+     */
+    public function getGrupofamiliar()
+    {
+        return $this->grupofamiliar;
+    }
+
+    /**
+     * Set nacionalidad
+     *
+     * @param \SICBundle\Entity\AdminNacionalidad $nacionalidad
+     * @return Persona
+     */
+    public function setNacionalidad(\SICBundle\Entity\AdminNacionalidad $nacionalidad = null)
+    {
+        $this->nacionalidad = $nacionalidad;
+
+        return $this;
+    }
+
+    /**
+     * Get nacionalidad
+     *
+     * @return \SICBundle\Entity\AdminNacionalidad 
+     */
+    public function getNacionalidad()
+    {
+        return $this->nacionalidad;
+    }
+
+    /**
+     * Set ingresoMensual
+     *
+     * @param float $ingresoMensual
+     * @return Persona
+     */
+    public function setIngresoMensual($ingresoMensual)
+    {
+        $this->ingresoMensual = $ingresoMensual;
+
+        return $this;
+    }
+
+    /**
+     * Get ingresoMensual
+     *
+     * @return float 
+     */
+    public function getIngresoMensual()
+    {
+        return $this->ingresoMensual;
     }
 }

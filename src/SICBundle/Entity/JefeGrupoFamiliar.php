@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -44,7 +45,7 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist"})
-     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $nacionalidad;
 
@@ -57,20 +58,26 @@ class JefeGrupoFamiliar
 
     /**
      * @var int
-     *
+     * @Assert\GreaterThan(
+     *     value = 0,
+     *     message = "La Edad debe ser mayor que {{ compared_value }}"
+     * )
      * @ORM\Column(name="edad", type="integer")
      */
     private $edad;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="cne", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="cne", referencedColumnName="id", onDelete="SET NULL")
      */
     private $cne;
 
     /**
      * @var string
-     *
+     * @Assert\GreaterThan(
+     *     value = 0,
+     *     message = "El tiempo en la comunidad debe ser mayor a {{ compared_value }}"
+     * )
      * @ORM\Column(name="tiempoEnComunidad", type="string", length=255)
      */
     private $tiempoEnComunidad;
@@ -91,7 +98,7 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminIncapacidades", cascade={"persist"})
-     * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $incapacitadoTipo;
 
@@ -104,39 +111,39 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminPensionadoInstitucion", cascade={"persist"})
-     * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $pensionadoInstitucion;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminEstadoCivil", cascade={"persist"})
-     * @ORM\JoinColumn(name="edoCivil_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="edoCivil_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $estadoCivil;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminNivelInstruccion", cascade={"persist"})
-     * @ORM\JoinColumn(name="nivelIns_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="nivelIns_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $nivelInstruccion;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminProfesion", cascade={"persist"})
-     * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $profesion;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="respC_id_3", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="respC_id_3", referencedColumnName="id", onDelete="SET NULL")
      */
     private $trabajaActualmente;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="jgf_telefonos",
-     *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", onDelete="cascade", unique=true)}
+     *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", onDelete="CASCADE", unique=true)}
      *      )
      */
     private $telefono;
@@ -150,19 +157,22 @@ class JefeGrupoFamiliar
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminClasIngresoFamiliar", cascade={"persist"})
-     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $ingresoFamiliar;
 
     /**
      * @var float
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "El Ingreso Mensual debe ser superior {{ compared_value }}"
+     * )
      * @ORM\Column(name="ingresoMensual", type="float")
      */
     private $ingresoMensual;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="jefeGrupoFamiliar")
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="jefeGrupoFamiliar", cascade={"remove"})
      */
     private $planilla;
 
@@ -181,11 +191,33 @@ class JefeGrupoFamiliar
         return $this->id;
     }
 
-    public function nombreyapellido()
-    {
-        return $this->nombres.' '.$this->apellidos;
-    }
+    public function isJGF() { return true; }
+    public function nombre() { return $this->nombres; }
+    public function apellido() { return $this->apellidos; }
+    public function nombreyapellido() { return $this->nombres.' '.$this->apellidos; }
+    public function apellido_nombre_cuaderno() { return $this->apellidos.'<br>'.$this->nombres; }
+    public function apellido_nombre() { return $this->apellidos.' '.$this->nombres; }
+    public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
+    public function ingresoMensual_fmt(){ return number_format($this->ingresoMensual, 2, ',', '.'); }
+    public function edad_fmt(){ if ($this->edad > 0 && $this->edad < 10) { return '0'.$this->edad;}else{ return $this->edad; } }
+    public function direccion(){
+        $planilla = $this->planilla;
+        if ($planilla != NULL) {
+            $grupo = $planilla->getGrupoFamiliar();
+            if ($grupo != NULL) {
+                return $grupo->getDireccionCompleta();
+            }
+        }
 
+        return "";
+    }
+    public function fechaNacimientoRegistroPreliminar()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+        return $fecha->format('d')."-".$meses[$fecha->format('n')-1]."-".$fecha->format('Y');
+    }
+    
     /**
      * Set nombres
      *
@@ -194,7 +226,7 @@ class JefeGrupoFamiliar
      */
     public function setNombres($nombres)
     {
-        $this->nombres = $nombres;
+        $this->nombres = ucwords($nombres);
 
         return $this;
     }
@@ -217,7 +249,7 @@ class JefeGrupoFamiliar
      */
     public function setApellidos($apellidos)
     {
-        $this->apellidos = $apellidos;
+        $this->apellidos = ucwords($apellidos);
 
         return $this;
     }
@@ -278,6 +310,11 @@ class JefeGrupoFamiliar
         return $this->fechaNacimiento;
     }
 
+    public function fechaNacimientoCorta()
+    {
+        $fecha = $this->getFechaNacimiento();
+        return $fecha->format('d-m-Y');
+    }
     public function fechaNacimiento()
     {
         $fecha = $this->getFechaNacimiento();

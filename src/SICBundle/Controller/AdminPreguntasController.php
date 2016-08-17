@@ -5,6 +5,7 @@ namespace SICBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminPreguntas;
 use SICBundle\Form\AdminPreguntasType;
 
@@ -42,9 +43,12 @@ class AdminPreguntasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPregunta);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Pregunta a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->flush();
 
-        return $this->redirectToRoute('sic_volver_parametros', array('index' => 'particiapcioncomunitaria'));
+            return $this->redirectToRoute('sic_volver_parametros', array('index' => 'particiapcioncomunitaria'));
             // return $this->redirectToRoute('configurables_preguntas_show', array('id' => $adminPregunta->getId()));
         }
 
@@ -81,6 +85,9 @@ class AdminPreguntasController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPregunta);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Pregunta');
+            $em->persist($bitacora);
             $em->flush();
 
         return $this->redirectToRoute('sic_volver_parametros', array('index' => 'particiapcioncomunitaria'));
@@ -106,6 +113,9 @@ class AdminPreguntasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminPregunta);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminPregunta->getPregunta().' de los parámetros de Pregunta del sistema');
+            $em->persist($bitacora);
             $em->flush();
         }
 

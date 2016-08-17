@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * GrupoFamiliar
  *
  * @ORM\Table(name="grupo_familiar")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="SICBundle\Repository\GrupoFamiliarRepository")
  */
 class GrupoFamiliar
@@ -23,17 +25,10 @@ class GrupoFamiliar
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="apellidos", type="string", length=255)
      */
     private $apellidos;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="direccion", type="string", length=255)
-     */
-    private $direccion;
 
     /**
      * @var int
@@ -43,33 +38,33 @@ class GrupoFamiliar
     private $cantidadMiembros;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="numeroCasa", type="integer")
+     * @var string
+     * @ORM\Column(name="avenida", type="string", length=255)
      */
-    private $numeroCasa;
+    private $avenida;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="sector", type="string", length=255)
+     * @Assert\NotBlank(message="Debe especificar una calle")
+     * @ORM\Column(name="calle", type="string", length=255)
      */
-    private $sector;
+    private $calle;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="tiempoResidencia", type="integer")
+     * @ORM\Column(name="numeroCasa", type="string", length=255)
      */
-    private $tiempoResidencia;
+    private $numeroCasa;
 
+    // *
+    //  * @var int
+    //  *
+    //  * @ORM\Column(name="tiempoResidencia", type="integer")
+    // private $tiempoResidencia;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Persona", cascade={"remove", "persist"})
-     * @ORM\JoinTable(name="grupo_familiar_personas",
-     *      joinColumns={@ORM\JoinColumn(name="grupo_familiar", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="persona", referencedColumnName="id", unique=true, onDelete="CASCADE")}
-     *      )
+     * @ORM\OneToMany(targetEntity="Persona", cascade={"remove", "persist"}, mappedBy="grupofamiliar")
      */
     private $miembros;
     
@@ -77,7 +72,39 @@ class GrupoFamiliar
      * @ORM\OneToOne(targetEntity="Planillas", mappedBy="grupoFamiliar")
      */
     private $planilla;
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updateCantMiembros()
+    {
+        $this->cantidadMiembros = sizeof($this->miembros) + 1;
+    }
+
+    public function getDireccionCompleta()
+    {
+        $result = '';
+
+        if ($this->avenida != '') { $result = $result.'Av. '.$this->avenida; }
+        if ($this->calle != '') { $result = $result.', c/'.$this->calle; }
+        if ($this->numeroCasa != 0) { $result = $result.', #'.$this->numeroCasa; }
+        return $result;
+    }
+
+    public function getAvenidaCalle()
+    {
+        return $this->avenida.", ".$this->calle;
+    }
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->miembros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
@@ -112,29 +139,6 @@ class GrupoFamiliar
     }
 
     /**
-     * Set direccion
-     *
-     * @param string $direccion
-     * @return GrupoFamiliar
-     */
-    public function setDireccion($direccion)
-    {
-        $this->direccion = $direccion;
-
-        return $this;
-    }
-
-    /**
-     * Get direccion
-     *
-     * @return string 
-     */
-    public function getDireccion()
-    {
-        return $this->direccion;
-    }
-
-    /**
      * Set cantidadMiembros
      *
      * @param integer $cantidadMiembros
@@ -158,9 +162,55 @@ class GrupoFamiliar
     }
 
     /**
+     * Set avenida
+     *
+     * @param string $avenida
+     * @return GrupoFamiliar
+     */
+    public function setAvenida($avenida)
+    {
+        $this->avenida = $avenida;
+
+        return $this;
+    }
+
+    /**
+     * Get avenida
+     *
+     * @return string 
+     */
+    public function getAvenida()
+    {
+        return $this->avenida;
+    }
+
+    /**
+     * Set calle
+     *
+     * @param string $calle
+     * @return GrupoFamiliar
+     */
+    public function setCalle($calle)
+    {
+        $this->calle = $calle;
+
+        return $this;
+    }
+
+    /**
+     * Get calle
+     *
+     * @return string 
+     */
+    public function getCalle()
+    {
+        return $this->calle;
+    }
+
+    /**
      * Set numeroCasa
      *
-     * @param integer $numeroCasa
+     * @param string $numeroCasa
      * @return GrupoFamiliar
      */
     public function setNumeroCasa($numeroCasa)
@@ -173,64 +223,11 @@ class GrupoFamiliar
     /**
      * Get numeroCasa
      *
-     * @return integer 
+     * @return string 
      */
     public function getNumeroCasa()
     {
         return $this->numeroCasa;
-    }
-
-    /**
-     * Set sector
-     *
-     * @param string $sector
-     * @return GrupoFamiliar
-     */
-    public function setSector($sector)
-    {
-        $this->sector = $sector;
-
-        return $this;
-    }
-
-    /**
-     * Get sector
-     *
-     * @return string 
-     */
-    public function getSector()
-    {
-        return $this->sector;
-    }
-
-    /**
-     * Set tiempoResidencia
-     *
-     * @param integer $tiempoResidencia
-     * @return GrupoFamiliar
-     */
-    public function setTiempoResidencia($tiempoResidencia)
-    {
-        $this->tiempoResidencia = $tiempoResidencia;
-
-        return $this;
-    }
-
-    /**
-     * Get tiempoResidencia
-     *
-     * @return integer 
-     */
-    public function getTiempoResidencia()
-    {
-        return $this->tiempoResidencia;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->miembros = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

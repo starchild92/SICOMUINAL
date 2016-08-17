@@ -12,8 +12,20 @@ jQuery(document).ready(function() {
 
     $collectionPreguntas.children().append('<a href="#" class="remove-tag-telf btn btn-danger btn-block"><i class="fa fa-times fa-fw"></i> Quitar Pregunta</a>');
 
-    $removerTelf = $collectionPreguntas.find('.remove-tag-telf');
-    $cantPreguntas = $removerTelf.length;
+    $removerPregs = $collectionPreguntas.find('.remove-tag-telf');
+    $cantPreguntas = $removerPregs.length;
+
+    $padres = $removerPregs.parent();
+    for (var i = 0; i < $padres.length; i++) {
+        $($padres[i]).first().children(':first')[0].remove();
+    }
+
+    $removerPregs.click(function(e) {
+        e.preventDefault();
+        $(this).parent().fadeOut(300, function() { $(this).remove() });
+        if($cantPreguntas > 0){ $cantPreguntas--; }
+        return false;
+    });
 
     //Para quitar el primer label 0 ese ladilloso y el label 1 cuando hay dos almacenes agregados
     $collectionPreguntas.find('.control-label').first().remove();
@@ -22,13 +34,6 @@ jQuery(document).ready(function() {
         $hijos.get(2).remove();
     };*/
 
-    $removerTelf.click(function(e) {
-        e.preventDefault();
-        $(this).parent().parent().remove();
-        if($cantPreguntas > 0){ $cantPreguntas--; }
-
-        return false;
-    });
     // add the "add a tag" anchor and li to the telefonos ul
     $collectionPreguntas.append($newLinkLiPreg);
 

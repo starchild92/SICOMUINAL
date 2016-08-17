@@ -11,27 +11,39 @@
       </div>
     </div>
 
-    <h1>Situación Vivienda</h1>
-
+    <h2>Situación Vivienda</h2>
+    <hr>
     {{ form_start(form) }}
         <div class="row">
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.condicionesTerreno) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.tenencia) }}</div>
+                        </div>
+                        
+                        {{ form_row(form.tipo) }}
                         {{ form_row(form.habitaciones) }}
                         {{ form_row(form.cantidadHabitaciones) }}
-                        {{ form_row(form.tipo) }}
-                        {{ form_row(form.tenencia) }}
-                        {{ form_row(form.terrenoPropio) }}
-                        {{ form_row(form.ovc) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.terrenoPropio) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.ovc) }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(form.paredes) }}
-                        {{ form_row(form.techo) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.paredes) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.techo) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.sivih) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.leypoliticahabitacional) }}</div>
+                        </div>
                         {{ form_row(form.enseres) }}
                         {{ form_row(form.salubridad) }}
                         {{ form_row(form.presenciaInsectos) }}
@@ -43,12 +55,46 @@
 
         <input class="btn btn-primary btn-block" type="submit" value="Registrar Situación de Vivienda y Continuar" />
     {{ form_end(form) }}
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
 {% endblock %}
 {% block javascripts %}
     <script>
         $(document).ready(function() {
             $('.ui.dropdown').dropdown();
-            $('.fluid.multiple.search.selection').dropdown({ allowAdditions: true });
+            $('.fluid.multiple.search.selection').dropdown({ 
+                allowAdditions: true,
+                onAdd: function(addedValue, addedText, $addedChoice) {
+                    element = $(this).prop('id');
+                    $('[name=situacion_vivienda]').submit(function(e){ e.preventDefault(); });
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : element,
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#'+element).children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $addedChoice.remove();
+                        },
+                        complete: function(){
+                            $('[name=situacion_vivienda]').unbind('submit')
+                        },
+                    });
+                },
+            });
         })
     </script>
 {% endblock %}

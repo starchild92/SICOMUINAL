@@ -66,7 +66,7 @@
 		}
 		html, body{ font-family: "Open Sans", sans-serif; }
 		</style>
-		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
 	</head>
 	<body>
 		<!-- Fixed navbar -->
@@ -87,12 +87,13 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administar <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ path('sic_administacion_entidades') }}"><i class="fa fa-users"></i> Datos Consejo Comunal</a></li>
 							<li><a href="{{ path('comites_index') }}"><i class="fa fa-list-alt"></i> Comités</a></li>
-							<li><a href="{{ path('sic_administacion_parametros_planilla') }}"><i class="fa fa-cogs"></i> Parámetros en Encuestas</a></li>
 							<li><a href="{{ path('noticia_index') }}"><i class="fa fa-newspaper-o"></i> Noticias</a></li>
+							<li><a href="{{ path('sic_administacion_entidades') }}"><i class="fa fa-home"></i> Datos Consejo Comunal</a></li>
 							<li><a href="{{ path('noticia_correo') }}"><i class="fa fa-envelope"></i> Correo Comunitario</a></li>
-							<li><a href="{{ path('bitacora_index') }}"><i class="fa fa-compass"></i> Bitácora del Sistema</a></li>
+							<li><a target="__NEW" href="{{ path('bitacora_index') }}"><i class="fa fa-compass"></i> Bitácora del Sistema</a></li>
+							<li><a href="{{ path('usuarios_index') }}"><i class="fa fa-users"></i> Usuarios del Sistema</a></li>
+							<li><a target="__NEW" href="{{ path('sic_administacion_parametros_planilla') }}"><i class="fa fa-cogs"></i> Parámetros en Encuestas</a></li>
 						</ul>
 					</li>
 
@@ -108,37 +109,47 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estadísticas <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fa fa-bar-chart"></i> Generales</a></li>
-							<li><a href="{{ path('jefegrupofamiliar_index') }}"><i class="fa fa-chevron-right"></i> Jefe Grupo Familiar</a></li>
+							<li><a href="{{ path('sic_estadisticas_generales') }}"><i class="fa fa-bar-chart"></i> Generales</a></li>
+							<li><a href="{{ path('sic_estadisticas_personas_jefegrupofamiliar') }}"><i class="fa fa-chevron-right"></i> Jefe Grupo Familiar</a></li>
 							{# <li><a href="{{ path('grupofamiliar_index') }}"><i class="fa fa-bar-chart"></i> Grupo Familiar</a></li> #}
-							<li><a href="{{ path('personas_index') }}"><i class="fa fa-chevron-right"></i> Miembros Grupo Familiar</a></li>
-							<li><a href="{{ path('situacioneconomica_index') }}"><i class="fa fa-chevron-right"></i> Situación Ecónomica</a></li>
-							<li><a href="{{ path('situacionvivienda_index') }}"><i class="fa fa-chevron-right"></i> Situación Vivienda</a></li>
-							<li><a href="{{ path('situacionsalud_index') }}"><i class="fa fa-chevron-right"></i> Situación Salud</a></li>
-							<li><a href="{{ path('situacionservicios_index') }}"><i class="fa fa-chevron-right"></i> Situación Servicios</a></li>
-							<li><a href="{{ path('participacioncomunitaria_index') }}"><i class="fa fa-chevron-right"></i> Participación Comunitaria</a></li>
+							<li><a href="{{ path('sic_estadisticas_personas') }}"><i class="fa fa-chevron-right"></i> Miembros Grupo Familiar</a></li>
+							<li><a href="{{ path('sic_estadisticas_situacion_economica') }}"><i class="fa fa-chevron-right"></i> Situación Ecónomica</a></li>
+							<li><a href="{{ path('sic_estadisticas_situacion_vivenda') }}"><i class="fa fa-chevron-right"></i> Situación Vivienda</a></li>
+							<li><a href="{{ path('sic_estadisticas_situacion_salud') }}"><i class="fa fa-chevron-right"></i> Situación Salud</a></li>
+							<li><a href="{{ path('sic_estadisticas_situacion_servicios') }}"><i class="fa fa-chevron-right"></i> Situación Servicios</a></li>
+							<li><a href="{{ path('sic_estadisticas_situacion_participacion_comunitaria') }}"><i class="fa fa-chevron-right"></i> Participación Comunitaria</a></li>
 							{# <li><a href="{{ path('situacioncomunidad_index') }}"><i class="fa fa-chevron-right"></i> Situación Comunitaria</a></li> #}
 						</ul>
 					</li>
 
-					<li class="dropdown">
+					{# <li class="dropdown">
 						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="{{ path('usuarios_index') }}"><i class="fa fa-th-list"></i> Listar Usuarios</a></li>
 							<li><a href="{{ path('usuarios_new') }}"><i class="fa fa-plus"></i> Agregar Usuario</a></li>
 						</ul>
-					</li>
+					</li> #}
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Otros <span class="caret"></span></a>
 						<ul class="dropdown-menu">
+							<li class="dropdown-header">Funciones Especiales</li>
 							<li><a href="{{ path('agenda_comunitaria') }}"><i class="fa fa-bullhorn"></i> Agenda Comunitaria</a></li>
+							
+							<li role="separator" class="divider"></li>
+
+							<li class="dropdown-header">{# <i class="fa fa-file"></i> #} Documentos</li>
+							<li><a href="{{ path('sic_documentos_cuaderno_votacion') }}"><i class="fa fa-file-text-o"></i> Cuaderno de Votación</a></li>
+							<li><a href="{{ path('sic_documentos_resumen_censo') }}"><i class="fa fa-file-text-o"></i> Resumen del Censo Demográfico</a></li>
+							<li><a href="{{ path('sic_documentos_registro_electoral') }}"><i class="fa fa-file-text-o"></i> Registro Electoral</a></li>
+							<li><a href="{{ path('sic_documentos_registro_preliminar') }}"><i class="fa fa-file-text-o"></i> Registro Preliminar</a></li>
 						</ul>
 					</li>
 
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.primerNombre }} {{ app.user.primerApellido }} <span class="caret"></span></a>
+					<li class="dropdown btn-primary">
+						<a href="#" style="color: #FFF;" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
 						<ul class="dropdown-menu">
+							<li class="dropdown-header">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</li>
 							{# <li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li> #}
 							<li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-eye"></i> Ver perfil</a></li>
 							<li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-edit"></i> Editar perfil</a></li>
@@ -182,8 +193,7 @@
 			</div>
 		{% endfor %}
 
-		<div class="container-fluid">
-
+		<div class="container-fluid" style="padding-bottom: 10px;">
 			<span id="cuerpo">
 			{% block body %}{% endblock %}
 			</span>
@@ -210,7 +220,6 @@
 		<script>
 			$(document).ready(function() {
 				$('body').on('click','#mensaje-a-esconder', function(){ $(this).fadeOut('slow'); });
-
 				$('[data-toggle="tooltip"]').tooltip()
 			});
 		</script>

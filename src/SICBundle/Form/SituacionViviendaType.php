@@ -38,8 +38,7 @@ class SituacionViviendaType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
                 'attr'  =>  array(
-                    'class' => 'ui dropdown'))
-            )
+                    'class' => 'ui dropdown')))
 
             ->add('ovc', 'entity', array(
                 'class' => 'SICBundle:AdminRespCerrada',
@@ -98,6 +97,29 @@ class SituacionViviendaType extends AbstractType
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
+
+            ->add('leypoliticahabitacional', 'entity', array(
+                'label' => '¿Cotiza Ley Política Habitacional?',
+                'class' => 'SICBundle:AdminRespCerrada',
+                'placeholder' => 'Selecciona una',
+                'choice_label' => 'respuesta',
+                'attr'  =>  array(
+                    'class' => 'ui dropdown')))
+
+            ->add('sivih', 'entity', array(
+                'label' => '¿Está inscrita en el SIVIH?',
+                'class' => 'SICBundle:AdminRespCerrada',
+                'placeholder' => 'Selecciona una',
+                'choice_label' => 'respuesta',
+                'attr'  =>  array(
+                    'class' => 'ui dropdown')))
+
+            ->add('condicionesTerreno', 'entity', array(
+                'label' => 'Condiciones del Terreno',
+                'class' => 'SICBundle:AdminTipoCondicionTerreno',
+                'placeholder' => 'Selecciona una',
+                'attr'  =>  array(
+                    'class' => 'ui dropdown')))
         ;
     }
     

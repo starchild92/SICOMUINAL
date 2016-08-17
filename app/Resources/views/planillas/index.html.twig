@@ -1,48 +1,49 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1 class="text-center">Registros: "Estudio Demográfico y Socioeconomico"</h1>
-    <hr>
-    <table id="dataTable" class="table table-bordered table-striped table-hover table-button">
-        <thead class="thead-info">
-            <tr>
-                <th>Encuesta #</th>
-                <th>Empadronador</th>
-                <th>Encuestado</th>
-                <th>Fecha Modificada</th>
-                <th>Estado</th>
-                <th><i class="fa fa-cogs"></i></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for planilla in planillas %}
+<div class="row">
+    <div class="col-sm-12">
+        <h1 class="text-center">Encuestas: "Estudio Demográfico y Socioeconómico"</h1>
+        <hr>
+        <table id="dataTable" class="table table-bordered table-striped table-hover table-button">
+            <thead class="thead-info">
                 <tr>
-                    <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a></td>
-                    <td><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <p class="small marginless">{{ planilla.empadronador.cedula }}</p> </a></td>
-                    <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombres }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula }}</p> {% endif %}</td>
-                    <td>{{ planilla.fechaCron() }}</td>
-                    <td class="text-center">
-                        {% if planilla.terminada != 100 %}
-                            <span class="label label-warning">Sin terminar</span>
-                        {% else %}
-                            <span class="label label-primary">Terminada</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                {% if planilla.terminada != 100 %}
-                                    <li> <a href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}"><i class="fa fa-arrow-right"></i> Continuar Encuesta</a></li>
-                                {% endif %}
-                                    <li> <a href="{{ path('planillas_show', { 'id': planilla.id }) }}"><i class="fa fa-eye"></i> Ver Encuesta</a></li>
-                            </ul>
-                        </div>
-                    </td>
+                    <th>Encuesta #</th>
+                    <th>Empadronador</th>
+                    <th class="hidden-xs">Encuestado</th>
+                    <th class="hidden-xs">#Personas<br>Grupo</th>
+                    <th>Fecha Modificada</th>
+                    <th class="hidden-xs">%</th>
+                    <th><i class="fa fa-cogs"></i></th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for planilla in planillas %}
+                    <tr class="{% if planilla.terminada != 100 %}warning{% endif %}">
+                        <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a>
+                            <p class="small marginless">{% if planilla.terminada != 100 %}Sin terminar</span>{% else %}Terminada</span>{% endif %}</p></td>
+                        <td class="hidden-xs">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}"><i class="fa fa-link"></i></a><p class="small marginless">{{ planilla.empadronador.cedula }}</p></td>
+                        <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombreyapellido }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula() }}</p> {% endif %}</td>
+                        <td class="hidden-xs">{{ planilla.grupoFamiliar.cantidadMiembros }} personas</td>
+                        <td>{{ planilla.fechaCron() }}</td>
+                        <td class="hidden-xs">{{ planilla.terminada }}%</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    {% if planilla.terminada != 100 %}
+                                        <li> <a href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}"><i class="fa fa-arrow-right"></i> Continuar Encuesta</a></li>
+                                    {% endif %}
+                                        <li> <a href="{{ path('planillas_show', { 'id': planilla.id }) }}"><i class="fa fa-eye"></i> Ver Encuesta</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}
@@ -51,7 +52,15 @@
         $(document).ready(function() {
             dataTable = $('#dataTable').DataTable( {
                 "pageLength": 25,
-                "order": [[ 3, "desc" ]]
+                "order": [[ 4, "desc" ]],
+                'stateSave': true,
+                'pagingType': 'full_numbers',
+                "language": {
+                    "url": "{{ asset('datatables/espanol.js') }}"
+                },
+                "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             });
         });
     </script>

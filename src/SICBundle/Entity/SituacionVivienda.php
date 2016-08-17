@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,30 +24,30 @@ class SituacionVivienda
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoVivienda", cascade={"persist"})
-     * @ORM\JoinColumn(name="tipoVivienda", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="tipoVivienda", referencedColumnName="id", onDelete="SET NULL")
      */
     private $tipo;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoTenencia", cascade={"persist"})
-     * @ORM\JoinColumn(name="tipoTenencia", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="tipoTenencia", referencedColumnName="id", onDelete="SET NULL")
      */
     private $tenencia;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="terrenoPropio", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="terrenoPropio", referencedColumnName="id", onDelete="SET NULL")
      */
     private $terrenoPropio;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="ovc", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="ovc", referencedColumnName="id", onDelete="SET NULL")
      */
     private $ovc;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoHabitacionesVivienda")
+     * @ORM\ManyToMany(targetEntity="AdminTipoHabitacionesVivienda", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitVivi_tHV",
      *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id", onDelete="cascade")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tHabViv_id", referencedColumnName="id", onDelete="cascade")}
@@ -56,25 +57,28 @@ class SituacionVivienda
 
     /**
      * @var integer
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "La cantidad de habitaciones debe ser superior o igual a 0"
+     * )
      * @ORM\Column(name="cantidadHabitaciones", type="integer")
      */
     private $cantidadHabitaciones;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoParedes", cascade={"persist"})
-     * @ORM\JoinColumn(name="tipoParedes", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="tipoParedes", referencedColumnName="id", onDelete="SET NULL")
      */
     private $paredes;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoTecho", cascade={"persist"})
-     * @ORM\JoinColumn(name="tipoTecho", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="tipoTecho", referencedColumnName="id", onDelete="SET NULL")
      */
     private $techo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoEnseres")
+     * @ORM\ManyToMany(targetEntity="AdminTipoEnseres", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitVivi_enseres",
      *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="enseres_id", referencedColumnName="id")}
@@ -84,12 +88,12 @@ class SituacionVivienda
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminSalubridadVivienda", cascade={"persist"})
-     * @ORM\JoinColumn(name="salubridad", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="salubridad", referencedColumnName="id", onDelete="SET NULL")
      */
     private $salubridad;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoPlagas")
+     * @ORM\ManyToMany(targetEntity="AdminTipoPlagas", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitVivi_plaga",
      *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="plaga_id", referencedColumnName="id")}
@@ -98,7 +102,7 @@ class SituacionVivienda
     private $presenciaInsectos;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AdminTipoMascotas")
+     * @ORM\ManyToMany(targetEntity="AdminTipoMascotas", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="sitVivi_mascota",
      *      joinColumns={@ORM\JoinColumn(name="sitViv", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="masco_id", referencedColumnName="id")}
@@ -107,10 +111,27 @@ class SituacionVivienda
     private $mascota;
 
     /**
-     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionVivienda")
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="leypoliticahabitacional", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $leypoliticahabitacional;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="sivih", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $sivih;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminTipoCondicionTerreno", cascade={"persist"})
+     * @ORM\JoinColumn(name="condicionesTerreno", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $condicionesTerreno;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="situacionVivienda", cascade={"remove"})
      */
     private $planilla;
-    
     
     /**
      * Constructor
@@ -470,5 +491,74 @@ class SituacionVivienda
     public function getPlanilla()
     {
         return $this->planilla;
+    }
+
+    /**
+     * Set leypoliticahabitacional
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $leypoliticahabitacional
+     * @return SituacionVivienda
+     */
+    public function setLeypoliticahabitacional(\SICBundle\Entity\AdminRespCerrada $leypoliticahabitacional = null)
+    {
+        $this->leypoliticahabitacional = $leypoliticahabitacional;
+
+        return $this;
+    }
+
+    /**
+     * Get leypoliticahabitacional
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getLeypoliticahabitacional()
+    {
+        return $this->leypoliticahabitacional;
+    }
+
+    /**
+     * Set sivih
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $sivih
+     * @return SituacionVivienda
+     */
+    public function setSivih(\SICBundle\Entity\AdminRespCerrada $sivih = null)
+    {
+        $this->sivih = $sivih;
+
+        return $this;
+    }
+
+    /**
+     * Get sivih
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getSivih()
+    {
+        return $this->sivih;
+    }
+
+    /**
+     * Set condicionesTerreno
+     *
+     * @param \SICBundle\Entity\AdminTipoCondicionTerreno $condicionesTerreno
+     * @return SituacionVivienda
+     */
+    public function setCondicionesTerreno(\SICBundle\Entity\AdminTipoCondicionTerreno $condicionesTerreno = null)
+    {
+        $this->condicionesTerreno = $condicionesTerreno;
+
+        return $this;
+    }
+
+    /**
+     * Get condicionesTerreno
+     *
+     * @return \SICBundle\Entity\AdminTipoCondicionTerreno 
+     */
+    public function getCondicionesTerreno()
+    {
+        return $this->condicionesTerreno;
     }
 }

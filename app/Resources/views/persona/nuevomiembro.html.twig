@@ -1,0 +1,156 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.structure.css') }}">
+{% endblock %}
+{% block body %}
+    <h1>Miembro Grupo Familiar ({{ grupoFamiliarApellidos }}) <small>Actualmente hay {{ cantMiembros }} {% if cantMiembros > 1 %}miembros{% else %}miembro{% endif %}</small></h1>
+    <hr>
+
+    {{ form_start(form, { 'attr' : {'id':'persona'}}) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.nombre) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.apellido) }}</div>
+                        </div>
+                        {{ form_row(form.sexo) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.nacionalidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.cedula) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.fechaNacimiento) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.edad) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.incapacitado) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.incapacitadoTipo) }}</div>
+                        </div>
+                        {{ form_row(form.embarazoTemprano) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(form.parentesco) }}
+                        {{ form_row(form.gradoInstruccion) }}
+                        {{ form_row(form.cne) }}
+                        
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.profesion) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.ingresoMensual) }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.pensionado) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.pensionadoInstitucion) }}</div>
+                        </div>
+                        
+                        {{ form_row(form.email) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12"><input class="btn btn-primary btn-block" form="persona" type="submit" value="Guardar Datos" /></div>
+        </div>
+    {{ form_end(form) }}
+    
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
+    <hr class="little">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('js/funcionesExtras.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+            $('.additions').dropdown({
+                allowAdditions: true,
+                onChange: function(addedValue, addedText, $addedChoice) {
+                    $('[name=persona]').submit(function(e){ e.preventDefault(); }); //nombre del form
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : 'jgf_profesion', //caso del switch en el controlador
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#persona_profesion').children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $.alert({
+                                theme: 'black',
+                                title: 'Error!',
+                                content: "No se ha podido agregar el valor al sistema, debido a un error desconocido. Intente otra vez.",
+                            });
+                        },
+                        complete: function(){
+                            $('[name=persona]').unbind('submit'); //nombre del form
+                        },
+                    });
+                },
+            });
+            $('.js-datepicker')
+                .datepicker({ format: 'yyyy-mm-dd' })
+                    .on('hide', function() {
+                        var birthDay = document.getElementById("persona_fechaNacimiento").value;
+                        var DOB = new Date(birthDay);
+                        var today = new Date();
+                        var age = today.getTime() - DOB.getTime();
+                        age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+
+                        document.getElementById('persona_edad').value = age;
+                    });
+            AexcluyeB('persona_incapacitado', 'persona_incapacitadoTipo');
+            AexcluyeB('persona_pensionado', 'persona_pensionadoInstitucion');
+
+            if ($('#persona_sexo').val() == 'Masculino' || $('#persona_sexo').val() == '') {
+                $('#persona_embarazoTemprano').attr('disabled', true);
+                $('#persona_embarazoTemprano').parent().addClass('hidden');
+            }
+
+            $('#persona_sexo').on('change', function(){
+                switch( $(this).val() ){
+                    case 'Femenino':
+                        $('#persona_embarazoTemprano').removeAttr('disabled');
+                        $('#persona_embarazoTemprano').parent().removeClass('hidden');
+                    break;
+                    case 'Masculino':
+                        $('#persona_embarazoTemprano').attr('disabled', true);
+                        $('#persona_embarazoTemprano').val('');
+                        $('#persona_embarazoTemprano').parent().addClass('hidden');
+                    break;
+                    default:
+                        $('#persona_embarazoTemprano').attr('disabled', true);
+                        $('#persona_embarazoTemprano').parent().addClass('hidden');
+                    break;
+                }
+            });
+            
+            /*AUTO COMPLETAR DE PARENTEZCO CON LOS VALORES DE LA BASE DE DATOS*/
+            var availableTags = [{% for item in parentescos %}'{{ item.parentesco }}',{% endfor %}];
+            $( "#persona_parentesco" ).autocomplete({
+                source: availableTags,
+                minLength: 0,
+            });
+        });
+    </script>
+{% endblock %}

@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\SituacionSalud;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\SituacionSaludType;
 
 /**
@@ -43,14 +44,14 @@ class SituacionSaludController extends Controller
             );
         }
 
-        $situacion_exclusion = $em->getRepository('SICBundle:AdminTipoSituacionExclusion')->findAll();
+        $situacion_exclusion = $em->getRepository('SICBundle:SituacionSalud')->situacionExclusion();
         $stat_situacion_exclusion = array();
         foreach ($situacion_exclusion as $elemento) {
             array_push(
                 $stat_situacion_exclusion, 
                 array(
-                    'situacion_exclusion' => $elemento->getSituacion(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionSalud')->situacionExclusion($elemento)))
+                    'situacion_exclusion' => $elemento['situacion'],
+                    'cantidad' => $elemento['cantidad'])
             );
         }
 
@@ -97,8 +98,14 @@ class SituacionSaludController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($situacionSalud);
             $p->setSituacionSalud($situacionSalud);
+            $p->setTerminada('60');
             $em->persist($p);
+            $bitacora = new Bitacora($this->getUser(),'agregó','la Situación de Salud a la planilla '.$id_planilla);
+            $em->persist($bitacora);
             $em->flush();
+
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha agregado la informacion de Salud de forma exitosa');
 
             return $this->redirectToRoute('situacionservicios_new', array('id_planilla' => $id_planilla));
         }
@@ -136,6 +143,8 @@ class SituacionSaludController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionSalud);
+            $bitacora = new Bitacora($this->getUser(),'modificó','la informacion Situación de Salud de la planilla '.$situacionSalud->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()

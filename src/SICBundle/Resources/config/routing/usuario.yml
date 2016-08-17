@@ -9,16 +9,16 @@ usuarios_show:
     methods:  GET
 
 usuarios_new:
-    path:     /new
+    path:     /nuevo
     defaults: { _controller: "SICBundle:Usuario:new" }
     methods:  [GET, POST]
 
 usuarios_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:Usuario:edit" }
     methods:  [GET, POST]
 
 usuarios_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:Usuario:delete" }
     methods:  DELETE

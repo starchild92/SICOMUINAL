@@ -15,7 +15,12 @@ class AdminTipoSituacionExclusionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('situacion')
+            ->add('situacion', 'entity', array(
+                'class'     => 'SICBundle:AdminTipoSituacionExclusion',
+                'label'     => 'Tipo Situación',
+                'placeholder'   => 'Seleccione una',
+                'attr'  =>  array(
+                    'class' => 'ui dropdown')))
             ->add('cantidad')
         ;
     }

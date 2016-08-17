@@ -45,7 +45,9 @@ class JefeGrupoFamiliarType extends AbstractType
                 'attr' => ['class' => 'js-datepicker'],
             ))
 
-            ->add('edad') //Se calcula automaticamente
+            ->add('edad','text',array(
+                'attr' => array(
+                'readonly' => true))) //Se calcula automaticamente
 
             ->add('cne', EntityType::class, array(
                 'label'     => '¿Está inscrito en el CNE?',
@@ -149,8 +151,11 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
             ))
+            
             ->add('ingresoMensual','text', array(
                 'label' => 'Estimado de Ingreso Mensual',
+                'attr' => array(
+                    'value' => 0)
                 ))
         ;
     }

@@ -8,6 +8,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 use SICBundle\Entity\Planillas;
 use SICBundle\Entity\AdminVentaVivienda;
+use SICBundle\Entity\AdminTipoHabitacionesVivienda;
+use SICBundle\Entity\AdminRecoleccionBasura;
+use SICBundle\Entity\AdminServiciosComunales;
+use SICBundle\Entity\AdminMecanismoInformacion;
+use SICBundle\Entity\AdminOrgComunitaria;
+use SICBundle\Entity\AdminTipoTransporte;
+use SICBundle\Entity\AdminTipoTelefonia;
+use SICBundle\Entity\AdminTipoPadecencia;
+use SICBundle\Entity\AdminMisionesComunidad;
+use SICBundle\Entity\AdminTipoAyudaEspecial;
+use SICBundle\Entity\AdminTipoMascotas;
+use SICBundle\Entity\AdminTipoPlagas;
+use SICBundle\Entity\AdminTipoEnseres;
 use SICBundle\Entity\AdminProfesion;
 use SICBundle\Entity\Bitacora;
 use SICBundle\Form\PlanillasType;
@@ -265,8 +278,205 @@ class PlanillasController extends Controller
                 'id'        => $nuevo->getId(),
                 ]));
             }
+        }elseif ($form['tipo'] == "situacion_vivienda_habitaciones") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoHabitacionesVivienda')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoHabitacionesVivienda();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo tipo de habitación de vivienda, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_vivienda_enseres") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoEnseres')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoEnseres();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo enser, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_vivienda_presenciaInsectos") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoPlagas')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoPlagas();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un tipo de plaga nueva, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_vivienda_mascota") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoMascotas')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoMascotas();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un tipo de mascota nueva, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_salud_padecencia") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoPadecencia')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoPadecencia();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un tipo de padecencia nueva, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_servicios_transporte") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoTransporte')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoTransporte();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un tipo de transporte, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_servicios_mecanismoInformacion") {
+            $resultado = $em->getRepository('SICBundle:AdminMecanismoInformacion')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminMecanismoInformacion();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un mecanismo de información, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_servicios_serviciosComunales") {
+            $resultado = $em->getRepository('SICBundle:AdminServiciosComunales')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminServiciosComunales();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo servicio comunal, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_servicios_recoleccionBasura") {
+            $resultado = $em->getRepository('SICBundle:AdminRecoleccionBasura')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminRecoleccionBasura();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo sistema de recolección de basura, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_servicios_telefonia") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoTelefonia')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoTelefonia();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido una nuevo Tipo de Telefonía, llamada "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "situacion_salud_ayudaEspecial") {
+            $resultado = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminTipoAyudaEspecial();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido un nuevo tipo de ayuda especial, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "participacion_comunitaria_existenOrganizaciones") {
+            $resultado = $em->getRepository('SICBundle:AdminOrgComunitaria')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminOrgComunitaria();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido una nueva Organización Comunitaria, llamado "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
+        }elseif ($form['tipo'] == "participacion_comunitaria_misionesComunidad") {
+            $resultado = $em->getRepository('SICBundle:AdminMisionesComunidad')->findBy(array('nombre' => $form['nombre']));
+            if (sizeof($resultado) == 0) {
+                $nuevo = new AdminMisionesComunidad();
+                $nuevo->setNombre($form['nombre']);
+                $em->persist($nuevo);
+                $em->flush();
+
+                $response = new Response(json_encode([
+                'codigo' => '500',
+                'nombre' => $form['nombre'],
+                'respuesta' => 'Se ha añadido una nueva Misión a la Comunidad, llamada "'.$form['nombre'].'" a la base de datos',
+                'id'        => $nuevo->getId(),
+                ]));
+            }
         }
-        
+
+
+
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }

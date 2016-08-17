@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h2 class="text-center">Modificar Datos del Jefe Grupo Familiar</h2>
+    <div class="row">
+        <div class="col-sm-6"><h2 class="text-center">Modificar Datos del Jefe Grupo Familiar</h2></div>
+        <div class="col-sm-6">
+            <p class="marginless"><span class="negritas">Planilla # {{ edit_form.vars.value.planilla.id }}</span></p>
+            <p class="marginless"><span class="negritas">Jefe Grupo Familiar:</span> {{ edit_form.vars.value.planilla.JefeGrupoFamiliar.nombreyapellido() }}</p>
+            <p class="marginless"><span class="negritas">Fecha última edición: </span>{{ edit_form.vars.value.planilla.fechayhora() }}</p>
+        </div>
+    </div>
     <hr>
     {{ form_start(edit_form) }}
         <div class="row">
@@ -11,34 +18,40 @@
                             <div class="col-sm-6">{{ form_row(edit_form.nombres) }}</div>
                             <div class="col-sm-6">{{ form_row(edit_form.apellidos) }}</div>
                         </div>
-                        {{ form_row(edit_form.sexo) }}
-                        {{ form_row(edit_form.fechaNacimiento) }}
-                        {{ form_row(edit_form.edad) }}
-                        {{ form_row(edit_form.cne) }}
-                        {{ form_row(edit_form.email) }}
                         <div class="row">
-                            <div class="col-sm-5">{{ form_row(edit_form.trabajaActualmente) }}</div>
-                            <div class="col-sm-7">{{ form_row(edit_form.profesion) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.nacionalidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.cedula) }}</div>
                         </div>
-                        {{ form_row(edit_form.pensionado) }}
-                        {{ form_row(edit_form.pensionadoInstitucion) }}
+                        <div class="row">
+                            <div class="col-sm-4">{{ form_row(edit_form.fechaNacimiento) }}</div>
+                            <div class="col-sm-2">{{ form_row(edit_form.edad) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.cne) }}</div>
+                        </div>
+                        {{ form_row(edit_form.edad) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.tiempoEnComunidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.sexo) }}</div>
+                        </div>                        
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.pensionado) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.incapacitado) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.pensionadoInstitucion) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.incapacitadoTipo) }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-5">{{ form_row(edit_form.cedula) }}</div>
-                            <div class="col-sm-7">{{ form_row(edit_form.nacionalidad) }}</div>
-                        </div>
                         {{ form_row(edit_form.estadoCivil) }}
-                        <div class="row">
-                            <div class="col-sm-5">{{ form_row(edit_form.incapacitado) }}</div>
-                            <div class="col-sm-7">{{ form_row(edit_form.incapacitadoTipo) }}</div>
-                        </div>
-                        {{ form_row(edit_form.tiempoEnComunidad) }}
                         {{ form_row(edit_form.nivelInstruccion) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.profesion) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.trabajaActualmente) }}</div>
+                        </div>
                         {{ form_row(edit_form.ingresoFamiliar) }}
                         {{ form_row(edit_form.ingresoMensual) }}
                     </div>
@@ -50,11 +63,13 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
+                        {{ form_row(edit_form.email) }}
                         {{ form_row(edit_form.telefono) }}
                     </div>
                 </div>  
             </div>
         </div>
+
         <input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios del Jefe del Grupo Familiar y Regresar a la Planilla" />
         
     {{ form_end(edit_form) }}
@@ -64,9 +79,9 @@
 {% block javascripts %}
     <script>
         $(document).ready(function() {
-            $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
+            // $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
             $('.js-datepicker')
-                .datepicker({ format: 'yyyy-mm-dd' })
+                .datepicker({ format: 'yyyy-mm-dd', autoclose: true })
                     .on('hide', function() {
                         var birthDay = document.getElementById("jefe_grupo_familiar_fechaNacimiento").value;
                         var DOB = new Date(birthDay);
@@ -83,7 +98,6 @@
             $('.ui.fluid.search.dropdown').dropdown({
                 allowAdditions: true,
                 onChange: function(addedValue, addedText, $addedChoice) {
-                    console.log('Feets');
                     $('[name=jefe_grupo_familiar]').submit(function(e){ e.preventDefault(); }); //nombre del form
                     $.ajax({
                         url: $('#addAjax').data('url'),

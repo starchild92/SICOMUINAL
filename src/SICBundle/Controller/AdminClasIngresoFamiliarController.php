@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\AdminClasIngresoFamiliar;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\AdminClasIngresoFamiliarType;
 
 /**
@@ -41,6 +42,9 @@ class AdminClasIngresoFamiliarController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de la Clasificación del Ingreso Familiar a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->persist($adminClasIngresoFamiliar);
             $em->flush();
 
@@ -80,6 +84,9 @@ class AdminClasIngresoFamiliarController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de la Clasificación del Ingreso Familiar');
+            $em->persist($bitacora);
             $em->persist($adminClasIngresoFamiliar);
             $em->flush();
 
@@ -105,6 +112,9 @@ class AdminClasIngresoFamiliarController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminClasIngresoFamiliar->getNombre().' de los parámetros de la Clasificación Ingreso Familiar del sistema');
+            $em->persist($bitacora);
             $em->remove($adminClasIngresoFamiliar);
             $em->flush();
         }

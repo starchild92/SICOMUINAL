@@ -5,6 +5,11 @@
 {% block body %}
     <div class="row">
         <div class="col-sm-12">
+            <h1 class="text-center"> <i class="fa fa-newspaper-o"></i> Noticias del Consejo Comunal</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
             {% if noticias|length == 0 %}
                 <div class="jumbotron">
                     <h1>Disculpe!</h1>
@@ -15,6 +20,9 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h3>{{ noticia.titulo }} <small class="negritas"> por {{ noticia.usuario.nombreyapellido() }}</small></h3>
+                        <p class="marginless text-info">
+                            <span class="negritas">Publicado:</span> {% if noticia.fechaPub %}{{ noticia.fechaPubyhora() }}{% endif %}
+                        </p>
                         <hr class="little">
                         <p>{{ noticia.cuerpo|raw }}</p>
                     </div>

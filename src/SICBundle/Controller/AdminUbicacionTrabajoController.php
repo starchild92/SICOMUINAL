@@ -5,6 +5,7 @@ namespace SICBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminUbicacionTrabajo;
 use SICBundle\Form\AdminUbicacionTrabajoType;
 
@@ -42,6 +43,9 @@ class AdminUbicacionTrabajoController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminUbicacionTrabajo);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Ubicación de Trabajo a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->flush();
 
         return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ubicaciontrabajo'));
@@ -81,6 +85,9 @@ class AdminUbicacionTrabajoController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminUbicacionTrabajo);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Ubicación de Trabajo');
+            $em->persist($bitacora);
             $em->flush();
 
         return $this->redirectToRoute('sic_volver_parametros', array('index' => 'ubicaciontrabajo'));
@@ -106,6 +113,9 @@ class AdminUbicacionTrabajoController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminUbicacionTrabajo);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminUbicacionTrabajo->getNombre().' de los parámetros de Ubicación Trabajo del sistema');
+            $em->persist($bitacora);
             $em->flush();
         }
 

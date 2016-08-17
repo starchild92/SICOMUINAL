@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\SituacionServicios;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\SituacionServiciosType;
 
 /**
@@ -98,10 +99,7 @@ class SituacionServiciosController extends Controller
                 $stat_telefonia, 
                 array(
                     'telefonia' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
-                                        array('telefonia' => $elemento->getId())
-                                        ))
-                    )
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionServicios')->telefonia($elemento)))
             );
         }
 
@@ -138,6 +136,45 @@ class SituacionServiciosController extends Controller
             );
         }
 
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_medidor = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push(
+                $stat_medidor, 
+                array(
+                    'resp' => $resp->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                                        array('medidor' => $resp->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $si = 0; $no = 0;
+        $tanques = $em->getRepository('SICBundle:SituacionServicios')->findAll();
+        $stat_tanque = array();
+        $stat_pipotes = array();
+        foreach ($tanques as $t) { if ($t->getLtsTanque() > 0) { $si++; }else{ $no++; } }
+        array_push($stat_tanque, array('resp' => 'Si', 'cantidad' => $si));
+        array_push($stat_tanque, array('resp' => 'No', 'cantidad' => $no));
+
+        $si = 0; $no = 0;
+        foreach ($tanques as $t) { if ($t->getCantPipotes() > 0) { $si++; }else{ $no++; } }
+        array_push($stat_pipotes, array('resp' => 'Si', 'cantidad' => $si));
+        array_push($stat_pipotes, array('resp' => 'No', 'cantidad' => $no));
+
+        $empresaGas = $em->getRepository('SICBundle:AdminEmpresaGas')->findAll();
+        $stat_empresaGas = array();
+        foreach ($empresaGas as $elemento) {
+            array_push(
+                $stat_empresaGas, 
+                array(
+                    'empresaGas' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                        array('empresaGas' => $elemento->getId()))))
+            );
+        }
+
         return array(
             'situacionServicios' => $situacionServicios,
             'stat_serviciosComunales' => $stat_serviciosComunales,
@@ -149,6 +186,10 @@ class SituacionServiciosController extends Controller
             'stat_gas' => $stat_gas,
             'stat_aguasservidas' => $stat_aguasservidas,
             'stat_aguasb' => $stat_aguasb,
+            'stat_medidor' => $stat_medidor,
+            'stat_tanque' => $stat_tanque,
+            'stat_pipotes' => $stat_pipotes,
+            'stat_empresaGas' => $stat_empresaGas,
             'total' => $total,
         );
     }
@@ -187,13 +228,20 @@ class SituacionServiciosController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($situacionServicio);
             $p->setSituacionServicios($situacionServicio);
+            $p->setTerminada('75');
             $em->persist($p);
+            $bitacora = new Bitacora($this->getUser(),'agregó','la Situación de Servicios a la planilla '.$id_planilla);
+            $em->persist($bitacora);
             $em->flush();
+
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha agregado la informacion de Servicios de forma exitosa');
 
             return $this->redirectToRoute('participacioncomunitaria_new', array('id_planilla' => $id_planilla));
         }
 
         return $this->render('situacionservicios/new.html.twig', array(
+            'duracionesBombona' => $this->duracionesBombonas(),
             'situacionServicio' => $situacionServicio,
             'form' => $form->createView(),
         ));
@@ -226,6 +274,8 @@ class SituacionServiciosController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionServicio);
+            $bitacora = new Bitacora($this->getUser(),'modificó','la informacion Situación de Servicios de la planilla '.$situacionServicio->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()
@@ -235,6 +285,7 @@ class SituacionServiciosController extends Controller
 
         return $this->render('situacionservicios/edit.html.twig', array(
             'situacionServicio' => $situacionServicio,
+            'duracionesBombona' => $this->duracionesBombonas(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -272,5 +323,12 @@ class SituacionServiciosController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function duracionesBombonas()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $res = $em->getRepository('SICBundle:SituacionServicios')->findDuracionesBombona();
+        return $res;
     }
 }

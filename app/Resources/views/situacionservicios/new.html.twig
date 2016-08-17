@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.structure.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.theme.css') }}">
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-xs-6"><small class="text-info">ant. Situación Salud</small></div>
@@ -12,23 +16,45 @@
     </div>
 
     <h2>Situación Servicios</h2>
-    
+    <hr>
     {{ form_start(form) }}
         <div class="row">
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(form.aguasBlancas) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.aguasBlancas) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.lts_tanque) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.cant_pipotes) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.medidor) }}</div>
+                        </div>
                         {{ form_row(form.aguasServidas) }}
-                        {{ form_row(form.gas) }}
-                        {{ form_row(form.sistemaElectrico) }}
-                        {{ form_row(form.recoleccionBasura) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.gas) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.empresaGas) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.cantBombonas) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.capacidadBombona) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.duracionBombona) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.precioBombona) }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
+                        {{ form_row(form.sistemaElectrico) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.medidorElectrico) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.bombillosAhorradores) }}</div>
+                        </div>
+                        {{ form_row(form.recoleccionBasura) }}
                         {{ form_row(form.telefonia) }}
                         {{ form_row(form.transporte) }}
                         {{ form_row(form.mecanismoInformacion) }}
@@ -40,12 +66,52 @@
 
         <input class="btn btn-primary btn-block" type="submit" value="Guardar Situación de Salud y Continuar" />
     {{ form_end(form) }}
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
 {% endblock %}
 {% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('.ui.dropdown').dropdown();
-            $('.fluid.multiple.search.selection').dropdown({ allowAdditions: true });
+            $('.fluid.multiple.search.selection').dropdown({ 
+                allowAdditions: true,
+                onAdd: function(addedValue, addedText, $addedChoice) {
+                    element = $(this).prop('id');
+                    $('[name=situacion_servicios]').submit(function(e){ e.preventDefault(); });
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : element,
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#'+element).children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $addedChoice.remove();
+                        },
+                        complete: function(){
+                            $('[name=situacion_servicios]').unbind('submit')
+                        },
+                    });
+                },
+            });
+            var availableTags = [{% for item in duracionesBombona %}'{{ item.duracionBombona }}',{% endfor %}];
+            $( "#situacion_servicios_duracionBombona" ).autocomplete({
+                source: availableTags,
+                minLength: 0,
+            });
         })
     </script>
 {% endblock %}

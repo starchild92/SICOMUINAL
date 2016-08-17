@@ -12,7 +12,7 @@
     </div>
 
     <h2>Datos del Jefe Grupo Familiar</h2>
-
+    <hr>
     {{ form_start(form) }}
         <div class="row">
             <div class="col-sm-6">
@@ -22,18 +22,27 @@
                             <div class="col-sm-6">{{ form_row(form.nombres) }}</div>
                             <div class="col-sm-6">{{ form_row(form.apellidos) }}</div>
                         </div>
-                        {{ form_row(form.sexo) }}
-                        {{ form_row(form.fechaNacimiento) }}
-                        {{ form_row(form.edad) }}
-                        {{ form_row(form.cne) }}
-                        {{ form_row(form.email) }}
                         <div class="row">
-                            <div class="col-sm-5">{{ form_row(form.trabajaActualmente) }}</div>
-                            <div class="col-sm-7">{{ form_row(form.profesion) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.nacionalidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.cedula) }}</div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-5">{{ form_row(form.pensionado) }}</div>
-                            <div class="col-sm-7">{{ form_row(form.pensionadoInstitucion) }}</div>
+                            <div class="col-sm-4">{{ form_row(form.fechaNacimiento) }}</div>
+                            <div class="col-sm-2">{{ form_row(form.edad) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.cne) }}</div>
+                        </div>
+                        {{ form_row(form.edad) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.tiempoEnComunidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.sexo) }}</div>
+                        </div>                        
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.pensionado) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.incapacitado) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.pensionadoInstitucion) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.incapacitadoTipo) }}</div>
                         </div>
                     </div>
                 </div>
@@ -41,17 +50,12 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-5">{{ form_row(form.cedula) }}</div>
-                            <div class="col-sm-7">{{ form_row(form.nacionalidad) }}</div>
-                        </div>
                         {{ form_row(form.estadoCivil) }}
-                        <div class="row">
-                            <div class="col-sm-5">{{ form_row(form.incapacitado) }}</div>
-                            <div class="col-sm-7">{{ form_row(form.incapacitadoTipo) }}</div>
-                        </div>
-                        {{ form_row(form.tiempoEnComunidad) }}
                         {{ form_row(form.nivelInstruccion) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.profesion) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.trabajaActualmente) }}</div>
+                        </div>
                         {{ form_row(form.ingresoFamiliar) }}
                         {{ form_row(form.ingresoMensual) }}
                     </div>
@@ -63,11 +67,13 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
+                        {{ form_row(form.email) }}
                         {{ form_row(form.telefono) }}
                     </div>
                 </div>  
             </div>
         </div>
+        
         <input class="btn btn-primary btn-block" type="submit" value="Registrar Datos del Jefe Grupo Familiar y Continuar" />
     {{ form_end(form) }}
     <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
@@ -76,9 +82,9 @@
 {% block javascripts %}
     <script>
         $(document).ready(function() {
-            $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
+            // $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
             $('.js-datepicker')
-                .datepicker({ format: 'yyyy-mm-dd' })
+                .datepicker({ format: 'yyyy-mm-dd', autoclose: true })
                     .on('hide', function() {
                         var birthDay = document.getElementById("jefe_grupo_familiar_fechaNacimiento").value;
                         var DOB = new Date(birthDay);
@@ -95,7 +101,6 @@
             $('.ui.fluid.search.dropdown').dropdown({
                 allowAdditions: true,
                 onChange: function(addedValue, addedText, $addedChoice) {
-                    console.log('Feets');
                     $('[name=jefe_grupo_familiar]').submit(function(e){ e.preventDefault(); }); //nombre del form
                     $.ajax({
                         url: $('#addAjax').data('url'),

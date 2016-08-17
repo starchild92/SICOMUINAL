@@ -1,18 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1 class="text-center">Persona <small>{{ persona.nombre|title }} {{ persona.apellido|title }}</small></h1>
+    <div class="row">
+        <div class="col-sm-6"><h1 class="text-center">Detalles de Persona <small>{{ persona.nombre|title }} {{ persona.apellido|title }}</small></h1></div>
+        <div class="col-sm-6">
+            <p class="marginless negritas">Planilla # {{ persona.grupofamiliar.planilla.id }}</p>
+            <p class="marginless"><span class="negritas">Empadronado por:</span> {{ persona.grupofamiliar.planilla.empadronador.nombreyapellido() }}</p>
+            <p class="marginless"><span class="negritas">Fecha:</span> {{ persona.grupofamiliar.planilla.fecha }}</p>
+        </div>
+    </div>
+    
     <hr>
     <div class="row">
         <div class="col-sm-9">
             <table class="table borderless table-hover">
                 <tbody>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Nombre(s)</th>
                         <td>{{ persona.nombre|title }}</td>
                     </tr>
                     <tr>
-                        <th>Apellido</th>
+                        <th>Apellido(s)</th>
                         <td>{{ persona.apellido|title }}</td>
                     </tr>
                     <tr>
@@ -20,15 +28,19 @@
                         <td>{{ persona.sexo }}</td>
                     </tr>
                     <tr>
+                        <th>Nacionalidad</th>
+                        <td>{{ persona.nacionalidad }}</td>
+                    </tr>
+                    <tr>
                         <th>Cédula de Identidad</th>
                         <td>{{ persona.cedula }}</td>
                     </tr>
                     <tr>
                         <th>Correo</th>
-                        <td>{{ persona.email }}</td>
+                        <td>{% if persona.email == '' %}No especificó alguno.{% endif %} {{ persona.email }}</td>
                     </tr>
                     <tr>
-                        <th>Fechanacimiento</th>
+                        <th>Fecha de Nacimiento</th>
                         <td>{% if persona.fechaNacimiento %}{{ persona.fechaNacimiento() }}{% endif %}</td>
                     </tr>
                     <tr>
@@ -46,6 +58,10 @@
                     <tr>
                         <th>Profesión</th>
                         <td>{{ persona.profesion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ingreso Mensual</th>
+                        <td>{{ persona.ingresoMensual_fmt }} Bs.</td>
                     </tr>
                     <tr>
                         <th>CNE</th>
@@ -77,6 +93,7 @@
             </table>
         </div>
         <div class="col-sm-3">
+            <a href="{{ path('planillas_show', { 'id': persona.grupoFamiliar.planilla.id }) }}" class="btn btn-block btn-primary">Ver Planilla Censo</a>
             <a href="{{ path('personas_edit', { 'id': persona.id }) }}" class="btn btn-block btn-primary">Modificar Datos de {{ persona.nombre|title }}</a>
             <hr class="little">
             {{ form_start(delete_form) }}

@@ -3,7 +3,7 @@
 {% block body %}
 <div class="row">
 	<div class="col-sm-12">
-		<h1>Usuario</h1>
+		<h1>Usuario | <span class="text-info">{{ usuario.primerNombre }} {{ usuario.primerApellido }}</span></h1>
 		<hr>
 	</div>
 	<div class="col-sm-9">
@@ -27,10 +27,32 @@
 	    </table>
 	</div>
 	<div class="col-sm-3">
-		<a class="btn btn-default button-line btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
-        <a class="btn btn-default button-line btn-block" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">Modificar Datos</a>
+		<a class="btn btn-default btn-primary btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
+        <a class="btn btn-default btn-primary btn-block" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}"> <i class="fa fa-edit"></i> Modificar Datos</a>
         <hr class="little">
-		{{ form_start(delete_form) }}<input class="btn btn-block btn-danger" type="submit" value="Eliminar">{{ form_end(delete_form) }}
+		{{ form_start(delete_form, { 'attr' : { 'id' : 'formulario_eliminar' }}) }}<a class="btn btn-block btn-danger" id="formulario_eliminar"><i class="fa fa-trash"></i> Deshabilitar Usuario</a>{{ form_end(delete_form) }}
 	</div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', 'a#formulario_eliminar', function(){
+                $.confirm({
+                    theme: 'black',
+                    title: '¿Seguro?',
+                    content: 'Se continua se colocará al usuario, {{ usuario.primerNombre }} {{ usuario.primerApellido }}, como inhabilitado, lo cual no permitirá su ingreso al sistema',
+                    confirmButton: 'Continuar',
+                    cancelButton: 'Cancelar',
+                    confirmButtonClass: 'btn-info',
+                    cancelButtonClass: 'btn-danger',
+                    confirm: function(){
+                        $('form#formulario_eliminar').submit();
+                    },
+                    cancel: function(){}
+                });
+            });
+        });
+    </script>
 {% endblock %}

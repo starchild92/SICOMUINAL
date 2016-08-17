@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\Usuario;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\UsuarioType;
 
 /**
@@ -135,6 +136,8 @@ class UsuarioController extends Controller
 
             // El usuario no es removido en su lugar es colocado como inactivo para mantener sus planillas e información dentro del sistema
             $usuario->setEnabled(false);
+            $bitacora = new Bitacora($this->getUser(),'modificó', 'al usuario del sistema '.$usuario->nombreyapellido().' dehabilitando su acceso al sistema, los datos serán conservados.');
+            $em->persist($bitacora);
             $em->persist($usuario);
             $em->flush();
 

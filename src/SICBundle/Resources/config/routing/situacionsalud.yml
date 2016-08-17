@@ -1,5 +1,5 @@
 situacionsalud_index:
-    path:     /
+    path:     /estadisticas
     defaults: { _controller: "SICBundle:SituacionSalud:index" }
     methods:  GET
 

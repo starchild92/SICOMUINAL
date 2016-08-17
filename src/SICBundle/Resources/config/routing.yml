@@ -8,7 +8,7 @@ sic_rutas_extras:
 
 sic_personas:
     resource: "@SICBundle/Resources/config/routing/persona.yml"
-    prefix:   /miembro/grupo/familiar
+    prefix:   /grupo/familiar
 
 sic_comunidades:
     resource: "@SICBundle/Resources/config/routing/comunidad.yml"
@@ -56,7 +56,7 @@ sic_planillas:
 
 sic_noticia:
     resource: "@SICBundle/Resources/config/routing/noticia.yml"
-    prefix:   /noticia
+    prefix:   /noticias
 
 sic_bitacora:
     resource: "@SICBundle/Resources/config/routing/bitacora.yml"
@@ -211,6 +211,18 @@ sic_adminpreguntassituacioncomunidad:
 sic_adminpreguntassitcom:
     resource: "@SICBundle/Resources/config/routing/Configurables/adminpreguntassitcom.yml"
     prefix:   /administrar/configurables/tipos/preguntassitcom
+
+sic_adminempresagas:
+    resource: "@SICBundle/Resources/config/routing/Configurables/adminempresagas.yml"
+    prefix:   /administrar/configurables/tipos/empresagas
+
+sic_admincapacidadbombona:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admincapacidadbombona.yml"
+    prefix:   /administrar/configurables/tipos/capacidad/bombona
+
+sic_admintipocondicionterreno:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintipocondicionterreno.yml"
+    prefix:   /administrar/configurables/tipo/condiciones/terreno
 
 # --------------------------------------------------------------------
 

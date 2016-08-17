@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\AdminAguasServidas;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\AdminAguasServidasType;
 
 /**
@@ -42,6 +43,9 @@ class AdminAguasServidasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminAguasServida);
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Agua Servida a los parámetros del sistema');
+            $em->persist($bitacora);
             $em->flush();
 
             return $this->redirectToRoute('sic_volver_parametros', array('index' => 'aguasservidas'));
@@ -80,6 +84,9 @@ class AdminAguasServidasController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Aguas Servida');
+            $em->persist($bitacora);
             $em->persist($adminAguasServida);
             $em->flush();
 
@@ -105,6 +112,9 @@ class AdminAguasServidasController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó',$adminAguasServida->getNombre().' de los parámetros de Aguas Servidas del sistema');
+            $em->persist($bitacora);
             $em->remove($adminAguasServida);
             $em->flush();
         }

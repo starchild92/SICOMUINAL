@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 use SICBundle\Entity\SituacionEconomica;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminVentaVivienda;
 use SICBundle\Form\SituacionEconomicaType;
 
@@ -116,6 +117,9 @@ class SituacionEconomicaController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionEconomica);
             $p->setSituacionEconomica($situacionEconomica);
+            $p->setTerminada('30');
+            $bitacora = new Bitacora($this->getUser(),'agregó','la Situación Económica a la planilla '.$id_planilla);
+            $em->persist($bitacora);
             $em->persist($p);
             $em->flush();
 
@@ -155,6 +159,8 @@ class SituacionEconomicaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionEconomica);
+            $bitacora = new Bitacora($this->getUser(),'modificó','la informacion Situación Económica de la planilla '.$situacionEconomica->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()

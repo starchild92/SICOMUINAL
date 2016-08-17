@@ -93,6 +93,8 @@ class Usuario extends BaseUser
      */
     private $comunicados;
 
+    public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
+
     /**
      * Get id
      *

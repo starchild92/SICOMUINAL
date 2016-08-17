@@ -17,6 +17,7 @@
         body.loading .loader { display: block; }
         .badge{ cursor: pointer; }
         .badge:hover{ color: black; background-color: #4C9ED9; }
+        #mensaje-a-esconder{ margin-left: 200px; }
     </style>
 {% endblock %}
 {% block body %}
@@ -36,7 +37,7 @@
 			                <ul class="sub-menu collapse" id="uno">
 			                    <li><a id="btnTabla" class="nacionalidad" data-url="{{ path('admin_nacionalidad_index') }}">Nacionalidad</a></li>
 								<li><a id="btnTabla" class="respcerrada" data-url="{{ path('configurable_respuesta_cerrada_index') }}">Respuestas Cerradas</a></li>
-								<li><a id="btnTabla" class="incapacidades" data-url="{{ path('configurable_incapacidades_index') }}">Incapacidades</a></li>
+								<li><a id="btnTabla" class="incapacidades" data-url="{{ path('configurable_incapacidades_index') }}">Discapacidades</a></li>
 								<li><a id="btnTabla" class="pensionadoinstitucion" data-url="{{ path('configurable_pensionados_instituciones_index') }}">Pensionados Instituciones</a></li>
 								<li><a id="btnTabla" class="estadocivil" data-url="{{ path('configurable_estado_civil_index') }}">Estado Civil</a></li>
 								<li><a id="btnTabla" class="nivelinstruccion" data-url="{{ path('configurable_nivel_instruccion_index') }}">Niveles de Instrucción</a></li>
@@ -57,6 +58,7 @@
 			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Vivienda</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="tres">
+			                    <li><a id="btnTabla" class="tipocondicionterreno" href="#" data-url="{{ path('admintipocondicionterreno_index') }}">Tipo Condición Terreno</a></li>
 			                    <li><a id="btnTabla" class="tipovivienda" href="#" data-url="{{ path('configurable_tipo_vivienda_index') }}">Tipos de Vivienda</a></li>
 								<li><a id="btnTabla" class="tipotenencia" href="#" data-url="{{ path('configurable_tipo_tenencia_index') }}">Forma de Tenencia</a></li>
 								<li><a id="btnTabla" class="tipohabitacionesvivienda" href="#" data-url="{{ path('configurable_tipo_habitaciones_index') }}">Tipos Habitaciones Vivienda</a></li>
@@ -69,21 +71,23 @@
 			                </ul>
 
 			                <li id="li-menu" data-toggle="collapse" data-target="#cuatro" class="collapsed">
-			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Salud</a>
+			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Salud</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="cuatro">
 			                    <li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_padecencia_index') }}">Tipos de Padecencias</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_ayuda_especial_index') }}">Ayudas Especiales</a></li>
-								<li><a id="btnTabla" href="#" data-url="{{ path('configurable_tipo_situacion_exclusion_index') }}">Situacion de Exclusion</a></li>
+								<li><a id="btnTabla" href="#" class="ayudaespecial" data-url="{{ path('configurable_tipo_ayuda_especial_index') }}">Ayudas Especiales</a></li>
+								<li><a id="btnTabla" href="#" class="situacionexclusion" data-url="{{ path('configurable_tipo_situacion_exclusion_index') }}">Situación de Exclusion</a></li>
 			                </ul>
 
 			                <li id="li-menu" data-toggle="collapse" data-target="#cinco" class="collapsed">
-			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Servicios</a>
+			                  <a href="#"><i class="fa fa-arrow-right fa-fw"></i> Situación Servicios</a>
 			                </li>
 			                <ul class="sub-menu collapse" id="cinco">
 			                    <li><a id="btnTabla" class="aguasblancas" href="#" data-url="{{ path('configurables_tipos_aguas_blancas_index') }}">Tipos de Aguas Blancas</a></li>
 								<li><a id="btnTabla" class="aguasservidas" href="#" data-url="{{ path('configurables_tipos_aguas_servidas_index') }}">Tipos de Aguas Servidas</a></li>
 								<li><a id="btnTabla" class="tipogas" href="#" data-url="{{ path('configurables_tipos_gas_index') }}">Tipos de Gas</a></li>
+								<li><a id="btnTabla" class="empresagas" href="#" data-url="{{ path('adminempresagas_index') }}">Proveedor Gas</a></li>
+								<li><a id="btnTabla" class="capacidadbombona" href="#" data-url="{{ path('admincapacidadbombona_index') }}">Capacidades Bombona</a></li>
 								<li><a id="btnTabla" class="sistemaelectrico" href="#" data-url="{{ path('configurables_tipo_sistema_electrico_index') }}">Sistema Electrico</a></li>
 								<li><a id="btnTabla" class="recoleccionbasura" href="#" data-url="{{ path('configurables_tipo_recoleccion_basura_index') }}">Recolección de Basura</a></li>
 								<li><a id="btnTabla" class="tipotelefonia" href="#" data-url="{{ path('configurables_tipo_telefonia_index') }}">Telefonía</a></li>
@@ -182,12 +186,14 @@
 
 		$('#myModal').on('hide.bs.modal', function(e){
             $.confirm({
+            	theme: 'bootstrap',
                 title: 'Advertencia!',
-                content: 'Si acepta, perderá los cambios que ha realizado.',
-                cancelButton: 'No Cerrar',
+                content: 'Perderá los cambios si continua. Haga clic en Cancelar para seguir editando el parametro.',
+                confirmButton: 'Cerrar',
+                cancelButton: 'Cancelar',
                 confirmButtonClass: 'btn-danger',
-                cancelButtonClass: 'btn-info',
-                theme: 'black',
+                cancelButtonClass: 'btn-success',
+                // theme: 'black',
                 confirm: function(){
                     html = "<div class='panel-body'><span id='modal-body'><div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr><br>Cargando el formulario</div></span></div>";
 					$('.panel-body').replaceWith(html);

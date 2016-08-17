@@ -15,7 +15,8 @@ class AdminIncapacidadesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('incapacidad')
+            ->add('incapacidad','text',array(
+                'label'     => 'Discapacidad'))
         ;
     }
     

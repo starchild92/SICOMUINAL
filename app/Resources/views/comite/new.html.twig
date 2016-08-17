@@ -9,6 +9,7 @@
 
         <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Crear Comité</button>
     {{ form_end(form) }}
+    <hr class="little">
 {% endblock %}
 {% block javascripts %}
 <script src="{{ asset('js/formVoceros.js') }}"></script>
@@ -19,31 +20,29 @@
         var value = $('#'+id_b).val();
         
         $('#'+id_a).on('change', function(){
-        switch( $(this).val() ){
-            case 'Unidad Ejecutiva':
-                $('#'+id_b).removeAttr('disabled');
-                $('#'+id_b).parent().removeClass('hidden');
-                $('#'+id_b).val(value);
-            break;
-            case 'Unidad Administrativa y Financiera Comunitaria':
-                $('#'+id_b).attr('disabled', true);
-                $('#'+id_b).val('');
-                $('#'+id_b).parent().addClass('hidden');
-            break;
-            case 'Unidad de Contraloría Social':
-                $('#'+id_b).attr('disabled', true);
-                $('#'+id_b).val('');
-                $('#'+id_b).parent().addClass('hidden');
-            break;
-            case 'Comisión Electoral Permanente':
-                $('#'+id_b).attr('disabled', true);
-                $('#'+id_b).val('');
-                $('#'+id_b).parent().addClass('hidden');
-            break;
-        }
-    })
-        // $('.ui.dropdown').dropdown();
-        // $('.js-datepicker').datepicker({ format: 'yyyy-mm-dd' });
-    })
+            switch( $(this).val() ){
+                case 'Unidad Ejecutiva':
+                    $('#'+id_b).removeAttr('disabled');
+                    $('#'+id_b).parent().removeClass('hidden');
+                    $('#'+id_b).val(value);
+                break;
+                case 'Unidad Administrativa y Financiera Comunitaria':
+                    $('#'+id_b).attr('disabled', true);
+                    $('#'+id_b).val('');
+                    $('#'+id_b).parent().addClass('hidden');
+                break;
+                case 'Unidad de Contraloría Social':
+                    $('#'+id_b).attr('disabled', true);
+                    $('#'+id_b).val('');
+                    $('#'+id_b).parent().addClass('hidden');
+                break;
+                case 'Comisión Electoral Permanente':
+                    $('#'+id_b).attr('disabled', true);
+                    $('#'+id_b).val('');
+                    $('#'+id_b).parent().addClass('hidden');
+                break;
+            }
+        });
+    });
 </script>
 {% endblock %}

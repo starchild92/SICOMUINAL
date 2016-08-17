@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.structure.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.theme.css') }}">
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-xs-6"><small class="text-info">ant. Jefe Grupo Familiar</small></div>
@@ -15,7 +19,7 @@
     
     {{ form_start(form) }}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     {{ form_row(form.apellidos) }}
@@ -25,15 +29,20 @@
         <div class="col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    {{ form_row(form.tiempoResidencia) }}
-                    {{ form_row(form.sector) }}
+                    {{ form_row(form.avenida) }}
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    {{ form_row(form.direccion) }}
+                    {{ form_row(form.calle) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
                     {{ form_row(form.numeroCasa) }}
                 </div>
             </div>
@@ -42,12 +51,20 @@
         <input class="btn btn-primary btn-block" type="submit" value="Registrar Datos del Grupo Familiar y Continuar" />
     {{ form_end(form) }}
 {% endblock %}
-
 {% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('.ui.dropdown')
-              .dropdown();
+            var calles = [{% for item in grupos_calle %}'{{ item.calle }}',{% endfor %}];
+            var avenidas = [{% for item in grupos_avenida %}'{{ item.avenida }}',{% endfor %}];
+            $( "#grupo_familiar_calle" ).autocomplete({
+                source: calles,
+                minLength: 0,
+            });
+            $( "#grupo_familiar_avenida" ).autocomplete({
+                source: avenidas,
+                minLength: 0,
+            });
         })
     </script>
 {% endblock %}

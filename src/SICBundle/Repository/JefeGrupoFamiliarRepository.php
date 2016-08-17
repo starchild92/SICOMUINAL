@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class JefeGrupoFamiliarRepository extends EntityRepository
 {
+	public function mayores_de($edad)
+	{
+		$query = $this->getEntityManager()
+                ->createQuery('SELECT u 
+                FROM SICBundle:JefeGrupoFamiliar u
+                WHERE
+                    u.edad >= :edad
+                ORDER BY
+                	u.cedula ASC');
+        
+        $query->setparameter('edad', $edad);
+        $result = $query->getResult();
+        return $result;
+	}
 }

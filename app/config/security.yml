@@ -17,6 +17,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/administrar/, role: ROLE_ADMIN }
+        - { path: ^/usuarios/nuevo, role: ROLE_ADMIN }
 
     access_denied_url: /
 

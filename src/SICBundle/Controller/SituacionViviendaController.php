@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\SituacionVivienda;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\SituacionViviendaType;
 
 /**
@@ -171,6 +172,47 @@ class SituacionViviendaController extends Controller
             );
         }
 
+        $condicion_terreno = $em->getRepository('SICBundle:AdminTipoCondicionTerreno')->findAll();
+        $stat_condicion_terreno = array();
+        foreach ($condicion_terreno as $elemento) {
+            array_push(
+                $stat_condicion_terreno, 
+                array(
+                    'condicion_terreno' => $elemento->getNombre(),
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('condicionesTerreno' => $elemento->getId()))
+                                    ))
+            );
+        }
+
+        $sivih = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_sivih = array();
+        foreach ($sivih as $elemento) {
+            array_push(
+                $stat_sivih, 
+                array(
+                    'resp' => $elemento->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('sivih' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        $leypoliticahabitacional = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_leypoliticahabitacional = array();
+        foreach ($leypoliticahabitacional as $elemento) {
+            array_push(
+                $stat_leypoliticahabitacional, 
+                array(
+                    'resp' => $elemento->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                                        array('leypoliticahabitacional' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
         return array(
             'situacionViviendas' => $situacionViviendas,
             'stat_tipo_vivienda' => $stat_tipo_vivienda,
@@ -185,6 +227,9 @@ class SituacionViviendaController extends Controller
             'stat_salubridad' => $stat_salubridad,
             'stat_techo' => $stat_techo,
             'stat_paredes' => $stat_paredes,
+            'stat_condicion_terreno' => $stat_condicion_terreno,
+            'stat_sivih' => $stat_sivih,
+            'stat_leypoliticahabitacional' => $stat_leypoliticahabitacional,
             'total' => $total,
         );
     }
@@ -223,8 +268,14 @@ class SituacionViviendaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($situacionVivienda);
             $p->setSituacionVivienda($situacionVivienda);
+            $p->setTerminada('45');
             $em->persist($p);
+            $bitacora = new Bitacora($this->getUser(),'agregó','la Situación de Vivienda a la planilla '.$id_planilla);
+            $em->persist($bitacora);
             $em->flush();
+
+            $this->get('session')->getFlashBag()
+            ->add('success', 'Se ha agregado la informacion de Situación de Vivienda de forma exitosa');
 
             return $this->redirectToRoute('situacionsalud_new', array('id_planilla' => $id_planilla));
             // return $this->redirectToRoute('situacionvivienda_show', array('id' => $situacionVivienda->getId()));
@@ -263,10 +314,13 @@ class SituacionViviendaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($situacionVivienda);
+            $bitacora = new Bitacora($this->getUser(),'modificó','la informacion Situación de Salud de la planilla '.$situacionVivienda->getPlanilla()->getId());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()
             ->add('success', 'Se han actualizado los datos de la Situación de Vivienda de forma exitosa.');
+
             return $this->redirectToRoute('planillas_show', array('id' => $situacionVivienda->getPlanilla()->getId()));
             // return $this->redirectToRoute('situacionvivienda_edit', array('id' => $situacionVivienda->getId()));
         }

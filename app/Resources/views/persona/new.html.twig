@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.structure.css') }}">
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-xs-6"><small class="text-info">ant. Datos Grupo Familiar</small></div>
@@ -11,9 +14,9 @@
       </div>
     </div>
 
-    <h1>Miembro Grupo Familiar <small>Actualmente hay {{ cantMiembros }} miembros</small></h1>
+    <h1>Miembro Grupo Familiar <small>Actualmente hay {{ cantMiembros }} {% if cantMiembros > 1 %}miembros{% else %}miembro{% endif %}</small></h1>
 
-    {{ form_start(form) }}
+    {{ form_start(form, { 'attr' : {'id':'persona'}}) }}
         <div class="row">
             <div class="col-sm-6">
                 <div class="panel panel-primary">
@@ -22,51 +25,66 @@
                             <div class="col-sm-6">{{ form_row(form.nombre) }}</div>
                             <div class="col-sm-6">{{ form_row(form.apellido) }}</div>
                         </div>
-                        {{ form_row(form.parentesco) }}
-                        {{ form_row(form.gradoInstruccion) }}
-                        {{ form_row(form.profesion) }}
-                        {{ form_row(form.cne) }}
+                        {{ form_row(form.sexo) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.nacionalidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.cedula) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.fechaNacimiento) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.edad) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.incapacitado) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.incapacitadoTipo) }}</div>
+                        </div>
+                        {{ form_row(form.embarazoTemprano) }}
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(form.cedula) }}
+                        {{ form_row(form.parentesco) }}
+                        {{ form_row(form.gradoInstruccion) }}
+                        {{ form_row(form.cne) }}
+                        
                         <div class="row">
-                            <div class="col-sm-6">{{ form_row(form.fechaNacimiento) }}</div>
-                            <div class="col-sm-6">{{ form_row(form.email) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.profesion) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.ingresoMensual) }}</div>
                         </div>
-                        {{ form_row(form.edad) }}
-                        {{ form_row(form.sexo) }}
-                        {{ form_row(form.embarazoTemprano) }}
-                        {{ form_row(form.incapacitado) }}
-                        {{ form_row(form.incapacitadoTipo) }}
-                        {{ form_row(form.pensionado) }}
-                        {{ form_row(form.pensionadoInstitucion) }}
+
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.pensionado) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.pensionadoInstitucion) }}</div>
+                        </div>
+                        
+                        {{ form_row(form.email) }}
                     </div>
                 </div>
             </div>
         </div>
 
-        <input class="btn btn-primary btn-block" type="submit" value="Agregar Miembro al Grupo Familiar" />
+        <div class="row">
+            <div class="col-sm-6"><input class="btn btn-primary btn-block" form="persona" type="submit" value="Guardar Datos y Agregar Otro Miembro" /></div>
+            <div class="col-sm-6"><a class="btn-block btn btn-success" href="{{ path('situacioneconomica_new', {'id_planilla':id_planilla}) }}">No hay más miembros, Continuar</a></div>
+        </div>
     {{ form_end(form) }}
-    <br>
-    <a class="btn-block btn btn-success" href="{{ path('situacioneconomica_new', {'id_planilla':id_planilla}) }}">No hay más miembros, Continuar</a>
+    
     <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
+    <hr class="little">
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/funcionesExtras.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $("#persona_edad").parent().addClass('hidden');
+            // $("#persona_edad").parent().addClass('hidden');
             $('.ui.dropdown').dropdown();
-            // $('.additions').dropdown({ allowAdditions: true });
             $('.additions').dropdown({
                 allowAdditions: true,
                 onChange: function(addedValue, addedText, $addedChoice) {
-                    console.log('Feets');
                     $('[name=persona]').submit(function(e){ e.preventDefault(); }); //nombre del form
                     $.ajax({
                         url: $('#addAjax').data('url'),
@@ -101,17 +119,19 @@
                     });
                 },
             });
-            $('.js-datepicker')
-                .datepicker({ format: 'yyyy-mm-dd' })
-                    .on('hide', function() {
-                        var birthDay = document.getElementById("persona_fechaNacimiento").value;
-                        var DOB = new Date(birthDay);
-                        var today = new Date();
-                        var age = today.getTime() - DOB.getTime();
-                        age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
 
-                        document.getElementById('persona_edad').value = age;
-                    });
+            $('.js-datepicker')
+                .datepicker({ format: 'yyyy-mm-dd', autoclose: true })
+                .on('hide', function() {
+                    var birthDay = document.getElementById("persona_fechaNacimiento").value;
+                    var DOB = new Date(birthDay);
+                    var today = new Date();
+                    var age = today.getTime() - DOB.getTime();
+                    age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+
+                    document.getElementById('persona_edad').value = age;
+                });
+
             AexcluyeB('persona_incapacitado', 'persona_incapacitadoTipo');
             AexcluyeB('persona_pensionado', 'persona_pensionadoInstitucion');
 
@@ -136,8 +156,14 @@
                         $('#persona_embarazoTemprano').parent().addClass('hidden');
                     break;
                 }
-            })
-            
+            });
+
+            /*AUTO COMPLETAR DE PARENTEZCO CON LOS VALORES DE LA BASE DE DATOS*/
+            var availableTags = [{% for item in parentescos %}'{{ item.parentesco }}',{% endfor %}];
+            $( "#persona_parentesco" ).autocomplete({
+                source: availableTags,
+                minLength: 0,
+            });
         });
     </script>
 {% endblock %}

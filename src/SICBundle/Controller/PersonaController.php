@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\Persona;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\PersonaType;
 
 /**
@@ -21,17 +22,29 @@ class PersonaController extends Controller
 
         $total = sizeof($personas);
         $stat_edad = array();
-        $mayor = 0;
-        $menor = 0;
+        $mayorh = 0;
+        $menorh = 0;
+        $mayorm = 0;
+        $menorm = 0;
         foreach ($personas as $p) {
             if ($p->getEdad() >= 18 ) {
-                $mayor++;
+                if ($p->getSexo() == 'Femenino') {
+                    $mayorm++;
+                }else{
+                    $mayorh++;
+                }
             }else{
-                $menor++;
+                if ($p->getSexo() == 'Femenino') {
+                    $menorm++;
+                }else{
+                    $menorh++;
+                }
             }
         }
-        array_push($stat_edad, array('a' => 'Mayores de Edad', 'cantidad' => $mayor));
-        array_push($stat_edad, array('a' => 'Menores de Edad', 'cantidad' => $menor));
+        array_push($stat_edad, array('a' => 'Hombres Mayores de Edad', 'cantidad' => $mayorh));
+        array_push($stat_edad, array('a' => 'Hombres Menores de Edad', 'cantidad' => $menorh));
+        array_push($stat_edad, array('a' => 'Mujeres Mayores de Edad', 'cantidad' => $mayorm));
+        array_push($stat_edad, array('a' => 'Mujeres Menores de Edad', 'cantidad' => $menorm));
 
         $stat_sexo = array();
         array_push(
@@ -144,6 +157,7 @@ class PersonaController extends Controller
             'total' => $total,
         );
     }
+
     /**
      * Lists all Persona entities.
      *
@@ -169,8 +183,8 @@ class PersonaController extends Controller
         // $cantMiembros = 1;
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
-            $aux = $Grupo->getCantidadMiembros();
-            $Grupo->setCantidadMiembros($aux+1);
+            $aux = sizeof($Grupo->getMiembros()) + 1;
+            $Grupo->setCantidadMiembros($aux);
         }else{
             $this->get('session')->getFlashBag()
             ->add('error', 'Seleccione la sección que desea modificar');
@@ -179,17 +193,22 @@ class PersonaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $Grupo->addMiembro($persona);
+            $aux = sizeof($Grupo->getMiembros()) + 1;
+            $Grupo->setCantidadMiembros($aux);
             if ($persona->getEmail() != '') {
                 $persona->setRecibirCorreo(true);
             }else{
                 $persona->setRecibirCorreo(false);
             }
+            $persona->setGrupofamiliar($Grupo);
             $em->persist($persona);
             $em->persist($Grupo);
+            $bitacora = new Bitacora($this->getUser(),'agregó','a '.$persona->nombreyapellido().' al Grupo Familiar '.$Grupo->getApellidos());
+            $em->persist($bitacora);
             $em->flush();
 
-            $cantMiembros = $Grupo->getCantidadMiembros();
-            $this->get('session')->getFlashBag()->add('success','Se agregó el miembro al grupo familiar de forma correcta.');
+            $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
+            $this->get('session')->getFlashBag()->add('success','Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('personas_new', array(
                 'id_planilla' => $id_planilla,
@@ -197,10 +216,11 @@ class PersonaController extends Controller
                 'cantMiembros' => $cantMiembros));
         }
 
-        $cantMiembros = $Grupo->getCantidadMiembros();
+        $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
 
         return $this->render('persona/new.html.twig', array(
             'persona' => $persona,
+            'parentescos' => $this->obtener_parentescos(),
             'id_planilla' => $id_planilla,
             'id_grupofamiliar' => $id_grupofamiliar,
             'cantMiembros' => $cantMiembros,
@@ -241,6 +261,8 @@ class PersonaController extends Controller
                 $persona->setRecibirCorreo(false);
             }
             $em->persist($persona);
+            $bitacora = new Bitacora($this->getUser(),'modificó','los datos de '.$persona->nombreyapellido());
+            $em->persist($bitacora);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'Se han actualizado los datos de forma correcta.');
@@ -250,6 +272,7 @@ class PersonaController extends Controller
 
         return $this->render('persona/edit.html.twig', array(
             'persona' => $persona,
+            'parentescos' => $this->obtener_parentescos(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -267,10 +290,15 @@ class PersonaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($persona);
+            $bitacora = new Bitacora($this->getUser(),'eliminó','a '.$persona->nombreyapellido().' del Sistema');
+            $em->persist($bitacora);
+
+            $this->get('session')->getFlashBag()->add('success','Se ha Eliminado a '.$persona->nombreyapellido().' del Grupo Familiar de forma correcta.');
+
             $em->flush();
         }
 
-        return $this->redirectToRoute('personas_index');
+        return $this->redirectToRoute('planillas_show', array('id' => $persona->getGrupofamiliar()->getPlanilla()->getId()));
     }
 
     /**
@@ -289,15 +317,88 @@ class PersonaController extends Controller
         ;
     }
 
+    public function cmp($a, $b){
+        if((int)$a->getCedula() == (int)$b->getCedula())return 0;
+        if((int)$a->getCedula()  > (int)$b->getCedula())return 1;
+        if((int)$a->getCedula()  < (int)$b->getCedula())return -1;
+    }
     public function agendaAction()
     {
         $em = $this->getDoctrine()->getManager();
         $jefes = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
-        $personas = $em->getRepository('SICBundle:Persona')->findAll();
+        $personass = $em->getRepository('SICBundle:Persona')->findAll();
+
+        $personas = array();
+        foreach ($jefes as $j) { array_push($personas, $j); }
+        foreach ($personass as $p) { array_push($personas, $p); }
+
+        usort($personas, array($this, "cmp"));
 
         return $this->render('persona/agenda_comunitaria.html.twig', array(
-            'jefes' => $jefes,
             'personas' => $personas,
         ));
+    }
+
+    public function nuevoMiembroAction(Request $request, $id_planilla, $id_grupofamiliar)
+    {
+        $persona = new Persona();
+        $form = $this->createForm('SICBundle\Form\PersonaType', $persona);
+        $form->handleRequest($request);
+        
+        $em = $this->getDoctrine()->getManager();
+        $GrupoFam = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
+        // $cantMiembros = 1;
+        if ($GrupoFam != NULL) {
+            $Grupo = $GrupoFam[0];
+            $aux = sizeof($Grupo->getMiembros()) + 1;
+            $Grupo->setCantidadMiembros($aux);
+        }else{
+            $this->get('session')->getFlashBag()
+            ->add('error', 'Seleccione la sección que desea modificar');
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $Grupo->addMiembro($persona);
+            $aux = sizeof($Grupo->getMiembros()) + 1;
+            $Grupo->setCantidadMiembros($aux);
+            $persona->setGrupofamiliar($Grupo);
+
+            if ($persona->getEmail() != '') {
+                $persona->setRecibirCorreo(true);
+            }else{
+                $persona->setRecibirCorreo(false);
+            }
+            $em->persist($persona);
+            $em->persist($Grupo);
+            $bitacora = new Bitacora($this->getUser(),'agregó','a '.$persona->nombreyapellido().' al Grupo Familiar '.$Grupo->getApellidos());
+            $em->persist($bitacora);
+            $em->flush();
+
+            $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
+            $this->get('session')->getFlashBag()->add('success','Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
+
+            return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
+        }
+
+        $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
+
+        return $this->render('persona/nuevomiembro.html.twig', array(
+            'persona' => $persona,
+            'id_planilla' => $id_planilla,
+            'id_grupofamiliar' => $id_grupofamiliar,
+            'grupoFamiliarApellidos' => $Grupo->getApellidos(),
+            'parentescos' => $this->obtener_parentescos(),
+            'cantMiembros' => $cantMiembros,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /*Obtiene todos los parentescos que se han agregado a la base de datos*/
+    public function obtener_parentescos()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $parentescos = $em->getRepository('SICBundle:Persona')->findParentescos();
+        return $parentescos;
     }
 }

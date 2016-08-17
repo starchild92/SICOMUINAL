@@ -1,0 +1,129 @@
+{% extends 'base.pdf.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        html {
+            margin-top: 30px;
+            margin-bottom: 80px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .img-responsive,
+        .thumbnail > img,
+        .thumbnail a > img,
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+          /*display: block;*/
+          max-width: 100%;
+          height: auto;
+        }
+        h1, h2, h3, h4, h5, h6,
+        .h1, .h2, .h3, .h4, .h5, .h6 {
+          font-family: inherit;
+          font-weight: 500;
+          line-height: 1.1;
+          color: inherit;
+        }
+        h2, .h2 { font-size: 30px; }
+        .col-sm-2 { width: 300px; }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        {# <td class="col-sm-2" style="font-size: 15px">
+                            <img src="{{ base_path }}/images/cne_logo.jpg" width="200" class="img-responsive" style="margin-left: 40px; margin-bottom: 5px;" alt="">
+                            <p class="negritas text-center">Comisión de Participación Política y Financiamiento
+                                <br> <br>Oficina Nacional de Participación Ciudadana</p>
+                        </td> #}
+                        <td >
+                            <p class="text-center negritas text-uppercase" style="font-size: 30px; background-color: #CCC; margin-top: 0px;"><span>Registro Electoral Preliminar {{ consejo.nombre }}</span></p>
+                            <p class="text-uppercase text-center" style="font-size: 24px;"><span class="negritas">Estado:</span> {{ comunidad.estado }}</p>
+                            <p class="text-uppercase text-center" style="font-size: 24px;"><span class="negritas">Municipio:</span> {{ comunidad.municipio }}</p>
+                            <p class="text-uppercase text-center" style="font-size: 24px;"><span class="negritas">Parroquía:</span> {{ comunidad.parroquia }}</p>
+                            <p class="text-uppercase text-center" style="font-size: 24px;"><span class="negritas">Nombre De La Instancía Del Poder Popular: Equipo Promotor Provisional</span> {{ consejo.nombre }}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-condensed table-hover">
+            	<thead>
+            		<tr class="text-uppercase">
+            			<th style="background-color: #FFFF00 !important;" width="40px" class="text-center">N°</th>
+            			<th style="background-color: #FFFF00 !important;" width="150px" class="text-center">Cédula de Identidad</th>
+            			<th style="background-color: #FFFF00 !important;" class="text-center col-sm-3">Apellido y Nombre</th>
+            			<th style="background-color: #FFFF00 !important;" width="130px" class="text-center col-sm-1">Fecha de Nacimiento</th>
+            			<th style="background-color: #FFFF00 !important;" class="text-center">Dirección</th>
+            		</tr>
+            	</thead>
+            	<tbody>
+            		{% for votante in votantesV %}
+            		<tr>
+            			<td class="text-center">{{ loop.index }}</td>
+            			<td class="text-center">{{ votante.nacionalidad }}-{{ votante.cedula() }}</td>
+            			<td class="text-center">{{ votante.apellido_nombre }}</td>
+            			<td class="text-center">{{ votante.fechaNacimientoRegistroPreliminar() }}</td>
+            			<td class="text-center">{{ votante.direccion() }}</td>
+            		</tr>
+            		{% endfor %}
+            	</tbody>
+            </table>
+
+            <div style="page-break-before: always;"></div>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        {# <td class="col-sm-2" style="font-size: 15px">
+                            <img src="{{ base_path }}/images/cne_logo.jpg" width="200" class="img-responsive" style="margin-left: 40px; margin-bottom: 5px;" alt="">
+                            <p class="negritas text-center">Comisión de Participación Política y Financiamiento
+                                <br> <br>Oficina Nacional de Participación Ciudadana</p>
+                        </td> #}
+                        <td >
+                            <p class="text-center negritas text-uppercase" style="font-size: 30px; background-color: #CCC; margin-top: 0px;"><span>Registro Electoral Preliminar {{ consejo.nombre }}</span></p>
+                            <p class="text-uppercase text-center" style="font-size: 24px;"><span class="negritas">Estado:</span> {{ comunidad.estado }}</p>
+                            <p class="text-uppercase text-center" style="font-size: 24px;"><span class="negritas">Municipio:</span> {{ comunidad.municipio }}</p>
+                            <p class="text-uppercase text-center" style="font-size: 24px;"><span class="negritas">Parroquía:</span> {{ comunidad.parroquia }}</p>
+                            <p class="text-uppercase text-center" style="font-size: 24px;"><span class="negritas">Nombre De La Instancía Del Poder Popular: Equipo Promotor Provisional</span> {{ consejo.nombre }}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-condensed table-hover">
+            	<thead>
+            		<tr class="text-uppercase">
+            			<th style="background-color: #FFFF00 !important;" width="40px" class="text-center">N°</th>
+            			<th style="background-color: #FFFF00 !important;" width="150px" class="text-center">Cédula de Identidad</th>
+            			<th style="background-color: #FFFF00 !important;" class="text-center col-sm-3">Apellido y Nombre</th>
+            			<th style="background-color: #FFFF00 !important;" width="130px" class="text-center col-sm-1">Fecha de Nacimiento</th>
+            			<th style="background-color: #FFFF00 !important;" class="text-center">Dirección</th>
+            		</tr>
+            	</thead>
+            	<tbody>
+            		{% for votante in votantesE %}
+            		<tr>
+            			<td class="text-center">{{ loop.index }}</td>
+            			<td class="text-center">{{ votante.nacionalidad }}-{{ votante.cedula() }}</td>
+            			<td class="text-center">{{ votante.apellido_nombre }}</td>
+            			<td class="text-center">{{ votante.fechaNacimientoRegistroPreliminar() }}</td>
+            			<td class="text-center">{{ votante.direccion() }}</td>
+            		</tr>
+            		{% endfor %}
+            	</tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/php">
+        if ( isset($pdf) ) {
+            $fecha = new DateTime('now');
+            $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado");
+            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+            $font = Font_Metrics::get_font("arial", "regular");
+            $pdf->page_text(20, 570, "Pagina {PAGE_NUM} de {PAGE_COUNT} - ".$dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y')." @ ".$fecha->format('H:i a'), $font, 10, array(0,0,0));
+        }
+    </script>
+{% endblock %}

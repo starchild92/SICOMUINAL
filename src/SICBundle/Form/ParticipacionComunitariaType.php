@@ -23,6 +23,7 @@ class ParticipacionComunitariaType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'multiple'  => true,
+                'required'  => false,
                 'attr'      => array(
                     'multiple' => '',
                     'class' => 'fluid multiple search selection',
@@ -51,6 +52,7 @@ class ParticipacionComunitariaType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'multiple'  => true,
+                'required'  => false,
                 'attr'      => array(
                     'multiple' => '',
                     'class' => 'fluid multiple search selection',
@@ -73,6 +75,7 @@ class ParticipacionComunitariaType extends AbstractType
                 'class' => 'SICBundle:AdminAreaTrabajoCC',
                 'multiple' => true,
                 'label'     => '¿De crearse un consejo comunal en su comunidad, en cual área de trabajo le gustaría participar?',
+                'required'  => false,
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'ui dropdown')))

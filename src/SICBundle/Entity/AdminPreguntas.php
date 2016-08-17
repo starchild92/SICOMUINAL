@@ -30,7 +30,6 @@ class AdminPreguntas
 
     public function __toString(){ return $this->pregunta; }
 
-
     /**
      * Get id
      *

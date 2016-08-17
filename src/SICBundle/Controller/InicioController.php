@@ -3,22 +3,22 @@
 namespace SICBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Slik\DompdfBundle\DomPDF;
+use Symfony\Component\HttpFoundation\Response;
+use SICBundle\Entity\Bitacora;
 
 class InicioController extends Controller
 {
-    public function inicioAction()
-    {
+    public function inicioAction(){
         if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
         {
             return $this->render('inicio/inicio.html.twig');
         }else{
             return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
-        
+        }    
     }
 
-    public function loginAction()
-    {
+    public function loginAction(){
         return $this->redirect($this->generateUrl('fos_user_security_login'));
     }
 
@@ -33,6 +33,7 @@ class InicioController extends Controller
         foreach ($unidad_ejecutiva as $ue) {
             $personas = array();
             $voceros = $ue->getVoceros();
+
             foreach ($voceros as $v) {
                 $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $v->getPersona()));
                 if (sizeof($r)>0) {
@@ -42,8 +43,10 @@ class InicioController extends Controller
                     if (sizeof($r)>0) {
                         $voce = $r[0];
                     }else{
-                        echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
-                        die();
+                        $em->remove($v);
+                        // print_r($v->getPersona());
+                        // echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
+                        // die();
                     }
                 }
 
@@ -60,6 +63,8 @@ class InicioController extends Controller
                 ));
         }
 
+        $em->flush();
+
         $unidades_restantes = array();
         $unid_res = $em->getRepository('SICBundle:Comite')->findAll();
         foreach ($unid_res as $ue) {
@@ -75,8 +80,9 @@ class InicioController extends Controller
                         if (sizeof($r)>0) {
                             $voce = $r[0];
                         }else{
-                            echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
-                            die();
+                            $em->remove($v);
+                            // echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
+                            // die();
                         }
                     }
 
@@ -93,6 +99,7 @@ class InicioController extends Controller
                 ));
             }
         }
+        $em->flush();
 
         //die();
 
@@ -117,5 +124,393 @@ class InicioController extends Controller
     public function volverParametrosAction($index)
     {
         return $this->render('administracion/parametros.html.twig');
+    }
+
+    // Reportes Solicitados
+    public function cmp($a, $b){
+        if((int)$a->getCedula() == (int)$b->getCedula())return 0;
+        if((int)$a->getCedula()  > (int)$b->getCedula())return 1;
+        if((int)$a->getCedula()  < (int)$b->getCedula())return -1;
+    }
+    public function cuadernoVotacionAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        if (sizeof($comunidad) > 0) {
+            $comunidad_info = $comunidad[0];
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $votantes = array();
+            foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
+            foreach ($personas as $p) { array_push($votantes, $p); }
+
+            usort($votantes, array($this, "cmp"));
+
+            return $this->render('inicio/cuaderno-votacion.html.twig',
+                array(
+                    'votantes' => $votantes,
+                    'comunidad' => $comunidad_info));
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            return $this->redirectToRoute('sic_homepage');
+        }
+    }
+    public function cuadernoVotacionPDFAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        if (sizeof($comunidad) > 0) {
+            $comunidad_info = $comunidad[0];
+
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $votantes = array();
+            foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
+            foreach ($personas as $p) { array_push($votantes, $p); }
+            usort($votantes, array($this, "cmp"));
+
+            // Genero el PDF Aqui
+            $dompdf = new \DOMPDF();
+            $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
+            $dompdf->load_html($this->renderView('inicio/cuaderno-votacion-pdf.html.twig',
+                array(
+                    'votantes' => $votantes,
+                    'comunidad' => $comunidad_info))
+            );
+            $dompdf->render();
+
+            $entrada = new Bitacora($this->getUser(),'generó','un Cuaderno de Votación');
+            $em->persist($entrada);
+            $em->flush();
+
+            // Or get the output to handle it yourself
+            $response = new Response();
+            $response->setContent($dompdf->stream("cuaderno-votacion.pdf", array("Attachment"=>1)));
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'application/pdf');
+            return $response;
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            return $this->redirectToRoute('sic_homepage');
+        }
+    }
+
+    // public function cmpsector($a, $b){ return strcmp($a->getAvenida(), $b->getAvenida()); }
+    public function cmpdireccion($a, $b){ return strcmp($a->getAvenidaCalle(), $b->getAvenidaCalle()); }
+    public function resumenCensoAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        if (sizeof($comunidad) > 0 && sizeof($consejo)) {
+            $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+
+            $sectores = $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(); //Cantidad de Sectores para realizar la contabilización de los datos
+            // usort($sectores, array($this, "cmpsector")); //esto los organizará, lo que no tiene sentido porque todos son diferentes
+
+            $datos =  array();
+            foreach ($sectores as $s) {
+                $nombre_avenida = $s->getAvenida();
+                $grupos_del_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findBy(array('avenida' => $nombre_avenida));
+                usort($grupos_del_sector, array($this, "cmpdireccion"));
+                $num_viviendas = sizeof($em->getRepository('SICBundle:GrupoFamiliar')->findNumeroViviendas($nombre_avenida));
+                $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_avenida);
+
+                //Variables para construir la tabla del resultados
+                // echo "En el sector: ".$nombre_avenida;
+                // echo ", hay ".sizeof($grupos_del_sector). " grupos familiares con ";
+                // echo $num_viviendas." viviendas";
+                // echo " y en este sector viven ".$habitantes_sector['cantidad']." personas <br>";
+
+                // Me toca anidar un foreach para consultar el resto de la informacion de cada miemnro del grupo familiar y jefe de grupo familiar
+                // echo sizeof($grupos_del_sector);
+                $miembros = 0;
+                $entreQyD = 0;
+                $mayor_edad = 0;
+                $cne = 0;
+                $electores = 0;
+                foreach ($grupos_del_sector as $grupo) {
+                    // echo $grupo->getAvenida()."/".$grupo->getAvenidaCalle()." miembros ".sizeof($grupo->getMiembros())."<br>";
+                    $miembros = sizeof($grupo->getMiembros()) + $miembros + 1;
+                    $personas = $grupo->getMiembros();
+                    foreach ($personas as $p) {
+                        if ($p->getEdad() >= 15 && $p->getEdad() <= 17) { $entreQyD++; }
+                        if ($p->getEdad() >= 15) { $electores++; }
+                        if ($p->getEdad() >= 18) { $mayor_edad++; }
+                        if ($p->getCne()->getRespuesta() == 'Si') { $cne++; }
+                    }
+                    if ($grupo->getPlanilla() != null) {
+                        $jfg = $grupo->getPlanilla()->getJefeGrupoFamiliar();
+                        if ($jfg != null) {
+                            if ($jfg->getEdad() >= 15 && $jfg->getEdad() <= 17) { $entreQyD++; }
+                            if ($jfg->getEdad() >= 15) { $electores++; }
+                            if ($jfg->getEdad() >= 18) { $mayor_edad++; }
+                            if ($jfg->getCne()->getRespuesta() == 'Si') { $cne++; }
+                        }
+                    }
+                }
+                // echo "Total personas: ".$miembros."<br>";
+                // echo "15 - 17 años: ".$entreQyD."<br>";
+                // echo "18 >= ".$mayor_edad."<br>";
+                // echo "CNE: ".$cne."<br>";
+                // echo "Electores:  ".$electores."<br>";
+
+                array_push($datos,
+                    array(
+                        'sector' => $nombre_avenida,
+                        'num_viviendas' => $num_viviendas,
+                        'num_familias' => sizeof($grupos_del_sector),
+                        'num_habitantes' => $habitantes_sector['cantidad'],
+                        'mayoresde' => $entreQyD,
+                        'mayor_edad' => $mayor_edad,
+                        'cne' => $cne,
+                        'electores' => $electores));
+            }
+
+            return $this->render('inicio/resumen-censo.html.twig',
+                array(
+                    'sectores' => $datos,
+                    'comunidad' => $comunidad_info,
+                    'consejo' => $cc->getNombre()));
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
+            return $this->redirectToRoute('sic_homepage');
+        }
+    }
+    public function resumenCensoPDFAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        if (sizeof($comunidad) > 0 && sizeof($consejo)) {
+            $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+            $sectores = $em->getRepository('SICBundle:GrupoFamiliar')->findSectores();
+            $datos =  array();
+            foreach ($sectores as $s) {
+                $nombre_avenida = $s->getAvenida();
+                $grupos_del_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findBy(array('avenida' => $nombre_avenida));
+                usort($grupos_del_sector, array($this, "cmpdireccion"));
+                $num_viviendas = sizeof($em->getRepository('SICBundle:GrupoFamiliar')->findNumeroViviendas($nombre_avenida));
+                $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_avenida);
+                $miembros = 0;
+                $entreQyD = 0;
+                $mayor_edad = 0;
+                $cne = 0;
+                $electores = 0;
+                foreach ($grupos_del_sector as $grupo) {
+                    $miembros = sizeof($grupo->getMiembros()) + $miembros + 1;
+                    $personas = $grupo->getMiembros();
+                    foreach ($personas as $p) {
+                        if ($p->getEdad() >= 15 && $p->getEdad() <= 17) { $entreQyD++; }
+                        if ($p->getEdad() >= 15) { $electores++; }
+                        if ($p->getEdad() >= 18) { $mayor_edad++; }
+                        if ($p->getCne()->getRespuesta() == 'Si') { $cne++; }
+                    }
+                    if ($grupo->getPlanilla() != null) {
+                        $jfg = $grupo->getPlanilla()->getJefeGrupoFamiliar();
+                        if ($jfg != null) {
+                            if ($jfg->getEdad() >= 15 && $jfg->getEdad() <= 17) { $entreQyD++; }
+                            if ($jfg->getEdad() >= 15) { $electores++; }
+                            if ($jfg->getEdad() >= 18) { $mayor_edad++; }
+                            if ($jfg->getCne()->getRespuesta() == 'Si') { $cne++; }
+                        }
+                    }
+                }
+                array_push($datos,array(
+                    'sector' => $nombre_avenida,
+                    'num_viviendas' => $num_viviendas,
+                    'num_familias' => sizeof($grupos_del_sector),
+                    'num_habitantes' => $habitantes_sector['cantidad'],
+                    'mayoresde' => $entreQyD,
+                    'mayor_edad' => $mayor_edad,
+                    'cne' => $cne,
+                    'electores' => $electores));
+            }
+
+            $dompdf = new \DOMPDF();
+            $dompdf->set_paper(array(0,0,612.00,792.00), 'portrait');
+            $dompdf->load_html($this->renderView('inicio/resumen-censo-pdf.html.twig',
+                array(
+                    'sectores' => $datos,
+                    'comunidad' => $comunidad_info,
+                    'base_path' => $_SERVER["DOCUMENT_ROOT"],
+                    'consejo' => $cc->getNombre()))
+            );
+            $dompdf->render();
+            $entrada = new Bitacora($this->getUser(),'generó','un Resumen del Censo Demográfico');
+            $em->persist($entrada);
+            $em->flush();
+
+            $response = new Response();
+            $response->setContent($dompdf->stream("resumen-censo-demografico.pdf", array("Attachment"=>1)));
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'application/pdf');
+            return $response;
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
+            return $this->redirectToRoute('sic_homepage');
+        }
+    }
+
+    /**/
+    public function registroElectoralAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        if (sizeof($comunidad) > 0) {
+            $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $votantes = array();
+            foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
+            foreach ($personas as $p) { array_push($votantes, $p); }
+
+            usort($votantes, array($this, "cmp"));
+
+            return $this->render('inicio/registro-electoral.html.twig',
+                array(
+                    'votantes' => $votantes,
+                    'comunidad' => $comunidad_info,
+                    'consejo' => $cc));
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
+            return $this->redirectToRoute('sic_homepage');
+        }
+    }
+    public function registroElectoralPDFAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        if (sizeof($comunidad) > 0) {
+            $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $votantes = array();
+            foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
+            foreach ($personas as $p) { array_push($votantes, $p); }
+
+            usort($votantes, array($this, "cmp"));
+
+            $dompdf = new \DOMPDF();
+            $dompdf->set_paper(array(0,0,612.00,792.00), 'portrait');
+            $dompdf->load_html($this->renderView('inicio/registro-electoral-pdf.html.twig',
+                array(
+                    'votantes' => $votantes,
+                    'comunidad' => $comunidad_info,
+                    'base_path' => $_SERVER["DOCUMENT_ROOT"],
+                    'consejo' => $cc)));
+
+            $dompdf->render();
+            $entrada = new Bitacora($this->getUser(),'generó','un Registro Electoral Preliminar');
+            $em->persist($entrada);
+            $em->flush();
+
+            $response = new Response();
+            $response->setContent($dompdf->stream("registro-electoral.pdf", array("Attachment"=>1)));
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'application/pdf');
+            return $response;
+
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
+            return $this->redirectToRoute('sic_homepage');
+        }
+    }
+
+    /**/
+    public function registroPreliminarAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        if (sizeof($comunidad) > 0) {
+            $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $votantesV = array();
+            $votantesE = array();
+            foreach ($jefes_grupo_familiar as $j) {
+                if ($j->getNacionalidad() == 'V') { array_push($votantesV, $j); }
+                if ($j->getNacionalidad() == 'E') { array_push($votantesE, $j); }
+            }
+            foreach ($personas as $p) {
+                if ($p->getNacionalidad() == 'V') { array_push($votantesV, $p); }
+                if ($p->getNacionalidad() == 'E') { array_push($votantesE, $p); }
+            }
+
+            usort($votantesV, array($this, "cmp"));
+            usort($votantesE, array($this, "cmp"));
+
+            return $this->render('inicio/registro-preliminar.html.twig',
+                array(
+                    'votantesV' => $votantesV,
+                    'votantesE' => $votantesE,
+                    'comunidad' => $comunidad_info,
+                    'consejo' => $cc));
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            return $this->redirectToRoute('sic_homepage');
+        }
+    }
+    public function registroPreliminarPDFAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        if (sizeof($comunidad) > 0) {
+            $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+
+            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
+            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $votantesV = array();
+            $votantesE = array();
+            foreach ($jefes_grupo_familiar as $j) {
+                if ($j->getNacionalidad() == 'V') { array_push($votantesV, $j); }
+                if ($j->getNacionalidad() == 'E') { array_push($votantesE, $j); }
+            }
+            foreach ($personas as $p) {
+                if ($p->getNacionalidad() == 'V') { array_push($votantesV, $p); }
+                if ($p->getNacionalidad() == 'E') { array_push($votantesE, $p); }
+            }
+
+            usort($votantesV, array($this, "cmp"));
+            usort($votantesE, array($this, "cmp"));
+
+            $dompdf = new \DOMPDF();
+            $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
+            $dompdf->load_html($this->renderView('inicio/registro-preliminar-pdf.html.twig',
+                array(
+                    'votantesV' => $votantesV,
+                    'votantesE' => $votantesE,
+                    'comunidad' => $comunidad_info,
+                    'base_path' => $_SERVER["DOCUMENT_ROOT"],
+                    'consejo' => $cc)));
+
+            $dompdf->render();
+            $entrada = new Bitacora($this->getUser(),'generó','un Registro Electoral Preliminar');
+            $em->persist($entrada);
+            $em->flush();
+
+            $response = new Response();
+            $response->setContent($dompdf->stream("registro-electoral-preliminar.pdf", array("Attachment"=>1)));
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'application/pdf');
+            return $response;
+
+        }else{
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            return $this->redirectToRoute('sic_homepage');
+        }
     }
 }

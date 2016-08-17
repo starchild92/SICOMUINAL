@@ -23,17 +23,15 @@ class AdminPreguntasParticipacionComunitaria
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminPreguntas", cascade={"persist"})
-     * @ORM\JoinColumn(name="pregunta", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="interrogante", referencedColumnName="id", onDelete="CASCADE")
      */
     private $interrogante;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
-     * @ORM\JoinColumn(name="respCerrada", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="respuesta", referencedColumnName="id", onDelete="CASCADE")
      */
     private $respuesta;
-
-    public function __toString(){ return $this->interrogante; }
 
     /**
      * Get id

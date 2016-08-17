@@ -28,20 +28,42 @@ class PersonaType extends AbstractType
 
             ->add('sexo', GeneroType::class, array(
                 'placeholder' => 'Elija uno',
-                'attr' => array('class' => 'ui dropdown')))
-            ->add('cedula','text', array(
-                'label'     => 'Cédula de Identidad'))
+                // 'attr' => array('class' => 'ui dropdown')
+                ))
+
+            ->add('nacionalidad', EntityType::class, array(
+                // query choices from this entity
+                'class' => 'SICBundle:AdminNacionalidad',
+                'placeholder' => 'Selecciona una',
+                'choice_label' => 'Nacionalidad',
+
+                // used to render a select box, check boxes or radios
+                 // 'multiple' => true,
+                 // 'expanded' => true,
+            ))
             
-            ->add('email')
+            ->add('cedula','text', array(
+                'label'     => 'Cédula de Identidad',
+                'required' => false,))
+            
+            ->add('email','text',array(
+                'required' => false,
+                'label' => 'Correo Electronico',
+                'attr' => array(
+                    // 'required' => false,
+                    'placeholder' => 'example@mail.com')))
             
             ->add('fechaNacimiento', DateType::class, array(
                 'widget'    => 'single_text',
                 'html5'     => false,
-                'attr'      => ['class' => 'js-datepicker'],
+                'attr'      => ['class' => 'js-datepicker', 'placeholder' => 'AÑO-MES-DIA'],
                 'label'     => 'Fecha de Nacimiento'
             ))
 
-            ->add('edad')
+            ->add('edad', 'text', array(
+                'attr' => array(
+                    'readonly' => true)))
+
             ->add('parentesco', 'text', array(
                 'label'     => 'Parentesco que guarda con el Jefe del Grupo Familiar'))
             
@@ -79,8 +101,9 @@ class PersonaType extends AbstractType
             ))
 
             ->add('incapacitado', ChoiceType::class, array(
+                'label' => 'Discapacidad',
                 'choices'  => array(
-                    'Seleccione' => '',
+                    'Seleccione una' => '',
                     'Si' => 'si',
                     'No' => 'no',
                     // 'Otro' => 'otro'
@@ -88,6 +111,7 @@ class PersonaType extends AbstractType
                 'choices_as_values' => true,
             ))
             ->add('incapacitadoTipo', EntityType::class, array(
+                'label' => 'Tipo de Discapacidad',
                 'class' => 'SICBundle:AdminIncapacidades',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'incapacidad',
@@ -97,14 +121,16 @@ class PersonaType extends AbstractType
             ))
 
             ->add('pensionado', ChoiceType::class, array(
+                'label' => '¿Es Pensionado?',
                 'choices'  => array(
-                    'Seleccione' => '',
+                    'Seleccione una' => '',
                     'Si' => 'si',
                     'No' => 'no',
                     // 'Otro' => 'otro'
                 ),
                 'choices_as_values' => true,
             ))
+            
             ->add('pensionadoInstitucion', EntityType::class, array(
                 'class' => 'SICBundle:AdminPensionadoInstitucion',
                 'placeholder' => 'Selecciona una',
@@ -113,6 +139,12 @@ class PersonaType extends AbstractType
                     // 'class' => 'ui dropdown',
                     'required'  => false)
             ))
+
+            ->add('ingresoMensual','text', array(
+                'label' => 'Estimado de Ingreso Mensual',
+                'attr' => array(
+                    'value' => 0)
+                ))
         ;
     }
     
