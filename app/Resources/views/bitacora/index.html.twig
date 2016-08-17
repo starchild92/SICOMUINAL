@@ -54,38 +54,55 @@
         </div>
     {% endif %}
     {% set dia_actual = date('today') %}
-    {% for entity in entities %}
-        {% if (entity.fecha|date('Y-m-d') != dia_actual|date('Y-m-d')) or (loop.index == 1) %}
-            {% set dia_actual = entity.fecha %}
-            <div class="col-sm-12">
-                <h3 class="text-left negritas">{{ entity.fechaF(dia_actual) }}</h3>
-                <hr>
-            </div>
-        {% endif %}
-        <div class="col-sm-12">
-            <div class="alert {% if entity.accion == 'agregó' %}alert-success{% elseif entity.accion == 'eliminó' %}alert-danger{% elseif entity.accion == 'envió' %}alert-warning{% else %}alert-info{% endif %} well-sm">
-                {% if entity.accion == 'agregó' %}
-                    <i class="fa fa-plus fa-fw pull-left"></i>
-                    {% elseif entity.accion == 'eliminó' %}
-                    <i class="fa fa-times fa-fw pull-left"></i>
-                    {% elseif entity.accion == 'envió' %}
-                    <i class="fa fa-send fa-fw pull-left"></i>
-                    {% elseif entity.accion == 'generó' %}
-                    <i class="fa fa-file fa-fw pull-left"></i>
-                    {% elseif entity.accion == 'continuó' %}
-                    <i class="fa fa-arrow-left fa-fw pull-left"></i>
-                    {% elseif entity.accion == 'modificó' %}
-                    <i class="fa fa-pencil fa-fw pull-left"></i>
-                    {% else %}
-                    <i class="fa fa-exclamation fa-fw pull-left"></i>
-                {% endif %}
-                <p>{{ loop.index }}. El usuario <span class="negritas">{{ entity.usuario.nombreyapellido() }}</span> {{ entity.accion }} {{ entity.detalles }}</p>
-                <p><span class="label {% if entity.accion == 'agregó' %}label-success{% elseif entity.accion == 'eliminó' %}label-danger{% elseif entity.accion == 'envió' %}label-warning{% else %}label-info{% endif %} label-sm pull-left">{{ entity.fecha|date('Y-m-d h:i a') }}</span></p>
-
-
-            </div>
+        <div class="col-lg-12">
+            <table id="dataTable" class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                    {% if (entity.fecha|date('Y-m-d') != dia_actual|date('Y-m-d')) or (loop.index == 1) %}
+                        {% set dia_actual = entity.fecha %}
+                            <tr class="text-center">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center">{{ entity.fechaF(dia_actual) }}</td>
+                            </tr>
+                    {% endif %}
+                    <tr class="{% if entity.accion == 'agregó' %}success{% elseif entity.accion == 'eliminó' %}danger{% elseif entity.accion == 'envió' %}warning{% else %}info{% endif %}">
+                        <td class="text-center">
+                            {% if entity.accion == 'agregó' %}
+                                <i class="fa fa-plus fa-lg"></i>
+                                {% elseif entity.accion == 'eliminó' %}
+                                <i class="fa fa-times fa-lg"></i>
+                                {% elseif entity.accion == 'envió' %}
+                                <i class="fa fa-send fa-lg"></i>
+                                {% elseif entity.accion == 'generó' %}
+                                <i class="fa fa-file fa-lg"></i>
+                                {% elseif entity.accion == 'continuó' %}
+                                <i class="fa fa-arrow-left fa-lg"></i>
+                                {% elseif entity.accion == 'modificó' %}
+                                <i class="fa fa-pencil fa-lg"></i>
+                                {% else %}
+                                <i class="fa fa-exclamation fa-lg"></i>
+                            {% endif %}
+                        </td>
+                        <td class="text-center negritas">{{ loop.index }}</td>
+                        <td>
+                            El usuario <span class="negritas">{{ entity.usuario.nombreyapellido() }}</span> {{ entity.accion }} {{ entity.detalles }}
+                        </td>
+                        <td><span class="label {% if entity.accion == 'agregó' %}label-success{% elseif entity.accion == 'eliminó' %}label-danger{% elseif entity.accion == 'envió' %}label-warning{% else %}label-info{% endif %} label-xs">{{ entity.fecha|date('Y-m-d h:i:s a') }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    {% endfor %}
     </div>
 </div>
 <div class="loader" id="loader"></div>
@@ -94,6 +111,21 @@
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/datepicker.js') }}"></script>
+    {# <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script> #}
+    <script>
+    //     $(document).ready(function() {
+    //         dataTable = $('table.table').DataTable({
+    //             "aaSorting": [[ 1, "desc" ]],
+    //             "language": {
+    //                 "url": "{{ asset('datatables/espanol.js') }}"
+    //             },
+    //             "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+    //                         "<'row'<'col-sm-12'tr>>" +
+    //                         "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+    //             "paging": false,
+    //         });
+    //     });
+    </script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             $('.ui.dropdown').dropdown();
