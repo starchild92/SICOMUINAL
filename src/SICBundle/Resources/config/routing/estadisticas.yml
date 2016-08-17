@@ -1,40 +1,40 @@
 estadisticas_generales_personas:
-    path:     /estadisticas/generales/personas
+    path:     /generales
     defaults: { _controller: "SICBundle:Estadisticas:egPersonas"}
     methods:  GET
 
 # Rutas para las estadisticas (de los graficos)
 sic_estadisticas_personas_jefegrupofamiliar:
-    path:     /estadisticas/jefes/grupo/familiar
+    path:     /jefes/grupo/familiar
     defaults: { _controller: "SICBundle:JefeGrupoFamiliar:index" }
     methods:  GET
 
 sic_estadisticas_personas:
-    path:     /estadisticas/miembros/comunidad
+    path:     /miembros/comunidad
     defaults: { _controller: "SICBundle:Persona:index" }
     methods:  GET
 
 sic_estadisticas_situacion_economica:
-    path:     /estadisticas/situacion/economica
+    path:     /situacion/economica
     defaults: { _controller: "SICBundle:SituacionEconomica:index" }
     methods:  GET
 
 sic_estadisticas_situacion_vivenda:
-    path:     /estadisticas/situacion/vivienda
+    path:     /situacion/vivienda
     defaults: { _controller: "SICBundle:SituacionVivienda:index" }
     methods:  GET
 
 sic_estadisticas_situacion_salud:
-    path:     /estadisticas/situacion/salud
+    path:     /situacion/salud
     defaults: { _controller: "SICBundle:SituacionSalud:index" }
     methods:  GET
 
 sic_estadisticas_situacion_servicios:
-    path:     /estadisticas/situacion/servicios
+    path:     /situacion/servicios
     defaults: { _controller: "SICBundle:SituacionServicios:index" }
     methods:  GET
 
 sic_estadisticas_situacion_participacion_comunitaria:
-    path:     /estadisticas/situacion/participacion/comunitaria
+    path:     /situacion/participacion/comunitaria
     defaults: { _controller: "SICBundle:ParticipacionComunitaria:index" }
     methods:  GET

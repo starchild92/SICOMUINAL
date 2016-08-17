@@ -8,29 +8,37 @@
 			<h3 class="text-center text-info">Estadísticas Generales - Personas Comunidad <i class="fa fa-bar-chart fa-sm pull-left"></i></h3>
 			<hr>
 			<div class="row grid">
+				{# {{ dump(personas.stat_nacionalidad_jfg) }} #}
+				{# {{ dump(personas.stat_nacionalidad_p) }} #}
+
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="panel panel-default">
-						<p class="panel-title text-center negritas">Nacionalidad</p>
-						<table class="table table-bordered table-striped table-hover table-condensed">
-							<thead>
-								<tr>
-									<th>Nacionalidad</th>
-									<th>Cant.</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for n in jfg.stat_nacionalidad %}
-									<tr>
-										<td>{{n.nacionalidad}}</td>
-										<td>{{n.cantidad}}</td>
-									</tr>
+						<p class="panel-title text-center negritas">Nacionalidades - Jefes de Grupos Familiares</p>
+						{% for n in personas.stat_nacionalidad_jfg %}
+							<div class="panel-body">
+								<h3 class="bottom-line">{{ n.nacionalidad }}</h3>
+								{% for jfg in n.quienes %}
+								<span class="label label-default">{{ jfg.nombreyapellido() }}</span>
 								{% endfor %}
-							</tbody>
-						</table>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-default">
+						<p class="panel-title text-center negritas">Nacionalidades - Personas de la Comunidad</p>
+						{% for n in personas.stat_nacionalidad_p %}
+							<div class="panel-body">
+								<h3 class="bottom-line">{{ n.nacionalidad }}</h3>
+								{% for p in n.quienes %}
+								<span class="label label-default">{{ p.nombreyapellido() }}</span>
+								{% endfor %}
+							</div>
+						{% endfor %}
 					</div>
 				</div>
 
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				{# <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="panel panel-default">
 						<p class="panel-title text-center negritas">Sexo</p>
 						<table class="table table-bordered table-striped table-hover table-condensed">
@@ -191,7 +199,7 @@
 							</tbody>
 						</table>
 					</div>
-				</div>
+				</div> #}
 			</div>
 		</div>
 	</div>
