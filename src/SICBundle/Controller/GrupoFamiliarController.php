@@ -68,7 +68,6 @@ class GrupoFamiliarController extends Controller
 
                 return $this->redirectToRoute('personas_new', array(
                     'id_planilla' => $id_planilla,
-                    'grupos' => $grupos,
                     'id_grupofamiliar' => $grupoFamiliar->getId()));
             }
 
@@ -108,7 +107,6 @@ class GrupoFamiliarController extends Controller
         $deleteForm = $this->createDeleteForm($grupoFamiliar);
         $editForm = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
         $editForm->handleRequest($request);
-        $grupos = $em->getRepository('SICBundle:GrupoFamiliar')->findCalles();
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em->persist($grupoFamiliar);

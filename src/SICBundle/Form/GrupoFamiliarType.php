@@ -25,6 +25,7 @@ class GrupoFamiliarType extends AbstractType
             ->add('calle','text', array(
                 'label'     => 'Calle'))
             ->add('numeroCasa','text', array(
+                'required' => false,
                 'label'     => 'Número de Casa'))
         ;
     }

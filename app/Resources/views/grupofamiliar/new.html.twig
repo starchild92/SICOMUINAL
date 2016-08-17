@@ -55,8 +55,8 @@
     <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function() {
-            var calles = [{% for item in grupos %}'{{ item.calle }}',{% endfor %}];
-            var avenidas = [{% for item in grupos %}'{{ item.avenida }}',{% endfor %}];
+            var calles = [{% for item in grupos_calle %}'{{ item.calle }}',{% endfor %}];
+            var avenidas = [{% for item in grupos_avenida %}'{{ item.avenida }}',{% endfor %}];
             $( "#grupo_familiar_calle" ).autocomplete({
                 source: calles,
                 minLength: 0,
