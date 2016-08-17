@@ -1,5 +1,201 @@
-{% extends 'base.html.twig' %}
+{% embed 'estadisticas-generales.html.twig' %}
 
-{% block body %}
+	{% block body %}
+	<div class="row">
+		<h2 class="text-center text-info">Estadísticas Generales</h2>
+		<hr>
+	</div>
+	<div class="row">
+		<div class="col-lg-3">
+			<p class="negritas">Cosas</p>
+		</div>
+		<div class="col-lg-9" id="grid">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<p class="panel-title text-center negritas">Nacionalidad</p>
+					<table class="table table-bordered table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Nacionalidad</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for n in jfg.stat_nacionalidad %}
+								<tr>
+									<td>{{n.nacionalidad}}</td>
+									<td>{{n.cantidad}}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
 
-{% endblock %}
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<p class="panel-title text-center negritas">Sexo</p>
+					<table class="table table-bordered table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Sexo</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for sx in jfg.stat_sexo %}
+								<tr>
+									<td>{{sx.sexo}}</td>
+									<td>{{sx.cantidad}}</td>
+								</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<p class="panel-title text-center negritas">Inscrito en el CNE</p>
+					<table class="table table-bordered table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Resp</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for cne in jfg.stat_cne %}
+							<tr>
+								<td>{{cne.resp}}</td>
+								<td>{{cne.cantidad}}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<p class="panel-title text-center negritas">Situación de Empleo</p>
+					<table class="table table-bordered table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Resp</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for emp in jfg.stat_empleado %}<tr>
+								<td>{{emp.resp}}</td>
+								<td>{{emp.cantidad}}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<p class="panel-title text-center negritas">Estado Civil</p>
+					<table class="table table-bordered table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Estado Civil</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+						{% for edo in jfg.stat_edo_civil %}
+							<tr>
+								<td>{{edo.edo_civil}}</td>
+								<td>{{edo.cantidad}}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<p class="panel-title text-center negritas">Niveles de Instrucción</p>
+					<table class="table table-bordered table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Nivel</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for nivel in jfg.stat_instruccion %}<tr>
+								<td>{{ nivel.instruccion }}</td>
+								<td>{{ nivel.cantidad }}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<p class="panel-title text-center negritas">Profesiones</p>
+					<table class="table table-bordered table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Profesiones</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for pr in jfg.stat_profesiones %}<tr>
+								<td>{{pr.profesiones}}</td>
+								<td>{{pr.cantidad}}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<p class="panel-title text-center negritas">Discapacidades</p>
+					<table class="table table-bordered table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Discapacidad</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for inc in jfg.stat_incapacidades %}<tr>
+								<td>{{inc.incapacidades}}</td>
+								<td>{{inc.cantidad}}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<p class="panel-title text-center negritas">Pensionados</p>
+					<table class="table table-bordered table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Pensionados</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for ins in jfg.stat_pensionados %}<tr>
+								<td>{{ins.pensionados}}</td>
+								<td>{{ins.cantidad}}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	{% endblock %}
+{% endembed %}
