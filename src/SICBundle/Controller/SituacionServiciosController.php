@@ -230,7 +230,7 @@ class SituacionServiciosController extends Controller
             $p->setSituacionServicios($situacionServicio);
             $p->setTerminada('75');
             $em->persist($p);
-            $bitacora = new Bitacora($this->getUser(),'agregó','un Situación de Servicios a la planilla '.$id_planilla);
+            $bitacora = new Bitacora($this->getUser(),'agregó','la Situación de Servicios a la planilla '.$id_planilla);
             $em->persist($bitacora);
             $em->flush();
 

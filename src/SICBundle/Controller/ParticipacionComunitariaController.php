@@ -127,7 +127,7 @@ class ParticipacionComunitariaController extends Controller
             $p->setTerminada('85');
             $em->persist($p);
             $this->get('session')->getFlashBag()->add('success', 'Se han agregado una Participación Comunitaria');
-            $entrada = new Bitacora($this->getUser(),'agregó','información de Participación Comunitaria');
+            $entrada = new Bitacora($this->getUser(),'agregó','información de Participación Comunitaria a la planilla '.$id_planilla);
             $em->persist($entrada);
             $em->flush();
 
