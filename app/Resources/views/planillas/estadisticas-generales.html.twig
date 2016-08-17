@@ -2,14 +2,42 @@
 
 	{% block body %}
 	<div class="row">
-		<h2 class="text-center text-info">Estadísticas Generales</h2>
-		<hr>
-	</div>
-	<div class="row">
-		<div class="col-lg-2 col-md-2">
-			<p class="negritas">Cosas</p>
+		<div class="col-lg-3 col-sm-3">
+			<h4 class="text-center text-info">Opciones</h4>
+			<hr>
+			<div class="list-group">
+
+				<a href="#" target="__new" class="list-group-item">
+					<h4 class="list-group-item-heading">Proceso por Consola <i class="fa fa-terminal fa-1x pull-right"></i></h4>
+	    			<p class="list-group-item-text">Obtiene las noticias y las procesa generando sus vectores por consola.</p>
+	    		</a>
+
+				<a href="#" class="list-group-item">
+					<h4 class="list-group-item-heading">Ajustar Frecuencias <i class="fa fa-connectdevelop fa-1x pull-right"></i></h4>
+	    			<p class="list-group-item-text">Cuando se eliminan noticias manualmente, la cantidad de noticias no puede ser menor que la frecuencia del termino en la coleccion. Esta opción ajusta esa frecuencia.</p>
+	    		</a>
+
+	    		<a href="#" id="boton_de_accion_ajax" data-url="#" class="list-group-item">
+					<h4 class="list-group-item-heading">Número de Clusters <i class="fa fa-bullseye fa-1x pull-right"></i></h4>
+	    			<p class="list-group-item-text">Defina cuantos centroides habrán.</p>
+	    		</a>
+
+	    		<a href="#" id="boton_de_accion_ajax" data-url="#" class="list-group-item">
+					<h4 class="list-group-item-heading">Calcular K-Medias <i class="fa fa-balance-scale fa-1x pull-right"></i></h4>
+	    			<p class="list-group-item-text">Retorna una tabla con la cantidad de miembros pertenecientes a cada cluster</p>
+	    		</a>
+
+	    		<a href="#" id="boton_de_accion_ajax" data-url="#" class="list-group-item">
+					<h4 class="list-group-item-heading">Grupos <i class="fa fa-object-group fa-1x pull-right"></i></h4>
+	    			<p class="list-group-item-text">Examine los clusters y las noticias que los conforman</p>
+	    		</a>
+
+	    		<a href="#" id="boton_de_accion_ajax" data-url="#" class="list-group-item list-group-item-default">Estádisticas <i class="fa fa-bar-chart fa-fw pull-right"></i></a>
+			</div>
 		</div>
-		<div class="col-lg-10 col-md-10">
+		<div class="col-lg-9 col-sm-9">
+			<h2 class="text-center text-info">Estadísticas Generales</h2>
+			<hr>
 			<div class="row grid">
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="panel panel-default">
