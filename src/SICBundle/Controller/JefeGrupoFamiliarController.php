@@ -178,7 +178,7 @@ class JefeGrupoFamiliarController extends Controller
         ;
     }
 
-    private function obtenerEstadisticas($request)
+    public function obtenerEstadisticas($request)
     {
         $em = $this->getDoctrine()->getManager();
 
