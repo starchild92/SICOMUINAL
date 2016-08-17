@@ -75,7 +75,7 @@ class JefeGrupoFamiliarController extends Controller
 	            $em->persist($jefeGrupoFamiliar);
 	            $em->persist($p);
                 $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Jefe de Grupo Familiar');
-                $bitacora = new Bitacora($this->getUser(),'agregó','un Jefe de Grupo Familiar');
+                $bitacora = new Bitacora($this->getUser(),'agregó','un Jefe de Grupo Familiar a la planilla '.$id_planilla);
                 $em->persist($bitacora);
 	            $em->flush();
 
@@ -129,7 +129,7 @@ class JefeGrupoFamiliarController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se han guardado los cambios del Jefe de Grupo Familiar');
+            $this->get('session')->getFlashBag()->add('success', 'Se han guardado los cambios de '.$jefegrupofamiliar->nombreyapellido().' Jefe de Grupo Familiar');
 
             return $this->redirectToRoute('planillas_show', array('id' => $jefeGrupoFamiliar->getPlanilla()->getId()));
         }
@@ -152,9 +152,9 @@ class JefeGrupoFamiliarController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado a '.$jefeGrupoFamiliar->nombreyapellido().' Jefe de Grupo Familiar');
+            $bitacora = new Bitacora($this->getUser(),'eliminó','a '.$jefeGrupoFamiliar->nombreyapellido().' un Jefe de Grupo Familiar');
             $em->remove($jefeGrupoFamiliar);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado al Jefe de Grupo Familiar');
-            $bitacora = new Bitacora($this->getUser(),'eliminó','un Jefe de Grupo Familiar');
             $em->persist($bitacora);
             $em->flush();
         }
