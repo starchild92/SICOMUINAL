@@ -30,7 +30,7 @@ agenda_comunitaria:
 
 agenda_comunitaria_personas:
     path:     /agenda/comunitaria/personas
-    defaults: { _controller: "SICBundle:Persona:getDatatable" }
+    defaults: { _controller: "SICBundle:Persona:getDataAgenda" }
     methods:  GET
 
 personas_nuevo_miembro:

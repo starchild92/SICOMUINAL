@@ -67,15 +67,8 @@
                     "language": {
                         "url": "{{ asset('datatables/espanol.js') }}"
                     },
-                    "iColumns": [
-                        { "mData": "persona.id" },
-                        { "mData": "persona.nombre" },
-                        { "mData": "persona.apellido" },
-                        { "mData": "persona.cedula" },
-                        { "mData": "persona.profesion" },
-                        { "mData": "persona.edad" }
-                    ],
-                    'ajax': '{{ path("agenda_comunitaria_personas") }}?iColumns=6'
+                    "bProcessing": true,
+                    'sAjaxSource': '{{ path("agenda_comunitaria_personas") }}'
                 });
         });
     </script>

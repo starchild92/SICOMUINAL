@@ -340,10 +340,25 @@ class PersonaController extends Controller
     }
 
     /*Para probar el bundle*/
-    public function getDatatableAction()
+    public function getDataAgendaAction()
     {
-        $datatable = $this->get('lankit_datatables')->getDatatable('SICBundle:Persona');
-        $datatableArray = $datatable->getSearchResults(Datatable::RESULT_ARRAY);
+        $em = $this->getDoctrine()->getManager();
+        $jefes = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
+        $personass = $em->getRepository('SICBundle:Persona')->findAll();
+
+        $personas = array();
+        foreach ($jefes as $j) { 
+            $personas[] = array($j->getId(),$j->getNombres(),$j->getApellidos(),$j->cedula(),$j->getProfesion()->getNombre(),$j->getEdad(),'0'); }
+        foreach ($personass as $p) { 
+            $personas[] = array($p->getId(),$p->getNombre(),$p->getApellido(),$p->cedula(),$p->getProfesion()->getNombre(),$p->getEdad(),'0'); }
+        // usort($personas, array($this, "cmp"));
+
+        $response = array();
+        $response['success'] = true;
+        $response['aaData'] = $personas;
+        echo json_encode($response);
+
+        die();
     }
 
     public function nuevoMiembroAction(Request $request, $id_planilla, $id_grupofamiliar)
