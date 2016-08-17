@@ -61,7 +61,7 @@ class GrupoFamiliarController extends Controller
                 $p->setTerminada('20');
                 $em->persist($p);
                 $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Grupo Familiar');
-                $bitacora = new Bitacora($this->getUser(),'agregó','un Grupo Familiar');
+                $bitacora = new Bitacora($this->getUser(),'agregó','un Grupo Familiar ('.$grupoFamiliar->getApellidos().') para la planilla '.$id_planilla);
                 $em->persist($bitacora);
                 $em->flush();
 
@@ -111,7 +111,7 @@ class GrupoFamiliarController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em->persist($grupoFamiliar);
 
-            $bitacora = new Bitacora($this->getUser(),'modificó','un Grupo Familiar');
+            $bitacora = new Bitacora($this->getUser(),'modificó','un Grupo Familiar ('.$grupoFamiliar->getApellidos().')');
             $em->persist($bitacora);
             $em->flush();
 
@@ -142,7 +142,7 @@ class GrupoFamiliarController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($grupoFamiliar);
             $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado la información del Grupo Familiar de forma exitosa.');
-            $bitacora = new Bitacora($this->getUser(),'eliminó','la información del Grupo Familiar.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó','la información del Grupo Familiar ('.$grupoFamiliar->getApellidos().')');
             $em->persist($bitacora);
             $em->flush();
         }
