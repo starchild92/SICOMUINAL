@@ -41,3 +41,6 @@ swiftmailer:
     password:   gpscaracas2016
     delivery_address: 'mainstr3ammusic@gmail.com' #Direccion para enviar mensajes mientras estoy en desarrollo
 
+lankit_datatables:
+    services:
+        serializer: jms_serializer.serializer # Defaults to jms_serializer.serializer
