@@ -20,7 +20,7 @@
     <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#grid').packery({ itemSelector: 'div[class*="col-"', });
+            $('.row.grid').packery({ itemSelector: 'div[class*="col-"', });
             dataTable = $('table.table').DataTable({
                 "aaSorting": [[ 1, "desc" ]],
                 "language": {
