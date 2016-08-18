@@ -65,19 +65,21 @@ class EstadisticasController extends Controller
         //         )
         // );
 
-        // $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
-        // $stat_cne = array();
-        // foreach ($resp_cerradas as $resp) {
-        //     array_push(
-        //         $stat_cne, 
-        //         array(
-        //             'resp' => $resp->getRespuesta(),
-        //             'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-        //                                 array('cne' => $resp->getId())
-        //                                 ))
-        //             )
-        //     );
-        // }
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_cne_jfg = array();
+        $stat_cne_p = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_cne_jfg, 
+                array('resp' => $resp->getRespuesta(),
+                    'quienes'     => $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cne' => $resp->getId()))
+                    )
+            );
+            array_push($stat_cne_p, 
+                array('resp' => $resp->getRespuesta(),
+                    'quienes'     => $em->getRepository('SICBundle:Persona')->findBy(array('cne' => $resp->getId()))
+                    )
+            );
+        }
         
         // $stat_empleado = array();
         // foreach ($resp_cerradas as $resp) {
@@ -168,7 +170,8 @@ class EstadisticasController extends Controller
             'stat_nacionalidad_p' => $stat_nacionalidad_p,
 
             // 'stat_sexo' => $stat_sexo,
-            // 'stat_cne' => $stat_cne,
+            'stat_cne_jfg' => $stat_cne_jfg,
+            'stat_cne_p' => $stat_cne_p,
             // 'stat_edo_civil' => $stat_edo_civil,
             // 'stat_instruccion' => $stat_instruccion,
             // 'stat_profesiones' => $stat_profesiones,

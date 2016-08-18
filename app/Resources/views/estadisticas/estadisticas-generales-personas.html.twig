@@ -13,10 +13,10 @@
 
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="panel panel-default">
-						<p class="panel-title text-center negritas">Nacionalidades - Jefes de Grupos Familiares</p>
-						{% for n in personas.stat_nacionalidad_jfg %}
+						<p class="panel-title text-center negritas">CNE - Jefes de Grupos Familiares</p>
+						{% for n in personas.stat_cne_jfg %}
 							<div class="panel-body">
-								<h3 class="bottom-line">{{ n.nacionalidad }}</h3>
+								<h3 class="bottom-line">Respondieron "{{ n.resp }}"</h3>
 								{% for jfg in n.quienes %}
 								<span class="label label-default">{{ jfg.nombreyapellido() }}</span>
 								{% endfor %}
@@ -26,10 +26,10 @@
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="panel panel-default">
-						<p class="panel-title text-center negritas">Nacionalidades - Personas de la Comunidad</p>
-						{% for n in personas.stat_nacionalidad_p %}
+						<p class="panel-title text-center negritas">CNE - Personas de la Comunidad</p>
+						{% for n in personas.stat_cne_p %}
 							<div class="panel-body">
-								<h3 class="bottom-line">{{ n.nacionalidad }}</h3>
+								<h3 class="bottom-line">Respondieron "{{ n.resp }}"</h3>
 								{% for p in n.quienes %}
 								<span class="label label-default">{{ p.nombreyapellido() }}</span>
 								{% endfor %}
