@@ -113,33 +113,24 @@ class EstadisticasController extends Controller
             
         }
 
-        // $incapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
-        // $stat_incapacidades = array();
-        // foreach ($incapacidades as $elemento) {
-        //     array_push(
-        //         $stat_incapacidades, 
-        //         array(
-        //             'incapacidades' => $elemento->getIncapacidad(),
-        //             'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-        //                                 array('incapacitadoTipo' => $elemento->getId())
-        //                                 ))
-        //             )
-        //     );
-        // }
+        $discapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
+        $stat_discapacidades_jgf = array();
+        $stat_discapacidades_p = array();
+        foreach ($discapacidades as $elemento) {
+            $whos = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('incapacitadoTipo' => $elemento->getId()));
+            if(sizeof($whos) > 0){ array_push($stat_discapacidades_jgf, array('discapacidad' => $elemento->getIncapacidad(),'quienes'=> $whos)); }
+            $whos = $em->getRepository('SICBundle:Persona')->findBy(array('incapacitadoTipo' => $elemento->getId()));
+            if(sizeof($whos) > 0){ array_push($stat_discapacidades_p, array('discapacidad' => $elemento->getIncapacidad(),'quienes'=> $whos)); }
+            
+        }
 
-        // $pensionados = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
-        // $stat_pensionados = array();
-        // foreach ($pensionados as $elemento) {
-        //     array_push(
-        //         $stat_pensionados, 
-        //         array(
-        //             'pensionados' => $elemento->getNombre(),
-        //             'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-        //                                 array('pensionadoInstitucion' => $elemento->getId())
-        //                                 ))
-        //             )
-        //     );
-        // }
+        $pensionados = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
+        $stat_pensionados_jgf = array();
+        $stat_pensionados_p = array();
+        foreach ($pensionados as $elemento) {
+            array_push($stat_pensionados_jgf, array('pensionados' => $elemento->getNombre(),'quienes'=> $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('pensionadoInstitucion' => $elemento->getId()))));
+            array_push($stat_pensionados_p, array('pensionados' => $elemento->getNombre(),'quienes'=> $em->getRepository('SICBundle:Persona')->findBy(array('pensionadoInstitucion' => $elemento->getId()))));
+        }
 
         return array(
             // 'total' => $total,
@@ -159,8 +150,12 @@ class EstadisticasController extends Controller
             'stat_profesiones_p' => $stat_profesiones_p,
 
             'stat_empleado_jgf' => $stat_empleado_jgf,
-            // 'stat_incapacidades' => $stat_incapacidades,
-            // 'stat_pensionados' => $stat_pensionados,
+
+            'stat_discapacidades_jgf' => $stat_discapacidades_jgf,
+            'stat_discapacidades_p' => $stat_discapacidades_p,
+
+            'stat_pensionados_jgf' => $stat_pensionados_jgf,
+            'stat_pensionados_p' => $stat_pensionados_p,
             // 'base_dir' => $this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath(),
         );
     }
