@@ -11,9 +11,11 @@
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
+                <th>V/E</th>
                 <th>Cédula</th>
                 <th>Profesión</th>
                 <th>Edad</th>
+                <th>Dirección</th>
                 <th><i class="fa fa-cogs"></i></th>
             </tr>
         </thead>
@@ -23,9 +25,11 @@
                 <td>{{loop.index}}</td>
                 <td>{{item.nombre}} {% if item.isJGF() %}<span class="label label-default">JGF</span>{% endif %}</td>
                 <td>{{item.apellido}}</td>
+                <td>{{item.nacionalidad}}</td>
                 <td>{{item.cedula}}</td>
                 <td>{{item.profesion}}</td>
                 <td>{{item.edad_fmt}} años</td>
+                <td>{{item.direccion}}</td>
                 <td>
                     <div class="btn-group">
                         <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,12 +39,12 @@
                             {% if item.isJGF() %}
                                 <li><a href="{{ path('jefegrupofamiliar_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></li>
                                 {% if item.planilla != NULL %}
-                                    <li><a href="{{ path('planillas_show',{'id' : item.planilla.id }) }}"><i class="fa fa-file-o"></i> ver Planilla</a></li>
+                                    <li><a href="{{ path('planillas_show',{'id' : item.planilla.id }) }}"><i class="fa fa-file-text-o"></i> ver Planilla</a></li>
                                 {% endif %}
                             {% else %}
                                 <li><a href="{{ path('personas_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></li>
                                 {% if item.grupofamiliar.planilla != NULL %}
-                                    <li><a href="{{ path('planillas_show',{'id' : item.grupofamiliar.planilla.id }) }}"><i class="fa fa-file-o"></i> ver Planilla</a></li>
+                                    <li><a href="{{ path('planillas_show',{'id' : item.grupofamiliar.planilla.id }) }}"><i class="fa fa-file-text-o"></i> Ver Planilla</a></li>
                                 {% endif %}
                             {% endif %}
                         </ul>
@@ -60,7 +64,7 @@
                 "language": {
                     "url": "{{ asset('datatables/espanol.js') }}"
                 },
-                "pageLength": 10,
+                "pageLength": 25,
                 'stateSave': true,
                 'pagingType': 'full_numbers',
                 "language": {
