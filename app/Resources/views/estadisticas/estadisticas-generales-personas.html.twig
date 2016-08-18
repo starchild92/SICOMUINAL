@@ -5,20 +5,17 @@
 		{% include 'estadisticas/menu-opciones-estadisticas-generales.html.twig' %}
 
 		<div class="col-lg-9 col-sm-9">
-			<h3 class="text-center text-info">Estadísticas Generales - Personas Comunidad <i class="fa fa-bar-chart fa-sm pull-left"></i></h3>
+			<h4 class="text-center text-info">Estadísticas Generales - Personas Comunidad <i class="fa fa-bar-chart fa-sm pull-left"></i></h4>
 			<hr>
 			<div class="row grid">
-				{# {{ dump(personas.stat_nacionalidad_jfg) }} #}
-				{# {{ dump(personas.stat_nacionalidad_p) }} #}
-
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="panel panel-primary">
 						<p class="panel-title text-center negritas">CNE - Jefes de Grupos Familiares</p>
-						{% for n in personas.stat_cne_jfg %}
+						{% for object in personas.stat_cne_jgf %}
 							<div class="panel-body">
-								<h3 class="bottom-line">Respondieron "{{ n.resp }}"</h3>
-								{% for jfg in n.quienes %}
-								<span class="label label-primary">{{ jfg.nombreyapellido() }}</span>
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.resp }}"</h4>
+								{% for jgf in object.quienes %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : jgf.id }) }}">{{ jgf.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 						{% endfor %}
@@ -27,39 +24,60 @@
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="panel panel-success">
 						<p class="panel-title text-center negritas">CNE - Personas de la Comunidad</p>
-						{% for n in personas.stat_cne_p %}
+						{% for object in personas.stat_cne_p %}
 							<div class="panel-body">
-								<h3 class="bottom-line">Respondieron "{{ n.resp }}"</h3>
-								{% for p in n.quienes %}
-								<span class="label label-success">{{ p.nombreyapellido() }}</span>
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.resp }}"</h4>
+								{% for p in object.quienes %}
+								<a class="label label-success" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 						{% endfor %}
 					</div>
 				</div>
 
-				{# <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="panel panel-default">
-						<p class="panel-title text-center negritas">Sexo</p>
-						<table class="table table-bordered table-striped table-hover table-condensed">
-							<thead>
-								<tr>
-									<th>Sexo</th>
-									<th>Cant.</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for sx in jfg.stat_sexo %}
-									<tr>
-										<td>{{sx.sexo}}</td>
-										<td>{{sx.cantidad}}</td>
-									</tr>{% endfor %}
-							</tbody>
-						</table>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Con Empleo - Jefes de Grupos Familiares</p>
+						{% for object in personas.stat_empleado_jgf %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.resp }}"</h4>
+								{% for jgf in object.quienes %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : jgf.id }) }}">{{ jgf.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
 					</div>
 				</div>
 
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Niveles de Instrucción - Jefes de Grupos Familiares</p>
+						{% for object in personas.stat_instruccion_jgf %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.nivel }}"</h4>
+								{% for jgf in object.quienes %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : jgf.id }) }}">{{ jgf.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-success">
+						<p class="panel-title text-center negritas">Niveles de Instrucción - Personas de la Comunidad</p>
+						{% for object in personas.stat_instruccion_p %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.nivel }}"</h4>
+								{% for p in object.quienes %}
+								<a class="label label-success" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+
+
+				{# <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="panel panel-default">
 						<p class="panel-title text-center negritas">Inscrito en el CNE</p>
 						<table class="table table-bordered table-striped table-hover table-condensed">
@@ -70,7 +88,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for cne in jfg.stat_cne %}
+								{% for cne in jgf.stat_cne %}
 								<tr>
 									<td>{{cne.resp}}</td>
 									<td>{{cne.cantidad}}</td>
@@ -91,7 +109,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for emp in jfg.stat_empleado %}<tr>
+								{% for emp in jgf.stat_empleado %}<tr>
 									<td>{{emp.resp}}</td>
 									<td>{{emp.cantidad}}</td>
 								</tr>{% endfor %}
@@ -111,7 +129,7 @@
 								</tr>
 							</thead>
 							<tbody>
-							{% for edo in jfg.stat_edo_civil %}
+							{% for edo in jgf.stat_edo_civil %}
 								<tr>
 									<td>{{edo.edo_civil}}</td>
 									<td>{{edo.cantidad}}</td>
@@ -132,7 +150,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for nivel in jfg.stat_instruccion %}<tr>
+								{% for nivel in jgf.stat_instruccion %}<tr>
 									<td>{{ nivel.instruccion }}</td>
 									<td>{{ nivel.cantidad }}</td>
 								</tr>{% endfor %}
@@ -152,7 +170,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for pr in jfg.stat_profesiones %}<tr>
+								{% for pr in jgf.stat_profesiones %}<tr>
 									<td>{{pr.profesiones}}</td>
 									<td>{{pr.cantidad}}</td>
 								</tr>{% endfor %}
@@ -172,7 +190,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for inc in jfg.stat_incapacidades %}<tr>
+								{% for inc in jgf.stat_incapacidades %}<tr>
 									<td>{{inc.incapacidades}}</td>
 									<td>{{inc.cantidad}}</td>
 								</tr>{% endfor %}
@@ -192,7 +210,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for ins in jfg.stat_pensionados %}<tr>
+								{% for ins in jgf.stat_pensionados %}<tr>
 									<td>{{ins.pensionados}}</td>
 									<td>{{ins.cantidad}}</td>
 								</tr>{% endfor %}

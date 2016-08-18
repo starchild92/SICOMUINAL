@@ -28,11 +28,11 @@ class EstadisticasController extends Controller
         // $total = sizeof($jefeGrupoFamiliars);
 
         $nacionalidades = $em->getRepository('SICBundle:AdminNacionalidad')->findAll();
-        $stat_nacionalidad_jfg = array();
+        $stat_nacionalidad_jgf = array();
         $stat_nacionalidad_p = array();
         foreach ($nacionalidades as $nacionalidad) {
             array_push(
-                $stat_nacionalidad_jfg, array(
+                $stat_nacionalidad_jgf, array(
                     'nacionalidad' => $nacionalidad->getNacionalidad(),
                     'quienes'     => $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('nacionalidad' => $nacionalidad->getId()))
                 )
@@ -66,33 +66,17 @@ class EstadisticasController extends Controller
         // );
 
         $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
-        $stat_cne_jfg = array();
+        $stat_cne_jgf = array();
         $stat_cne_p = array();
         foreach ($resp_cerradas as $resp) {
-            array_push($stat_cne_jfg, 
-                array('resp' => $resp->getRespuesta(),
-                    'quienes'     => $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cne' => $resp->getId()))
-                    )
-            );
-            array_push($stat_cne_p, 
-                array('resp' => $resp->getRespuesta(),
-                    'quienes'     => $em->getRepository('SICBundle:Persona')->findBy(array('cne' => $resp->getId()))
-                    )
-            );
+            array_push($stat_cne_jgf, array('resp' => $resp->getRespuesta(),'quienes'     => $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cne' => $resp->getId()))));
+            array_push($stat_cne_p, array('resp' => $resp->getRespuesta(),'quienes'     => $em->getRepository('SICBundle:Persona')->findBy(array('cne' => $resp->getId()))));
         }
         
-        // $stat_empleado = array();
-        // foreach ($resp_cerradas as $resp) {
-        //     array_push(
-        //         $stat_empleado, 
-        //         array(
-        //             'resp' => $resp->getRespuesta(),
-        //             'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-        //                                 array('trabajaActualmente' => $resp->getId())
-        //                                 ))
-        //             )
-        //     );
-        // }
+        $stat_empleado_jgf = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_empleado_jgf, array('resp' => $resp->getRespuesta(),'quienes'=> $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('trabajaActualmente' => $resp->getId()))));
+        }
 
         // $edo_civil = $em->getRepository('SICBundle:AdminEstadoCivil')->findAll();
         // $stat_edo_civil = array();
@@ -108,19 +92,13 @@ class EstadisticasController extends Controller
         //     );
         // }
 
-        // $instruccion = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
-        // $stat_instruccion = array();
-        // foreach ($instruccion as $elemento) {
-        //     array_push(
-        //         $stat_instruccion, 
-        //         array(
-        //             'instruccion' => $elemento->getNombre(),
-        //             'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-        //                                 array('nivelInstruccion' => $elemento->getId())
-        //                                 ))
-        //             )
-        //     );
-        // }
+        $instruccion = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
+        $stat_instruccion_jgf = array();
+        $stat_instruccion_p = array();
+        foreach ($instruccion as $elemento) {
+            array_push($stat_instruccion_jgf, array('nivel' => $elemento->getNombre(),'quienes'=> $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('nivelInstruccion' => $elemento->getId()))));
+            array_push($stat_instruccion_p, array('nivel' => $elemento->getNombre(),'quienes'=> $em->getRepository('SICBundle:Persona')->findBy(array('gradoInstruccion' => $elemento->getId()))));
+        }
 
         // $profesiones = $em->getRepository('SICBundle:AdminProfesion')->findAll();
         // $stat_profesiones = array();
@@ -166,16 +144,20 @@ class EstadisticasController extends Controller
 
         return array(
             // 'total' => $total,
-            'stat_nacionalidad_jfg' => $stat_nacionalidad_jfg,
+            'stat_nacionalidad_jgf' => $stat_nacionalidad_jgf,
             'stat_nacionalidad_p' => $stat_nacionalidad_p,
 
             // 'stat_sexo' => $stat_sexo,
-            'stat_cne_jfg' => $stat_cne_jfg,
+            'stat_cne_jgf' => $stat_cne_jgf,
             'stat_cne_p' => $stat_cne_p,
-            // 'stat_edo_civil' => $stat_edo_civil,
-            // 'stat_instruccion' => $stat_instruccion,
+
+            // 'stat_edo_civil_jgf' => $stat_edo_civil_jgf,
+
+            'stat_instruccion_jgf' => $stat_instruccion_jgf,
+            'stat_instruccion_p' => $stat_instruccion_p,
+
             // 'stat_profesiones' => $stat_profesiones,
-            // 'stat_empleado' => $stat_empleado,
+            'stat_empleado_jgf' => $stat_empleado_jgf,
             // 'stat_incapacidades' => $stat_incapacidades,
             // 'stat_pensionados' => $stat_pensionados,
             // 'base_dir' => $this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath(),
