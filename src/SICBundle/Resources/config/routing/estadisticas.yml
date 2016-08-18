@@ -1,0 +1,40 @@
+estadisticas_generales_personas:
+    path:     /generales
+    defaults: { _controller: "SICBundle:Estadisticas:egPersonas"}
+    methods:  GET
+
+# Rutas para las estadisticas (de los graficos)
+sic_estadisticas_personas_jefegrupofamiliar:
+    path:     /jefes/grupo/familiar
+    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:index" }
+    methods:  GET
+
+sic_estadisticas_personas:
+    path:     /miembros/comunidad
+    defaults: { _controller: "SICBundle:Persona:index" }
+    methods:  GET
+
+sic_estadisticas_situacion_economica:
+    path:     /situacion/economica
+    defaults: { _controller: "SICBundle:SituacionEconomica:index" }
+    methods:  GET
+
+sic_estadisticas_situacion_vivenda:
+    path:     /situacion/vivienda
+    defaults: { _controller: "SICBundle:SituacionVivienda:index" }
+    methods:  GET
+
+sic_estadisticas_situacion_salud:
+    path:     /situacion/salud
+    defaults: { _controller: "SICBundle:SituacionSalud:index" }
+    methods:  GET
+
+sic_estadisticas_situacion_servicios:
+    path:     /situacion/servicios
+    defaults: { _controller: "SICBundle:SituacionServicios:index" }
+    methods:  GET
+
+sic_estadisticas_situacion_participacion_comunitaria:
+    path:     /situacion/participacion/comunitaria
+    defaults: { _controller: "SICBundle:ParticipacionComunitaria:index" }
+    methods:  GET

@@ -1,0 +1,232 @@
+{% embed 'estadisticas/base-estadisticas-generales.html.twig' %}
+	
+	{% block body %}
+	<div class="row">
+		{% include 'estadisticas/menu-opciones-estadisticas-generales.html.twig' %}
+
+		<div class="col-lg-9 col-sm-9">
+			<h4 class="text-center text-info">Estadísticas Generales - Personas Comunidad <i class="fa fa-bar-chart fa-sm pull-left"></i></h4>
+			<hr>
+			<div class="row grid">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">CNE - Jefes de Grupos Familiares</p>
+						{% for object in personas.stat_cne_jgf %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.resp }}"</h4>
+								{% for jgf in object.quienes %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : jgf.id }) }}">{{ jgf.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-success">
+						<p class="panel-title text-center negritas">CNE - Personas de la Comunidad</p>
+						{% for object in personas.stat_cne_p %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.resp }}"</h4>
+								{% for p in object.quienes %}
+								<a class="label label-success" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Con Empleo - Jefes de Grupos Familiares</p>
+						{% for object in personas.stat_empleado_jgf %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.resp }}"</h4>
+								{% for jgf in object.quienes %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : jgf.id }) }}">{{ jgf.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Niveles de Instrucción - Jefes de Grupos Familiares</p>
+						{% for object in personas.stat_instruccion_jgf %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.nivel }}"</h4>
+								{% for jgf in object.quienes %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : jgf.id }) }}">{{ jgf.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-success">
+						<p class="panel-title text-center negritas">Niveles de Instrucción - Personas de la Comunidad</p>
+						{% for object in personas.stat_instruccion_p %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.nivel }}"</h4>
+								{% for p in object.quienes %}
+								<a class="label label-success" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Profesiones - Jefes de Grupos Familiares</p>
+						{% for object in personas.stat_profesiones_jgf %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.profesion }}"</h4>
+								{% for jgf in object.quienes %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : jgf.id }) }}">{{ jgf.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-success">
+						<p class="panel-title text-center negritas">Profesiones - Personas de la Comunidad</p>
+						{% for object in personas.stat_profesiones_p %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.profesion }}"</h4>
+								{% for p in object.quienes %}
+								<a class="label label-success" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+
+
+				{# 
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-default">
+						<p class="panel-title text-center negritas">Situación de Empleo</p>
+						<table class="table table-bordered table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Resp</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for emp in jgf.stat_empleado %}<tr>
+									<td>{{emp.resp}}</td>
+									<td>{{emp.cantidad}}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-default">
+						<p class="panel-title text-center negritas">Estado Civil</p>
+						<table class="table table-bordered table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Estado Civil</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+							{% for edo in jgf.stat_edo_civil %}
+								<tr>
+									<td>{{edo.edo_civil}}</td>
+									<td>{{edo.cantidad}}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-default">
+						<p class="panel-title text-center negritas">Niveles de Instrucción</p>
+						<table class="table table-bordered table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Nivel</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for nivel in jgf.stat_instruccion %}<tr>
+									<td>{{ nivel.instruccion }}</td>
+									<td>{{ nivel.cantidad }}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-default">
+						<p class="panel-title text-center negritas">Profesiones</p>
+						<table class="table table-bordered table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Profesiones</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for pr in jgf.stat_profesiones %}<tr>
+									<td>{{pr.profesiones}}</td>
+									<td>{{pr.cantidad}}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-default">
+						<p class="panel-title text-center negritas">Discapacidades</p>
+						<table class="table table-bordered table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Discapacidad</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for inc in jgf.stat_incapacidades %}<tr>
+									<td>{{inc.incapacidades}}</td>
+									<td>{{inc.cantidad}}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-default">
+						<p class="panel-title text-center negritas">Pensionados</p>
+						<table class="table table-bordered table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Pensionados</th>
+									<th>Cant.</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for ins in jgf.stat_pensionados %}<tr>
+									<td>{{ins.pensionados}}</td>
+									<td>{{ins.cantidad}}</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div> #}
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+{% endembed %}

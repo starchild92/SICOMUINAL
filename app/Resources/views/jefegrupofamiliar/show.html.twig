@@ -37,7 +37,7 @@
                     </tr>
                     <tr>
                         <th>Edad</th>
-                        <td>{{ jefeGrupoFamiliar.edad }}</td>
+                        <td>{{ jefeGrupoFamiliar.edad }} años de edad</td>
                     </tr>
                     <tr>
                         <th>¿está ud inscrito en el CNE?</th>
@@ -45,19 +45,11 @@
                     </tr>
                     <tr>
                         <th>Tiempo en la Comunidad</th>
-                        <td>{{ jefeGrupoFamiliar.tiempoEnComunidad }}</td>
+                        <td>{{ jefeGrupoFamiliar.tiempoEnComunidad }} años</td>
                     </tr>
                     <tr>
                         <th>Sexo</th>
                         <td>{{ jefeGrupoFamiliar.sexo }}</td>
-                    </tr>
-                    <tr>
-                        <th>Tipo de Incapacidad</th>
-                        <td>{{ jefeGrupoFamiliar.incapacitadoTipo }}</td>
-                    </tr>
-                    <tr>
-                        <th>Instituación Pensionado</th>
-                        <td>{{ jefeGrupoFamiliar.pensionadoInstitucion }}</td>
                     </tr>
                     <tr>
                         <th>Estado Civil</th>
@@ -77,11 +69,15 @@
                     </tr>
                     <tr>
                         <th>Teléfono(s)</th>
-                        <td>{% for tlf in jefeGrupoFamiliar.telefono %}{{tlf.codigo}} {{ tlf.numero }}<br>{% endfor %}</td>
+                        <td>{% for tlf in jefeGrupoFamiliar.telefono %} <i class="fa fa-phone"></i> ({{tlf.codigo}}) - {{ tlf.numero }}<br>{% endfor %}</td>
                     </tr>
                     <tr>
                         <th>Dirección de Correo Electronico</th>
-                        <td>{{ jefeGrupoFamiliar.email }}</td>
+                        {% if jefeGrupoFamiliar.email == '' %}
+                            <td>No especificó alguna.</td>
+                        {% else %}
+                            <td>{{ jefeGrupoFamiliar.email }}</td>
+                        {% endif %}
                     </tr>
                     <tr>
                         <th>Ingreso Familiar</th>
@@ -91,14 +87,31 @@
                         <th>Ingreso Mensual</th>
                         <td>{{ jefeGrupoFamiliar.ingresoMensual }} Bs</td>
                     </tr>
+                    <tr>
+                        <th>¿Es Discapacitado?</th>
+                        <td>{{ jefeGrupoFamiliar.incapacitado|title }}</td>
+                    </tr>
+                    {% if jefeGrupoFamiliar.incapacitado != 'no' %}<tr>
+                        <th>El tipo de Discapacidad especificado fue:</th>
+                        <td>{{ jefeGrupoFamiliar.incapacitadoTipo }}</td>
+                    </tr>{% endif %}
+                    <tr>
+                        <th>¿Es Pensionado?</th>
+                        <td>{{ jefeGrupoFamiliar.pensionado|title }}</td>
+                    </tr>
+                    {% if jefeGrupoFamiliar.pensionado != 'no' %}<tr>
+                        <th>La institución es: </th>
+                        <td>{{ jefeGrupoFamiliar.pensionadoInstitucion }}</td>
+                    </tr>{% endif %}
                 </tbody>
             </table>
         </div>
         <div class="col-sm-3">
-            <a class="btn btn-block btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': jefeGrupoFamiliar.id }) }}">Edit</a>
+            <a class="btn btn-block btn-primary" href="{{ path('jefegrupofamiliar_edit', { 'id': jefeGrupoFamiliar.id }) }}"><i class="fa fa-edit"></i> Modificar Datos de {{ jefeGrupoFamiliar.nombres|title }}</a>
+            <a href="{{ path('planillas_show', { 'id': jefeGrupoFamiliar.planilla.id }) }}" class="btn btn-block btn-primary"><i class="fa fa-file-text"></i> Ver Planilla Censo</a>
             <hr class="little">
             {{ form_start(delete_form) }}
-                <input class="btn-block btn btn-danger" type="submit" value="Eliminar a {{ jefeGrupoFamiliar.nombreyapellido|title }}">
+                <button class="btn-block btn btn-danger" type="submit"><i class="fa fa-trash"></i> Eliminar a {{ jefeGrupoFamiliar.nombreyapellido|title }}</button>
             {{ form_end(delete_form) }}
         </div>
     </div>
