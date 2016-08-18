@@ -96,23 +96,22 @@ class EstadisticasController extends Controller
         $stat_instruccion_jgf = array();
         $stat_instruccion_p = array();
         foreach ($instruccion as $elemento) {
-            array_push($stat_instruccion_jgf, array('nivel' => $elemento->getNombre(),'quienes'=> $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('nivelInstruccion' => $elemento->getId()))));
-            array_push($stat_instruccion_p, array('nivel' => $elemento->getNombre(),'quienes'=> $em->getRepository('SICBundle:Persona')->findBy(array('gradoInstruccion' => $elemento->getId()))));
+        	$whos = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('nivelInstruccion' => $elemento->getId()));
+			if (sizeof($whos)>0) { array_push($stat_instruccion_jgf, array('nivel' => $elemento->getNombre(),'quienes'=> $whos)); }
+            $whos = $em->getRepository('SICBundle:Persona')->findBy(array('gradoInstruccion' => $elemento->getId()));
+			if (sizeof($whos)>0) { array_push($stat_instruccion_p, array('nivel' => $elemento->getNombre(),'quienes'=> $whos)); }
         }
 
-        // $profesiones = $em->getRepository('SICBundle:AdminProfesion')->findAll();
-        // $stat_profesiones = array();
-        // foreach ($profesiones as $elemento) {
-        //     array_push(
-        //         $stat_profesiones, 
-        //         array(
-        //             'profesiones' => $elemento->getNombre(),
-        //             'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-        //                                 array('profesion' => $elemento->getId())
-        //                                 ))
-        //             )
-        //     );
-        // }
+        $profesiones = $em->getRepository('SICBundle:AdminProfesion')->findAll();
+        $stat_profesiones_jgf = array();
+        $stat_profesiones_p = array();
+        foreach ($profesiones as $elemento) {
+        	$whos = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('profesion' => $elemento->getId()));
+        	if (sizeof($whos)) { array_push($stat_profesiones_jgf, array('profesion' => $elemento->getNombre(),'quienes'=> $whos)); }
+        	$whos = $em->getRepository('SICBundle:Persona')->findBy(array('profesion' => $elemento->getId()));
+        	if (sizeof($whos)) { array_push($stat_profesiones_p, array('profesion' => $elemento->getNombre(),'quienes'=> $whos)); }
+            
+        }
 
         // $incapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
         // $stat_incapacidades = array();
@@ -156,7 +155,9 @@ class EstadisticasController extends Controller
             'stat_instruccion_jgf' => $stat_instruccion_jgf,
             'stat_instruccion_p' => $stat_instruccion_p,
 
-            // 'stat_profesiones' => $stat_profesiones,
+            'stat_profesiones_jgf' => $stat_profesiones_jgf,
+            'stat_profesiones_p' => $stat_profesiones_p,
+
             'stat_empleado_jgf' => $stat_empleado_jgf,
             // 'stat_incapacidades' => $stat_incapacidades,
             // 'stat_pensionados' => $stat_pensionados,
