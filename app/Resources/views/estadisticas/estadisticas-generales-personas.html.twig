@@ -12,26 +12,26 @@
 				{# {{ dump(personas.stat_nacionalidad_p) }} #}
 
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="panel panel-default">
+					<div class="panel panel-primary">
 						<p class="panel-title text-center negritas">CNE - Jefes de Grupos Familiares</p>
 						{% for n in personas.stat_cne_jfg %}
 							<div class="panel-body">
 								<h3 class="bottom-line">Respondieron "{{ n.resp }}"</h3>
 								{% for jfg in n.quienes %}
-								<span class="label label-default">{{ jfg.nombreyapellido() }}</span>
+								<span class="label label-primary">{{ jfg.nombreyapellido() }}</span>
 								{% endfor %}
 							</div>
 						{% endfor %}
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="panel panel-default">
+					<div class="panel panel-success">
 						<p class="panel-title text-center negritas">CNE - Personas de la Comunidad</p>
 						{% for n in personas.stat_cne_p %}
 							<div class="panel-body">
 								<h3 class="bottom-line">Respondieron "{{ n.resp }}"</h3>
 								{% for p in n.quienes %}
-								<span class="label label-default">{{ p.nombreyapellido() }}</span>
+								<span class="label label-success">{{ p.nombreyapellido() }}</span>
 								{% endfor %}
 							</div>
 						{% endfor %}
