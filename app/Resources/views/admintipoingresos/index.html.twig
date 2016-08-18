@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Cantidad Tipos de Ingresos</div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminTipoIngreso in adminTipoIngresos %}
+                <tr>
+                    <td>{{ adminTipoIngreso.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_tipos_ingresos_edit', { 'id': adminTipoIngreso.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="panel-footer">
+            <a class="btn btn-primary" href="{{ path('configurable_tipos_ingresos_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Nuevo</a>
+        </div>
+    </div>
+{% endblock %}

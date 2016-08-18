@@ -1,5 +1,5 @@
 situacioneconomica_index:
-    path:     /
+    path:     /estadisticas
     defaults: { _controller: "SICBundle:SituacionEconomica:index" }
     methods:  GET
 
@@ -9,7 +9,7 @@ situacioneconomica_show:
     methods:  GET
 
 situacioneconomica_new:
-    path:     /new
+    path:     /paso/4/{id_planilla}/
     defaults: { _controller: "SICBundle:SituacionEconomica:new" }
     methods:  [GET, POST]
 
@@ -22,3 +22,8 @@ situacioneconomica_delete:
     path:     /{id}/delete
     defaults: { _controller: "SICBundle:SituacionEconomica:delete" }
     methods:  DELETE
+
+situacioneconomica_new_ajax:
+    path:     /nuevo/agregar/ajax
+    defaults: { _controller: "SICBundle:SituacionEconomica:new_ajax" }
+    methods:  [GET, POST]

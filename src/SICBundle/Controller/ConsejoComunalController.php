@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SICBundle\Entity\ConsejoComunal;
+use SICBundle\Entity\Bitacora;
 use SICBundle\Form\ConsejoComunalType;
 
 /**
@@ -42,9 +43,13 @@ class ConsejoComunalController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($consejoComunal);
+            $bitacora = new Bitacora($this->getUser(),'agregó','la información del Consejo Comunal.');
+            $em->persist($bitacora);
             $em->flush();
 
-            return $this->redirectToRoute('consejocomunal_show', array('id' => $consejoComunal->getId()));
+            $this->get('session')->getFlashBag()->add('success', 'Ha agregado la información basé del Consejo Comunal de forma exitosa.');
+
+            return $this->redirectToRoute('sic_administacion_entidades');
         }
 
         return $this->render('consejocomunal/new.html.twig', array(
@@ -80,9 +85,15 @@ class ConsejoComunalController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($consejoComunal);
+
+            $bitacora = new Bitacora($this->getUser(),'modificó','la información del Consejo Comunal.');
+            $em->persist($bitacora);
+
             $em->flush();
 
-            return $this->redirectToRoute('consejocomunal_edit', array('id' => $consejoComunal->getId()));
+            $this->get('session')->getFlashBag()->add('success', 'Se ha actualizado la información del Consejo Comunal de forma exitosa.');
+
+            return $this->redirectToRoute('sic_administacion_entidades');
         }
 
         return $this->render('consejocomunal/edit.html.twig', array(
@@ -104,6 +115,10 @@ class ConsejoComunalController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($consejoComunal);
+            
+            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado la información del Consejo Comunal de forma exitosa.');
+            $bitacora = new Bitacora($this->getUser(),'eliminó','la información del Consejo Comunal.');
+            $em->persist($bitacora);
             $em->flush();
         }
 

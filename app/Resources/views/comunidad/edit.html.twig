@@ -3,19 +3,23 @@
 {% block body %}
     <h1>Comunidad edit</h1>
 
+    <span id="modalCuerpo">
     {{ form_start(edit_form) }}
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(edit_form.estado) }}</div>
+            <div class="col-sm-6">{{ form_row(edit_form.municipio) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(edit_form.parroquia) }}</div>
+            <div class="col-sm-6">{{ form_row(edit_form.sector) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(edit_form.comunidad) }}</div>
+            <div class="col-sm-6">{{ form_row(edit_form.direccion) }}</div>
+        </div>
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        
+        <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save"></i> Guardar Datos</button>
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('comunidades_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    </span>
 {% endblock %}

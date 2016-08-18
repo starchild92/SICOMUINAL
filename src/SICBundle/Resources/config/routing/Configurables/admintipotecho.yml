@@ -1,0 +1,24 @@
+configurable_tipo_techo_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminTipoTecho:index" }
+    methods:  GET
+
+configurable_tipo_techo_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminTipoTecho:show" }
+    methods:  GET
+
+configurable_tipo_techo_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminTipoTecho:new" }
+    methods:  [GET, POST]
+
+configurable_tipo_techo_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminTipoTecho:edit" }
+    methods:  [GET, POST]
+
+configurable_tipo_techo_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminTipoTecho:delete" }
+    methods:  DELETE

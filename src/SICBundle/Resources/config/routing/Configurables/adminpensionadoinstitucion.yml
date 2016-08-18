@@ -1,0 +1,24 @@
+configurable_pensionados_instituciones_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminPensionadoInstitucion:index" }
+    methods:  GET
+
+configurable_pensionados_instituciones_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminPensionadoInstitucion:show" }
+    methods:  GET
+
+configurable_pensionados_instituciones_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminPensionadoInstitucion:new" }
+    methods:  [GET, POST]
+
+configurable_pensionados_instituciones_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminPensionadoInstitucion:edit" }
+    methods:  [GET, POST]
+
+configurable_pensionados_instituciones_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminPensionadoInstitucion:delete" }
+    methods:  DELETE

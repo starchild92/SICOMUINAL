@@ -1,45 +1,81 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Usuario list</h1>
+	<div class="page-header">
+		<h2>
+			Usuarios del Sistema de Información Comunal
+			<a class="btn btn-primary pull-right" href="{{ path('usuarios_new') }}"><i class="fa fa-plus"></i> Agregar Usuario</a>
+		</h2>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<table id="dataTable" class="table table-bordered table-striped table-hover">
+				<thead class="thead-info">
+					<tr>
+						{# <th>Id</th> #}
+						<th>Nombres</th>
+						<th>Apellidos</th>
+						<th>Correo</th>
+						<th>Tipo</th>
+						<th>Estatus</th>
+						<th>Teléfonos</th>
+						<th><i class=" fa fa-cogs"></i></th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for usuario in usuarios %}
+					<tr>
+						{# <td><a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td> #}
+						<td>{{ usuario.primerNombre }} {{ usuario.segundoNombre }}</td>
+						<td>{{ usuario.primerApellido }} {{ usuario.segundoApellido }}</td>
+						<td>{{ usuario.email }}</td>
+						<td>
+							{% if usuario.enabled %}
+								<span class="label label-success"><i class="fa fa-check"></i> Activo</span>
+							{% else %}
+								<span class="label label-danger"><i class="fa fa-times"></i> Inactivo</span><br><small>No puede ingresar al sistema.</small>
+							{% endif %}
+						</td>
+						<td>
+							{% if usuario.roles|length == 2 %}<span class="label label-success"><i class="fa fa-star fa-fw"></i> Administrador</span>{% else %}<span class="label label-info"><i class="fa fa-user fa-fw"></i> Empadronador</span>{% endif %}
+						</td>
+						<td>{% for tlf in usuario.telefono %}{{ tlf.codigo }} - {{ tlf.numero }}<br>{% endfor %}</td>
+						<td>
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-cogs"></i> Opciones <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li><a href="{{ path('usuarios_show', { 'id': usuario.id }) }}"><i class="fa fa-info"></i> Mostrar detalles</a></li>
+									<li><a href="{{ path('usuarios_edit', { 'id': usuario.id }) }}"><i class="fa fa-edit"></i> Editar detalles</a></li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Primernombre</th>
-                <th>Segundonombre</th>
-                <th>Primerapellido</th>
-                <th>Segundoapellido</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for usuario in usuarios %}
-            <tr>
-                <td><a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>
-                <td>{{ usuario.primerNombre }}</td>
-                <td>{{ usuario.segundoNombre }}</td>
-                <td>{{ usuario.primerApellido }}</td>
-                <td>{{ usuario.segundoApellido }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('usuarios_show', { 'id': usuario.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('usuarios_edit', { 'id': usuario.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('usuarios_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            dataTable = $('#dataTable').DataTable( {
+                    "pageLength": 25,
+                    "bLengthChange": false,
+                    "info": true,
+                    'stateSave': true,
+                    'pagingType': 'full_numbers',
+                    "language": {
+                        "url": "{{ asset('datatables/espanol.js') }}"
+                    },
+                    "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                });
+        });
+    </script>
 {% endblock %}

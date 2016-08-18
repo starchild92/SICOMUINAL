@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-6"><small class="text-info">ant. Servicios</small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Comunitaria</small></div>
+    </div>
+    <div class="progress">
+      <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+        Paso 8 de 9
+      </div>
+    </div>
+
+    <h2>Participación Comunitaria</h2>
+    <hr>
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(form.existenOrganizaciones) }}
+                        {{ form_row(form.participaOrganizacion) }}
+                        {{ form_row(form.participaMiembroOrganizacion) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(form.misionesComunidad) }}
+                        {{ form_row(form.preguntasParticipacionComunitaria) }}
+                        {{ form_row(form.areaTabajoCC) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input class="btn btn-primary btn-block" type="submit" value="Registrar Participación Comunitaria y Continuar" />
+    {{ form_end(form) }}
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
+    <hr class="little">
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/formOrganizaciones.js') }}"></script>
+<script src="{{ asset('js/formPreguntas.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('.ui.dropdown').dropdown();
+        $('.fluid.multiple.search.selection').dropdown({
+            allowAdditions: true,
+            onAdd: function(addedValue, addedText, $addedChoice) {
+                element = $(this).prop('id');
+                $('[name=participacion_comunitaria]').submit(function(e){ e.preventDefault(); });
+                $.ajax({
+                    url: $('#addAjax').data('url'),
+                    type: "POST",
+                    data: {
+                        'nombre': addedText,
+                        'tipo'  : element,
+                    },
+                    success: function(data, textStatus, xhr){
+                        if (data != null) {
+                            option = $('#'+element).children('[value="'+data.nombre+'"]');
+                            option.val(data.id);
+                            $(option).attr('selected','selected');
+
+                            $.alert({
+                                theme: 'black',
+                                title: 'Exito!',
+                                content: data.respuesta,
+                            });
+                        }
+                    },
+                    error: function(data){
+                        $addedChoice.remove();
+                    },
+                    complete: function(){
+                        $('[name=participacion_comunitaria]').unbind('submit')
+                    },
+                });
+            },
+        });
+    })
+</script>
+{% endblock %}

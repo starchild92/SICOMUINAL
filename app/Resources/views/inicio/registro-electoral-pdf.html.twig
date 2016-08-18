@@ -1,0 +1,85 @@
+{% extends 'base.pdf.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        html {
+            margin-top: 30px;
+            margin-bottom: 80px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .img-responsive,
+        .thumbnail > img,
+        .thumbnail a > img,
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+        }
+        h1, h2, h3, h4, h5, h6,
+        .h1, .h2, .h3, .h4, .h5, .h6 {
+          font-family: inherit;
+          font-weight: 500;
+          line-height: 1.1;
+          color: inherit;
+        }
+        h2, .h2 { font-size: 30px; }
+        .col-sm-2 { width: 300px; } 
+        /*#watermarks { position: fixed; top: 500px; left: 200px; width: 200px; height: 200px; opacity: .1; }*/
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {# <div id="watermarks"><img src="{{ base_path }}/images/cne_logo.jpg" width="800" class="img-responsive" alt="cne_logo"></div> #}
+        <div class="col-sm-12">
+            <table class="table table-bordered">
+            	<tbody>
+            		<tr>
+            			{# <td class="col-sm-2" style="font-size: 15px">
+            				<img src="{{ base_path }}/images/cne_logo.jpg" width="200" class="img-responsive" style="margin-left: 40px; margin-bottom: 5px;" alt="">
+            				<p class="negritas text-center">Comisión de Participación Política y Financiamiento
+                                <br> <br>Oficina Nacional de Participación Ciudadana</p>
+            			</td> #}
+            			<td >
+                            <p class="text-center negritas text-uppercase" style="font-size: 30px; background-color: #CCC; margin-top: 0px;"><span>Registro Electoral</span></p>
+                            <p class="text-uppercase"><span class="negritas">Estado:</span> {{ comunidad.estado }}</p>
+                            <p class="text-uppercase"><span class="negritas">Municipio:</span> {{ comunidad.municipio }}</p>
+                            <p class="text-uppercase"><span class="negritas">Parroquía:</span> {{ comunidad.parroquia }}</p>
+                            <p class="text-uppercase"><span class="negritas">Nombre De La Instancía Del Poder Popular:</span> {{ consejo.nombre }}</p>
+                        </td>
+            		</tr>
+            	</tbody>
+            </table>
+            <table class="table table-bordered">
+            	<thead>
+            		<tr style="background-color: transparent !important;">
+            			<th class="text-center" width="35px">N°</th>
+            			<th class="text-center" width="150px">Cédula de Identidad</th>
+            			<th class="text-center col-sm-3">Apellido y Nombre</th>
+            			<th class="text-center">Dirección</th>
+            			<th class="text-center" width="130px">Fecha de Nacimiento</th>
+            		</tr>
+            	</thead>
+            	<tbody>
+            		{% for votante in votantes %}
+            		<tr style="background-color: transparent !important;">
+            			<td style="background-color: transparent !important;" class="text-center">{{ loop.index }}</td>
+            			<td style="background-color: transparent !important;" class="text-center">{{ votante.cedula() }}</td>
+            			<td style="background-color: transparent !important;">{# {{ votante.apellido_nombre }} #}</td>
+            			<td style="background-color: transparent !important;">{# {{ votante.direccion() }} #}</td>
+            			<td style="background-color: transparent !important;" class="text-center">{# {{ votante.fechaNacimientoCorta() }} #}</td>
+            		</tr>
+            		{% endfor %}
+            	</tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/php">
+        if ( isset($pdf) ) {
+            $font = Font_Metrics::get_font("arial", "regular");
+            $pdf->page_text(520, 750, "Pagina {PAGE_NUM} de {PAGE_COUNT}", $font, 10, array(0,0,0));
+        }
+    </script>
+{% endblock %}

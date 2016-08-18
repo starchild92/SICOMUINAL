@@ -12,4 +12,49 @@ use Doctrine\ORM\EntityRepository;
  */
 class GrupoFamiliarRepository extends EntityRepository
 {
+	public function findSectores()
+	{
+		$query = $this->getEntityManager()
+                ->createQuery('SELECT gf 
+                FROM SICBundle:GrupoFamiliar gf
+                GROUP BY gf.avenida');
+        $result = $query->getResult();
+        return $result;
+	}
+
+	public function findCalles()
+	{
+		$query = $this->getEntityManager()
+                ->createQuery('SELECT gf 
+                FROM SICBundle:GrupoFamiliar gf
+                GROUP BY gf.calle');
+        $result = $query->getResult();
+        return $result;
+	}
+
+	public function findNumeroViviendas($avenida)
+	{
+		$query = $this->getEntityManager()
+			->createQuery('
+				SELECT gf FROM SICBundle:GrupoFamiliar gf
+				WHERE gf.avenida = :avenida
+				GROUP BY 
+					gf.calle, gf.numeroCasa
+				');
+        $query->setparameter('avenida', $avenida);
+		$result = $query->getResult();
+		return $result;
+	}
+
+	public function findCantidadMiembros($avenida)
+	{
+		$query = $this->getEntityManager()
+		->createQuery('
+			SELECT SUM(gf.cantidadMiembros) as cantidad
+			FROM SICBundle:GrupoFamiliar gf
+			WHERE gf.avenida = :avenida');
+		$query->setparameter('avenida', $avenida);
+		$result = $query->getResult();
+		return $result[0];
+	}
 }

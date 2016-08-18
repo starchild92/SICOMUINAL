@@ -1,0 +1,24 @@
+configurable_tipo_paredes_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminTipoParedes:index" }
+    methods:  GET
+
+configurable_tipo_paredes_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminTipoParedes:show" }
+    methods:  GET
+
+configurable_tipo_paredes_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminTipoParedes:new" }
+    methods:  [GET, POST]
+
+configurable_tipo_paredes_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminTipoParedes:edit" }
+    methods:  [GET, POST]
+
+configurable_tipo_paredes_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminTipoParedes:delete" }
+    methods:  DELETE

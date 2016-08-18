@@ -11,15 +11,15 @@
             </tr>
             <tr>
                 <th>Enfermedad</th>
-                <td>{{ situacionSalud.enfermedad }}</td>
+                <td>{% for padecencia in situacionSalud.padecencia %}{{ padecencia.nombre }}{% endfor %}</td>
             </tr>
             <tr>
                 <th>Ayudaespecial</th>
-                <td>{{ situacionSalud.ayudaEspecial }}</td>
+                <td>{% for ayudas in situacionSalud.ayudaEspecial %}{{ ayudas.nombre }}{% endfor %}</td>
             </tr>
             <tr>
                 <th>Situacionexclusion</th>
-                <td>{{ situacionSalud.situacionExclusion }}</td>
+                <td>{% for exclusion in situacionSalud.situacionExclusion %}{{ exclusion.situacion }} ({{ exclusion.cantidad }}){% endfor %}</td>
             </tr>
         </tbody>
     </table>

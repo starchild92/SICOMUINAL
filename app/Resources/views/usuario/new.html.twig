@@ -1,16 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Usuario creation</h1>
+    <h2 class="text-center"><i class="fa fa-user"></i> Agregar Nuevo Usuario al Sistema</h2>
+    <hr>
+    <div class="row">
+        {{ form_errors(form) }}
+        {{ form_start(form) }}
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(form.primerNombre) }}
+                    {{ form_row(form.segundoNombre) }}
+                    {{ form_row(form.primerApellido) }}
+                    {{ form_row(form.segundoApellido) }}
+                    {{ form_row(form.cedula, { 'label' : 'Cédula'}) }}
+                    {{ form_row(form.fechaNacimiento, { 'label' : 'Fecha de Nacimiento'}) }}
+                    {{ form_row(form.telefono) }}
+                </div>
+            </div>     
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(form.email, { 'label': 'Correo Electronico' }) }}
+                    {{ form_row(form.username, { 'label': 'Nombre de Usuario' }) }}
+                    {{ form_row(form.plainPassword.first, { 'label' : 'Contraseña'}) }}
+                    {{ form_row(form.plainPassword.second, { 'label' : 'Repita Contraseña'}) }}
+                    {{ form_row(form.enabled) }}
+                    {{ form_row(form.roles) }}
+                </div>
+            </div>     
+        </div>
+    </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 col-xs-12"><button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save fa-fw"></i> Agregar Usuario </button></div>{{ form_end(form) }}
+        <div class="col-lg-6 col-sm-6 col-xs-12"><a class="btn btn-default btn-block" href="{{ path('usuarios_index') }}"><i class="fa fa-list-ul fa-fw"></i> Ver todos los Usuarios </a></div>
+    </div>
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('usuarios_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% block javascripts %}
+<script src="{{ asset('js/formTelefono.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('.ui.dropdown').dropdown();
+        $('.js-datepicker').datepicker({ format: 'yyyy-mm-dd' });
+    })
+</script>
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminPreguntasSitCom</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adminPreguntasSitCom.id }}</td>
+            </tr>
+            <tr>
+                <th>Pregunta</th>
+                <td>{{ adminPreguntasSitCom.pregunta }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('adminpreguntassitcom_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('adminpreguntassitcom_edit', { 'id': adminPreguntasSitCom.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

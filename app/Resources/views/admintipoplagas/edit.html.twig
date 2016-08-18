@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3 class="text-center">Tipo Plagas</h3>
+
+    {{ form_start(edit_form, {'attr' : { 'id' : 'guardar'}}) }}
+        {{ form_widget(edit_form) }}
+    {{ form_end(edit_form) }}
+    
+    {{ form_start(delete_form, {'attr' : { 'id' : 'eliminar'}}) }}
+    {{ form_end(delete_form) }}
+
+	<div class="row">
+		<div class="col-sm-6"><input form="guardar" type="submit" value="Modificar" class="btn btn-success btn-block" /></div>
+		<div class="col-sm-6"><input form="eliminar" type="submit" value="Eliminar" class="btn btn-danger btn-block"></div>
+	</div>
+{% endblock %}

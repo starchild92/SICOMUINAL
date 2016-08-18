@@ -1,0 +1,24 @@
+admin_nacionalidad_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminNacionalidad:index" }
+    methods:  GET
+
+admin_nacionalidad_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminNacionalidad:show" }
+    methods:  GET
+
+admin_nacionalidad_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminNacionalidad:new" }
+    methods:  [GET, POST]
+
+admin_nacionalidad_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminNacionalidad:edit" }
+    methods:  [GET, POST]
+
+admin_nacionalidad_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminNacionalidad:delete" }
+    methods:  DELETE

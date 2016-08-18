@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class SituacionEconomicaRepository extends EntityRepository
 {
+	public function findByActividadComercialVivienda($situacion )
+    {
+         return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('m')
+                ->from('SICBundle:SituacionEconomica', 'm')
+                ->innerJoin('m.actividadComercialenVivienda', 'e')
+                ->where('e.id = :exampleid' )
+                ->setParameter('exampleid', $situacion->getId() )
+                ->getQuery()
+                ->getResult();
+    }
 }

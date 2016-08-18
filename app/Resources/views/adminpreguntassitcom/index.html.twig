@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Preguntas Situación Comunidad</div>
+        <table class="table-striped table table-bordered">
+            <thead>
+                <tr>
+                    <th>Interrogante</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminPreguntasSitCom in adminPreguntasSitComs %}
+                <tr>
+                    <td>{{ adminPreguntasSitCom.pregunta }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('adminpreguntassitcom_edit', { 'id': adminPreguntasSitCom.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-primary" href="{{ path('adminpreguntassitcom_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nueva Pregunta Situación Comunidad</a>
+{% endblock %}

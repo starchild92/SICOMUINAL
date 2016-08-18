@@ -3,12 +3,15 @@
 namespace SICBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Persona
  *
  * @ORM\Table(name="persona")
  * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="SICBundle\Repository\PersonaRepository")
  */
 class Persona
 {
@@ -45,9 +48,15 @@ class Persona
     /**
      * @var string
      *
-     * @ORM\Column(name="cedula", type="string", length=255, unique=true)
+     * @ORM\Column(name="cedula", type="string", length=255, nullable=true)
      */
     private $cedula;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist"})
+     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $nacionalidad;
 
     /**
      * @var \DateTime
@@ -66,35 +75,31 @@ class Persona
     /**
      * @var string
      *
-     * @ORM\Column(name="parentezco", type="string", length=255)
+     * @ORM\Column(name="parentesco", type="string", length=255)
      */
-    private $parentezco;
+    private $parentesco;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="gradoInstruccion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminNivelInstruccion", cascade={"persist"})
+     * @ORM\JoinColumn(name="nivelInstr_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $gradoInstruccion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="profesion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminProfesion", cascade={"persist"})
+     * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $profesion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cne", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="cne", referencedColumnName="id", onDelete="CASCADE")
      */
     private $cne;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="embarazoTemprano", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="embrarazoTemp", referencedColumnName="id", onDelete="CASCADE")
      */
     private $embarazoTemprano;
 
@@ -106,9 +111,8 @@ class Persona
     private $incapacitado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="incapacitadoTipo", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminIncapacidades", cascade={"persist"})
+     * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $incapacitadoTipo;
 
@@ -120,12 +124,41 @@ class Persona
     private $pensionado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pensionadoInstitucion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminPensionadoInstitucion", cascade={"persist"})
+     * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $pensionadoInstitucion;
 
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="ingresoMensual", type="float")
+     */
+    private $ingresoMensual;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(name="recibir_correo", type="boolean")
+     */
+    private $recibir_correo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GrupoFamiliar", cascade={"persist", "remove"}, inversedBy="miembros")
+     * @ORM\JoinColumn(name="grupo_fam_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $grupofamiliar;
+    
+
+    public function __construct()
+    {
+        $this->recibir_correo = true;
+    }
 
     /**
      * Get id
@@ -137,6 +170,47 @@ class Persona
         return $this->id;
     }
 
+    public function isJGF(){ return false; }
+    public function nombreyapellido(){ return $this->nombre.' '.$this->apellido; }
+    public function apellido_nombre_cuaderno(){ return $this->apellido.'<br>'.$this->nombre; }
+    public function apellido_nombre(){ return $this->apellido.' '.$this->nombre; }
+    public function edad_fmt(){ if ($this->edad > 0 && $this->edad < 10) { return '0'.$this->edad;}else{ return $this->edad; } }
+    public function cedula(){ 
+        if($this->cedula == ''){
+            return 'No especificó';
+        }else{
+            return number_format($this->cedula, 0, '', '.');
+        }
+    }
+    public function ingresoMensual_fmt(){ return number_format($this->ingresoMensual, 2, ',', '.'); }
+    public function direccion(){
+        $grupo = $this->grupofamiliar;
+        if ($grupo != NULL) {
+            return $grupo->getDireccionCompleta();
+        }
+
+        return "";
+    }
+    public function fechaNacimientoCorta()
+    {
+        $fecha = $this->getFechaNacimiento();
+        return $fecha->format('d-m-Y');
+    }
+    public function fechaNacimiento()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
+    }
+    public function fechaNacimientoRegistroPreliminar()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+        return $fecha->format('d')."-".$meses[$fecha->format('n')-1]."-".$fecha->format('Y');
+    }
+
     /**
      * Set nombre
      *
@@ -145,7 +219,7 @@ class Persona
      */
     public function setNombre($nombre)
     {
-        $this->nombre = $nombre;
+        $this->nombre = ucwords($nombre);
 
         return $this;
     }
@@ -168,7 +242,7 @@ class Persona
      */
     public function setApellido($apellido)
     {
-        $this->apellido = $apellido;
+        $this->apellido = ucwords($apellido);
 
         return $this;
     }
@@ -276,118 +350,26 @@ class Persona
     }
 
     /**
-     * Set parentezco
+     * Set parentesco
      *
-     * @param string $parentezco
+     * @param string $parentesco
      * @return Persona
      */
-    public function setParentezco($parentezco)
+    public function setParentesco($parentesco)
     {
-        $this->parentezco = $parentezco;
+        $this->parentesco = $parentesco;
 
         return $this;
     }
 
     /**
-     * Get parentezco
+     * Get parentesco
      *
      * @return string 
      */
-    public function getParentezco()
+    public function getParentesco()
     {
-        return $this->parentezco;
-    }
-
-    /**
-     * Set gradoInstruccion
-     *
-     * @param string $gradoInstruccion
-     * @return Persona
-     */
-    public function setGradoInstruccion($gradoInstruccion)
-    {
-        $this->gradoInstruccion = $gradoInstruccion;
-
-        return $this;
-    }
-
-    /**
-     * Get gradoInstruccion
-     *
-     * @return string 
-     */
-    public function getGradoInstruccion()
-    {
-        return $this->gradoInstruccion;
-    }
-
-    /**
-     * Set profesion
-     *
-     * @param string $profesion
-     * @return Persona
-     */
-    public function setProfesion($profesion)
-    {
-        $this->profesion = $profesion;
-
-        return $this;
-    }
-
-    /**
-     * Get profesion
-     *
-     * @return string 
-     */
-    public function getProfesion()
-    {
-        return $this->profesion;
-    }
-
-    /**
-     * Set cne
-     *
-     * @param string $cne
-     * @return Persona
-     */
-    public function setCne($cne)
-    {
-        $this->cne = $cne;
-
-        return $this;
-    }
-
-    /**
-     * Get cne
-     *
-     * @return string 
-     */
-    public function getCne()
-    {
-        return $this->cne;
-    }
-
-    /**
-     * Set embarazoTemprano
-     *
-     * @param string $embarazoTemprano
-     * @return Persona
-     */
-    public function setEmbarazoTemprano($embarazoTemprano)
-    {
-        $this->embarazoTemprano = $embarazoTemprano;
-
-        return $this;
-    }
-
-    /**
-     * Get embarazoTemprano
-     *
-     * @return string 
-     */
-    public function getEmbarazoTemprano()
-    {
-        return $this->embarazoTemprano;
+        return $this->parentesco;
     }
 
     /**
@@ -437,35 +419,58 @@ class Persona
     }
 
     /**
-     * Set pensionadoInstitucion
+     * Set gradoInstruccion
      *
-     * @param string $pensionadoInstitucion
+     * @param \SICBundle\Entity\AdminNivelInstruccion $gradoInstruccion
      * @return Persona
      */
-    public function setPensionadoInstitucion($pensionadoInstitucion)
+    public function setGradoInstruccion(\SICBundle\Entity\AdminNivelInstruccion $gradoInstruccion = null)
     {
-        $this->pensionadoInstitucion = $pensionadoInstitucion;
+        $this->gradoInstruccion = $gradoInstruccion;
 
         return $this;
     }
 
     /**
-     * Get pensionadoInstitucion
+     * Get gradoInstruccion
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminNivelInstruccion 
      */
-    public function getPensionadoInstitucion()
+    public function getGradoInstruccion()
     {
-        return $this->pensionadoInstitucion;
+        return $this->gradoInstruccion;
+    }
+
+    /**
+     * Set profesion
+     *
+     * @param \SICBundle\Entity\AdminProfesion $profesion
+     * @return Persona
+     */
+    public function setProfesion(\SICBundle\Entity\AdminProfesion $profesion = null)
+    {
+        $this->profesion = $profesion;
+
+        return $this;
+    }
+
+    /**
+     * Get profesion
+     *
+     * @return \SICBundle\Entity\AdminProfesion 
+     */
+    public function getProfesion()
+    {
+        return $this->profesion;
     }
 
     /**
      * Set incapacitadoTipo
      *
-     * @param string $incapacitadoTipo
+     * @param \SICBundle\Entity\AdminIncapacidades $incapacitadoTipo
      * @return Persona
      */
-    public function setIncapacitadoTipo($incapacitadoTipo)
+    public function setIncapacitadoTipo(\SICBundle\Entity\AdminIncapacidades $incapacitadoTipo = null)
     {
         $this->incapacitadoTipo = $incapacitadoTipo;
 
@@ -475,10 +480,203 @@ class Persona
     /**
      * Get incapacitadoTipo
      *
-     * @return string 
+     * @return \SICBundle\Entity\AdminIncapacidades 
      */
     public function getIncapacitadoTipo()
     {
         return $this->incapacitadoTipo;
+    }
+
+    /**
+     * Set pensionadoInstitucion
+     *
+     * @param \SICBundle\Entity\AdminPensionadoInstitucion $pensionadoInstitucion
+     * @return Persona
+     */
+    public function setPensionadoInstitucion(\SICBundle\Entity\AdminPensionadoInstitucion $pensionadoInstitucion = null)
+    {
+        $this->pensionadoInstitucion = $pensionadoInstitucion;
+
+        return $this;
+    }
+
+    /**
+     * Get pensionadoInstitucion
+     *
+     * @return \SICBundle\Entity\AdminPensionadoInstitucion 
+     */
+    public function getPensionadoInstitucion()
+    {
+        return $this->pensionadoInstitucion;
+    }
+
+    /**
+     * Set recibir_correo
+     *
+     * @param boolean $recibirCorreo
+     * @return Persona
+     */
+    public function setRecibirCorreo($recibirCorreo)
+    {
+        $this->recibir_correo = $recibirCorreo;
+
+        return $this;
+    }
+
+    /**
+     * Get recibir_correo
+     *
+     * @return boolean 
+     */
+    public function getRecibirCorreo()
+    {
+        return $this->recibir_correo;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Persona
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set cne
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $cne
+     * @return Persona
+     */
+    public function setCne(\SICBundle\Entity\AdminRespCerrada $cne = null)
+    {
+        $this->cne = $cne;
+
+        return $this;
+    }
+
+    /**
+     * Get cne
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getCne()
+    {
+        return $this->cne;
+    }
+
+    /**
+     * Set embarazoTemprano
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $embarazoTemprano
+     * @return Persona
+     */
+    public function setEmbarazoTemprano(\SICBundle\Entity\AdminRespCerrada $embarazoTemprano = null)
+    {
+        $this->embarazoTemprano = $embarazoTemprano;
+
+        return $this;
+    }
+
+    /**
+     * Get embarazoTemprano
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getEmbarazoTemprano()
+    {
+        return $this->embarazoTemprano;
+    }
+
+    public function recibir_correo()
+    {
+        if ($this->recibir_correo) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Set grupofamiliar
+     *
+     * @param \SICBundle\Entity\GrupoFamiliar $grupofamiliar
+     * @return Persona
+     */
+    public function setGrupofamiliar(\SICBundle\Entity\GrupoFamiliar $grupofamiliar = null)
+    {
+        $this->grupofamiliar = $grupofamiliar;
+
+        return $this;
+    }
+
+    /**
+     * Get grupofamiliar
+     *
+     * @return \SICBundle\Entity\GrupoFamiliar 
+     */
+    public function getGrupofamiliar()
+    {
+        return $this->grupofamiliar;
+    }
+
+    /**
+     * Set nacionalidad
+     *
+     * @param \SICBundle\Entity\AdminNacionalidad $nacionalidad
+     * @return Persona
+     */
+    public function setNacionalidad(\SICBundle\Entity\AdminNacionalidad $nacionalidad = null)
+    {
+        $this->nacionalidad = $nacionalidad;
+
+        return $this;
+    }
+
+    /**
+     * Get nacionalidad
+     *
+     * @return \SICBundle\Entity\AdminNacionalidad 
+     */
+    public function getNacionalidad()
+    {
+        return $this->nacionalidad;
+    }
+
+    /**
+     * Set ingresoMensual
+     *
+     * @param float $ingresoMensual
+     * @return Persona
+     */
+    public function setIngresoMensual($ingresoMensual)
+    {
+        $this->ingresoMensual = $ingresoMensual;
+
+        return $this;
+    }
+
+    /**
+     * Get ingresoMensual
+     *
+     * @return float 
+     */
+    public function getIngresoMensual()
+    {
+        return $this->ingresoMensual;
     }
 }

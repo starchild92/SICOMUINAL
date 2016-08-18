@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminNivelInstruccion</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adminNivelInstruccion.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ adminNivelInstruccion.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_nivel_instruccion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('configurable_nivel_instruccion_edit', { 'id': adminNivelInstruccion.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

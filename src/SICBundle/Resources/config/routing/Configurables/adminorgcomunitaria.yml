@@ -1,0 +1,24 @@
+configurables_tipos_organizaciones_comunitarias_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminOrgComunitaria:index" }
+    methods:  GET
+
+configurables_tipos_organizaciones_comunitarias_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminOrgComunitaria:show" }
+    methods:  GET
+
+configurables_tipos_organizaciones_comunitarias_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminOrgComunitaria:new" }
+    methods:  [GET, POST]
+
+configurables_tipos_organizaciones_comunitarias_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminOrgComunitaria:edit" }
+    methods:  [GET, POST]
+
+configurables_tipos_organizaciones_comunitarias_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminOrgComunitaria:delete" }
+    methods:  DELETE

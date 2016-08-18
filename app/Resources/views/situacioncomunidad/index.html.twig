@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SituacionComunidad list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Preguntassituacioncomunidad</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for situacionComunidad in situacionComunidads %}
+            <tr>
+                <td><a href="{{ path('situacioncomunidad_show', { 'id': situacionComunidad.id }) }}">{{ situacionComunidad.id }}</a></td>
+                <td>{{ situacionComunidad.preguntasSituacionComunidad }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('situacioncomunidad_show', { 'id': situacionComunidad.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('situacioncomunidad_edit', { 'id': situacionComunidad.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

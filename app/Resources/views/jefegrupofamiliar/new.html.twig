@@ -1,16 +1,143 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>JefeGrupoFamiliar creation</h1>
+    <div class="row">
+        <div class="col-xs-6"><small class="text-info"><i class="fa fa-flag fa-lg"></i></small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Caracteristicas Grupo Familiar</small></div>
+    </div>
+    <div class="progress">
+      <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 5%">
+        Paso 1 de 9
+      </div>
+    </div>
 
+    <h2>Datos del Jefe Grupo Familiar</h2>
+    <hr>
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.nombres) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.apellidos) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.nacionalidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.cedula) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">{{ form_row(form.fechaNacimiento) }}</div>
+                            <div class="col-sm-2">{{ form_row(form.edad) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.cne) }}</div>
+                        </div>
+                        {{ form_row(form.edad) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.tiempoEnComunidad) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.sexo) }}</div>
+                        </div>                        
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.pensionado) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.incapacitado) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.pensionadoInstitucion) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.incapacitadoTipo) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(form.estadoCivil) }}
+                        {{ form_row(form.nivelInstruccion) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.profesion) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.trabajaActualmente) }}</div>
+                        </div>
+                        {{ form_row(form.ingresoFamiliar) }}
+                        {{ form_row(form.ingresoMensual) }}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('jefegrupofamiliar_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.telefono) }}
+                    </div>
+                </div>  
+            </div>
+        </div>
+        
+        <input class="btn btn-primary btn-block" type="submit" value="Registrar Datos del Jefe Grupo Familiar y Continuar" />
+    {{ form_end(form) }}
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            // $("#jefe_grupo_familiar_edad").parent().addClass('hidden');
+            $('.js-datepicker')
+                .datepicker({ format: 'yyyy-mm-dd', autoclose: true })
+                    .on('hide', function() {
+                        var birthDay = document.getElementById("jefe_grupo_familiar_fechaNacimiento").value;
+                        var DOB = new Date(birthDay);
+                        var today = new Date();
+                        var age = today.getTime() - DOB.getTime();
+                        age = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+
+                        document.getElementById('jefe_grupo_familiar_edad').value = age;
+                    });
+            AexcluyeB('jefe_grupo_familiar_incapacitado', 'jefe_grupo_familiar_incapacitadoTipo');
+            AexcluyeB('jefe_grupo_familiar_pensionado', 'jefe_grupo_familiar_pensionadoInstitucion');
+            
+            $('.ui.dropdown').dropdown();
+            $('.ui.fluid.search.dropdown').dropdown({
+                allowAdditions: true,
+                onChange: function(addedValue, addedText, $addedChoice) {
+                    $('[name=jefe_grupo_familiar]').submit(function(e){ e.preventDefault(); }); //nombre del form
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : 'jgf_profesion', //caso del switch en el controlador
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#jefe_grupo_familiar_profesion').children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $.alert({
+                                theme: 'black',
+                                title: 'Error!',
+                                content: "No se ha podido agregar el valor al sistema, debido a un error desconocido. Intente otra vez.",
+                            });
+                        },
+                        complete: function(){
+                            $('[name=jefe_grupo_familiar]').unbind('submit'); //nombre del form
+                        },
+                    });
+                },
+            });
+        })
+    </script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/formTelefono.js') }}"></script>
+    <script src="{{ asset('js/funcionesExtras.js') }}"></script>
 {% endblock %}

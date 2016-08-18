@@ -1,6 +1,7 @@
 <?php
 
 namespace SICBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,14 +39,13 @@ class JefeGrupoFamiliar
     /**
      * @var string
      *
-     * @ORM\Column(name="cedula", type="string", length=255)
+     * @ORM\Column(name="cedula", type="string", length=255, unique=true)
      */
     private $cedula;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nacionalidad", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminNacionalidad", cascade={"persist"})
+     * @ORM\JoinColumn(name="nac_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $nacionalidad;
 
@@ -58,21 +58,26 @@ class JefeGrupoFamiliar
 
     /**
      * @var int
-     *
+     * @Assert\GreaterThan(
+     *     value = 0,
+     *     message = "La Edad debe ser mayor que {{ compared_value }}"
+     * )
      * @ORM\Column(name="edad", type="integer")
      */
     private $edad;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cne", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="cne", referencedColumnName="id", onDelete="SET NULL")
      */
     private $cne;
 
     /**
      * @var string
-     *
+     * @Assert\GreaterThan(
+     *     value = 0,
+     *     message = "El tiempo en la comunidad debe ser mayor a {{ compared_value }}"
+     * )
      * @ORM\Column(name="tiempoEnComunidad", type="string", length=255)
      */
     private $tiempoEnComunidad;
@@ -92,9 +97,8 @@ class JefeGrupoFamiliar
     private $incapacitado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="incapacitadoTipo", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminIncapacidades", cascade={"persist"})
+     * @ORM\JoinColumn(name="incap_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $incapacitadoTipo;
 
@@ -106,68 +110,76 @@ class JefeGrupoFamiliar
     private $pensionado;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pensionadoInstitucion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminPensionadoInstitucion", cascade={"persist"})
+     * @ORM\JoinColumn(name="pensIns_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $pensionadoInstitucion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="estadoCivil", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminEstadoCivil", cascade={"persist"})
+     * @ORM\JoinColumn(name="edoCivil_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $estadoCivil;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nivelInstruccion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminNivelInstruccion", cascade={"persist"})
+     * @ORM\JoinColumn(name="nivelIns_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $nivelInstruccion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="profesion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminProfesion", cascade={"persist"})
+     * @ORM\JoinColumn(name="profesion_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $profesion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="trabajaActualmente", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="respC_id_3", referencedColumnName="id", onDelete="SET NULL")
      */
     private $trabajaActualmente;
 
     /**
-     * @var \stdClass
-     *
-     * @ORM\Column(name="telefono", type="object", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Telefono", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="jgf_telefonos",
+     *      joinColumns={@ORM\JoinColumn(name="jefeGF_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="telefono_id", referencedColumnName="id", onDelete="CASCADE", unique=true)}
+     *      )
      */
     private $telefono;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ingresoFamiliar", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminClasIngresoFamiliar", cascade={"persist"})
+     * @ORM\JoinColumn(name="ingFam_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $ingresoFamiliar;
 
     /**
      * @var float
-     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "El Ingreso Mensual debe ser superior {{ compared_value }}"
+     * )
      * @ORM\Column(name="ingresoMensual", type="float")
      */
     private $ingresoMensual;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Planillas", mappedBy="jefeGrupoFamiliar", cascade={"remove"})
+     */
+    private $planilla;
+
+    /**
+     * @ORM\Column(name="recibir_correo", type="boolean")
+     */
+    private $recibir_correo;
 
     /**
      * Get id
@@ -179,6 +191,33 @@ class JefeGrupoFamiliar
         return $this->id;
     }
 
+    public function isJGF() { return true; }
+    public function nombre() { return $this->nombres; }
+    public function apellido() { return $this->apellidos; }
+    public function nombreyapellido() { return $this->nombres.' '.$this->apellidos; }
+    public function apellido_nombre_cuaderno() { return $this->apellidos.'<br>'.$this->nombres; }
+    public function apellido_nombre() { return $this->apellidos.' '.$this->nombres; }
+    public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
+    public function ingresoMensual_fmt(){ return number_format($this->ingresoMensual, 2, ',', '.'); }
+    public function edad_fmt(){ if ($this->edad > 0 && $this->edad < 10) { return '0'.$this->edad;}else{ return $this->edad; } }
+    public function direccion(){
+        $planilla = $this->planilla;
+        if ($planilla != NULL) {
+            $grupo = $planilla->getGrupoFamiliar();
+            if ($grupo != NULL) {
+                return $grupo->getDireccionCompleta();
+            }
+        }
+
+        return "";
+    }
+    public function fechaNacimientoRegistroPreliminar()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+        return $fecha->format('d')."-".$meses[$fecha->format('n')-1]."-".$fecha->format('Y');
+    }
+    
     /**
      * Set nombres
      *
@@ -187,7 +226,7 @@ class JefeGrupoFamiliar
      */
     public function setNombres($nombres)
     {
-        $this->nombres = $nombres;
+        $this->nombres = ucwords($nombres);
 
         return $this;
     }
@@ -210,7 +249,7 @@ class JefeGrupoFamiliar
      */
     public function setApellidos($apellidos)
     {
-        $this->apellidos = $apellidos;
+        $this->apellidos = ucwords($apellidos);
 
         return $this;
     }
@@ -249,29 +288,6 @@ class JefeGrupoFamiliar
     }
 
     /**
-     * Set nacionalidad
-     *
-     * @param string $nacionalidad
-     * @return JefeGrupoFamiliar
-     */
-    public function setNacionalidad($nacionalidad)
-    {
-        $this->nacionalidad = $nacionalidad;
-
-        return $this;
-    }
-
-    /**
-     * Get nacionalidad
-     *
-     * @return string 
-     */
-    public function getNacionalidad()
-    {
-        return $this->nacionalidad;
-    }
-
-    /**
      * Set fechaNacimiento
      *
      * @param \DateTime $fechaNacimiento
@@ -292,6 +308,20 @@ class JefeGrupoFamiliar
     public function getFechaNacimiento()
     {
         return $this->fechaNacimiento;
+    }
+
+    public function fechaNacimientoCorta()
+    {
+        $fecha = $this->getFechaNacimiento();
+        return $fecha->format('d-m-Y');
+    }
+    public function fechaNacimiento()
+    {
+        $fecha = $this->getFechaNacimiento();
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
     }
 
     /**
@@ -571,29 +601,6 @@ class JefeGrupoFamiliar
     }
 
     /**
-     * Set telefono
-     *
-     * @param \stdClass $telefono
-     * @return JefeGrupoFamiliar
-     */
-    public function setTelefono($telefono)
-    {
-        $this->telefono = $telefono;
-
-        return $this;
-    }
-
-    /**
-     * Get telefono
-     *
-     * @return \stdClass 
-     */
-    public function getTelefono()
-    {
-        return $this->telefono;
-    }
-
-    /**
      * Set email
      *
      * @param string $email
@@ -660,5 +667,123 @@ class JefeGrupoFamiliar
     public function getIngresoMensual()
     {
         return $this->ingresoMensual;
+    }
+
+    /**
+     * Set nacionalidad
+     *
+     * @param \SICBundle\Entity\AdminNacionalidad $nacionalidad
+     * @return JefeGrupoFamiliar
+     */
+    public function setNacionalidad(\SICBundle\Entity\AdminNacionalidad $nacionalidad = null)
+    {
+        $this->nacionalidad = $nacionalidad;
+
+        return $this;
+    }
+
+    /**
+     * Get nacionalidad
+     *
+     * @return \SICBundle\Entity\AdminNacionalidad 
+     */
+    public function getNacionalidad()
+    {
+        return $this->nacionalidad;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->telefono = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add telefono
+     *
+     * @param \SICBundle\Entity\Telefono $telefono
+     * @return JefeGrupoFamiliar
+     */
+    public function addTelefono(\SICBundle\Entity\Telefono $telefono)
+    {
+        $this->telefono[] = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Remove telefono
+     *
+     * @param \SICBundle\Entity\Telefono $telefono
+     */
+    public function removeTelefono(\SICBundle\Entity\Telefono $telefono)
+    {
+        $this->telefono->removeElement($telefono);
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \SICBundle\Entity\Planillas $planilla
+     * @return JefeGrupoFamiliar
+     */
+    public function setPlanilla(\SICBundle\Entity\Planillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \SICBundle\Entity\Planillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
+    }
+
+    /**
+     * Set recibir_correo
+     *
+     * @param boolean $recibirCorreo
+     * @return JefeGrupoFamiliar
+     */
+    public function setRecibirCorreo($recibirCorreo)
+    {
+        $this->recibir_correo = $recibirCorreo;
+
+        return $this;
+    }
+
+    /**
+     * Get recibir_correo
+     *
+     * @return boolean 
+     */
+    public function getRecibirCorreo()
+    {
+        return $this->recibir_correo;
+    }
+
+    public function recibir_correo()
+    {
+        if ($this->recibir_correo) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-6"><h2 class="text-center">Modificar Datos Situación Comunidad</h2></div>
+        <div class="col-sm-6">
+            <p class="marginless"><span class="negritas">Planilla # {{ edit_form.vars.value.planilla.id }}</span></p>
+            <p class="marginless"><span class="negritas">Jefe Grupo Familiar:</span> {{ edit_form.vars.value.planilla.JefeGrupoFamiliar.nombreyapellido() }}</p>
+            <p class="marginless"><span class="negritas">Fecha última edición: </span>{{ edit_form.vars.value.planilla.fechayhora() }}</p>
+        </div>
+    </div>
+    <hr>
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar Datos y regresar a la Planilla" />
+    {{ form_end(edit_form) }}
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/formPreguntas.js') }}"></script>
+{% endblock %}

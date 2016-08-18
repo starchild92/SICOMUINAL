@@ -1,43 +1,83 @@
-{% extends 'base.html.twig' %}
+{% embed 'graficos.html.twig' %}
+    {% block body %}
+        <h2>Estadísticas: Situación de Salud</h2>
+        <hr>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="well well-sm">
+                    <p>Esta información es referente a un total de {{ total }} familias.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <a class="btn btn-lg btn-primary btn-block pull-rigth" href="{{ path('resumen_documento_obtener') }}"><i class="fa fa-file-o"></i> Obtener como PDF</a>
+                <hr class="little"></hr>
+            </div>
+        </div>
 
-{% block body %}
-    <h1>SituacionSalud list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Enfermedad</th>
-                <th>Ayudaespecial</th>
-                <th>Situacionexclusion</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for situacionSalud in situacionSaluds %}
-            <tr>
-                <td><a href="{{ path('situacionsalud_show', { 'id': situacionSalud.id }) }}">{{ situacionSalud.id }}</a></td>
-                <td>{{ situacionSalud.enfermedad }}</td>
-                <td>{{ situacionSalud.ayudaEspecial }}</td>
-                <td>{{ situacionSalud.situacionExclusion }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('situacionsalud_show', { 'id': situacionSalud.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('situacionsalud_edit', { 'id': situacionSalud.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('situacionsalud_new') }}">Create a new entry</a>
-        </li>
-    </ul>
-{% endblock %}
+        <div class="row grid">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Padecencias</h4></div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Cant.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in stat_padecencias %}<tr>
+                                    <td>{{item.padecencias}}</td>
+                                    <td>{{item.cantidad}}</td>
+                                </tr>{% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Ayudas Especiales</h4></div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Cant.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in stat_ayuda_especial %}<tr>
+                                    <td>{{item.ayuda_especial}}</td>
+                                    <td>{{item.cantidad}}</td>
+                                </tr>{% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4 class="panel-title">Situación de Exclusión</h4></div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Cant.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in stat_situacion_exclusion %}<tr>
+                                    <td>{{item.situacion_exclusion}}</td>
+                                    <td>{{item.cantidad}}</td>
+                                </tr>{% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endembed %}

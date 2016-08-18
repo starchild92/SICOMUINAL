@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('datatables/datatables.min.css') }}"/>
+    <style>
+        .dataTables_info, .dataTables_length{ padding-left: 5px; }
+        .dataTables_paginate, .dataTables_filter { padding-right: 5px; }
+        .dataTables_length, .dataTables_filter{ margin-top: 5px; }
+    </style>
+{% endblock %}
+{% block not_log_title %}<i class="fa fa-newspaper-o"></i> Noticias del Consejo Comunal{% endblock %}
+{% block body %}
+    <h2 class="text-center">Administración de Correos - Cuentas</h2>
+    <hr>
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Personas de la Comunidad con Correo Electronico <i class="fa fa-inbox pull-right"></i></div>
+                <table id="dataTable" class="table table-bordered table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Posible Receptor</th>
+                            <th>Correo</th>
+                            <th>Activo</th>
+                            <th><i class="fa fa-cogs"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in jfg %}
+                        <tr>
+                            <td><span class="label label-primary"> Jefe Grupo</span> {{ p.nombreyapellido() }}</td>
+                            <td>{{ p.email }}</td>
+                            <td>{% if p.recibir_correo %} <i class="fa fa-check text-success"></i> recibiendo {% else %} <i class="fa fa-times text-danger"></i> no recibe {% endif %}</td>
+                            <td class="text-center"><a href="#" id="toogle_mail" {% if p.email != '' %}data-url="{{ path('noticia_toggle_correo', {'correo': p.email}) }}"{% endif %} {% if p.recibir_correo %}class="btn-danger btn btn-xs"{% else %}class="btn-success btn btn-xs"{% endif %}><i class="fa fa-inbox"></i></a> <a class="btn btn-primary btn-xs" href="{{ path('jefegrupofamiliar_show', {'id' : p.id }) }}"><i class="fa fa-user"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                        {% for p in persona %}
+                        <tr>
+                            <td>{{ p.nombreyapellido() }}</td>
+                            <td>{{ p.email }}</td>
+                            <td>{% if p.recibir_correo %} <i class="fa fa-check text-success"></i> recibiendo{% else %} <i class="fa fa-times text-danger"></i> no recibe{% endif %}</td>
+                            <td class="text-center"><a href="#" id="toogle_mail" {% if p.email != '' %}data-url="{{ path('noticia_toggle_correo', {'correo': p.email}) }}"{% endif %} {% if p.recibir_correo %}class="btn-danger btn btn-xs"{% else %}class="btn-success btn btn-xs"{% endif %}><i class="fa fa-inbox"></i></a> <a class="btn btn-primary btn-xs" href="{{ path('personas_show', {'id' : p.id }) }}"><i class="fa fa-user"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Personas Suscritas</div>
+                <div class="panel-body text-center">
+                    <h1>{{ reciben_correo }}</h1>
+                    <small>Cantidad de personas recibiendo su estos correos</small>
+                </div>
+            </div>
+            <a href="{{ path('noticia_correo') }}" class="btn btn-primary btn-block"><i class="fa fa-arrow-left"></i> Regresar</a></h2>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('body').on('click', '#toogle_mail', function(e){
+                url = $(this).data('url');
+                if(url){
+                    $.confirm({
+                        theme: 'black',
+                        title: 'Advertencia!',
+                        content: 'Cambiar el estado de recibimiento de correos. Se modificará al estado opuesto',
+                        cancelButton: 'Cancelar',
+                        backgroundDismiss: false,
+                        confirm: function(){
+                            $.confirm({
+                                title: false,
+                                theme: 'black',
+                                content: 'Aplicando cambios, espere...',
+                            });
+                            $.ajax({
+                                method: "GET",
+                                url: url,
+                                complete: function(){
+                                    window.location.reload();
+                                }
+                            });
+                        }
+                    });
+                }else{
+                    $.alert({
+                        theme: 'black',
+                        title: 'Advertencia!',
+                        content: 'El usuario no tiene correo electrónico, por lo que no se puede cambiar el estado de recibimiento, para poder hacerlo agregue un correo electrónico.',
+                        cancelButton: 'Cancelar',
+                        backgroundDismiss: false,
+                    });
+                }
+            });
+
+            dataTable = $('#dataTable').DataTable( {
+                "pageLength": 25,
+            });
+        });
+    </script>
+{% endblock %}

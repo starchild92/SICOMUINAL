@@ -11,6 +11,7 @@
 <html>
 <head>
 	<style type="text/css">
+        table{ width: 100%; }
         .text-center { text-align: center; }
         .imagen{
             height: 75px;
@@ -32,12 +33,12 @@
 <body>
     <table>
         <tr>
-            <td colspan="2" class="text-center cabecera_mail">GPS Caracas</td>
+            <td colspan="2" class="text-center cabecera_mail">Sistema de Información Comunal</td>
         </tr>
         <tr>
             <td>
                 <div class="cuerpo">
-                    <p>Estimado, {{ user.username }} ha recibido este mensaje porque ha solicitado que su contraseña de acceso al sistema sea restablecida. Para continuar, por favor haga clic en el siguiente enlace.</p>
+                    <p>Estimado, {{ user.username }} ha recibido este mensaje porque ha solicitado a traves de nuestro sistema que su contraseña de acceso sea restablecida. Para continuar con la restauración, por favor haga clic en el siguiente enlace.</p>
 
                     <a href="{{ confirmationUrl }}" class="text-center">Enlace para restablecer la contraseña</a><br>
                 </div>

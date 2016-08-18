@@ -1,21 +1,114 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.structure.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.theme.css') }}">
+{% endblock %}
 {% block body %}
-    <h1>SituacionServicios edit</h1>
-
+    <div class="row">
+        <div class="col-sm-6"><h2 class="text-center">Modificar Datos Situación de Servicios</h2></div>
+        <div class="col-sm-6">
+            <p class="marginless"><span class="negritas">Planilla # {{ edit_form.vars.value.planilla.id }}</span></p>
+            <p class="marginless"><span class="negritas">Jefe Grupo Familiar:</span> {{ edit_form.vars.value.planilla.JefeGrupoFamiliar.nombreyapellido() }}</p>
+            <p class="marginless"><span class="negritas">Fecha última edición: </span>{{ edit_form.vars.value.planilla.fechayhora() }}</p>
+        </div>
+    </div>
+    <hr>
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.aguasBlancas) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.lts_tanque) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.cant_pipotes) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.medidor) }}</div>
+                        </div>
+                        {{ form_row(edit_form.aguasServidas) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.gas) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.empresaGas) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.cantBombonas) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.capacidadBombona) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.duracionBombona) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.precioBombona) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(edit_form.sistemaElectrico) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(edit_form.medidorElectrico) }}</div>
+                            <div class="col-sm-6">{{ form_row(edit_form.bombillosAhorradores) }}</div>
+                        </div>
+                        {{ form_row(edit_form.recoleccionBasura) }}
+                        {{ form_row(edit_form.telefonia) }}
+                        {{ form_row(edit_form.transporte) }}
+                        {{ form_row(edit_form.mecanismoInformacion) }}
+                        {{ form_row(edit_form.serviciosComunales) }}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('situacionservicios_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar Situación de Salud y regresar a la Planilla" />
+    {{ form_end(edit_form) }}
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+            $('.fluid.multiple.search.selection').dropdown({ 
+                allowAdditions: true,
+                onAdd: function(addedValue, addedText, $addedChoice) {
+                    element = $(this).prop('id');
+                    $('[name=situacion_servicios]').submit(function(e){ e.preventDefault(); });
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : element,
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#'+element).children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $addedChoice.remove();
+                        },
+                        complete: function(){
+                            $('[name=situacion_servicios]').unbind('submit')
+                        },
+                    });
+                },
+            });
+            var availableTags = [{% for item in duracionesBombona %}'{{ item.duracionBombona }}',{% endfor %}];
+            $( "#situacion_servicios_duracionBombona" ).autocomplete({
+                source: availableTags,
+                minLength: 0,
+            });
+        })
+    </script>
 {% endblock %}

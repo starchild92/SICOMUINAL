@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminPreguntasParticipacionComunitaria</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adminPreguntasParticipacionComunitarium.id }}</td>
+            </tr>
+            <tr>
+                <th>Interrogante</th>
+                <td>{{ adminPreguntasParticipacionComunitarium.interrogante }}</td>
+            </tr>
+            <tr>
+                <th>Respuesta</th>
+                <td>{{ adminPreguntasParticipacionComunitarium.respuesta }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_preguntas_participacion_comunitaria_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('configurables_preguntas_participacion_comunitaria_edit', { 'id': adminPreguntasParticipacionComunitarium.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

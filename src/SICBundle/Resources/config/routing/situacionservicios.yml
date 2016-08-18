@@ -1,5 +1,5 @@
 situacionservicios_index:
-    path:     /
+    path:     /estadisticas
     defaults: { _controller: "SICBundle:SituacionServicios:index" }
     methods:  GET
 
@@ -9,7 +9,7 @@ situacionservicios_show:
     methods:  GET
 
 situacionservicios_new:
-    path:     /new
+    path:     /paso/7/{id_planilla}/
     defaults: { _controller: "SICBundle:SituacionServicios:new" }
     methods:  [GET, POST]
 

@@ -3,86 +3,34 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {% block title %}Perfil {{ app.user.username }}{% endblock %}
 {% block body %}
-    <div class="page-header">
-        <h1>Información de su cuenta <i class="fa fa-info fa-fw pull-left"></i></h1>
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="panel panel-gps">
-                <div class="panel-heading">
-                    Datos personales <i class="fa fa-list-ul fa-fw pull-right"></i>
-                </div>
-                <table class="table table-bordered">
-                <tbody>
-                    <tr>
-                        <th>Cédula</th>
-                        <td>{{ user.cedula|number_format(0,',','.') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Nombre</th>
-                        <td>{{ user.nombre }}</td>
-                    </tr>
-                    <tr>
-                        <th>Apellido</th>
-                        <td>{{ user.apellido }}</td>
-                    </tr>
-                    <tr>
-                        <th>Fecha de Nacimiento</th>
-                        <td>{{ user.fechaNacimiento|date('d \\d\\e F Y') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Roles</th>
-                        <td>{% for role in user.roles %}
-                            {% if role == 'ROLE_ADMIN' %}<span class="label label-danger"><i class="fa fa-star fa-fw"></i> ADMINISTRADOR</span>{% endif %}{% if role == 'ROLE_USER' %}<span class="label label-primary"><i class="fa fa-user fa-fw"></i> VENDEDOR</span>{% endif %}{% endfor %}</td>
-                    </tr>
-                    <tr>
-                        <th>Última conexión</th>
-                        <td>{{ user.lastlogin|date('d \\d\\e F Y') }}</td>
-                    </tr>
-                    <tr>
-                        <th>¿Bloqueado?</th>
-                        <td>{% if not user.locked %}<span class="label label-success"><i class="fa fa-unlock fa-fw"></i> No está bloqueado</span>{% else %}<span class="label label-danger"><i class="fa fa-lock fa-fw"></i> Está bloqueado</span>{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <th>Nombre de usuario</th>
-                        <td>{{ user.username }}</td>
-                    </tr>
-                    <tr>
-                        <th>Estado de la Cuenta</th>
-                        <td>{% if user.enabled %}<span class="label label-success"><i class="fa fa-unlock fa-fw"></i>Activa</span>{% else %}<span class="label label-danger"><i class="fa fa-lock fa-fw"></i> Inactiva</span>{% endif %}</td>
-                    </tr>
-                </tbody>
-            </table>
-                <!-- <div class="panel-footer-gps">
-                    
-                </div> -->
-            </div>
-            <a class="btn btn-gpsc-azul" href="{{ path('usuario_edit', { 'id': user.id }) }}"> <i class="fa fa-edit fa-lg pull-left"></i>Editar Datos</a>
-        </div>
-        <div class="col-lg-6">
-            <div class="panel panel-gps">
-                <div class="panel-heading">
-                    Datos de la Cuenta y Acceso <i class="fa fa-list-ul fa-fw pull-right"></i>
-                </div>
-                <table class="table table-bordered">
-                <tbody>
-                    <tr>
-                        <th>Nombre de Usuario</th>
-                        <td>{{ user.username }}</td>
-                    </tr>
-                    <tr>
-                        <th>Correo Electronico</th>
-                        <td>{{ user.email }}</td>
-                    </tr>
-                </tbody>
-                </table>
-                <!-- <div class="panel-footer-gps">
-                    
-                </div> -->
-            </div>
-            <a class="btn btn-gpsc-azul" href="{{ path('fos_user_profile_edit') }}"> <i class="fa fa-edit fa-lg pull-left"></i>Modificar</a>
-            <a class="btn btn-gpsc-azul" href="{{ path('fos_user_change_password') }}"> <i class="fa fa-edit fa-lg pull-left"></i>Ir a cambiar Contraseña</a>
-        </div>
-        <div>
-    </div>
+	{# <div class="page-header"> #}
+		<h2 class="text-center"><i class="fa fa-info fa-fw"></i> Información de su cuenta</h2><hr>
+	{# </div> #}
+	<div class="row">
+		<div class="col-sm-9">
+			<table class="table borderless table-hover">
+				<tr><th class="col-sm-3">Nombres</th><td>{{ user.primerNombre }} {{ user.segundoNombre }}</td></tr>
+				<tr><th>Apellidos</th><td>{{ user.primerApellido }} {{ user.segundoApellido }}</td></tr>
+				<tr><th>Planillas Agregadas</th><td>Ha registrado {{ user.planillas|length }} planillas en el sistema.</td></tr>
+				<tr><th>Cédula</th><td>{{ user.cedula() }}</td></tr>
+				<tr><th>Fecha de Nacimiento</th><td>{{ user.fechaNacimiento() }}</td></tr>
+				<tr><th>Correo</th><td>{{ user.email }}</td></tr>
+				<tr><th>Usuario</th><td>{{ user.username }}</td></tr>
+				<tr><th>Estatus del Usuario<br><small class="text-info">Indica su estado en el sistema</small></th><td>{% if user.enabled %}<span class="text-success negritas">Se encuentra activo</span>{% else %}<span class="text-danger negritas">Está inactivo</span><small>No puede ingresar al sistema.</small>{% endif %}</td></tr>
+				<tr><th>Teléfonos</th><td>
+					{% if user.telefono|length == 0 %}No tiene ningun número de teléfono{% endif %}
+					{% for telf in user.telefono %}({{ telf.codigo }}) - {{ telf.numero }}<br>{% endfor %}
+					</td></tr>
+				<tr><th>Rol en el Sistema <br> <small class="text-info">Posee los siguientes roles en el sistema</small></th><td>{% for role in user.roles %}{% if role == 'ROLE_ADMIN' %}<span class="label label-success"><i class="fa fa-star fa-fw"></i> ADMINISTRADOR</span>{% endif %} {% if role == 'ROLE_USER' %}<span class="label label-info"><i class="fa fa-user fa-fw"></i> EMPADRONADOR</span>{% endif %}{% endfor %}</td></tr>
+				<tr><th></th><td>{% if user.expired %}Cuenta vencida{% else %} <i class="fa fa-calendar-check-o"></i> No ha vencido su cuenta{% endif %}</td></tr>
+				<tr><th>Estatus de la Cuenta</th><td>{% if user.locked %}Está bloqueado{% else %} <i class="fa fa-unlock-alt"></i> No está bloqueado{% endif %}</td></tr>
+			</table>
+		</div>
+		<div class="col-sm-3">
+			<a class="btn btn-success btn-block" href="{{ path('usuarios_edit',{ 'id' : user.id }) }}"> Modificar Mis Datos</a>
+			<hr>
+			<small class="text-info">Inicio sesión por última vez en<br>{{ user.lastLogin|date('Y-m-d \\a\\ \\l\\a\\s h:i a') }}</small>
+		</div>
+	</div>
+	
 {% endblock body %}

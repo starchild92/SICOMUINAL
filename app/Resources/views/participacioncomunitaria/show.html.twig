@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ParticipacionComunitaria</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ participacionComunitarium.id }}</td>
+            </tr>
+            <tr>
+                <th>Misiones en la Comunidad</th>
+                <td>{% for cc in participacionComunitarium.misionesComunidad %}
+                    {{ cc }},
+                {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Existen Organizaciones</th>
+                <td>{% for orgs in participacionComunitarium.existenOrganizaciones %}
+                    {{ orgs.nombre }}<br>
+                {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Participa Organizacion</th>
+                <td>{{ participacionComunitarium.participaOrganizacion }}</td>
+            </tr>
+            <tr>
+                <th>Preguntas participacion comunitaria</th>
+                <td>{% for preg in participacionComunitarium.preguntasParticipacionComunitaria %}{{ preg.interrogante }}<br>{% endfor %}</td>
+
+                <td>{% for areatrab in participacionComunitarium.areaTabajoCC %}{{ areatrab.nombre }}<br>{% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Area Trabajo</th>
+                <td>{% for preg in participacionComunitarium.preguntasParticipacionComunitaria %}{{ preg.interrogante }}<br>{% endfor %}</td>
+
+                <td>{% for areatrab in participacionComunitarium.areaTabajoCC %}{{ areatrab.nombre }}<br>{% endfor %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('participacioncomunitaria_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('participacioncomunitaria_edit', { 'id': participacionComunitarium.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

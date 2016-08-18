@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoTransporte</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adminTipoTransporte.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ adminTipoTransporte.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipo_transporte_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('configurables_tipo_transporte_edit', { 'id': adminTipoTransporte.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

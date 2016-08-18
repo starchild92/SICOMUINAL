@@ -1,4 +1,64 @@
 sic_homepage:
-    path:     /inicio
+    path:     /
     defaults: { _controller: "SICBundle:Inicio:inicio" }
+    methods:  GET
+
+sic_homepage_login:
+    path:     /login
+    defaults: { _controller: "SICBundle:Inicio:login" }
+    methods:  GET
+
+sic_administacion_entidades:
+    path:     /administrar/datos/cc
+    defaults: { _controller: "SICBundle:Inicio:administrarEntidades"}
+    methods:  GET
+
+sic_administacion_parametros_planilla:
+    path:     /administrar/parametros/planilla
+    defaults: { _controller: "SICBundle:Inicio:administrarParametros"}
+    methods:  GET
+
+sic_volver_parametros:
+    path:     /administrar/parametros/{index}
+    defaults: { _controller: "SICBundle:Inicio:volverParametros"}
+    methods:  GET
+
+sic_documentos_cuaderno_votacion:
+    path:     /documentos/cuaderno-votacion
+    defaults: { _controller: "SICBundle:Inicio:cuadernoVotacion"}
+    methods:  GET
+
+sic_documentos_cuaderno_votacion_pdf:
+    path:     /documentos/cuaderno-votacion/pdf
+    defaults: { _controller: "SICBundle:Inicio:cuadernoVotacionPDF"}
+    methods:  GET
+
+sic_documentos_resumen_censo:
+    path:     /documentos/resumen-censo
+    defaults: { _controller: "SICBundle:Inicio:resumenCenso"}
+    methods:  GET
+
+sic_documentos_resumen_censo_pdf:
+    path:     /documentos/resumen-censo/pdf
+    defaults: { _controller: "SICBundle:Inicio:resumenCensoPDF"}
+    methods:  GET
+
+sic_documentos_registro_electoral:
+    path:     /documentos/registro-electoral
+    defaults: { _controller: "SICBundle:Inicio:registroElectoral"}
+    methods:  GET
+
+sic_documentos_registro_electoral_pdf:
+    path:     /documentos/registro-electoral/pdf
+    defaults: { _controller: "SICBundle:Inicio:registroElectoralPDF"}
+    methods:  GET
+
+sic_documentos_registro_preliminar:
+    path:     /documentos/registro-preliminar
+    defaults: { _controller: "SICBundle:Inicio:registroPreliminar"}
+    methods:  GET
+
+sic_documentos_registro_preliminar_pdf:
+    path:     /documentos/registro-preliminar-pdf
+    defaults: { _controller: "SICBundle:Inicio:registroPreliminarPDF"}
     methods:  GET

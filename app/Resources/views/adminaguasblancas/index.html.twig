@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Aguas Blancas
+        </div>
+        <table class="table-bordered table-striped table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminAguasBlanca in adminAguasBlancas %}
+                <tr>
+                    <td>{{ adminAguasBlanca.nombre }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurables_tipos_aguas_blancas_edit', { 'id': adminAguasBlanca.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-primary" href="{{ path('configurables_tipos_aguas_blancas_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Tipo de Aguas Blancas</a>
+{% endblock %}

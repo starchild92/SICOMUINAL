@@ -1,0 +1,24 @@
+configurables_tipo_transporte_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminTipoTransporte:index" }
+    methods:  GET
+
+configurables_tipo_transporte_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminTipoTransporte:show" }
+    methods:  GET
+
+configurables_tipo_transporte_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminTipoTransporte:new" }
+    methods:  [GET, POST]
+
+configurables_tipo_transporte_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminTipoTransporte:edit" }
+    methods:  [GET, POST]
+
+configurables_tipo_transporte_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminTipoTransporte:delete" }
+    methods:  DELETE

@@ -35,15 +35,15 @@
             </tr>
             <tr>
                 <th>Transporte</th>
-                <td>{{ situacionServicio.transporte }}</td>
+                <td>{% for transp in situacionServicio.transporte %}{{ transp.nombre }}<br>{% endfor %}</td>
             </tr>
             <tr>
                 <th>Mecanismoinformacion</th>
-                <td>{{ situacionServicio.mecanismoInformacion }}</td>
+                <td>{% for mecInfo in situacionServicio.mecanismoInformacion %}{{ mecInfo.nombre }}<br>{% endfor %}</td>
             </tr>
             <tr>
                 <th>Servicioscomunales</th>
-                <td>{{ situacionServicio.serviciosComunales }}</td>
+                <td>{% for servCom in situacionServicio.serviciosComunales %}{{ servCom.nombre }}<br>{% endfor %}</td>
             </tr>
         </tbody>
     </table>

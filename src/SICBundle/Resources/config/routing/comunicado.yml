@@ -1,0 +1,34 @@
+comunicado_index:
+    path:     /
+    defaults: { _controller: "SICBundle:Comunicado:index" }
+    methods:  GET
+
+comunicado_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:Comunicado:show" }
+    methods:  GET
+
+comunicado_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:Comunicado:new" }
+    methods:  [GET, POST]
+
+comunicado_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:Comunicado:edit" }
+    methods:  [GET, POST]
+
+comunicado_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:Comunicado:delete" }
+    methods:  DELETE
+
+comunicado_no_recibir:
+    path:     /no/recibir/comunicados/{correo}/
+    defaults: { _controller: "SICBundle:Comunicado:desactivarSubscripcion" }
+    methods:  GET
+
+comunicado_no_recibir_estatus:
+    path:     /no/recibir/comunicados/{correo}/estatus
+    defaults: { _controller: "SICBundle:Comunicado:subscripcionEstatus" }
+    methods:  GET

@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Modificar Comité <a href="{{ path('comites_index') }}" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Ver Todas</a></h1>
+    <hr>
+
+    {{ form_start(edit_form, { 'attr' : { 'id' : 'formulario_guardar'}}) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(edit_form.tipoUnidad) }}
+            {{ form_row(edit_form.nombre) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(edit_form.voceros) }}
+        </div>
+    </div>
+    {{ form_end(edit_form) }}
+
+    <hr class="little">
+    {{ form_start(delete_form, { 'attr' : { 'id' : 'formulario_eliminar'}}) }}{{ form_end(delete_form) }}
+
+    <div class="row">
+        <div class="col-sm-6"><button type="submit" form="formulario_guardar" class="btn btn-block btn-primary"><i class="fa fa-save"></i> Almacenar Datos del Cómite</button></div>
+        <div class="col-sm-6"><a class="btn btn-block btn-danger" id="formulario_eliminar"><i class="fa fa-trash"></i> Eliminar Cómite</a></div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/formVoceros.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        var id_a = "comite_tipoUnidad";
+        var id_b = "comite_nombre";
+        var value = $('#'+id_b).val();
+
+        if ($('#'+id_a).val() != "Unidad Ejecutiva") {
+            $('#'+id_b).attr('disabled', true);
+            $('#'+id_b).val('');
+            $('#'+id_b).parent().addClass('hidden');
+        }
+        
+        $('#'+id_a).on('change', function(){
+            switch( $(this).val() ){
+                case 'Unidad Ejecutiva':
+                    $('#'+id_b).removeAttr('disabled');
+                    $('#'+id_b).parent().removeClass('hidden');
+                    $('#'+id_b).val(value);
+                break;
+                case 'Unidad Administrativa y Financiera Comunitaria':
+                    $('#'+id_b).attr('disabled', true);
+                    $('#'+id_b).val('');
+                    $('#'+id_b).parent().addClass('hidden');
+                break;
+                case 'Unidad de Contraloría Social':
+                    $('#'+id_b).attr('disabled', true);
+                    $('#'+id_b).val('');
+                    $('#'+id_b).parent().addClass('hidden');
+                break;
+                case 'Comisión Electoral Permanente':
+                    $('#'+id_b).attr('disabled', true);
+                    $('#'+id_b).val('');
+                    $('#'+id_b).parent().addClass('hidden');
+                break;
+            }
+        });
+
+        $(document).on('click', 'a#formulario_eliminar', function(){
+                $.confirm({
+                    theme: 'black',
+                    title: '¿Seguro?',
+                    content: 'Está a punto de eliminar un Comité. Para eliminarlo, haga clic en Continuar',
+                    confirmButton: 'Continuar',
+                    cancelButton: 'Cancelar',
+                    confirmButtonClass: 'btn-info',
+                    cancelButtonClass: 'btn-danger',
+                    confirm: function(){
+                        $('form#formulario_eliminar').submit();
+                    },
+                    cancel: function(){}
+                });
+            });
+    });
+</script>
+{% endblock %}

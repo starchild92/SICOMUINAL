@@ -1,16 +1,81 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SituacionEconomica creation</h1>
+    <div class="row">
+        <div class="col-xs-6"><small class="text-info">ant. Miembros del Grupo Familiar</small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Vivienda</small></div>
+    </div>
+    <div class="progress">
+      <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+        Paso 4 de 9
+      </div>
+    </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <h2>Situación Económica</h2>
+	<hr>
+    <div class="row">
+        {{ form_start(form) }}
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(form.dondeTrabaja) }}
+                        {{ form_row(form.actividadComercialenVivienda) }}
+                        {{ form_row(form.placa) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        {{ form_row(form.ingresoFamiliar) }}
+                        {{ form_row(form.ingresoFamiliarEspecifico) }}
+                    </div>
+                </div>
+            </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('situacioneconomica_index') }}">Back to the list</a>
-        </li>
-    </ul>
+            <input class="btn btn-primary btn-block" type="submit" value="Registrar Sitación Económica y Continuar" />
+        {{ form_end(form) }}
+    </div>
+
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+            $('.fluid.multiple.search.selection').dropdown({ 
+                allowAdditions: true,
+                onAdd: function(addedValue, addedText, $addedChoice) {
+                    $('[name=situacion_economica]').submit(function(e){ e.preventDefault(); });
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : 'actividad_vivienda',
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#situacion_economica_actividadComercialenVivienda').children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $addedChoice.remove();
+                        },
+                        complete: function(){
+                            $('[name=situacion_economica]').unbind('submit')
+                        },
+                    });
+                },
+            });
+        })
+    </script>
 {% endblock %}

@@ -1,5 +1,9 @@
+sic_admin_preguntas_sit_com:
+    resource: "@SICBundle/Controller/AdminPreguntasSitComController.php"
+    type:     annotation
+
 sic:
     resource: "@SICBundle/Resources/config/routing.yml"
 
 fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    resource: "@SICBundle/Resources/config/routing/FOSUserBundle/all.xml"

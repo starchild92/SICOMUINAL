@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('datatables/datatables.min.css') }}"/>
+{% endblock %}
+{% block body %}
+    <h2>Agenda de la Comunidad <small> conozca a los miembros de sus comunidad.</small></h2>
+    <hr class="little">
+    <table id="dataTable" class="table table-striped table-hover table-condensed">
+        <thead class="thead-info">
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>V/E</th>
+                <th>Cédula</th>
+                <th>Profesión</th>
+                <th>Edad</th>
+                <th>Dirección</th>
+                <th><i class="fa fa-cogs"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in personas %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{item.nombre}} {% if item.isJGF() %}<span class="label label-default">JGF</span>{% endif %}</td>
+                <td>{{item.apellido}}</td>
+                <td>{{item.nacionalidad}}</td>
+                <td>{{item.cedula}}</td>
+                <td>{{item.profesion}}</td>
+                <td>{{item.edad_fmt}} años</td>
+                <td>{{item.direccion}}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cogs"></i> Opciones <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            {% if item.isJGF() %}
+                                <li><a href="{{ path('jefegrupofamiliar_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></li>
+                                {% if item.planilla != NULL %}
+                                    <li><a href="{{ path('planillas_show',{'id' : item.planilla.id }) }}"><i class="fa fa-file-text-o"></i> ver Planilla</a></li>
+                                {% endif %}
+                            {% else %}
+                                <li><a href="{{ path('personas_show',{ 'id' : item.id }) }}"><i class="fa fa-user"></i> Detalles</a></li>
+                                {% if item.grupofamiliar.planilla != NULL %}
+                                    <li><a href="{{ path('planillas_show',{'id' : item.grupofamiliar.planilla.id }) }}"><i class="fa fa-file-text-o"></i> Ver Planilla</a></li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            dataTable = $('#dataTable').DataTable({
+                "language": {
+                    "url": "{{ asset('datatables/espanol.js') }}"
+                },
+                "pageLength": 25,
+                'stateSave': true,
+                'pagingType': 'full_numbers',
+                "language": {
+                    "url": "{{ asset('datatables/espanol.js') }}"
+                },
+                "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            });
+        });
+    </script>
+{% endblock %}

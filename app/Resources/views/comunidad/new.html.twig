@@ -3,14 +3,21 @@
 {% block body %}
     <h1>Comunidad creation</h1>
 
+    <span id="modalCuerpo">
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(form.estado) }}
+                {{ form_row(form.municipio) }}
+                {{ form_row(form.parroquia) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.sector) }}
+                {{ form_row(form.comunidad) }}
+                {{ form_row(form.direccion) }}
+            </div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save"></i> Guardar Datos</button>
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('comunidades_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    </span>
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminTipoPlagas</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adminTipoPlaga.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ adminTipoPlaga.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurables_tipo_plagas_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('configurables_tipo_plagas_edit', { 'id': adminTipoPlaga.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

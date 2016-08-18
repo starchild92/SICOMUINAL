@@ -1,0 +1,24 @@
+configurable_tipo_vivienda_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminTipoVivienda:index" }
+    methods:  GET
+
+configurable_tipo_vivienda_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminTipoVivienda:show" }
+    methods:  GET
+
+configurable_tipo_vivienda_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminTipoVivienda:new" }
+    methods:  [GET, POST]
+
+configurable_tipo_vivienda_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminTipoVivienda:edit" }
+    methods:  [GET, POST]
+
+configurable_tipo_vivienda_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminTipoVivienda:delete" }
+    methods:  DELETE

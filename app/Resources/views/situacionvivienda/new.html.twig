@@ -1,16 +1,100 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SituacionVivienda creation</h1>
+    <div class="row">
+        <div class="col-xs-6"><small class="text-info">ant. Situación Económica</small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Salud</small></div>
+    </div>
+    <div class="progress">
+      <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+        Paso 5 de 9
+      </div>
+    </div>
 
+    <h2>Situación Vivienda</h2>
+    <hr>
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.condicionesTerreno) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.tenencia) }}</div>
+                        </div>
+                        
+                        {{ form_row(form.tipo) }}
+                        {{ form_row(form.habitaciones) }}
+                        {{ form_row(form.cantidadHabitaciones) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.terrenoPropio) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.ovc) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.paredes) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.techo) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.sivih) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.leypoliticahabitacional) }}</div>
+                        </div>
+                        {{ form_row(form.enseres) }}
+                        {{ form_row(form.salubridad) }}
+                        {{ form_row(form.presenciaInsectos) }}
+                        {{ form_row(form.mascota) }}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('situacionvivienda_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <input class="btn btn-primary btn-block" type="submit" value="Registrar Situación de Vivienda y Continuar" />
+    {{ form_end(form) }}
+    <input id="addAjax" type="hidden" data-url="{{ path('new_element_ajax') }}">
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+            $('.fluid.multiple.search.selection').dropdown({ 
+                allowAdditions: true,
+                onAdd: function(addedValue, addedText, $addedChoice) {
+                    element = $(this).prop('id');
+                    $('[name=situacion_vivienda]').submit(function(e){ e.preventDefault(); });
+                    $.ajax({
+                        url: $('#addAjax').data('url'),
+                        type: "POST",
+                        data: {
+                            'nombre': addedText,
+                            'tipo'  : element,
+                        },
+                        success: function(data, textStatus, xhr){
+                            if (data != null) {
+                                option = $('#'+element).children('[value="'+data.nombre+'"]');
+                                option.val(data.id);
+                                $(option).attr('selected','selected');
+
+                                $.alert({
+                                    theme: 'black',
+                                    title: 'Exito!',
+                                    content: data.respuesta,
+                                });
+                            }
+                        },
+                        error: function(data){
+                            $addedChoice.remove();
+                        },
+                        complete: function(){
+                            $('[name=situacion_vivienda]').unbind('submit')
+                        },
+                    });
+                },
+            });
+        })
+    </script>
 {% endblock %}

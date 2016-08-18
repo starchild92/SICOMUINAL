@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipos Tenencia</div>
+        <table class="table-bordered table-striped table">
+            <thead>
+                <tr>
+                    <th>Forma</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminTipoTenencium in adminTipoTenencias %}
+                <tr>
+                    <td>{{ adminTipoTenencium.forma }}</td>
+                    <td>
+                        <a id="forModalEdit" href="{{ path('configurable_tipo_tenencia_edit', { 'id': adminTipoTenencium.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        
+    <a class="btn btn-primary" href="{{ path('configurable_tipo_tenencia_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nuevo Tipo Tenencia</a>
+{% endblock %}

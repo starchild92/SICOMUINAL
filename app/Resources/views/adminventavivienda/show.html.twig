@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AdminVentaVivienda</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adminVentaVivienda.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ adminVentaVivienda.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configurable_venta_vivenda_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('configurable_venta_vivenda_edit', { 'id': adminVentaVivienda.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

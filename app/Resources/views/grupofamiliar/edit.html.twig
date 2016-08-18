@@ -1,21 +1,69 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.estructure.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.theme.css') }}">
+{% endblock %}
 {% block body %}
-    <h1>GrupoFamiliar edit</h1>
-
+    <div class="row">
+        <div class="col-sm-6"><h1 class="text-center">Modificar Datos del Grupo Familiar</h1></div>
+        <div class="col-sm-6">
+            <p class="marginless"><span class="negritas">Planilla # {{ edit_form.vars.value.planilla.id }}</span></p>
+            <p class="marginless"><span class="negritas">Jefe Grupo Familiar:</span> {{ edit_form.vars.value.planilla.JefeGrupoFamiliar.nombreyapellido() }}</p>
+            <p class="marginless"><span class="negritas">Fecha última edición: </span>{{ edit_form.vars.value.planilla.fechayhora() }}</p>
+        </div>
+    </div>
+    <hr>
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(edit_form.apellidos) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(edit_form.avenida) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(edit_form.calle) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{ form_row(edit_form.numeroCasa) }}
+                </div>
+            </div>
+        </div>
+    </div>
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar Cambios en Información Económica y Regresar a la Planilla" />
     {{ form_end(edit_form) }}
+    
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('grupofamiliar_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var calles = [{% for item in grupos_calle %}'{{ item.calle }}',{% endfor %}];
+            var avenidas = [{% for item in grupos_avenida %}'{{ item.avenida }}',{% endfor %}];
+            $( "#grupo_familiar_calle" ).autocomplete({
+                source: calles,
+                minLength: 0,
+            });
+            $( "#grupo_familiar_avenida" ).autocomplete({
+                source: avenidas,
+                minLength: 0,
+            });
+        })
+    </script>
 {% endblock %}

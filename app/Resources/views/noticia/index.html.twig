@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('datatables/datatables.min.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center"> <i class="fa fa-newspaper-o"></i> Noticias del Consejo Comunal</h1>
+    <hr>
+    <div class="row">
+        <div class="col-sm-2">
+            <a target="__NEW" class="btn btn-default btn-block" href="{{ path('noticia_newsletter') }}"><i class="fa fa-newspaper-o"></i> Ver Página de Noticias</a>
+            <a class="btn btn-primary btn-block" href="{{ path('noticia_new') }}"><i class="fa fa-plus"></i> Crear Noticia</a>
+        </div>
+        <div class="col-sm-10">
+            {# <div class="panel panel-info"> #}
+            <table id="dataTable" class="table table-bordered table-striped table-hover">
+                <thead class="thead-info">
+                    <tr>
+                        <th>Título</th>
+                        <th>Por</th>
+                        <th>Fecha última edición</th>
+                        <th>Fecha Publicación</th>
+                        <th>Visibilidad</th>
+                        <th><i class="fa fa-cogs"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for noticium in noticias %}
+                    <tr>
+                        <td class="col-sm-3">{{ noticium.titulo }}</td>
+                        <td>{{ noticium.usuario.nombreyapellido() }}</td>
+                        <td>{{ noticium.fechaOrden() }}</td>
+                        <td>{% if noticium.fechaPub %}{{ noticium.fechaCron() }}{% endif %}</td>
+                        <td class="text-center">{% if noticium.visibilidad %} <i class="fa fa-eye"></i> visible {% else %} <i class="fa fa-eye-slash"></i> invisible {% endif %}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ path('noticia_show', { 'id': noticium.id }) }}"> <i class="fa fa-info"></i> Mostrar detalles</a></li>
+                                    <li><a href="{{ path('noticia_edit', { 'id': noticium.id }) }}"> <i class="fa fa-edit"></i> Modificar detalles</a></li>
+                                    <li>{% if noticium.visibilidad %}
+                                        <a id="visibleAction" href="#" data-url="{{ path('noticia_toggle_visibilidad', {'id': noticium.id}) }}"><i class="fa fa-eye-slash"></i> Hacer invisible</a>
+                                        {% else %}
+                                        <a id="visibleAction" href="#" data-url="{{ path('noticia_toggle_visibilidad', {'id': noticium.id}) }}"><i class="fa fa-eye"></i> Hacer visible</a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {# </div> #}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            dataTable = $('#dataTable').DataTable( {
+                // "pageLength": 25,
+                // "bLengthChange": false,
+                // "info": true,
+                'stateSave': true,
+                'pagingType': 'full_numbers',
+                "language": {
+                    "url": "{{ asset('datatables/espanol.js') }}"
+                },
+                "dom": "<'row'<'col-sm-6'f><'col-sm-6'l>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            $('body').on('click', '#visibleAction', function(e){
+                url = $(this).data('url');
+                $.confirm({
+                    title: 'Atención!',
+                    content: 'Cambiará el estado de la noticia.',
+                    cancelButton: 'No cambiar',
+                    confirmButtonClass: 'btn-danger',
+                    cancelButtonClass: 'btn-info',
+                    theme: 'black',
+                    confirm: function(){
+                        $.confirm({
+                            title: false,
+                            theme: 'black',
+                            content: 'Cambiando la visibilidad y recargando la página',
+                            cancelButton: false, // hides the cancel button.
+                            confirmButton: false, // hides the confirm button.
+                            closeIcon: false, // hides the close icon.
+                        });
+                        $.ajax({
+                            url: url,
+                            type: "GET",
+                            complete: function(){
+                                window.location.reload();
+                            },
+                        });
+                    },
+                    cancel: function(){
+                        e.preventDefault();
+                    }
+                });
+            });
+
+        });
+    </script>
+{% endblock %}

@@ -1,5 +1,5 @@
 personas_index:
-    path:     /
+    path:     /estadisticas
     defaults: { _controller: "SICBundle:Persona:index" }
     methods:  GET
 
@@ -9,7 +9,7 @@ personas_show:
     methods:  GET
 
 personas_new:
-    path:     /new
+    path:     /paso/3/agregar_miembros/{id_planilla}/{id_grupofamiliar}
     defaults: { _controller: "SICBundle:Persona:new" }
     methods:  [GET, POST]
 
@@ -22,3 +22,13 @@ personas_delete:
     path:     /{id}/delete
     defaults: { _controller: "SICBundle:Persona:delete" }
     methods:  DELETE
+
+agenda_comunitaria:
+    path:     /agenda/comunitaria
+    defaults: { _controller: "SICBundle:Persona:agenda" }
+    methods:  GET
+
+personas_nuevo_miembro:
+    path:     /nuevo/{id_planilla}/{id_grupofamiliar}
+    defaults: { _controller: "SICBundle:Persona:nuevoMiembro" }
+    methods:  [GET, POST]

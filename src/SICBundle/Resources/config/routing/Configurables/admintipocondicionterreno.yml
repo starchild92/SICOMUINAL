@@ -1,0 +1,24 @@
+admintipocondicionterreno_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminTipoCondicionTerreno:index" }
+    methods:  GET
+
+admintipocondicionterreno_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminTipoCondicionTerreno:show" }
+    methods:  GET
+
+admintipocondicionterreno_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminTipoCondicionTerreno:new" }
+    methods:  [GET, POST]
+
+admintipocondicionterreno_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminTipoCondicionTerreno:edit" }
+    methods:  [GET, POST]
+
+admintipocondicionterreno_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminTipoCondicionTerreno:delete" }
+    methods:  DELETE

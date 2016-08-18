@@ -63,7 +63,6 @@ class Comunidad
      */
     private $direccion;
 
-
     /**
      * Get id
      *

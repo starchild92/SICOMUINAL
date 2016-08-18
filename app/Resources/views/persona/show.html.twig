@@ -1,88 +1,110 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Persona</h1>
+    <div class="row">
+        <div class="col-sm-6"><h1 class="text-center">Detalles de Persona <small>{{ persona.nombre|title }} {{ persona.apellido|title }}</small></h1></div>
+        <div class="col-sm-6">
+            <p class="marginless negritas">Planilla # {{ persona.grupofamiliar.planilla.id }}</p>
+            <p class="marginless"><span class="negritas">Empadronado por:</span> {{ persona.grupofamiliar.planilla.empadronador.nombreyapellido() }}</p>
+            <p class="marginless"><span class="negritas">Fecha:</span> {{ persona.grupofamiliar.planilla.fecha }}</p>
+        </div>
+    </div>
+    
+    <hr>
+    <div class="row">
+        <div class="col-sm-9">
+            <table class="table borderless table-hover">
+                <tbody>
+                    <tr>
+                        <th>Nombre(s)</th>
+                        <td>{{ persona.nombre|title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Apellido(s)</th>
+                        <td>{{ persona.apellido|title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sexo</th>
+                        <td>{{ persona.sexo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nacionalidad</th>
+                        <td>{{ persona.nacionalidad }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cédula de Identidad</th>
+                        <td>{{ persona.cedula }}</td>
+                    </tr>
+                    <tr>
+                        <th>Correo</th>
+                        <td>{% if persona.email == '' %}No especificó alguno.{% endif %} {{ persona.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Nacimiento</th>
+                        <td>{% if persona.fechaNacimiento %}{{ persona.fechaNacimiento() }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Edad</th>
+                        <td>{{ persona.edad }} años</td>
+                    </tr>
+                    <tr>
+                        <th>Parentesco <br><small class="text-info">con el Jefe Grupo Familiar</small></th>
+                        <td>{{ persona.parentesco }}</td>
+                    </tr>
+                    <tr>
+                        <th>Grado de Instrucción</th>
+                        <td>{{ persona.gradoInstruccion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Profesión</th>
+                        <td>{{ persona.profesion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ingreso Mensual</th>
+                        <td>{{ persona.ingresoMensual_fmt }} Bs.</td>
+                    </tr>
+                    <tr>
+                        <th>CNE</th>
+                        <td>{{ persona.cne|title }}</td>
+                    </tr>
+                    {% if persona.sexo != 'Masculino' %}
+                    <tr>
+                        <th>¿Embarazo temprano?</th>
+                        <td>{{ persona.embarazoTemprano }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th>¿Es Discapacitado?</th>
+                        <td>{{ persona.incapacitado|title }}</td>
+                    </tr>
+                    {% if persona.incapacitado != 'no' %}<tr>
+                        <th>El tipo de Discapacidad especificado fue:</th>
+                        <td>{{ persona.incapacitadoTipo }}</td>
+                    </tr>{% endif %}
+                    <tr>
+                        <th>¿Es Pensionado?</th>
+                        <td>{{ persona.pensionado|title }}</td>
+                    </tr>
+                    {% if persona.pensionado != 'no' %}<tr>
+                        <th>La institución es: </th>
+                        <td>{{ persona.pensionadoInstitucion }}</td>
+                    </tr>{% endif %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ persona.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ persona.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Apellido</th>
-                <td>{{ persona.apellido }}</td>
-            </tr>
-            <tr>
-                <th>Sexo</th>
-                <td>{{ persona.sexo }}</td>
-            </tr>
-            <tr>
-                <th>Cedula</th>
-                <td>{{ persona.cedula }}</td>
-            </tr>
-            <tr>
-                <th>Fechanacimiento</th>
-                <td>{% if persona.fechaNacimiento %}{{ persona.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Edad</th>
-                <td>{{ persona.edad }}</td>
-            </tr>
-            <tr>
-                <th>Parentezco</th>
-                <td>{{ persona.parentezco }}</td>
-            </tr>
-            <tr>
-                <th>Gradoinstruccion</th>
-                <td>{{ persona.gradoInstruccion }}</td>
-            </tr>
-            <tr>
-                <th>Profesion</th>
-                <td>{{ persona.profesion }}</td>
-            </tr>
-            <tr>
-                <th>Cne</th>
-                <td>{{ persona.cne }}</td>
-            </tr>
-            <tr>
-                <th>Embarazotemprano</th>
-                <td>{{ persona.embarazoTemprano }}</td>
-            </tr>
-            <tr>
-                <th>Incapacitado</th>
-                <td>{{ persona.incapacitado }}</td>
-            </tr>
-            <tr>
-                <th>Incapacitadotipo</th>
-                <td>{{ persona.incapacitadoTipo }}</td>
-            </tr>
-            <tr>
-                <th>Pensionado</th>
-                <td>{{ persona.pensionado }}</td>
-            </tr>
-            <tr>
-                <th>Pensionadoinstitucion</th>
-                <td>{{ persona.pensionadoInstitucion }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('personas_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('personas_edit', { 'id': persona.id }) }}">Edit</a>
-        </li>
-        <li>
+                    <tr>
+                        <th>Teléfono(s) del Grupo Familiar</th>
+                        {% set jgf = persona.grupoFamiliar.planilla.jefeGrupoFamiliar %}
+                        <td><span class="negritas">{{ jgf.nombreyapellido() }}</span><br> {% for tlf in jgf.telefono %} <i class="fa fa-phone"></i> ({{tlf.codigo}}) - {{ tlf.numero }}<br>{% endfor %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-3">
+            <a href="{{ path('personas_edit', { 'id': persona.id }) }}" class="btn btn-block btn-primary"><i class="fa fa-edit"></i> Modificar Datos de {{ persona.nombre|title }}</a>
+            <a href="{{ path('planillas_show', { 'id': persona.grupoFamiliar.planilla.id }) }}" class="btn btn-block btn-primary"><i class="fa fa-file-text"></i> Ver Planilla Censo</a>
+            <hr class="little">
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <button class="btn-block btn btn-danger" type="submit"><i class="fa fa-trash"></i> Eliminar a {{ persona.nombre|title }}</button>
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </div>
+    </div>
 {% endblock %}

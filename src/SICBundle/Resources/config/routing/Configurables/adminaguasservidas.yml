@@ -1,0 +1,24 @@
+configurables_tipos_aguas_servidas_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminAguasServidas:index" }
+    methods:  GET
+
+configurables_tipos_aguas_servidas_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminAguasServidas:show" }
+    methods:  GET
+
+configurables_tipos_aguas_servidas_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminAguasServidas:new" }
+    methods:  [GET, POST]
+
+configurables_tipos_aguas_servidas_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminAguasServidas:edit" }
+    methods:  [GET, POST]
+
+configurables_tipos_aguas_servidas_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminAguasServidas:delete" }
+    methods:  DELETE

@@ -1,0 +1,24 @@
+configurables_preguntas_participacion_comunitaria_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:index" }
+    methods:  GET
+
+configurables_preguntas_participacion_comunitaria_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:show" }
+    methods:  GET
+
+configurables_preguntas_participacion_comunitaria_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:new" }
+    methods:  [GET, POST]
+
+configurables_preguntas_participacion_comunitaria_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:edit" }
+    methods:  [GET, POST]
+
+configurables_preguntas_participacion_comunitaria_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:delete" }
+    methods:  DELETE
