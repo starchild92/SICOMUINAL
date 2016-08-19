@@ -245,8 +245,10 @@
 									{% else %}
 									<p>No se han registrado miembros adiconales al Jefe del Grupo Familiar.</p>
 									{% endif %}
-									<a class="btn btn-success btn-block" href="{{path('personas_nuevo_miembro',{'id_planilla':planilla.id, 'id_grupofamiliar':planilla.grupoFamiliar.id})}}"><i class="fa fa-plus"></i> Agregar Miembro al Grupo Familiar</a>
-									
+									<div class="row">
+										<div class="col-lg-6"><a class="btn btn-success btn-block" href="{{path('personas_nuevo_miembro',{'id_planilla':planilla.id, 'id_grupofamiliar':planilla.grupoFamiliar.id})}}"><i class="fa fa-plus"></i> Agregar Miembro al Grupo Familiar</a></div>
+										<div class="col-lg-6"><button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> Ver todos los detalles del Grupo</button></div>
+									</div>
 								</div>
 							</div>
 							{# <hr> #}
@@ -672,6 +674,75 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	  <div class="modal-dialog modal-xl" role="document">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Detalles de los Miembros del Grupo Familiar</h4>
+			</div>
+			{% if planilla.grupoFamiliar.miembros|length > 0 %}
+			<table class="table table-bordered table-condensed table-striped" style="font-size: .9em;">
+				<thead>
+					<tr>
+						<th>N°</th>
+						<th>Nombres y Apellidos</th>
+						<th>Sexo</th>
+						<th>Cédula</th>
+						<th>F/Nto.</th>
+						<th>Edad</th>
+						<th>Discapacidad</th>
+						<th>Embarazo Temprano</th>
+						<th>Parentesco</th>
+						<th>Grado de Instrucción</th>
+						<th>CNE</th>
+						<th>Profesión</th>
+						<th>Pensionado</th>
+						<th>Ingreso Mensual</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>{% for persona in planilla.grupoFamiliar.miembros %}
+					<tr>
+						<td>{{ loop.index }}</td>
+						<td>{{ persona.nombre }} {{ persona.apellido }}</td>
+						<td>{{ persona.sexo }}</td>
+						<td>{{ persona.cedula }}</td>
+						<td>{{ persona.fechaNacimientoCorta() }}</td>
+						<td>{{ persona.edad }}</td>
+						<td>{{ persona.incapacitado|title }}. {{ persona.incapacitadoTipo }}</td>
+						<td>{{ persona.embarazoTemprano|title }}</td>
+						<td>{{ persona.parentesco }}</td>
+						<td>{{ persona.gradoInstruccion }}</td>
+						<td>{{ persona.cne }}</td>
+						<td>{{ persona.profesion }}</td>
+						<td>{{ persona.pensionado|title }}</td>
+						<td>{{ persona.ingresoMensual }}</td>
+						<td>
+							<div class="btn-group">
+								<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-cogs"></i></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-user"></i> Ver persona</a></li>
+								<li><a href="{{ path('personas_edit', {'id': persona.id })}}"><i class="fa fa-edit"></i> Editar persona</a></li>
+							</ul>
+							</div>
+							</td>
+					</tr>{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<p>No se han registrado miembros adiconales al Jefe del Grupo Familiar.</p>
+			{% endif %}
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			</div>
+	    </div>
+	  </div>
+	</div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -741,7 +812,6 @@ $(document).on('ready', function(){
 			cancel: function(e){ $('#form_eliminar').submit(function(e){ e.preventDefault(); }); }
 		})
 	});
-	
 })
 </script>
 {% endblock %}
