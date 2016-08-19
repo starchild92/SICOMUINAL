@@ -326,13 +326,17 @@
 					<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Tipo de Vivienda</p>
-									<p>{{ planilla.situacionVivienda.tipo }}</p>
+								<div class="col-sm-4">
+									<p class="bottom-line negritas text-info">Condiciones Terreno</p>
+									<p>{{ planilla.situacionVivienda.condicionesTerreno }}</p>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 									<p class="bottom-line negritas text-info">Tenencia</p>
 									<p>{{ planilla.situacionVivienda.tenencia }}</p>
+								</div>
+								<div class="col-sm-4">
+									<p class="bottom-line negritas text-info">Tipo de Vivienda</p>
+									<p>{{ planilla.situacionVivienda.tipo }}</p>
 								</div>
 							</div>
 							<div class="row">
@@ -353,7 +357,7 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Cantidad de Habitaciones</p>
-									<p>{{ planilla.situacionVivienda.cantidadHabitaciones }}</p>
+									<p>{{ planilla.situacionVivienda.cantidadHabitaciones }} habitaciones</p>
 								</div>
 							</div>
 							<div class="row">
@@ -368,9 +372,23 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">¿Está inscrita en el SIVIH?</p>
+									<p>{{ planilla.situacionVivienda.sivih }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">¿Cotiza Ley Política Habitacional?</p>
+									<p>{{ planilla.situacionVivienda.leypoliticahabitacional }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Enseres de la Vivienda</p>
+									{% if planilla.situacionVivienda.enseres|length == 0 %}
+										<p>No ha especificado alguno.</p>
+									{% else %}
 									<p>{% for enser in planilla.situacionVivienda.enseres %}
 										<span class="label label-default">{{ enser.nombre }}</span>{% endfor %}</p>
+									{% endif %}
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Salubridad</p>
@@ -380,8 +398,12 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Presencia de Insectos</p>
+									{% if planilla.situacionVivienda.presenciaInsectos|length == 0 %}
+										<p>No ha especificado alguno.</p>
+									{% else %}
 									<p>{% for insecto in planilla.situacionVivienda.presenciaInsectos %}
 										<span class="label label-default">{{ insecto.nombre }}</span>{% endfor %}</p>
+									{% endif %}
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Mascotas</p>
@@ -391,7 +413,6 @@
 										<p>{% for mascota in planilla.situacionVivienda.mascota %}
 										<span class="label label-default">{{ mascota.nombre }}</span>{% endfor %}</p>
 									{% endif %}
-									
 								</div>
 							</div>
 							{# <hr> #}
