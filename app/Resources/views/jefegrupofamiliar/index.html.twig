@@ -221,24 +221,49 @@
 				<div class="panel-heading">
 					<h4 class="panel-title">Pensionados</h4>
 				</div>
-					<div class="panel-body">
-						<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
-							<thead>
-								<tr>
-									<th>Pensionados</th>
-									<th>Cant.</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for ins in stat_pensionados %}<tr>
-									<td>{{ins.pensionados}}</td>
-									<td>{{ins.cantidad}}</td>
-								</tr>{% endfor %}
-							</tbody>
-						</table>
-					</div>
+				<div class="panel-body">
+					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+						<thead>
+							<tr>
+								<th>Pensionados</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for ins in stat_pensionados %}<tr>
+								<td>{{ins.pensionados}}</td>
+								<td>{{ins.cantidad}}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
+		
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Clasificación Ingreso Familiar</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+						<thead>
+							<tr>
+								<th>Ingreso Familiar</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for ins in stat_ingresofam %}<tr>
+								<td>{{ins.ingresofam}}</td>
+								<td>{{ins.cantidad}}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	{% endblock %}
 	

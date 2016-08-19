@@ -163,3 +163,10 @@ table[class*="table-button"] > tbody > tr > td:last-child {
 	min-width: 85px;
 	padding: 2px;
 }
+
+@media (min-width: 768px) {
+  .modal-xl {
+    width: 90%;
+    max-width:1200px;
+  }
+}
