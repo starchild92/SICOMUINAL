@@ -38,18 +38,18 @@
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/packery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
+    {# <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script> #}
     <script>
         $(document).ready(function() {
             $('.row.grid').packery({ itemSelector: 'div[class*="col-"', });
-            dataTable = $('table.table').DataTable({
-                "aaSorting": [[ 1, "desc" ]],
-                "language": {
-                    "url": "{{ asset('datatables/espanol.js') }}"
-                },
-                "dom": "t",
-                "paging": false,
-            });
+            // dataTable = $('table.table').DataTable({
+            //     "aaSorting": [[ 1, "desc" ]],
+            //     "language": {
+            //         "url": "{{ asset('datatables/espanol.js') }}"
+            //     },
+            //     "dom": "t",
+            //     "paging": false,
+            // });
         });
     </script>
 {% endblock %}

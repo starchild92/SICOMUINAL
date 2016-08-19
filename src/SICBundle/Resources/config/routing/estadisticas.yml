@@ -3,6 +3,11 @@ estadisticas_generales_personas:
     defaults: { _controller: "SICBundle:Estadisticas:egPersonas"}
     methods:  GET
 
+estadisticas_generales_grupos_familiares:
+    path:     /grupos/familiares
+    defaults: { _controller: "SICBundle:Estadisticas:egGruposFamiliares"}
+    methods:  GET
+
 # Rutas para las estadisticas (de los graficos)
 sic_estadisticas_personas_jefegrupofamiliar:
     path:     /jefes/grupo/familiar

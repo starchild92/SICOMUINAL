@@ -12,20 +12,12 @@ class EstadisticasController extends Controller
 {
     public function egPersonasAction(Request $request){
     	$todos = $this->estadisticasPersonas();
-
-        return $this->render('estadisticas/estadisticas-generales-personas.html.twig',
-        	array(
-        		'personas' => $todos
-        	));   
+        return $this->render('estadisticas/estadisticas-generales-personas.html.twig',array('personas' => $todos));   
     }
-
     /*Se encarga de obtener las personas y separarlas segun el parametro que se tiene de la entidad*/
     public function estadisticasPersonas()
     {
         $em = $this->getDoctrine()->getManager();
-
-        // $jefeGrupoFamiliars = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
-        // $total = sizeof($jefeGrupoFamiliars);
 
         $nacionalidades = $em->getRepository('SICBundle:AdminNacionalidad')->findAll();
         $stat_nacionalidad_jgf = array();
@@ -45,26 +37,6 @@ class EstadisticasController extends Controller
             );
         }
 
-        // $stat_sexo = array();
-        // array_push(
-        //     $stat_sexo, 
-        //     array(
-        //         'sexo' => 'Masculino',
-        //         'cantidad' => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-        //                             array('sexo' => 'Masculino')
-        //                             ))
-        //         )
-        // );
-        // array_push(
-        //     $stat_sexo, 
-        //     array(
-        //         'sexo' => 'Femenino',
-        //         'cantidad' => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-        //                             array('sexo' => 'Femenino')
-        //                             ))
-        //         )
-        // );
-
         $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
         $stat_cne_jgf = array();
         $stat_cne_p = array();
@@ -77,20 +49,6 @@ class EstadisticasController extends Controller
         foreach ($resp_cerradas as $resp) {
             array_push($stat_empleado_jgf, array('resp' => $resp->getRespuesta(),'quienes'=> $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('trabajaActualmente' => $resp->getId()))));
         }
-
-        // $edo_civil = $em->getRepository('SICBundle:AdminEstadoCivil')->findAll();
-        // $stat_edo_civil = array();
-        // foreach ($edo_civil as $elemento) {
-        //     array_push(
-        //         $stat_edo_civil, 
-        //         array(
-        //             'edo_civil' => $elemento->getNombre(),
-        //             'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-        //                                 array('estadoCivil' => $elemento->getId())
-        //                                 ))
-        //             )
-        //     );
-        // }
 
         $instruccion = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
         $stat_instruccion_jgf = array();
@@ -133,15 +91,11 @@ class EstadisticasController extends Controller
         }
 
         return array(
-            // 'total' => $total,
             'stat_nacionalidad_jgf' => $stat_nacionalidad_jgf,
             'stat_nacionalidad_p' => $stat_nacionalidad_p,
 
-            // 'stat_sexo' => $stat_sexo,
             'stat_cne_jgf' => $stat_cne_jgf,
             'stat_cne_p' => $stat_cne_p,
-
-            // 'stat_edo_civil_jgf' => $stat_edo_civil_jgf,
 
             'stat_instruccion_jgf' => $stat_instruccion_jgf,
             'stat_instruccion_p' => $stat_instruccion_p,
@@ -156,7 +110,11 @@ class EstadisticasController extends Controller
 
             'stat_pensionados_jgf' => $stat_pensionados_jgf,
             'stat_pensionados_p' => $stat_pensionados_p,
-            // 'base_dir' => $this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath(),
         );
+    }
+
+    public function egGruposFamiliaresAction(Request $request){
+        $todos = $this->estadisticasPersonas();
+        return $this->render('estadisticas/estadisticas-generales-grupos-familiares.html.twig',array('personas' => $todos));   
     }
 }
