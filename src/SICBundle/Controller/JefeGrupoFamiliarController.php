@@ -316,6 +316,22 @@ class JefeGrupoFamiliarController extends Controller
             );
         }
 
+        $ingresofam = $em->getRepository('SICBundle:AdminClasIngresoFamiliar')->findAll();
+        $stat_ingresofam = array();
+        foreach ($ingresofam as $elemento) {
+            array_push(
+                $stat_ingresofam, 
+                array(
+                    'ingresofam' => $elemento->getNombre(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                                        array('ingresoFamiliar' => $elemento->getId())
+                                        ))
+                    )
+            );
+        }
+
+        
+
         return array(
             'total' => $total,
             'stat_nacionalidad' => $stat_nacionalidad,
@@ -327,6 +343,7 @@ class JefeGrupoFamiliarController extends Controller
             'stat_empleado' => $stat_empleado,
             'stat_incapacidades' => $stat_incapacidades,
             'stat_pensionados' => $stat_pensionados,
+            'stat_ingresofam' => $stat_ingresofam,
             'base_dir' => $this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath(),
         );
     }
