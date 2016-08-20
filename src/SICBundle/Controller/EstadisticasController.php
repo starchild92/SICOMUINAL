@@ -227,19 +227,233 @@ class EstadisticasController extends Controller
         }
 
         return array(
-            'stat_tipo_vivienda' => $stat_tipo_vivienda,
-            'stat_tipo_tenencia' => $stat_tipo_tenencia,
-            'stat_ovc' => $stat_ovc,
-            'stat_terreno' => $stat_terreno,
-            'stat_mascotas' => $stat_mascotas,
-            'stat_plagas' => $stat_plagas,
-            'stat_enseres' => $stat_enseres,
-            'stat_salubridad' => $stat_salubridad,
-            'stat_techo' => $stat_techo,
-            'stat_paredes' => $stat_paredes,
-            'stat_condicion_terreno' => $stat_condicion_terreno,
-            'stat_sivih' => $stat_sivih,
-            'stat_leypoliticahabitacional' => $stat_leypoliticahabitacional,
+            'stat_condicion_terreno' => array('array' => $stat_condicion_terreno, 'title' => 'Condicion del Terreno'),
+            'stat_tipo_tenencia' => array('array' => $stat_tipo_tenencia, 'title' => 'Tipos de Tenencia'),
+            'stat_tipo_vivienda' => array('array' => $stat_tipo_vivienda, 'title' => 'Tipos de Vivienda'),
+            'stat_ovc' => array('array' => $stat_ovc, 'title' => '¿Pertenece Ud. a Una OCV?'),
+            'stat_terreno' => array('array' => $stat_terreno, 'title' => '¿Terreno Propio?'),
+            'stat_paredes' => array('array' => $stat_paredes, 'title' => 'Paredes'),
+            'stat_techo' => array('array' => $stat_techo, 'title' => 'Techo'),
+            'stat_sivih' => array('array' => $stat_sivih, 'title' => '¿Está inscrita en el SIVIH?'),
+            'stat_leypoliticahabitacional' => array('array' => $stat_leypoliticahabitacional, 'title' => 'Cotizantes Ley de Política Habitacional'),
+            'stat_enseres' => array('array' => $stat_enseres, 'title' => 'Enres Vivienda'),
+            'stat_salubridad' => array('array' => $stat_salubridad, 'title' => 'Salubridad'),
+            'stat_plagas' => array('array' => $stat_plagas, 'title' => 'Presencia de Insectos y Roedores'),
+            'stat_mascotas' => array('array' => $stat_mascotas, 'title' => 'Mascotas'),
+        );
+    }
+
+    public function egSaludAction(Request $request){
+        $todas = $this->estadisticasSalud();
+        return $this->render('estadisticas/estadisticas-generales-salud.html.twig',array('situacion' => $todas));   
+    }
+    public function estadisticasSalud()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $padecencias = $em->getRepository('SICBundle:AdminTipoPadecencia')->findAll();
+        $stat_padecencias = array();
+        foreach ($padecencias as $elemento) {
+            array_push($stat_padecencias, array('elemento' => $elemento->getNombre(),'situacion' => ($em->getRepository('SICBundle:SituacionSalud')->padecencia($elemento))));
+        }
+
+        $ayuda_especial = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findAll();
+        $stat_ayuda_especial = array();
+        foreach ($ayuda_especial as $elemento) {
+            array_push($stat_ayuda_especial, array('elemento' => $elemento->getNombre(),'situacion' => ($em->getRepository('SICBundle:SituacionSalud')->ayudaEspecial($elemento))));
+        }
+
+        $situacion_exclusion = $em->getRepository('SICBundle:SituacionSalud')->situacionExclusion();
+        $stat_situacion_exclusion = array();
+        foreach ($situacion_exclusion as $elemento) {
+            array_push($stat_situacion_exclusion, array('elemento' => $elemento['situacion'],'situacion' => $elemento['cantidad']));
+        }
+
+        return array(
+            'stat_ayuda_especial' => $stat_ayuda_especial,
+            'stat_padecencias' => $stat_padecencias,
+            'stat_situacion_exclusion' => $stat_situacion_exclusion,
+        );
+    }
+
+    public function egServiciosAction(Request $request){
+        $todas = $this->estadisticasServicios();
+        return $this->render('estadisticas/estadisticas-generales-servicios.html.twig',array('situacion' => $todas));   
+    }
+    public function estadisticasServicios()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $situacionServicios = $em->getRepository('SICBundle:SituacionServicios')->findAll();
+
+        $aguasb = $em->getRepository('SICBundle:AdminAguasBlancas')->findAll();
+        $stat_aguasb = array();
+        foreach ($aguasb as $elemento) {
+            array_push($stat_aguasb, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('aguasBlancas' => $elemento->getId()))));
+        }
+
+        $tanques = $em->getRepository('SICBundle:SituacionServicios')->findAll();
+        $stat_tanque = array();
+        $stat_tanque_si = array();
+        $stat_tanque_no = array();
+        foreach ($tanques as $t) {
+            if ($t->getLtsTanque() > 0) { array_push($stat_tanque_si, $t); }else{ array_push($stat_tanque_no, $t); }
+        }
+        
+        $stat_pipotes = array();
+        $stat_pipotes_si = array();
+        $stat_pipotes_no = array();
+        foreach ($tanques as $t) { 
+            if ($t->getCantPipotes() > 0) { array_push($stat_pipotes_si, $t); }else{ array_push($stat_pipotes_no, $t); }
+        }
+        array_push($stat_pipotes, array('elemento' => 'Si', 'situacion' => $stat_pipotes_si));
+        array_push($stat_pipotes, array('elemento' => 'No', 'situacion' => $stat_pipotes_no));
+
+        $aguasservidas = $em->getRepository('SICBundle:AdminAguasServidas')->findAll();
+        $stat_aguasservidas = array();
+        foreach ($aguasservidas as $elemento) {
+            array_push($stat_aguasservidas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('aguasServidas' => $elemento->getId()))));
+        }
+
+        $gas = $em->getRepository('SICBundle:AdminTipoGas')->findAll();
+        $stat_gas = array();
+        foreach ($gas as $elemento) {
+            array_push($stat_gas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('gas' => $elemento->getId()))));
+        }
+
+        $empresaGas = $em->getRepository('SICBundle:AdminEmpresaGas')->findAll();
+        $stat_empresaGas = array();
+        foreach ($empresaGas as $elemento) {
+            array_push($stat_empresaGas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('empresaGas' => $elemento->getId()))));
+        }
+
+        $sistemas_electrico = $em->getRepository('SICBundle:AdminSistemaElectrico')->findAll();
+        $stat_sistemas_electrico = array();
+        foreach ($sistemas_electrico as $elemento) {
+            array_push($stat_sistemas_electrico, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('sistemaElectrico' => $elemento->getId()))));
+        }
+
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_medidor_electrico = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_medidor_electrico, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('medidorElectrico' => $resp->getId()))));
+        }
+
+        $basura = $em->getRepository('SICBundle:AdminRecoleccionBasura')->findAll();
+        $stat_basura = array();
+        foreach ($basura as $elemento) {
+            array_push($stat_basura, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('recoleccionBasura' => $elemento->getId()))));
+        }
+
+        $telefonia = $em->getRepository('SICBundle:AdminTipoTelefonia')->findAll();
+        $stat_telefonia = array();
+        foreach ($telefonia as $elemento) {
+            array_push($stat_telefonia, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->telefonia($elemento)));
+        }
+
+        $transporte = $em->getRepository('SICBundle:AdminTipoTransporte')->findAll();
+        $stat_transporte = array();
+        foreach ($transporte as $elemento) {
+            array_push($stat_transporte, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->transporte($elemento)));
+        }
+
+        $mecanismoInformacion = $em->getRepository('SICBundle:AdminMecanismoInformacion')->findAll();
+        $stat_mecanismoInformacion = array();
+        foreach ($mecanismoInformacion as $elemento) {
+            array_push($stat_mecanismoInformacion, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->mecanismoInformacion($elemento)));
+        }
+
+        $serviciosComunales = $em->getRepository('SICBundle:AdminServiciosComunales')->findAll();
+        $stat_serviciosComunales = array();
+        foreach ($serviciosComunales as $elemento) {
+            array_push($stat_serviciosComunales, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->serviciosComunales($elemento)));
+        }
+
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_medidor = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_medidor, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('medidor' => $resp->getId()))));
+        }
+
+
+
+        $capacidadBombona = $em->getRepository('SICBundle:AdminCapacidadBombona')->findAll();
+        $stat_capacidadBombona = array();
+        foreach ($capacidadBombona as $elemento) {
+            array_push($stat_capacidadBombona, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('capacidadBombona' => $elemento->getId()))));
+        }
+
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_bombillosAhorradores = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_bombillosAhorradores, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('bombillosAhorradores' => $resp->getId()))));
+        }
+
+        return array(
+            'stat_aguasb' => array('array' => $stat_aguasb, 'title' => 'Aguas Blancas'),
+            'stat_medidor' => array('array' => $stat_medidor, 'title' => 'Medidor de Aguas Blancas'),
+            'stat_tanque' => array('array' => $stat_tanque, 'title' => 'Posee Tanque'),
+            'stat_pipotes' => array('array' => $stat_pipotes, 'title' => 'Pipotes'),
+            'stat_aguasservidas' => array('array' => $stat_aguasservidas, 'title' => 'Aguas Servidas'),
+            'stat_gas' => array('array' => $stat_gas, 'title' => 'Posee Gas'),
+            'stat_empresaGas' => array('array' => $stat_empresaGas, 'title' => 'Proveedor de Gas'),
+            'stat_sistemas_electrico' => array('array' => $stat_sistemas_electrico, 'title' => 'Sistema Electrico'),
+            'stat_medidor_electrico' => array('array' => $stat_medidor_electrico, 'title' => 'Medidor de Electricidad'),
+            'stat_serviciosComunales' => array('array' => $stat_serviciosComunales, 'title' => 'Servicios Comunales'),
+            'stat_mecanismoInformacion' => array('array' => $stat_mecanismoInformacion, 'title' => 'Mecanismos de Información'),
+            'stat_transporte' => array('array' => $stat_transporte, 'title' => 'Medio de Transporte'),
+            'stat_telefonia' => array('array' => $stat_telefonia, 'title' => 'Telefonia'),
+            'stat_basura' => array('array' => $stat_basura, 'title' => 'Sistema de Recoleccion de Basura'),
+            'stat_bombillosAhorradores' => array('array' => $stat_bombillosAhorradores, 'title' => 'Bombillos Ahorradores'),
+            'stat_capacidadBombona' => array('array' => $stat_capacidadBombona, 'title' => 'Capacidades Bombonas'),
+        );
+    }
+
+    public function egParticipacionAction(Request $request){
+        $todas = $this->estadisticasParticipacion();
+        return $this->render('estadisticas/estadisticas-generales-participacion.html.twig',array('situacion' => $todas));   
+    }
+    public function estadisticasParticipacion()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $participacionComunitarias = $em->getRepository('SICBundle:ParticipacionComunitaria')->findAll();
+
+        $orgs = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
+        $stat_orgs = array();
+        foreach ($orgs as $elemento) {
+            array_push($stat_orgs, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->existenOrganizaciones($elemento)));
+        }
+
+        $participacion = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_participacion = array();
+        foreach ($participacion as $elemento) {
+            array_push($stat_participacion, array('elemento' => $elemento->getRespuesta(),'situacion'     => $em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(array('participaOrganizacion' => $elemento->getId()))));
+        }
+
+        $parte_miembros = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_parte_miembros = array();
+        foreach ($parte_miembros as $elemento) {
+            array_push($stat_parte_miembros, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(array('participaMiembroOrganizacion' => $elemento->getId()))));
+        }
+
+        $misiones = $em->getRepository('SICBundle:AdminMisionesComunidad')->findAll();
+        $stat_misiones = array();
+        foreach ($misiones as $elemento) {
+            array_push($stat_misiones, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->misionesComunidad($elemento)));
+        }
+
+        $areatrabajo = $em->getRepository('SICBundle:AdminAreaTrabajoCC')->findAll();
+        $stat_areatrabajo = array();
+        foreach ($areatrabajo as $elemento) {
+            array_push($stat_areatrabajo, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->areaTabajoCC($elemento)));
+        }
+
+        return array(
+            'stat_areatrabajo' => array('array' => $stat_areatrabajo, 'title' => 'Areas de Trabajo'),
+            'stat_misiones' => array('array' => $stat_misiones, 'title' => 'Misiones Comunidad'),
+            'stat_orgs' => array('array' => $stat_orgs, 'title' => 'Organizaciones'),
+            'stat_participacion' => array('array' => $stat_participacion, 'title' => 'Participación Comunitaria'),
+            'stat_parte_miembros' => array('array' => $stat_parte_miembros, 'title' => ' Participación Miembros'),
         );
     }
 }

@@ -3,9 +3,9 @@
 	{% block body %}
 	<div class="row">
 		{% include 'estadisticas/menu-opciones-estadisticas-generales.html.twig' %}
-		<script>var menu_element = document.getElementById('vivienda').className = 'list-group-item active';</script>
+		<script>var menu_element = document.getElementById('servicios').className = 'list-group-item active';</script>
 		<div class="col-lg-9 col-sm-9">
-			<h3 class="text-center text-info">Estadísticas Generales - Situación Vivienda <i class="fa fa-bar-chart fa-sm pull-left"></i></h3>
+			<h3 class="text-center text-info">Estadísticas Generales - Situación Servicios <i class="fa fa-bar-chart fa-sm pull-left"></i></h3>
 			<hr>
 			<div class="row grid">
 				{% for item in situacion %}

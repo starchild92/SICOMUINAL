@@ -15,7 +15,8 @@ use SICBundle\Form\SituacionServiciosType;
  */
 class SituacionServiciosController extends Controller
 {
-    private function obtenerStats(){
+    private function obtenerStats()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $situacionServicios = $em->getRepository('SICBundle:SituacionServicios')->findAll();
@@ -201,6 +202,20 @@ class SituacionServiciosController extends Controller
             );
         }
 
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_medidor_electrico = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push(
+                $stat_medidor_electrico, 
+                array(
+                    'resp' => $resp->getRespuesta(),
+                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionServicios')->findBy(
+                                        array('medidorElectrico' => $resp->getId())
+                                        ))
+                    )
+            );
+        }
+
         return array(
             'situacionServicios' => $situacionServicios,
             'stat_serviciosComunales' => $stat_serviciosComunales,
@@ -209,6 +224,7 @@ class SituacionServiciosController extends Controller
             'stat_telefonia' => $stat_telefonia,
             'stat_basura' => $stat_basura,
             'stat_sistemas_electrico' => $stat_sistemas_electrico,
+            'stat_medidor_electrico' => $stat_medidor_electrico,
             'stat_gas' => $stat_gas,
             'stat_aguasservidas' => $stat_aguasservidas,
             'stat_aguasb' => $stat_aguasb,
