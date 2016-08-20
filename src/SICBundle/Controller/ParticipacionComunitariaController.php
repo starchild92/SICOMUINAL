@@ -15,7 +15,8 @@ use SICBundle\Form\ParticipacionComunitariaType;
  */
 class ParticipacionComunitariaController extends Controller
 {
-    private function obtenerStats(){
+    private function obtenerStats()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $participacionComunitarias = $em->getRepository('SICBundle:ParticipacionComunitaria')->findAll();

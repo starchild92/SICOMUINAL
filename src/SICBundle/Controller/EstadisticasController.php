@@ -227,19 +227,19 @@ class EstadisticasController extends Controller
         }
 
         return array(
-            'stat_tipo_vivienda' => $stat_tipo_vivienda,
-            'stat_tipo_tenencia' => $stat_tipo_tenencia,
-            'stat_ovc' => $stat_ovc,
-            'stat_terreno' => $stat_terreno,
-            'stat_mascotas' => $stat_mascotas,
-            'stat_plagas' => $stat_plagas,
-            'stat_enseres' => $stat_enseres,
-            'stat_salubridad' => $stat_salubridad,
-            'stat_techo' => $stat_techo,
-            'stat_paredes' => $stat_paredes,
-            'stat_condicion_terreno' => $stat_condicion_terreno,
-            'stat_sivih' => $stat_sivih,
-            'stat_leypoliticahabitacional' => $stat_leypoliticahabitacional,
+            'stat_condicion_terreno' => array('array' => $stat_condicion_terreno, 'title' => 'Condicion del Terreno'),
+            'stat_tipo_tenencia' => array('array' => $stat_tipo_tenencia, 'title' => 'Tipos de Tenencia'),
+            'stat_tipo_vivienda' => array('array' => $stat_tipo_vivienda, 'title' => 'Tipos de Vivienda'),
+            'stat_ovc' => array('array' => $stat_ovc, 'title' => '¿Pertenece Ud. a Una OCV?'),
+            'stat_terreno' => array('array' => $stat_terreno, 'title' => '¿Terreno Propio?'),
+            'stat_paredes' => array('array' => $stat_paredes, 'title' => 'Paredes'),
+            'stat_techo' => array('array' => $stat_techo, 'title' => 'Techo'),
+            'stat_sivih' => array('array' => $stat_sivih, 'title' => '¿Está inscrita en el SIVIH?'),
+            'stat_leypoliticahabitacional' => array('array' => $stat_leypoliticahabitacional, 'title' => 'Cotizantes Ley de Política Habitacional'),
+            'stat_enseres' => array('array' => $stat_enseres, 'title' => 'Enres Vivienda'),
+            'stat_salubridad' => array('array' => $stat_salubridad, 'title' => 'Salubridad'),
+            'stat_plagas' => array('array' => $stat_plagas, 'title' => 'Presencia de Insectos y Roedores'),
+            'stat_mascotas' => array('array' => $stat_mascotas, 'title' => 'Mascotas'),
         );
     }
 
@@ -405,6 +405,55 @@ class EstadisticasController extends Controller
             'stat_basura' => array('array' => $stat_basura, 'title' => 'Sistema de Recoleccion de Basura'),
             'stat_bombillosAhorradores' => array('array' => $stat_bombillosAhorradores, 'title' => 'Bombillos Ahorradores'),
             'stat_capacidadBombona' => array('array' => $stat_capacidadBombona, 'title' => 'Capacidades Bombonas'),
+        );
+    }
+
+    public function egParticipacionAction(Request $request){
+        $todas = $this->estadisticasParticipacion();
+        return $this->render('estadisticas/estadisticas-generales-participacion.html.twig',array('situacion' => $todas));   
+    }
+    public function estadisticasParticipacion()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $participacionComunitarias = $em->getRepository('SICBundle:ParticipacionComunitaria')->findAll();
+
+        $orgs = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
+        $stat_orgs = array();
+        foreach ($orgs as $elemento) {
+            array_push($stat_orgs, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->existenOrganizaciones($elemento)));
+        }
+
+        $participacion = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_participacion = array();
+        foreach ($participacion as $elemento) {
+            array_push($stat_participacion, array('elemento' => $elemento->getRespuesta(),'situacion'     => $em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(array('participaOrganizacion' => $elemento->getId()))));
+        }
+
+        $parte_miembros = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_parte_miembros = array();
+        foreach ($parte_miembros as $elemento) {
+            array_push($stat_parte_miembros, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(array('participaMiembroOrganizacion' => $elemento->getId()))));
+        }
+
+        $misiones = $em->getRepository('SICBundle:AdminMisionesComunidad')->findAll();
+        $stat_misiones = array();
+        foreach ($misiones as $elemento) {
+            array_push($stat_misiones, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->misionesComunidad($elemento)));
+        }
+
+        $areatrabajo = $em->getRepository('SICBundle:AdminAreaTrabajoCC')->findAll();
+        $stat_areatrabajo = array();
+        foreach ($areatrabajo as $elemento) {
+            array_push($stat_areatrabajo, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->areaTabajoCC($elemento)));
+        }
+
+        return array(
+            'stat_areatrabajo' => array('array' => $stat_areatrabajo, 'title' => 'Areas de Trabajo'),
+            'stat_misiones' => array('array' => $stat_misiones, 'title' => 'Misiones Comunidad'),
+            'stat_orgs' => array('array' => $stat_orgs, 'title' => 'Organizaciones'),
+            'stat_participacion' => array('array' => $stat_participacion, 'title' => 'Participación Comunitaria'),
+            'stat_parte_miembros' => array('array' => $stat_parte_miembros, 'title' => ' Participación Miembros'),
         );
     }
 }
