@@ -3,6 +3,16 @@ estadisticas_generales_personas:
     defaults: { _controller: "SICBundle:Estadisticas:egPersonas"}
     methods:  GET
 
+estadisticas_generales_economica:
+    path:     /generales/situacion/economica
+    defaults: { _controller: "SICBundle:Estadisticas:egEconomica"}
+    methods:  GET
+
+estadisticas_generales_vivienda:
+    path:     /generales/situacion/vivienda
+    defaults: { _controller: "SICBundle:Estadisticas:egVivienda"}
+    methods:  GET
+
 # Rutas para las estadisticas (de los graficos)
 sic_estadisticas_personas_jefegrupofamiliar:
     path:     /jefes/grupo/familiar

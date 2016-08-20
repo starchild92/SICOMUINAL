@@ -100,7 +100,7 @@ class SituacionSaludController extends Controller
             $p->setSituacionSalud($situacionSalud);
             $p->setTerminada('60');
             $em->persist($p);
-            $bitacora = new Bitacora($this->getUser(),'agregó','un Situación de Salud a la planilla '.$id_planilla);
+            $bitacora = new Bitacora($this->getUser(),'agregó','la Situación de Salud a la planilla '.$id_planilla);
             $em->persist($bitacora);
             $em->flush();
 

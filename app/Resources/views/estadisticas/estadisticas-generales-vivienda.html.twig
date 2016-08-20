@@ -1,0 +1,224 @@
+{% embed 'estadisticas/base-estadisticas-generales.html.twig' %}
+	
+	{% block body %}
+	<div class="row">
+		{% include 'estadisticas/menu-opciones-estadisticas-generales.html.twig' %}
+		<script>var menu_element = document.getElementById('vivienda').className = 'list-group-item active';</script>
+		<div class="col-lg-9 col-sm-9">
+			<h3 class="text-center text-info">Estadísticas Generales - Situación Vivienda <i class="fa fa-bar-chart fa-sm pull-left"></i></h3>
+			<hr>
+			<div class="row grid">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Condiciones Terreno</p>
+						{% for object in situacion.stat_condicion_terreno %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Formas de Tenencia</p>
+						{% for object in situacion.stat_tipo_tenencia %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Tipo de Vivienda</p>
+						{% for object in situacion.stat_tipo_vivienda %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Miembro de OCV</p>
+						{% for object in situacion.stat_ovc %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Terreno Propio</p>
+						{% for object in situacion.stat_terreno %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Paredes Vivienda</p>
+						{% for object in situacion.stat_paredes %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Techo Vivienda</p>
+						{% for object in situacion.stat_techo %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Inscritos en el SIVIH</p>
+						{% for object in situacion.stat_sivih %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Cotizantes Ley Política Habitacional</p>
+						{% for object in situacion.stat_leypoliticahabitacional %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Enseres Viviendas</p>
+						{% for object in situacion.stat_enseres %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Salubridad Viviendas</p>
+						{% for object in situacion.stat_salubridad %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Plagas Viviendas</p>
+						{% for object in situacion.stat_plagas %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Mascotas Viviendas</p>
+						{% for object in situacion.stat_mascotas %}
+							{% if object.situacion|length > 0 %}
+							<div class="panel-body">
+								<h4 class="bottom-line">{{ object.elemento }}</h4>
+								{% for situacion in object.situacion %}
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+				
+
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+{% endembed %}

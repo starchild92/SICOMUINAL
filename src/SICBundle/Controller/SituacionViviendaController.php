@@ -168,7 +168,7 @@ class SituacionViviendaController extends Controller
                 $stat_mascotas, 
                 array(
                     'mascotas' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByPresenciaInsectos($elemento)))
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByMascota($elemento)))
             );
         }
 
@@ -270,7 +270,7 @@ class SituacionViviendaController extends Controller
             $p->setSituacionVivienda($situacionVivienda);
             $p->setTerminada('45');
             $em->persist($p);
-            $bitacora = new Bitacora($this->getUser(),'agregó','un Situación de Vivienda a la planilla '.$id_planilla);
+            $bitacora = new Bitacora($this->getUser(),'agregó','la Situación de Vivienda a la planilla '.$id_planilla);
             $em->persist($bitacora);
             $em->flush();
 

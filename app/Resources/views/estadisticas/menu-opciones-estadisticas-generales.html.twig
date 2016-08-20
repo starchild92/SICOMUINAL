@@ -2,37 +2,34 @@
 	<h3 class="text-center text-info">Opciones</h3>
 	<hr>
 	<div class="list-group">
-		<a href="{{ path('estadisticas_generales_personas') }}" class="list-group-item">
+		<a href="{{ path('estadisticas_generales_personas') }}" class="list-group-item" id="personas">
 			<h4 class="list-group-item-heading">Personas Comunidad</h4>
 			<p class="list-group-item-text hidden-sm">Caracteristicas de los miembros de la comunidad, incluyendo Jefes de Grupos Familiares</p>
 		</a>
 
-		<a href="#" class="list-group-item">
-			<h4 class="list-group-item-heading">Grupos Familiares</h4>
-			<p class="list-group-item-text hidden-sm">Cuando se eliminan noticias manualmente, la cantidad de noticias no puede ser menor que la frecuencia del termino en la coleccion. Esta opción ajusta esa frecuencia.</p>
+		<a href="{{ path('estadisticas_generales_economica') }}" data-url="#" class="list-group-item" id="economia">
+			<h4 class="list-group-item-heading">Economía</h4>
+			<p class="list-group-item-text hidden-sm">Relacionada con las respuestas de los Jefes de Grupo Familiar</p>
 		</a>
 
-		<a href="#" data-url="#" class="list-group-item">
-			<h4 class="list-group-item-heading">Económia</h4>
-			<p class="list-group-item-text hidden-sm">Defina cuantos centroides habrán.</p>
-		</a>
-
-		<a href="#" data-url="#" class="list-group-item">
+		<a href="{{ path('estadisticas_generales_vivienda') }}" data-url="#" class="list-group-item" id="vivienda">
 			<h4 class="list-group-item-heading">Vivienda</h4>
-			<p class="list-group-item-text hidden-sm">Retorna una tabla con la cantidad de miembros pertenecientes a cada cluster</p>
+			<p class="list-group-item-text hidden-sm">Relacionada con las respuestas de los Jefes de Grupo Familiar</p>
 		</a>
 
-		<a href="#" data-url="#" class="list-group-item">
+		<a href="#" data-url="#" class="list-group-item" id="salud">
 			<h4 class="list-group-item-heading">Salud</h4>
-			<p class="list-group-item-text hidden-sm">Examine los clusters y las noticias que los conforman</p>
+			<p class="list-group-item-text hidden-sm">Relacionada con las respuestas de los Jefes de Grupo Familiar</p>
 		</a>
 
-		<a href="#" data-url="#" class="list-group-item list-group-item-default">
+		<a href="#" data-url="#" class="list-group-item" id="servicios">
 			<h4 class="list-group-item-heading">Servicios</h4>
+			<p class="list-group-item-text hidden-sm">Relacionada con las respuestas de los Jefes de Grupo Familiar</p>
 		</a>
 
-		<a href="#" data-url="#" class="list-group-item list-group-item-default">
+		<a href="#" data-url="#" class="list-group-item" id="participacion_comunitaria">
 			<h4 class="list-group-item-heading">Participación Comunitaria</h4>
+			<p class="list-group-item-text hidden-sm">Relacionada con las respuestas de los Jefes de Grupo Familiar</p>
 		</a>
 	</div>
 </div>
