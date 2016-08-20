@@ -143,7 +143,6 @@ class InicioController extends Controller
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
-
             usort($votantes, array($this, "cmp"));
 
             return $this->render('inicio/cuaderno-votacion.html.twig',
@@ -172,7 +171,7 @@ class InicioController extends Controller
             // Genero el PDF Aqui
             $dompdf = new \DOMPDF();
             $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
-            $dompdf->load_html($this->renderView('inicio/cuaderno-votacion-pdf.html.twig',
+            $dompdf->load_html($this->renderView('pdfs/cuaderno-votacion-pdf.html.twig',
                 array(
                     'votantes' => $votantes,
                     'comunidad' => $comunidad_info))
@@ -331,7 +330,7 @@ class InicioController extends Controller
 
             $dompdf = new \DOMPDF();
             $dompdf->set_paper(array(0,0,612.00,792.00), 'portrait');
-            $dompdf->load_html($this->renderView('inicio/resumen-censo-pdf.html.twig',
+            $dompdf->load_html($this->renderView('pdfs/resumen-censo-pdf.html.twig',
                 array(
                     'sectores' => $datos,
                     'comunidad' => $comunidad_info,
@@ -401,7 +400,7 @@ class InicioController extends Controller
 
             $dompdf = new \DOMPDF();
             $dompdf->set_paper(array(0,0,612.00,792.00), 'portrait');
-            $dompdf->load_html($this->renderView('inicio/registro-electoral-pdf.html.twig',
+            $dompdf->load_html($this->renderView('pdfs/registro-electoral-pdf.html.twig',
                 array(
                     'votantes' => $votantes,
                     'comunidad' => $comunidad_info,
@@ -489,7 +488,7 @@ class InicioController extends Controller
 
             $dompdf = new \DOMPDF();
             $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
-            $dompdf->load_html($this->renderView('inicio/registro-preliminar-pdf.html.twig',
+            $dompdf->load_html($this->renderView('pdfs/registro-preliminar-pdf.html.twig',
                 array(
                     'votantesV' => $votantesV,
                     'votantesE' => $votantesE,
