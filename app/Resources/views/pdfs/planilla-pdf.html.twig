@@ -1,0 +1,165 @@
+{% extends 'base.pdf.html.twig' %}
+{% block stylesheets %}
+    <style>
+		html, body { font-family: 'Arial', sans-serif; font-size: 18px; }
+        html {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .img-responsive,
+        .thumbnail > img,
+        .thumbnail a > img,
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+        }
+        .marginless{ margin: 0 0 0px !important; }
+        .tight{ padding: 0 2px 0 5px !important; }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="negritas text-center marginless">ESTUDIO DEMOGRÁFICO Y SOCIOECONOMICO</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td style="width: 78%" colspan="3">
+                        	<span class="text-uppercase">Consejo Comunal:</span> {{ consejo.nombre }} <br>
+                        </td>
+                        <td style="width: 22%" colspan="1">
+                        	<span class="text-uppercase">Planilla N°:</span> {{ planilla.id }}<br>
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td><span class="text-uppercase">Codigo:</span> {{ consejo.codigo }}</td>
+                    	<td><span class="text-uppercase">RIF:</span> {{ consejo.rif }}</td>
+                    	<td><span class="text-uppercase">NRO Cuenta:</span> {{ consejo.numeroCuenta }}</td>
+                        <td><span class="text-uppercase">Fecha:</span> {{ planilla.fechaCron }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+			<p class="negritas text-uppercase tight marginless">I. UBICACIÓN GEOGRÁFICA DE LA COMUNIDAD</p>
+            <table class="table table-bordered table-condensed">
+                <tbody>
+                    <tr>
+                    	<td><span class="text-uppercase">Estado:</span><br> {{ comunidad.estado }}</td>
+                        <td><span class="text-uppercase">Municipio:</span><br> {{ comunidad.municipio }}</td>
+                        <td><span class="text-uppercase">Parroquia:</span><br> {{ comunidad.parroquia }}</td>
+                        <td><span class="text-uppercase">Sector:</span><br> {{ comunidad.sector }}</td>
+                        <td><span class="text-uppercase">Nombre de la Comunidad:</span><br> {{ comunidad.comunidad }}</td>
+                        <td><span class="text-uppercase">Dirección:</span><br> {{ planilla.grupoFamiliar.getDireccionCompleta }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+			<p class="negritas text-uppercase tight marginless">ii. datos personales del jefe del grupo familiar</p>
+            <table class="table table-bordered table-condensed">
+                <tbody>
+                	<tr>
+                    	<td>
+                    		<span class="text-uppercase">NOMBRES:</span> {{ planilla.jefeGrupoFamiliar.nombres }}<br>
+                    		<span class="text-uppercase">APELLIDOS:</span> {{ planilla.jefeGrupoFamiliar.apellidos }}
+                    	</td>
+                    	<td>
+                    		<span class="text-uppercase">C.I. N°:</span> {{ planilla.jefeGrupoFamiliar.cedula }}<br>
+                    		<span class="text-uppercase">Nacionalidad:</span> {{ planilla.jefeGrupoFamiliar.nacionalidad }}
+                    	</td>
+                    	<td>
+                    		<span class="text-uppercase">Fec. Nac.:</span> {{ planilla.jefeGrupoFamiliar.fechaNacimientoCorta }} <br>
+                    		<span class="text-uppercase">Edad:</span> {{ planilla.jefeGrupoFamiliar.edad }} años	
+                    	</td>
+                    	<td>
+                    		<span class="text-uppercase">CNE:</span> {{ planilla.jefeGrupoFamiliar.cne }} <br>
+                    		<span class="text-uppercase">Tiempo en la Comunidad:</span> {{ planilla.jefeGrupoFamiliar.tiempoEnComunidad }} años
+                    	</td>
+                    	<td class="text-center">
+                    		<span class="text-uppercase">Sexo:</span><br>{{ planilla.jefeGrupoFamiliar.sexo }}
+                    	</td>
+                    </tr>
+                    <tr>
+                    	<td>
+                    		<span class="text-uppercase">Discapacidad:</span> {{ planilla.jefeGrupoFamiliar.incapacitadoPlanilla }}<br>
+                    		<span class="text-uppercase">Pensionado:</span> {{ planilla.jefeGrupoFamiliar.pensionadoPlanilla }}
+                    	</td>
+                    	<td>
+                    		<span class="text-uppercase">Estado Civil:</span><br>{{ planilla.jefeGrupoFamiliar.estadoCivil }}
+                    	</td>
+                    	<td>
+                    		<span class="text-uppercase">Nivel de Instrucción</span><br>{{ planilla.jefeGrupoFamiliar.nivelInstruccion }}
+                    	</td>
+                    	<td>
+                    		<span class="text-uppercase">Profesión/Oficio:</span><br>{{ planilla.jefeGrupoFamiliar.profesion }}
+                    	</td>
+                    	<td>
+                    		<span class="text-uppercase">Trabaja Actualmente:</span><br>{{ planilla.jefeGrupoFamiliar.trabajaActualmente }}
+                    	</td>
+                    </tr>
+                    <tr>
+                    	<td>
+                    		<span class="text-uppercase">Telefonos:</span> <br>{% for tlf in planilla.jefeGrupoFamiliar.telefono %} {{ tlf }} {% endfor %}
+                    	</td>
+                    	<td>
+                    		<span class="text-uppercase">E-mail:</span> <br>{{ planilla.jefeGrupoFamiliar.emailPlanilla }}
+                    	</td>
+                    	<td colspan="2"><span class="text-uppercase">Clasificación del Ingreso Familiar:</span> <br>{{ planilla.jefeGrupoFamiliar.ingresoFamiliar }}</td>
+                    	<td><span class="text-uppercase">Ingreso Mensual:</span> <br>{{ planilla.jefeGrupoFamiliar.ingresoMensual_fmt }} Bs.</td>
+                    </tr>
+                </tbody>
+            </table>
+			
+			<p class="negritas text-uppercase tight marginless">iii. Caracteristicas del Grupo Familiar</p>
+            <table class="table table-bordered table-condensed" style="font-size: 17px;">
+            	<thead>
+            		<tr>
+            			<th>N°</th>
+            			<th>Nombres y Apellidos</th>
+            			<th>Sexo</th>
+            			<th class="text-center">C.I</th>
+            			<th>F/Ncto.</th>
+            			<th>Edad</th>
+            			<th>Disca.</th>
+            			<th>Embarazo<br>Temp</th>
+            			<th>Parentezco</th>
+            			<th>Instrucción</th>
+            			<th>CNE</th>
+            			<th>Profesión</th>
+            			<th>Pesn.</th>
+            			<th>Ing. Mensual</th>
+            		</tr>
+            	</thead>
+                <tbody>
+                	{% for persona in planilla.grupoFamiliar.miembros %}
+					<tr>
+						<td class="text-center">{{ loop.index }}</td>
+						<td>{{ persona.nombre }} {{ persona.apellido }}</td>
+						<td class="text-center">{{ persona.sexoPlanilla }}</td>
+						<td class="text-center">{{ persona.cedula }}</td>
+						<td class="text-center">{{ persona.fechaNacimientoCorta() }}</td>
+						<td class="text-center">{{ persona.edadPlanilla }}</td>
+						<td class="text-center">{{ persona.incapacitado|title }}. {{ persona.incapacitadoTipo }}</td>
+						<td class="text-center">{{ persona.embarazoTemprano|title }}</td>
+						<td class="text-center">{{ persona.parentesco }}</td>
+						<td class="text-center">{{ persona.gradoInstruccion }}</td>
+						<td class="text-center">{{ persona.cne }}</td>
+						<td class="text-center">{{ persona.profesion }}</td>
+						<td class="text-center">{{ persona.pensionado|title }}</td>
+						<td class="text-center">{{ persona.ingresoMensual_fmt }}</td>
+					</tr>
+					{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/php">
+        if ( isset($pdf) ) {
+            $font = Font_Metrics::get_font("arial", "regular");
+            $pdf->page_text(520, 735, "Pagina {PAGE_NUM} de {PAGE_COUNT}", $font, 10, array(0,0,0));
+        }
+    </script>
+{% endblock %}
