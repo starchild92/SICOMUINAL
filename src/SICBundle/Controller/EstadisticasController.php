@@ -242,4 +242,169 @@ class EstadisticasController extends Controller
             'stat_leypoliticahabitacional' => $stat_leypoliticahabitacional,
         );
     }
+
+    public function egSaludAction(Request $request){
+        $todas = $this->estadisticasSalud();
+        return $this->render('estadisticas/estadisticas-generales-salud.html.twig',array('situacion' => $todas));   
+    }
+    public function estadisticasSalud()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $padecencias = $em->getRepository('SICBundle:AdminTipoPadecencia')->findAll();
+        $stat_padecencias = array();
+        foreach ($padecencias as $elemento) {
+            array_push($stat_padecencias, array('elemento' => $elemento->getNombre(),'situacion' => ($em->getRepository('SICBundle:SituacionSalud')->padecencia($elemento))));
+        }
+
+        $ayuda_especial = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findAll();
+        $stat_ayuda_especial = array();
+        foreach ($ayuda_especial as $elemento) {
+            array_push($stat_ayuda_especial, array('elemento' => $elemento->getNombre(),'situacion' => ($em->getRepository('SICBundle:SituacionSalud')->ayudaEspecial($elemento))));
+        }
+
+        $situacion_exclusion = $em->getRepository('SICBundle:SituacionSalud')->situacionExclusion();
+        $stat_situacion_exclusion = array();
+        foreach ($situacion_exclusion as $elemento) {
+            array_push($stat_situacion_exclusion, array('elemento' => $elemento['situacion'],'situacion' => $elemento['cantidad']));
+        }
+
+        return array(
+            'stat_ayuda_especial' => $stat_ayuda_especial,
+            'stat_padecencias' => $stat_padecencias,
+            'stat_situacion_exclusion' => $stat_situacion_exclusion,
+        );
+    }
+
+    public function egServiciosAction(Request $request){
+        $todas = $this->estadisticasServicios();
+        return $this->render('estadisticas/estadisticas-generales-servicios.html.twig',array('situacion' => $todas));   
+    }
+    public function estadisticasServicios()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $situacionServicios = $em->getRepository('SICBundle:SituacionServicios')->findAll();
+
+        $aguasb = $em->getRepository('SICBundle:AdminAguasBlancas')->findAll();
+        $stat_aguasb = array();
+        foreach ($aguasb as $elemento) {
+            array_push($stat_aguasb, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('aguasBlancas' => $elemento->getId()))));
+        }
+
+        $tanques = $em->getRepository('SICBundle:SituacionServicios')->findAll();
+        $stat_tanque = array();
+        $stat_tanque_si = array();
+        $stat_tanque_no = array();
+        foreach ($tanques as $t) {
+            if ($t->getLtsTanque() > 0) { array_push($stat_tanque_si, $t); }else{ array_push($stat_tanque_no, $t); }
+        }
+        
+        $stat_pipotes = array();
+        $stat_pipotes_si = array();
+        $stat_pipotes_no = array();
+        foreach ($tanques as $t) { 
+            if ($t->getCantPipotes() > 0) { array_push($stat_pipotes_si, $t); }else{ array_push($stat_pipotes_no, $t); }
+        }
+        array_push($stat_pipotes, array('elemento' => 'Si', 'situacion' => $stat_pipotes_si));
+        array_push($stat_pipotes, array('elemento' => 'No', 'situacion' => $stat_pipotes_no));
+
+        $aguasservidas = $em->getRepository('SICBundle:AdminAguasServidas')->findAll();
+        $stat_aguasservidas = array();
+        foreach ($aguasservidas as $elemento) {
+            array_push($stat_aguasservidas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('aguasServidas' => $elemento->getId()))));
+        }
+
+        $gas = $em->getRepository('SICBundle:AdminTipoGas')->findAll();
+        $stat_gas = array();
+        foreach ($gas as $elemento) {
+            array_push($stat_gas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('gas' => $elemento->getId()))));
+        }
+
+        $empresaGas = $em->getRepository('SICBundle:AdminEmpresaGas')->findAll();
+        $stat_empresaGas = array();
+        foreach ($empresaGas as $elemento) {
+            array_push($stat_empresaGas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('empresaGas' => $elemento->getId()))));
+        }
+
+        $sistemas_electrico = $em->getRepository('SICBundle:AdminSistemaElectrico')->findAll();
+        $stat_sistemas_electrico = array();
+        foreach ($sistemas_electrico as $elemento) {
+            array_push($stat_sistemas_electrico, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('sistemaElectrico' => $elemento->getId()))));
+        }
+
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_medidor_electrico = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_medidor_electrico, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('medidorElectrico' => $resp->getId()))));
+        }
+
+        $basura = $em->getRepository('SICBundle:AdminRecoleccionBasura')->findAll();
+        $stat_basura = array();
+        foreach ($basura as $elemento) {
+            array_push($stat_basura, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('recoleccionBasura' => $elemento->getId()))));
+        }
+
+        $telefonia = $em->getRepository('SICBundle:AdminTipoTelefonia')->findAll();
+        $stat_telefonia = array();
+        foreach ($telefonia as $elemento) {
+            array_push($stat_telefonia, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->telefonia($elemento)));
+        }
+
+        $transporte = $em->getRepository('SICBundle:AdminTipoTransporte')->findAll();
+        $stat_transporte = array();
+        foreach ($transporte as $elemento) {
+            array_push($stat_transporte, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->transporte($elemento)));
+        }
+
+        $mecanismoInformacion = $em->getRepository('SICBundle:AdminMecanismoInformacion')->findAll();
+        $stat_mecanismoInformacion = array();
+        foreach ($mecanismoInformacion as $elemento) {
+            array_push($stat_mecanismoInformacion, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->mecanismoInformacion($elemento)));
+        }
+
+        $serviciosComunales = $em->getRepository('SICBundle:AdminServiciosComunales')->findAll();
+        $stat_serviciosComunales = array();
+        foreach ($serviciosComunales as $elemento) {
+            array_push($stat_serviciosComunales, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->serviciosComunales($elemento)));
+        }
+
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_medidor = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_medidor, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('medidor' => $resp->getId()))));
+        }
+
+
+
+        $capacidadBombona = $em->getRepository('SICBundle:AdminCapacidadBombona')->findAll();
+        $stat_capacidadBombona = array();
+        foreach ($capacidadBombona as $elemento) {
+            array_push($stat_capacidadBombona, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('capacidadBombona' => $elemento->getId()))));
+        }
+
+        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $stat_bombillosAhorradores = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_bombillosAhorradores, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('bombillosAhorradores' => $resp->getId()))));
+        }
+
+        return array(
+            'stat_aguasb' => array('array' => $stat_aguasb, 'title' => 'Aguas Blancas'),
+            'stat_medidor' => array('array' => $stat_medidor, 'title' => 'Medidor de Aguas Blancas'),
+            'stat_tanque' => array('array' => $stat_tanque, 'title' => 'Posee Tanque'),
+            'stat_pipotes' => array('array' => $stat_pipotes, 'title' => 'Pipotes'),
+            'stat_aguasservidas' => array('array' => $stat_aguasservidas, 'title' => 'Aguas Servidas'),
+            'stat_gas' => array('array' => $stat_gas, 'title' => 'Posee Gas'),
+            'stat_empresaGas' => array('array' => $stat_empresaGas, 'title' => 'Proveedor de Gas'),
+            'stat_sistemas_electrico' => array('array' => $stat_sistemas_electrico, 'title' => 'Sistema Electrico'),
+            'stat_medidor_electrico' => array('array' => $stat_medidor_electrico, 'title' => 'Medidor de Electricidad'),
+            'stat_serviciosComunales' => array('array' => $stat_serviciosComunales, 'title' => 'Servicios Comunales'),
+            'stat_mecanismoInformacion' => array('array' => $stat_mecanismoInformacion, 'title' => 'Mecanismos de Información'),
+            'stat_transporte' => array('array' => $stat_transporte, 'title' => 'Medio de Transporte'),
+            'stat_telefonia' => array('array' => $stat_telefonia, 'title' => 'Telefonia'),
+            'stat_basura' => array('array' => $stat_basura, 'title' => 'Sistema de Recoleccion de Basura'),
+            'stat_bombillosAhorradores' => array('array' => $stat_bombillosAhorradores, 'title' => 'Bombillos Ahorradores'),
+            'stat_capacidadBombona' => array('array' => $stat_capacidadBombona, 'title' => 'Capacidades Bombonas'),
+        );
+    }
 }

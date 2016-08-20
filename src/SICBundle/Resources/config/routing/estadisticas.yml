@@ -13,6 +13,16 @@ estadisticas_generales_vivienda:
     defaults: { _controller: "SICBundle:Estadisticas:egVivienda"}
     methods:  GET
 
+estadisticas_generales_salud:
+    path:     /generales/situacion/salud
+    defaults: { _controller: "SICBundle:Estadisticas:egSalud"}
+    methods:  GET
+
+estadisticas_generales_servicios:
+    path:     /generales/situacion/servicios
+    defaults: { _controller: "SICBundle:Estadisticas:egServicios"}
+    methods:  GET
+
 # Rutas para las estadisticas (de los graficos)
 sic_estadisticas_personas_jefegrupofamiliar:
     path:     /jefes/grupo/familiar
