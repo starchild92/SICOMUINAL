@@ -199,7 +199,7 @@ class JefeGrupoFamiliar
     public function apellido_nombre() { return $this->apellidos.' '.$this->nombres; }
     public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
     public function ingresoMensual_fmt(){ return number_format($this->ingresoMensual, 2, ',', '.'); }
-    public function edad_fmt(){ if ($this->edad > 0 && $this->edad < 10) { return '0'.$this->edad;}else{ return $this->edad; } }
+    public function edad_fmt(){ $edad = $this->edadPlanilla(); if ($edad > 0 && $edad < 10) { return '0'.$edad;}else{ return $edad; } }
     public function direccion(){
         $planilla = $this->planilla;
         if ($planilla != NULL) {
@@ -216,6 +216,39 @@ class JefeGrupoFamiliar
         $fecha = $this->getFechaNacimiento();
         $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
         return $fecha->format('d')."-".$meses[$fecha->format('n')-1]."-".$fecha->format('Y');
+    }
+    public function incapacitadoPlanilla()
+    {
+        if ($this->incapacitadoTipo != '') {
+            return 'Si, '.$this->incapacitadoTipo;
+        }else{
+            return 'No';
+        }
+    }
+    public function pensionadoPlanilla()
+    {
+        if ($this->pensionadoInstitucion != '') {
+            return 'Si, '.$this->pensionadoInstitucion;
+        }else{
+            return 'No';
+        }
+    }
+    public function emailPlanilla()
+    {
+        if ($this->email != '') {
+            return $this->email;
+        }else{
+            return 'No indicó';
+        }
+    }
+    public function edadPlanilla()
+    {
+        $fechanac = explode("-", $this->fechaNacimiento->format('Y-m-d'));
+        $fecha2 = explode("-",date("Y-m-d")); // fecha actual 
+
+        $Edad = $fecha2[0]-$fechanac[0]; 
+        if($fecha2[1]<=$fechanac[1] and $fecha2[2]<=$fechanac[2]){ $Edad = $Edad - 1; }
+        return $Edad;
     }
     
     /**
