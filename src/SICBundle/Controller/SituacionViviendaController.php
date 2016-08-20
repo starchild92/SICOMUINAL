@@ -168,7 +168,7 @@ class SituacionViviendaController extends Controller
                 $stat_mascotas, 
                 array(
                     'mascotas' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByPresenciaInsectos($elemento)))
+                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByMascota($elemento)))
             );
         }
 
