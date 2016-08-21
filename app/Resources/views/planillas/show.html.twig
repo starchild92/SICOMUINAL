@@ -18,9 +18,9 @@
 						<p><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></p>
 						<p><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}" title="ver información del empadronador">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></p>
 						{% if planilla.jefeGrupoFamiliar != null %}
-						<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
+							<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
 						{% endif %}
-						<p><span class="negritas">Fecha:</span> {{ planilla.fechayhora() }}</p>
+							<p><span class="negritas">Fecha:</span> {{ planilla.fechayhora() }}</p>
 					</div>
 			</div>
 			<hr class="little">
@@ -28,6 +28,9 @@
 			<a class="btn btn-primary btn-block" href="{{ path('planillas_index') }}"><i class="fa fa-eye"></i> Ver Todas las Encuestas</a>
 			{% if planilla.terminada != 100 %}
 				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}"><i class="fa fa-arrow-right"></i> Continuar Encuesta</a>
+			{% else %}
+				<hr class="little">
+				<a class="btn btn-primary btn-block" target="_blank" href="{{ path('planillas_imprimir', { 'id': planilla.id }) }}"><i class="fa fa-file-pdf-o"></i> Obtener PDF</a>
 			{% endif %}
 			<hr class="little">
 			{{ form_start(delete_form, {'attr': {'id': 'form_eliminar'}}) }}<button id="eliminarPlanilla" class="btn btn-block btn-danger" type="button"> <i class="fa fa-trash"></i> Eliminar esta Planilla</button>{{ form_end(delete_form) }}
