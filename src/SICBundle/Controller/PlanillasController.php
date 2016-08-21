@@ -495,7 +495,7 @@ class PlanillasController extends Controller
 
             // Genero el PDF Aqui
             $dompdf = new \DOMPDF();
-            $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
+            $dompdf->set_paper(array(0,0,612.00,1008.00), 'landscape');
             $dompdf->load_html($this->renderView('pdfs/planilla-pdf.html.twig',
                 array(
                     'planilla' => $planilla,
