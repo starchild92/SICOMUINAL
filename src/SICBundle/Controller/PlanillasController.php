@@ -477,45 +477,49 @@ class PlanillasController extends Controller
             }
         }
 
-
-
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
 
+    /* Es para imprimir y cuando no puede por 100 devuelve una vista */
     public function imprimirAction(Planillas $planilla)
     {
-        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
-        {
-            $em = $this->getDoctrine()->getManager();
-            $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-            $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
-            $comunidad_info = $comunidad[0];
-            $cc = $consejo[0];
+        if ($planilla->getTerminada() != 100) {
+            $this->get('session')->getFlashBag()->add('danger', 'No puedes imprimir una planilla que no este completada.');
+            return $this->render('estadisticas/imprimir-error.html.twig', array(
+                'mensaje' => 'Este estudio no está terminado por lo cual no lo puede imprimir, completelo y regrese.'));
+        }else{
+            if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
+            {
+                $em = $this->getDoctrine()->getManager();
+                $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+                $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+                $comunidad_info = $comunidad[0];
+                $cc = $consejo[0];
 
-            // Genero el PDF Aqui
-            $dompdf = new \DOMPDF();
-            $dompdf->set_paper(array(0,0,612.00,1008.00), 'landscape');
-            $dompdf->load_html($this->renderView('pdfs/planilla-pdf.html.twig',
-                array(
-                    'planilla' => $planilla,
-                    'consejo' => $cc,
-                    'comunidad' => $comunidad_info
-                    )
-            ));
-            $dompdf->render();
+                $dompdf = new \DOMPDF();
+                $dompdf->set_paper(array(0,0,612.00,1008.00), 'landscape');
+                $dompdf->load_html($this->renderView('pdfs/planilla-pdf.html.twig',
+                    array(
+                        'planilla' => $planilla,
+                        'consejo' => $cc,
+                        'comunidad' => $comunidad_info)
+                ));
+                $dompdf->render();
 
-            // $entrada = new Bitacora($this->getUser(),'generó','un Cuaderno de Votación');
-            // $em->persist($entrada);
-            // $em->flush();
+                $entrada = new Bitacora($this->getUser(),'generó','un PDF de la planilla '.$planilla->getId());
+                $em->persist($entrada);
+                $em->flush();
 
-            // Or get the output to handle it yourself
-            $response = new Response();
-            $response->setContent($dompdf->stream("planilla.pdf", array("Attachment"=>0)));
-            $response->setStatusCode(200);
-            $response->headers->set('Content-Type', 'application/pdf');
-            return $response;
+                // Or get the output to handle it yourself
+                $response = new Response();
+                $response->setContent($dompdf->stream("planilla.pdf", array("Attachment"=>0)));
+                $response->setStatusCode(200);
+                $response->headers->set('Content-Type', 'application/pdf');
+                return $response;
+            }
         }
+            
     }
 
 }
