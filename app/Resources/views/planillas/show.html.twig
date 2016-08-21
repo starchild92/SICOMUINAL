@@ -508,6 +508,10 @@
 									{% endif %}
 								</div>
 								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Duración y Precio Cilindro</p>
+									<p>{{ planilla.situacionServicios.precioBombona }}Bs. durante: {{ planilla.situacionServicios.duracionBombona }}</p>
+								</div>
+								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Suministro Eléctrico</p>
 									<p>{{ planilla.situacionServicios.sistemaElectrico }}</p>
 								</div>
@@ -739,7 +743,7 @@
 						<td>{{ persona.cne }}</td>
 						<td>{{ persona.profesion }}</td>
 						<td>{{ persona.pensionado|title }}</td>
-						<td>{{ persona.ingresoMensual }}</td>
+						<td>{{ persona.ingresoMensual_fmt }}</td>
 						<td>
 							<div class="btn-group">
 								<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -37,3 +37,8 @@ new_element_ajax:
     path:     /nuevo/agregar/ajax
     defaults: { _controller: "SICBundle:Planillas:new_element_ajax" }
     methods:  [GET, POST]
+
+planillas_imprimir:
+    path:     /{id}/imprimir
+    defaults: { _controller: "SICBundle:Planillas:imprimir" }
+    methods:  GET
