@@ -486,7 +486,8 @@ class PlanillasController extends Controller
     {
         if ($planilla->getTerminada() != 100) {
             $this->get('session')->getFlashBag()->add('danger', 'No puedes imprimir una planilla que no este completada.');
-            //Send JSon Response Here
+            return $this->render('estadisticas/imprimir-error.html.twig', array(
+                'mensaje' => 'Este estudio no está terminado por lo cual no lo puede imprimir, completelo y regrese.'));
         }else{
             if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
             {
