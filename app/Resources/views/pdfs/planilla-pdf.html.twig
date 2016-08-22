@@ -142,14 +142,14 @@
 						<td class="text-center">{{ persona.cedula }}</td>
 						<td class="text-center">{{ persona.fechaNacimientoCorta() }}</td>
 						<td class="text-center">{{ persona.edadPlanilla }}</td>
-						<td class="text-center">{{ persona.incapacitado|title }}. {{ persona.incapacitadoTipo }}</td>
+						<td class="text-center">{{ persona.incapacitado|title }}{% if persona.incapacitadoTipo != '' %}, {{persona.incapacitadoTipo }}{% endif %}</td>
 						<td class="text-center">{{ persona.embarazoTemprano|title }}</td>
 						<td class="text-center">{{ persona.parentesco }}</td>
 						<td class="text-center">{{ persona.gradoInstruccion }}</td>
 						<td class="text-center">{{ persona.cne }}</td>
 						<td class="text-center">{{ persona.profesion }}</td>
 						<td class="text-center">{{ persona.pensionado|title }}</td>
-						<td class="text-center">{{ persona.ingresoMensual_fmt }}</td>
+						<td class="text-center">{{ persona.ingresoMensual_fmt }} Bs</td>
 					</tr>
 					{% endfor %}
 					<tr>
@@ -166,7 +166,7 @@
 			<table class="table table-bordered table-condensed">
                 <tbody>
                     <tr>
-                    	<td style="width: 30%"><span class="text-uppercase negritas">Trabaja:</span> {{ planilla.situacionEconomica.dondeTrabaja }}</td>
+                    	<td style="width: 30%"><span class="text-uppercase negritas">Trabaja:</span> {% if planilla.situacionEconomica.dondeTrabaja == '' %}No especificó{% endif %}{{ planilla.situacionEconomica.dondeTrabaja }}</td>
                     	<td style="width: 70%"><span class="text-uppercase negritas">Realiza algún tipo de actividad comercial dentro de la vivienda:</span> {% if planilla.situacionEconomica.actividadComercialenVivienda|length == 0 %}No especificó ninguna{% endif %}{% for item in planilla.situacionEconomica.actividadComercialenVivienda %}{{ item }} {% endfor %}</td>
                     </tr>
                     <tr>
@@ -215,7 +215,7 @@
                     <tr>
                     	<td style="width: 33.333%"><span class="text-uppercase negritas">¿Existen en su núcleo familiar personas que padezcan de?</span>{% if planilla.situacionSalud.padecencia|length == 0 %}No especificó ninguno{% endif %}{% for item in planilla.situacionSalud.padecencia %}{{ item }} {% endfor %}</td>
 
-                    	<td style="width: 33.333%"><span class="text-uppercase negritas">¿Necesita usted de alguna ayuda especial para familiares enfermos en su hogar?</span>{% if planilla.situacionSalud.ayudaEspecial|length == 0 %}No especificó ninguno{% endif %}{% for item in planilla.situacionSalud.ayudaEspecial %}{{ item }} {% endfor %}</td>
+                    	<td style="width: 33.333%"><span class="text-uppercase negritas">¿Necesita usted de alguna ayuda especial para familiares enfermos en su hogar?</span> {% if planilla.situacionSalud.ayudaEspecial|length == 0 %}No especificó ninguno{% endif %}{% for item in planilla.situacionSalud.ayudaEspecial %}{{ item }} {% endfor %}</td>
 
                     	<td style="width: 33.333%"><span class="text-uppercase negritas">Situación de Exclusión:</span><br>{% if planilla.situacionSalud.situacionExclusion|length == 0 %}No se ha registrado ninguna{% endif %}{% for item in planilla.situacionSalud.situacionExclusion %}{{ item }} {% endfor %}</td>
                     </tr>
@@ -233,7 +233,7 @@
                 			<span class="text-uppercase negritas">Cant. Pipotes: </span>{{ planilla.situacionServicios.cantPipotes }} pipotes <br><span class="text-uppercase negritas">Servicio de Aguas Servidas: </span>{{ planilla.situacionServicios.aguasServidas }}<br><span class="text-uppercase negritas">Suministro de Gas: </span>{{ planilla.situacionServicios.gas }}, {{ planilla.situacionServicios.cantBombonas }} bombonas de {{ planilla.situacionServicios.capacidadBombona }}
                 		</td>
                 		<td>
-                			<span class="text-uppercase negritas">Duración y Precio Cilindro: </span>{{ planilla.situacionServicios.precioBombona }}Bs. durante: {{ planilla.situacionServicios.duracionBombona }}<br><span class="text-uppercase negritas">Proveedor de Gas: </span>{% if planilla.situacionServicios.empresaGas == '' %}No aplica{% else %}{{ planilla.situacionServicios.empresaGas }}{% endif %}<br><span class="text-uppercase negritas">Suministro Eléctrico: </span>{{ planilla.situacionServicios.sistemaElectrico }}
+                			<span class="text-uppercase negritas">Duración y Precio Cilindro: </span>{{ planilla.situacionServicios.precioBombona }} Bs. durante: {% if planilla.situacionServicios.duracionBombona != '' %}{{ planilla.situacionServicios.duracionBombona }}{% else %}No especificó.{% endif %}<br><span class="text-uppercase negritas">Proveedor de Gas: </span>{% if planilla.situacionServicios.empresaGas == '' %}No aplica{% else %}{{ planilla.situacionServicios.empresaGas }}{% endif %}<br><span class="text-uppercase negritas">Suministro Eléctrico: </span>{{ planilla.situacionServicios.sistemaElectrico }}
                 		</td>
                 		<td>
                 			<span class="text-uppercase negritas">Posee Medidor Electrico: </span>{{ planilla.situacionServicios.medidorElectrico }}<br><span class="text-uppercase negritas">Posee Bombillos Ahorradores de Energía: </span>{{ planilla.situacionServicios.bombillosAhorradores }}<br><span class="text-uppercase negritas">Recolección de Basura: </span>{% if planilla.situacionServicios.recoleccionBasura == '' %}No especificó ninguno{% endif %}{{ planilla.situacionServicios.recoleccionBasura }}
@@ -259,7 +259,7 @@
                 	
                 		<td><span class="text-uppercase negritas">¿Participa Usted en alguna de ellas?</span> {{ planilla.participacionComunitaria.participaOrganizacion }}</td>
                 	
-                		<td><span class="text-uppercase negritas">¿Participa algun miembro de la Familia?</span>{{ planilla.participacionComunitaria.participaMiembroOrganizacion }}</td>
+                		<td><span class="text-uppercase negritas">¿Participa algun miembro de la Familia?</span> {{ planilla.participacionComunitaria.participaMiembroOrganizacion }}</td>
                 	
                 		<td><span class="text-uppercase negritas">¿Cúales Misiones se están implementando en la Comunidad?</span><br>{% if planilla.participacionComunitaria.misionesComunidad|length == 0 %}No ha especificado alguna{% endif %}{% for item in planilla.participacionComunitaria.misionesComunidad %}<span>{{ item.nombre }} </span>{% endfor %}</td>
                 	</tr>
