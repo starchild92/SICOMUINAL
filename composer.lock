@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8279aded558dec2f01df410cdcf9d1bf",
-    "content-hash": "1ab2a5b1affe4b62d129a75bba5c4e9c",
+    "hash": "f8a43f6f9600a5ac78a49978e2589019",
+    "content-hash": "a649414d02c17fde9507209ca7a48ce6",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -787,46 +787,6 @@
             "time": "2016-07-19 12:01:22"
         },
         {
-            "name": "h4cc/wkhtmltopdf-i386",
-            "version": "0.12.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/h4cc/wkhtmltopdf-i386.git",
-                "reference": "79f2f8ed78d35f5541beceb2ec6fcd01a76e05ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/h4cc/wkhtmltopdf-i386/zipball/79f2f8ed78d35f5541beceb2ec6fcd01a76e05ba",
-                "reference": "79f2f8ed78d35f5541beceb2ec6fcd01a76e05ba",
-                "shasum": ""
-            },
-            "bin": [
-                "bin/wkhtmltopdf-i386"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL Version 3"
-            ],
-            "authors": [
-                {
-                    "name": "Julius Beckmann",
-                    "email": "github@h4cc.de"
-                }
-            ],
-            "description": "Convert html to pdf using webkit (qtwebkit). Static linked linux binary for i386 systems.",
-            "homepage": "http://wkhtmltopdf.org/",
-            "keywords": [
-                "binary",
-                "convert",
-                "pdf",
-                "snapshot",
-                "thumbnail",
-                "wkhtmltopdf"
-            ],
-            "time": "2016-02-02 19:38:57"
-        },
-        {
             "name": "incenteev/composer-parameter-handler",
             "version": "v2.1.2",
             "source": {
@@ -1092,6 +1052,72 @@
             "time": "2015-11-11 17:40:14"
         },
         {
+            "name": "liuggio/ExcelBundle",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/liuggio/ExcelBundle.git",
+                "reference": "b4fe94b64449490a1b5fbbce827c2501be335126"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/liuggio/ExcelBundle/zipball/b4fe94b64449490a1b5fbbce827c2501be335126",
+                "reference": "b4fe94b64449490a1b5fbbce827c2501be335126",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "phpoffice/phpexcel": "~1.8.1",
+                "symfony/framework-bundle": "~2.6|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6",
+                "sensio/framework-extra-bundle": "~2.3|~3.0",
+                "symfony/browser-kit": "~2.6|~3.0",
+                "symfony/class-loader": "~2.6|~3.0",
+                "symfony/finder": "~2.6|~3.0",
+                "symfony/form": "~2.6|~3.0",
+                "symfony/validator": "~2.6|~3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ],
+                "psr-4": {
+                    "Liuggio\\ExcelBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ExcelBundle Contributors",
+                    "homepage": "https://github.com/liuggio/ExcelBundle#contributors"
+                },
+                {
+                    "name": "Giulio De Donato",
+                    "email": "liuggio@gmail.com"
+                }
+            ],
+            "description": "This is a Symfony2 Bundle helps you to read and write Excel files (including pdf, xlsx, odt), thanks to the PHPExcel library",
+            "homepage": "http://www.welcometothebundle.com",
+            "keywords": [
+                "Symfony2",
+                "bundle",
+                "excel",
+                "xls"
+            ],
+            "time": "2016-06-20 17:11:22"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.20.0",
             "source": {
@@ -1216,6 +1242,63 @@
                 "random"
             ],
             "time": "2016-04-03 06:00:07"
+        },
+        {
+            "name": "phpoffice/phpexcel",
+            "version": "1.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PHPExcel.git",
+                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPExcel": "Classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Maarten Balliauw",
+                    "homepage": "http://blog.maartenballiauw.be"
+                },
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "http://blog.rootslabs.net"
+                },
+                {
+                    "name": "Erik Tilt"
+                }
+            ],
+            "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+            "homepage": "http://phpexcel.codeplex.com",
+            "keywords": [
+                "OpenXML",
+                "excel",
+                "php",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2015-05-01 07:00:55"
         },
         {
             "name": "psr/log",
@@ -2344,6 +2427,46 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "h4cc/wkhtmltopdf-i386",
+            "version": "0.12.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/h4cc/wkhtmltopdf-i386.git",
+                "reference": "79f2f8ed78d35f5541beceb2ec6fcd01a76e05ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/h4cc/wkhtmltopdf-i386/zipball/79f2f8ed78d35f5541beceb2ec6fcd01a76e05ba",
+                "reference": "79f2f8ed78d35f5541beceb2ec6fcd01a76e05ba",
+                "shasum": ""
+            },
+            "bin": [
+                "bin/wkhtmltopdf-i386"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL Version 3"
+            ],
+            "authors": [
+                {
+                    "name": "Julius Beckmann",
+                    "email": "github@h4cc.de"
+                }
+            ],
+            "description": "Convert html to pdf using webkit (qtwebkit). Static linked linux binary for i386 systems.",
+            "homepage": "http://wkhtmltopdf.org/",
+            "keywords": [
+                "binary",
+                "convert",
+                "pdf",
+                "snapshot",
+                "thumbnail",
+                "wkhtmltopdf"
+            ],
+            "time": "2016-02-02 19:38:57"
+        },
         {
             "name": "sensio/generator-bundle",
             "version": "v3.0.7",

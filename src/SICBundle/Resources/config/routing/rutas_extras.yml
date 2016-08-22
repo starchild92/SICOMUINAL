@@ -62,3 +62,8 @@ sic_documentos_registro_preliminar_pdf:
     path:     /documentos/registro-preliminar-pdf
     defaults: { _controller: "SICBundle:Inicio:registroPreliminarPDF"}
     methods:  GET
+
+sic_test_excel:
+    path:     /documento/excel
+    defaults: { _controller: "SICBundle:Excel:index"}
+    methods:  GET
