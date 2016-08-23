@@ -14,6 +14,13 @@ class ExcelController extends Controller
 {
 	public function indexAction()
 	{
+
+		/**************** SECCION DE ESTILOS ****************/
+		$centrar_texto = array('alignment' => array('horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+		$relleno_gris = array('fill' => array('type' => \PHPExcel_Style_Fill::FILL_SOLID, 'color' => array('rgb' => 'DDDDDD')));
+		$border_thin = array('borders' => array('allborders' => array('style' => \PHPExcel_Style_Border::BORDER_THIN)));
+		/**************** SECCION DE ESTILOS ****************/
+
 		$phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
 
 		$phpExcelObject->getProperties()->setCreator("liuggio")
@@ -40,15 +47,13 @@ class ExcelController extends Controller
 		$sheet->getStyle('A1')->getFont()->setBold(true);
 
 		// Centrar Texto
-		$centrar_texto = array('alignment' => array('horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
 		$sheet->getStyle('A1')->applyFromArray($centrar_texto);
 
 		$sheet->getColumnDimension('A')->setWidth(100);
 		$sheet->getColumnDimension('B')->setWidth(20);
 
-
-		$sheet->getStyle('B3')->applyFromArray(array('fill' => array('type' => \PHPExcel_Style_Fill::FILL_SOLID, 'color' => array('rgb' => 'DDDDDD'))));
-
+		$sheet->getStyle('B3')->applyFromArray($relleno_gris);
+		$sheet->getStyle('B3')->applyFromArray($border_thin);
 		
 		/* AGREGAR NUEVA HOJA */
 		$phpExcelObject->createSheet();
@@ -56,27 +61,25 @@ class ExcelController extends Controller
 		$sheet = $phpExcelObject->getActiveSheet();
 
 		$sheet->setTitle('PARTE 1');
-
 		$sheet
 		   ->setCellValue('A1', 'I. DATOS PERSONALES DEL JEFE GRUPO FAMILIAR')
-		   ->setCellValue('A2', 'Nombres:')
-		   ->setCellValue('A3', 'Apellidos:');
+		   ->setCellValue('A2', 'Nombres')
+		   ->setCellValue('A3', 'Apellidos');
 
-		/**
-		* Customizando los elementos
-		**/
+		/** Customizando los elementos **/
+		$sheet->getStyle('B2')->applyFromArray($relleno_gris);
+		$sheet->getStyle('B2')->applyFromArray($border_thin);
+		$sheet->getStyle('B3')->applyFromArray($relleno_gris);
+		$sheet->getStyle('B3')->applyFromArray($border_thin);
+
 		// Poner negritas a una celda
 		$sheet->getStyle('A1')->getFont()->setBold(true);
 
 		// Cambiar el ancho de una Columna
-		$sheet->getColumnDimension('A')->setWidth(20);
-		$sheet->getColumnDimension('B')->setWidth(30);
+		$sheet->getColumnDimension('A')->setWidth(50);
+		$sheet->getColumnDimension('B')->setWidth(50);
 
-		$sheet->getRowDimension(1)->setRowHeight(-1);
-
-
-
-
+		// $sheet->getRowDimension(1)->setRowHeight(-1);
 
 		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
 		$phpExcelObject->setActiveSheetIndex(0);
