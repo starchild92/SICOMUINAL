@@ -83,7 +83,7 @@ class JefeGrupoFamiliarController extends Controller
 	            return $this->redirectToRoute('grupofamiliar_new', array('id_planilla' => $id_planilla, 'id_grupofamiliar' => 0));
         	}else{
         		$this->get('session')->getFlashBag()
-                    ->add('error', 'Ya existe una persona con este número de cédula, verifica sus datos en la Agenda de la Comunidad.');
+                    ->add('error', 'Ya existe una persona con este número de cédula, verifica sus datos en la Agenda de la Comunidad. Para poder agregarlo como Jefe de Grupo Familiar debe eliminarlo como miembro de Grupo Familiar.');
         	}
         }
 
