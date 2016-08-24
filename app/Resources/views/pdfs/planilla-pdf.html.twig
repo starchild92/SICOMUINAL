@@ -1,25 +1,25 @@
 {% extends 'base.pdf.html.twig' %}
 {% block stylesheets %}
-    <style>
-		html, body { font-family: 'Arial', sans-serif; font-size: 18px; }
-        html {
-            margin-top: 30px;
-            margin-bottom: 30px;
-            margin-left: 30px;
-            margin-right: 30px;
-        }
-        .img-responsive,
-        .thumbnail > img,
-        .thumbnail a > img,
-        .carousel-inner > .item > img,
-        .carousel-inner > .item > a > img {
-          display: block;
-          max-width: 100%;
-          height: auto;
-        }
-        .marginless{ margin: 0 0 0px !important; }
-        .tight{ padding: 0 2px 0 5px !important; }
-    </style>
+<style>
+	html, body { font-family: 'Arial', sans-serif; font-size: 18px; }
+    html {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+    .img-responsive,
+    .thumbnail > img,
+    .thumbnail a > img,
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .marginless{ margin: 0 0 0px !important; }
+    .tight{ padding: 0 2px 0 5px !important; }
+</style>
 {% endblock %}
 {% block body %}
     <div class="row">
@@ -166,12 +166,12 @@
 			<table class="table table-bordered table-condensed">
                 <tbody>
                     <tr>
-                    	<td style="width: 30%"><span class="text-uppercase negritas">Trabaja:</span> {% if planilla.situacionEconomica.dondeTrabaja == '' %}No especificó{% endif %}{{ planilla.situacionEconomica.dondeTrabaja }}</td>
+                    	<td style="width: 30%"><span class="text-uppercase negritas">Trabaja:</span> {% if planilla.situacionEconomica.dondeTrabaja == null %}No especificó{% endif %}{{ planilla.situacionEconomica.dondeTrabaja }}</td>
                     	<td style="width: 70%"><span class="text-uppercase negritas">Realiza algún tipo de actividad comercial dentro de la vivienda:</span> {% if planilla.situacionEconomica.actividadComercialenVivienda|length == 0 %}No especificó ninguna{% endif %}{% for item in planilla.situacionEconomica.actividadComercialenVivienda %}{{ item }} {% endfor %}</td>
                     </tr>
                     <tr>
                     	<td><span class="text-uppercase negritas">Ingreso Familiar:</span> {{ planilla.situacionEconomica.ingresoFamiliar_fmt }} Bs.</td>
-                    	<td><span class="text-uppercase negritas"></span> {{ planilla.situacionEconomica.ingresoFamiliarEspecifico }}</td>
+                    	<td>{% if planilla.situacionEconomica.ingresoFamiliarEspecifico == null %}No especificó{% endif %}{{ planilla.situacionEconomica.ingresoFamiliarEspecifico }}</td>
                     </tr>
                     <tr>
                     	<td colspan="2"><span class="text-uppercase negritas">Vehículo(s):</span> {% if planilla.situacionEconomica.placa == '' %}No se especificó alguno.{% endif %}{{ planilla.situacionEconomica.placa }}</td>
@@ -200,10 +200,12 @@
                     </tr>
                     <tr>
                     	<td colspan="3">
-                    		<span class="text-uppercase negritas">Presencia de Insectos y Roedores:</span> {% for item in planilla.situacionVivienda.presenciaInsectos %}{{ item }} {% endfor %}
+                    		<span class="text-uppercase negritas">Presencia de Insectos y Roedores:</span> 
+                            {% if planilla.situacionVivienda.presenciaInsectos|length == 0 %}No indicó alguna.{% endif %}{% for item in planilla.situacionVivienda.presenciaInsectos %}{{ item }} {% endfor %}
                     	</td>
                     	<td colspan="3">
-                    		<span class="text-uppercase negritas">Tiene animales domesticos en la vivienda:</span> {% for item in planilla.situacionVivienda.mascota %}{{ item }} {% endfor %}
+                    		<span class="text-uppercase negritas">Tiene animales domesticos en la vivienda:</span> 
+                            {% if planilla.situacionVivienda.mascota|length == 0 %}No indicó alguna.{% endif %}{% for item in planilla.situacionVivienda.mascota %}{{ item }} {% endfor %}
                     	</td>
                     </tr>
                 </tbody>
@@ -267,7 +269,7 @@
                 		<td colspan="4">{% if planilla.participacionComunitaria.preguntasParticipacionComunitaria|length == 0 %}<tr><td>No respondió ninguna.</td></tr>{% endif %}{% for item in planilla.participacionComunitaria.preguntasParticipacionComunitaria %}{{ item.interrogante }}: r. {{ item.respuesta }}<br>{% endfor %}</td>
                 	</tr>
                 	<tr>
-                		<td colspan="4"><span class="text-uppercase negritas">¿De crearse un Consejo Comunal en su comunidad, en cual área de trabajo le gustaría participar?</span> <br>{% if planilla.participacionComunitaria.areaTabajoCC|length == 0 %}No ha especificado alguna{% endif %}{% for item in planilla.participacionComunitaria.areaTabajoCC %}<span>{{ item.nombre }} </span>{% endfor %}</td>
+                		<td colspan="4"><span class="text-uppercase negritas">¿De crearse un Consejo Comunal en su comunidad, en cual área de trabajo le gustaría participar?</span> {% if planilla.participacionComunitaria.areaTabajoCC|length == 0 %}No ha especificado alguna{% endif %}<br>{% for item in planilla.participacionComunitaria.areaTabajoCC %}<span>{{ item.nombre }} </span>{% endfor %}</td>
                 	</tr>
                 </tbody>
             </table>
