@@ -6,8 +6,8 @@
             <!-- Main component for a primary marketing message or call to action -->
             <div class="jumbotron" style="margin-top: 15px;">
                 <div class="row">
-                    <div class="col-lg-1 col-sm-3 col-xs-2"><img src="{{ asset('images/FlatIcons/summary.png') }}" class="img img-responsive" alt="Resumen"></div>
-                    <div class="col-lg-11 col-sm-9 col-xs-10">
+                    <div class="col-lg-1 col-sm-3 col-xs-3"><img src="{{ asset('images/FlatIcons/summary.png') }}" class="img img-responsive" alt="Resumen"></div>
+                    <div class="col-lg-11 col-sm-9 col-xs-9">
                         <h2>Sistema de Información Comunal</h2>
                         <p style="font-size: 1.3em;">Sistema de apoyo para manejo, comunicación, centralización y caracterización de la información comunitaria</p>
                         {# <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
@@ -15,6 +15,42 @@
                         <p>
                             <a class="btn btn-lg btn-primary" href="#" role="button">View navbar docs</a>
                         </p> #}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="panel panel-primary">
+                        <h3 class="text-center"><i class="fa fa-user"></i></h3>
+                        <hr class="little">
+                        <h1 class="text-center">{{ cant_usuarios }}</h1>
+                        <p class="text-center text-info">Usuarios</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="panel panel-primary">
+                        <h3 class="text-center"><i class="fa fa-file"></i></h3>
+                        <hr class="little">
+                        <h1 class="text-center">{{ cant_planillas }}</h1>
+                        <p class="text-center text-info">Planillas</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="panel panel-primary">
+                        <h3 class="text-center">Algo</h3>
+                        <hr class="little">
+                        <h1 class="text-center">{{ cant_jgf }}</h1>
+                        <p class="text-center text-info">Jefes Grupo Familiar</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="panel panel-primary">
+                        <h3 class="text-center">Algo</h3>
+                        <hr class="little">
+                        <h1 class="text-center">{{ cant_personas }}</h1>
+                        <p class="text-center text-info">Miembros Comunidad</p>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,18 @@ class InicioController extends Controller
     public function inicioAction(){
         if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
         {
-            return $this->render('inicio/inicio.html.twig');
+            $em = $this->getDoctrine()->getManager();
+            $cant_usuarios = sizeof($em->getRepository('SICBundle:Usuario')->findAll());
+            $cant_jgf = sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll());
+            $cant_planillas = sizeof($em->getRepository('SICBundle:Planillas')->findAll());
+            $cant_personas = sizeof($em->getRepository('SICBundle:Persona')->findAll());
+
+            return $this->render('inicio/inicio.html.twig', array(
+                'cant_usuarios' => $cant_usuarios,
+                'cant_jgf' => $cant_jgf,
+                'cant_personas' => $cant_personas,
+                'cant_planillas' => $cant_planillas,
+                ));
         }else{
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }    
