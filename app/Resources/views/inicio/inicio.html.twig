@@ -30,9 +30,9 @@
                         <hr>
                         <p class="text-center text-info"><a href="{{ path('usuarios_index')}}">Usuarios</a></p>
                     </div>
-                    <a href="" class="btn btn-default btn-block">Agregar Usuario</a>
+                    <a href="{{ path('usuarios_new') }}" class="btn btn-default btn-block">Agregar Usuario</a>
                     <hr class="little">
-                    
+
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="panel panel-primary">
@@ -41,9 +41,9 @@
                             <div class="col-lg-6 col-sm-6 col-xs-6"><h1 class="text-center">{{ cant_planillas }}</h1></div>
                         </div>
                         <hr>
-                        <p class="text-center text-info"><a href="{{ path('planillas_index') }}">Planillas</a></p>
+                        <p class="text-center text-info"><a href="{{ path('planillas_index') }}">Encuestas</a></p>
                     </div>
-                    <a href="" class="btn btn-default btn-block">Agregar Planilla</a>
+                    <a href="{{ path('planillas_new') }}" class="btn btn-default btn-block">Agregar Encuesta</a>
                     <hr class="little">
 
                 </div>
