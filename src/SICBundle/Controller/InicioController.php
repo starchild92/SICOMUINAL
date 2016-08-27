@@ -5,6 +5,7 @@ namespace SICBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Slik\DompdfBundle\DomPDF;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use SICBundle\Entity\Bitacora;
 
 class InicioController extends Controller
@@ -206,6 +207,7 @@ class InicioController extends Controller
     }
 
     // public function cmpsector($a, $b){ return strcmp($a->getAvenida(), $b->getAvenida()); }
+    /* Estas funciones son identicas, difieren en el response, si cambias las contultas de una, debes cambiar las consultas de la otra. Obviamente el response se mantiene. */
     public function cmpdireccion($a, $b){ return strcmp($a->getAvenidaCalle(), $b->getAvenidaCalle()); }
     public function resumenCensoAction()
     {
@@ -364,7 +366,7 @@ class InicioController extends Controller
         }
     }
 
-    /**/
+    /* Estas funciones son identicas, difieren en el response, si cambias las contultas de una, debes cambiar las consultas de la otra. Obviamente el response se mantiene. */
     public function registroElectoralAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -435,7 +437,7 @@ class InicioController extends Controller
         }
     }
 
-    /**/
+    /* Estas funciones son identicas, difieren en el response, si cambias las contultas de una, debes cambiar las consultas de la otra. Obviamente el response se mantiene. */
     public function registroPreliminarAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -522,5 +524,36 @@ class InicioController extends Controller
             $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
+    }
+
+    /* Funcion de busqueda del inicio de la app */
+    public function buscadorAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $request->get('cadena');
+        $cosas = array('query' => $query);
+
+        /* Buscando en las tablas */
+        $qb = $em->createQueryBuilder();
+
+        $personas = $qb->select('p')->from('SICBundle:Persona', 'p')
+          ->where( $qb->expr()->like('p.cedula', $qb->expr()->literal('%' . $query . '%')) )
+          ->orWhere( $qb->expr()->like('p.nombre', $qb->expr()->literal('%' . $query . '%')) )
+          ->orWhere( $qb->expr()->like('p.apellido', $qb->expr()->literal('%' . $query . '%')) )
+          ->getQuery()->getResult();
+
+        // if (sizeof($personas) > 0) { $cosas['personas'] = $personas; }
+        $cosas['personas'] = $personas;
+
+        $jgf = $qb->select('j')->from('SICBundle:JefeGrupoFamiliar', 'j')
+          ->where( $qb->expr()->like('j.cedula', $qb->expr()->literal('%' . $query . '%')) )
+          ->orWhere( $qb->expr()->like('j.nombres', $qb->expr()->literal('%' . $query . '%')) )
+          ->orWhere( $qb->expr()->like('j.apellidos', $qb->expr()->literal('%' . $query . '%')) )
+          ->getQuery()->getResult();
+
+        // if (sizeof($jgf) > 0) { $cosas['jgf'] = $jgf; }
+        $cosas['jgf'] = $jgf;
+
+        return $this->render('inicio/resultados_busqueda.html.twig', array('cosas' => $cosas));
     }
 }

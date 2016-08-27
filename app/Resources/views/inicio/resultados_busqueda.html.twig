@@ -1,0 +1,15 @@
+<ul>
+{% if cosas.jgf|length > 0 %}
+	<h2>Jefes de Grupo Familiar</h2>
+	{% for jgf in cosas.jgf %}
+		<li>{{ jgf.nombreyapellido }}</li>	
+	{% endfor %}
+{% endif %}
+
+{% if cosas.personas|length > 0 %}
+	<h2>Personas</h2>
+	{% for p in cosas.personas %}
+		<li>{{ p.nombreyapellido }}</li>	
+	{% endfor %}
+{% endif %}
+</ul>

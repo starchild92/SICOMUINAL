@@ -85,10 +85,9 @@
      $(document).ready(function() {
         $('body').on('click', '#buscador', function(e) {
             e.preventDefault();
-            
             $.confirm({
                 title: 'Buscador',
-                content: '<div class="input-group"><span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search"></i></span><input type="text" class="form-control" placeholder="Búsqueda" aria-describedby="sizing-addon2"></div><br>Tendrá mejores resultados si introduce la cédula de identidad.',
+                content: '<div class="input-group"><span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search"></i></span><input type="text" id="buscador_input" class="form-control" placeholder="Búsqueda" aria-describedby="sizing-addon2"></div><br>Tendrá mejores resultados si introduce la cédula de identidad.',
                 closeIcon: true,
                 closeIconClass: 'fa fa-close',
                 theme: 'bootstrap',
@@ -97,9 +96,25 @@
                 confirmButton: 'Buscar',
                 cancelButton: 'Cancelar',
                 confirm: function(){
-                    $.alert({
-                        content: 'vamos a buscar bitches'
+                    var d1 = $.dialog({
+                        title: 'Buscando ... ',
+                        content: 'Obteniendo resultado para "'+$('#buscador_input').val()+'"',
+                    });
+                    $.ajax({
+                        method: "POST",
+                        url: "{{ path('sic_buscador_inicio') }}",
+                        data: {
+                            cadena: $('#buscador_input').val()
+                        }
                     })
+                    .done(function( msg ) {
+                        d1.close();
+                        $.dialog({
+                            title: false,
+                            columnClass: 'col-md-8 col-md-offset-2',
+                            content: msg
+                        });
+                    });
                 },
             });
 
