@@ -552,7 +552,7 @@ class InicioController extends Controller
           ->getQuery()->getResult();
 
         // if (sizeof($jgf) > 0) { $cosas['jgf'] = $jgf; }
-        $cosas['jgf'] = $jgf;
+        $cosas['personas'] = $cosas['personas'] + $jgf;
 
         return $this->render('inicio/resultados_busqueda.html.twig', array('cosas' => $cosas));
     }
