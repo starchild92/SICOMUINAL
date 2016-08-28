@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+<style>
+    hr {
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
@@ -16,10 +25,115 @@
                             <a class="btn btn-lg btn-primary" href="#" role="button">View navbar docs</a>
                         </p> #}
                     </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-xs-6"><h1 class="text-center"><i class="fa fa-user"></i></h1></div>
+                            <div class="col-lg-6 col-sm-6 col-xs-6"><h1 class="text-center">{{ cant_usuarios }}</h1></div>
+                        </div>
+                        <hr>
+                        <p class="text-center text-info"><a href="{{ path('usuarios_index')}}">Usuarios</a></p>
+                    </div>
+                    <a href="{{ path('usuarios_new') }}" class="btn btn-default btn-block">Agregar Usuario</a>
+                    <hr class="little">
+
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-xs-6"><h1 class="text-center"><i class="fa fa-files-o"></i></h1></div>
+                            <div class="col-lg-6 col-sm-6 col-xs-6"><h1 class="text-center">{{ cant_planillas }}</h1></div>
+                        </div>
+                        <hr>
+                        <p class="text-center text-info"><a href="{{ path('planillas_index') }}">Encuestas</a></p>
+                    </div>
+                    <a href="{{ path('planillas_new') }}" class="btn btn-default btn-block">Agregar Encuesta</a>
+                    <hr class="little">
+
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-xs-6"><h1 class="text-center"><i class="fa fa-street-view"></i></h1></div>
+                            <div class="col-lg-6 col-sm-6 col-xs-6"><h1 class="text-center">{{ cant_jgf }}</h1></div>
+                        </div>
+                        <hr>
+                        <p class="text-center text-info"><a href="{{ path('agenda_comunitaria') }}">Jefes Grupo Familiar</a></p>
+                    </div>
+                    <a href="#" id="buscador" class="btn btn-default btn-block">Buscar Jefe Grupo Familiar</a>
+
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-xs-6"><h1 class="text-center"><i class="fa fa-users"></i></h1></div>
+                            <div class="col-lg-6 col-sm-6 col-xs-6"><h1 class="text-center">{{ cant_personas }}</h1></div>
+                        </div>
+                        <hr>
+                        <p class="text-center text-info"><a href="{{ path('agenda_comunitaria') }}">Miembros Comunidad</a></p>
+                    </div>
+                    <a href="#" id="buscador" class="btn btn-default btn-block">Buscar Persona</a>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
 
-{% block stylesheets %}{% endblock %}
+{% block javascripts %}
+<script>
+     $(document).ready(function() {
+        $('body').on('click', '#buscador', function(e) {
+            e.preventDefault();
+            $.confirm({
+                title: 'Buscador',
+                content: '<div class="input-group"><span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search"></i></span><input type="text" id="buscador_input" class="form-control" placeholder="Búsqueda" aria-describedby="sizing-addon2"></div><br>Tendrá mejores resultados si introduce la cédula de identidad.',
+                closeIcon: true,
+                closeIconClass: 'fa fa-close',
+                theme: 'bootstrap',
+                confirmButtonClass: 'btn-info',
+                cancelButtonClass: 'btn-danger',
+                confirmButton: 'Buscar',
+                cancelButton: 'Cancelar',
+                confirm: function(){
+                    if ($('#buscador_input').val() == '') {
+                        $.dialog({
+                            title: 'Disculpe',
+                            content: '<i class="fa fa-exclamation"></i> Debe escribir algo en el cuadro de búsqueda.'
+                        })
+                    }else{
+                        var d1 = $.dialog({
+                            title: 'Buscando ... ',
+                            content: 'Obteniendo resultado para "'+$('#buscador_input').val()+'"',
+                        });
+
+                        $.ajax({
+                            method: "POST",
+                            url: "{{ path('sic_buscador_inicio') }}",
+                            data: {
+                                cadena: $('#buscador_input').val()
+                            }
+                        })
+                        .done(function( msg ) {
+                            d1.close();
+                            $.dialog({
+                                title: false,
+                                columnClass: 'col-md-8 col-md-offset-2',
+                                content: msg
+                            });
+                        });
+                    }
+                },
+            });
+
+            return false;
+        });
+     });
+</script>
+{% endblock %}
+
