@@ -67,3 +67,8 @@ sic_buscador_inicio:
     path:     /sic_buscador_inicio
     defaults: { _controller: "SICBundle:Inicio:buscador" }
     methods:  POST
+
+sic_test_excel:
+    path:     /documento/excel
+    defaults: { _controller: "SICBundle:Excel:index"}
+    methods:  GET
