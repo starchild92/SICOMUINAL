@@ -73,11 +73,11 @@
                         <p class="text-center text-info"><a href="{{ path('agenda_comunitaria') }}">Miembros Comunidad</a></p>
                     </div>
                     <a href="#" id="buscador" class="btn btn-default btn-block">Buscar Persona</a>
-
                 </div>
             </div>
         </div>
     </div>
+    <a href="{{ path('sic_test_excel') }}" class="btn btn-info btn-block">Descargar Planilla en Formato XLS</a>
 {% endblock %}
 
 {% block javascripts %}
@@ -96,25 +96,33 @@
                 confirmButton: 'Buscar',
                 cancelButton: 'Cancelar',
                 confirm: function(){
+                    if ($('#buscador_input').val() == '') {
+                        $.dialog({
+                            title: 'Disculpe',
+                            content: '<i class="fa fa-exclamation"></i> Debe escribir algo en el cuadro de búsqueda.'
+                        })
+                    }else{
                     var d1 = $.dialog({
                         title: 'Buscando ... ',
                         content: 'Obteniendo resultado para "'+$('#buscador_input').val()+'"',
                     });
-                    $.ajax({
-                        method: "POST",
-                        url: "{{ path('sic_buscador_inicio') }}",
-                        data: {
-                            cadena: $('#buscador_input').val()
-                        }
-                    })
-                    .done(function( msg ) {
-                        d1.close();
-                        $.dialog({
-                            title: false,
-                            columnClass: 'col-md-8 col-md-offset-2',
-                            content: msg
+
+                        $.ajax({
+                            method: "POST",
+                            url: "{{ path('sic_buscador_inicio') }}",
+                            data: {
+                                cadena: $('#buscador_input').val()
+                            }
+                        })
+                        .done(function( msg ) {
+                            d1.close();
+                            $.dialog({
+                                title: false,
+                                columnClass: 'col-md-8 col-md-offset-2',
+                                content: msg
+                            });
                         });
-                    });
+                    }
                 },
             });
 
@@ -123,4 +131,3 @@
      });
 </script>
 {% endblock %}
-
