@@ -735,11 +735,11 @@
 					<tr>
 						<td>{{ loop.index }}</td>
 						<td>{{ persona.nombre }} {{ persona.apellido }}</td>
-						<td>{{ persona.sexo }}</td>
+						<td>{{ persona.sexoPlanilla }}</td>
 						<td>{{ persona.cedula }}</td>
 						<td>{{ persona.fechaNacimientoCorta() }}</td>
 						<td>{{ persona.edad }}</td>
-						<td>{{ persona.incapacitado|title }}. {{ persona.incapacitadoTipo }}</td>
+						<td>{{ persona.incapacitado|title }}{% if persona.incapacitadoTipo != '' %}, {{persona.incapacitadoTipo }}{% endif %}</td>
 						<td>{{ persona.embarazoTemprano|title }}</td>
 						<td>{{ persona.parentesco }}</td>
 						<td>{{ persona.gradoInstruccion }}</td>
