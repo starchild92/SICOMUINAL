@@ -23,7 +23,7 @@ class AdminTipoSituacionExclusion
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminTipoSituacion", cascade={"persist"})
-     * @ORM\JoinColumn(name="pregunta_sit_com", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="situacion_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacion;
 

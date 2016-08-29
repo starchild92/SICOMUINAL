@@ -20,7 +20,7 @@ class SituacionSaludRepository extends EntityRepository
             ->from('SICBundle:SituacionSalud', 'm')
             ->innerJoin('m.padecencia', 'e')
             ->where('e.id = :exampleid' )
-            ->setParameter('exampleid', $situacion->getId() )
+            ->setParameter('exampleid', $situacion->getId())
             ->getQuery()
             ->getResult();
     }
@@ -33,27 +33,20 @@ class SituacionSaludRepository extends EntityRepository
             ->from('SICBundle:SituacionSalud', 'm')
             ->innerJoin('m.ayudaEspecial', 'e')
             ->where('e.id = :exampleid' )
-            ->setParameter('exampleid', $situacion->getId() )
+            ->setParameter('exampleid', $situacion->getId())
             ->getQuery()
             ->getResult();
     }
 
     public function situacionExclusion($situacion)
     {
-        // $query = $this->getEntityManager()
-        //         ->createQuery('SELECT x.situacion, SUM(x.cantidad) as cantidad
-        //             FROM SICBundle:AdminTipoSituacionExclusion x
-        //             GROUP BY x.situacion
-        //         ');
-        // $result = $query->getResult();
-        // return $result;
         return $this->getEntityManager()
             ->createQueryBuilder()
             ->select('m')
             ->from('SICBundle:SituacionSalud', 'm')
             ->innerJoin('m.situacionExclusion', 'e')
             ->where('e.id = :exampleid' )
-            ->setParameter('exampleid', $situacion->getId() )
+            ->setParameter('exampleid', $situacion->getId())
             ->getQuery()
             ->getResult();
     }
