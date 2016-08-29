@@ -19,8 +19,8 @@ class SituacionSaludRepository extends EntityRepository
             ->select('m')
             ->from('SICBundle:SituacionSalud', 'm')
             ->innerJoin('m.padecencia', 'e')
-            ->where('e.id = :exampleid' )
-            ->setParameter('exampleid', $situacion->getId())
+            ->where('e.id = :id' )
+            ->setParameter('id', $situacion->getId())
             ->getQuery()
             ->getResult();
     }
@@ -32,8 +32,8 @@ class SituacionSaludRepository extends EntityRepository
             ->select('m')
             ->from('SICBundle:SituacionSalud', 'm')
             ->innerJoin('m.ayudaEspecial', 'e')
-            ->where('e.id = :exampleid' )
-            ->setParameter('exampleid', $situacion->getId())
+            ->where('e.id = :id' )
+            ->setParameter('id', $situacion->getId())
             ->getQuery()
             ->getResult();
     }
@@ -45,8 +45,8 @@ class SituacionSaludRepository extends EntityRepository
             ->select('m')
             ->from('SICBundle:SituacionSalud', 'm')
             ->innerJoin('m.situacionExclusion', 'e')
-            ->where('e.id = :exampleid' )
-            ->setParameter('exampleid', $situacion->getId())
+            ->where('e.situacion = :id' )
+            ->setParameter('id', $situacion->getId())
             ->getQuery()
             ->getResult();
     }
