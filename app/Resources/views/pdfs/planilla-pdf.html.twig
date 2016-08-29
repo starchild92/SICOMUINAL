@@ -193,8 +193,7 @@
                     <tr>
                     	<td><span class="text-uppercase negritas">Paredes:</span> {{ planilla.situacionVivienda.paredes }}</td>
                     	<td><span class="text-uppercase negritas">Tipo de Techo:</span> {{ planilla.situacionVivienda.techo }}</td>
-                    	<td><span class="text-uppercase negritas">Esta inscrita en el SIVIH:</span> {{ planilla.situacionVivienda.sivih }}</td>
-                    	<td><span class="text-uppercase negritas">Cotiza Ley de Politica Habitacional:</span> {{ planilla.situacionVivienda.leypoliticahabitacional }}</td>
+                    	<td colspan="2"><span class="text-uppercase negritas">Esta inscrita en el SIVIH:</span> {{ planilla.situacionVivienda.sivih }}<br><span class="text-uppercase negritas">Cotiza Ley de Politica Habitacional:</span> {{ planilla.situacionVivienda.leypoliticahabitacional }}</td>
                     	<td><span class="text-uppercase negritas">Enseres Vivienda:</span> {% for item in planilla.situacionVivienda.enseres %}{{ item }}. {% endfor %}</td>
                     	<td><span class="text-uppercase negritas">Condiciones de Salubridad:</span> {{ planilla.situacionVivienda.salubridad }}</td>
                     </tr>
