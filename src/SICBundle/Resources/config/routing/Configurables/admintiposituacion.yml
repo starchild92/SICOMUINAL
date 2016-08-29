@@ -1,0 +1,24 @@
+admintiposituacion_index:
+    path:     /
+    defaults: { _controller: "SICBundle:AdminTipoSituacion:index" }
+    methods:  GET
+
+admintiposituacion_show:
+    path:     /{id}/show
+    defaults: { _controller: "SICBundle:AdminTipoSituacion:show" }
+    methods:  GET
+
+admintiposituacion_new:
+    path:     /new
+    defaults: { _controller: "SICBundle:AdminTipoSituacion:new" }
+    methods:  [GET, POST]
+
+admintiposituacion_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SICBundle:AdminTipoSituacion:edit" }
+    methods:  [GET, POST]
+
+admintiposituacion_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SICBundle:AdminTipoSituacion:delete" }
+    methods:  DELETE

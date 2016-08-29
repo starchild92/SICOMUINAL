@@ -22,9 +22,8 @@ class AdminTipoSituacionExclusion
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situacion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AdminTipoSituacion", cascade={"persist"})
+     * @ORM\JoinColumn(name="pregunta_sit_com", referencedColumnName="id", onDelete="CASCADE")
      */
     private $situacion;
 
@@ -48,29 +47,6 @@ class AdminTipoSituacionExclusion
     }
 
     /**
-     * Set situacion
-     *
-     * @param string $situacion
-     * @return AdminTipoSituacionExclusion
-     */
-    public function setSituacion($situacion)
-    {
-        $this->situacion = $situacion;
-
-        return $this;
-    }
-
-    /**
-     * Get situacion
-     *
-     * @return string 
-     */
-    public function getSituacion()
-    {
-        return $this->situacion;
-    }
-
-    /**
      * Set cantidad
      *
      * @param integer $cantidad
@@ -91,5 +67,28 @@ class AdminTipoSituacionExclusion
     public function getCantidad()
     {
         return $this->cantidad;
+    }
+
+    /**
+     * Set situacion
+     *
+     * @param \SICBundle\Entity\AdminTipoSituacion $situacion
+     * @return AdminTipoSituacionExclusion
+     */
+    public function setSituacion(\SICBundle\Entity\AdminTipoSituacion $situacion = null)
+    {
+        $this->situacion = $situacion;
+
+        return $this;
+    }
+
+    /**
+     * Get situacion
+     *
+     * @return \SICBundle\Entity\AdminTipoSituacion 
+     */
+    public function getSituacion()
+    {
+        return $this->situacion;
     }
 }
