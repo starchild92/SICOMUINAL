@@ -228,6 +228,10 @@ sic_admintipocondicionterreno:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipocondicionterreno.yml"
     prefix:   /administrar/configurables/tipo/condiciones/terreno
 
+sic_admintiposituacion:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintiposituacion.yml"
+    prefix:   /administrar/configurables/tipo/situacion
+
 # --------------------------------------------------------------------
 
 sic_configurables_tipos_organizaciones_comunitarias:

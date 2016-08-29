@@ -263,10 +263,10 @@ class EstadisticasController extends Controller
             array_push($stat_ayuda_especial, array('elemento' => $elemento->getNombre(),'situacion' => ($em->getRepository('SICBundle:SituacionSalud')->ayudaEspecial($elemento))));
         }
 
-        $situacion_exclusion = $em->getRepository('SICBundle:SituacionSalud')->situacionExclusion();
+        $situacion_exclusion = $em->getRepository('SICBundle:AdminTipoSituacion')->findAll();
         $stat_situacion_exclusion = array();
         foreach ($situacion_exclusion as $elemento) {
-            array_push($stat_situacion_exclusion, array('elemento' => $elemento['situacion'],'situacion' => $elemento['cantidad']));
+            array_push($stat_situacion_exclusion, array('elemento' => $elemento->getSituacion(),'situacion' => ($em->getRepository('SICBundle:SituacionSalud')->situacionExclusion($elemento))));
         }
 
         return array(

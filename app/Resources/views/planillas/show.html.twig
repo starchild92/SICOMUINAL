@@ -457,7 +457,7 @@
 									{% if planilla.situacionSalud.situacionExclusion|length == 0 %}
 									<p>No se ha registrado ninguna</p>
 									{% endif %}
-									<p>{% for situacionExclusion in planilla.situacionSalud.situacionExclusion %}<span class="label label-default">{{ situacionExclusion.situacion }}: {{ situacionExclusion.cantidad }}</span>{% endfor %}</p>
+									<p>{% for situacionExclusion in planilla.situacionSalud.situacionExclusion %}<span class="label label-default">{{ situacionExclusion.situacion }}: {{ situacionExclusion.cantidad }}</span> {% endfor %}</p>
 								</div>
 							</div>
 							{# <hr> #}

@@ -23,14 +23,14 @@
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="panel panel-danger">
+					<div class="panel panel-warning">
 						<p class="panel-title text-center negritas">CNE - Personas de la Comunidad</p>
 						{% if personas.stat_cne_p|length == 0 %} <p class="text-center">No se encontró alguno</p> {% endif %}
 						{% for object in personas.stat_cne_p %}
 							<div class="panel-body">
 								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.resp }}"</h4>
 								{% for p in object.quienes %}
-								<a class="label label-danger" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								<a class="label label-warning" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 						{% endfor %}
@@ -67,14 +67,14 @@
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="panel panel-danger">
+					<div class="panel panel-warning">
 						<p class="panel-title text-center negritas">Niveles de Instrucción - Personas de la Comunidad</p>
 						{% if personas.stat_instruccion_p|length == 0 %} <p class="text-center">No se encontró alguno</p> {% endif %}
 						{% for object in personas.stat_instruccion_p %}
 							<div class="panel-body">
 								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.nivel }}"</h4>
 								{% for p in object.quienes %}
-								<a class="label label-danger" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} ({{ p.edad }} a) <i class="fa fa-external-link"></i></a>
+								<a class="label label-warning" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} ({{ p.edad }} a) <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 						{% endfor %}
@@ -96,14 +96,14 @@
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="panel panel-danger">
+					<div class="panel panel-warning">
 						<p class="panel-title text-center negritas">Profesiones - Personas de la Comunidad</p>
 						{% if personas.stat_profesiones_p|length == 0 %} <p class="text-center">No se encontró alguno</p> {% endif %}
 						{% for object in personas.stat_profesiones_p %}
 							<div class="panel-body">
 								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.profesion }}"</h4>
 								{% for p in object.quienes %}
-								<a class="label label-danger" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								<a class="label label-warning" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 						{% endfor %}
@@ -125,14 +125,14 @@
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="panel panel-danger">
+					<div class="panel panel-warning">
 						<p class="panel-title text-center negritas">Discapacidades - Personas de la Comunidad</p>
 						{% if personas.stat_discapacidades_p|length == 0 %} <p class="text-center">No se encontró alguno</p> {% endif %}
 						{% for object in personas.stat_discapacidades_p %}
 							<div class="panel-body">
 								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.discapacidad }}"</h4>
 								{% for p in object.quienes %}
-								<a class="label label-danger" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								<a class="label label-warning" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 						{% endfor %}
@@ -156,7 +156,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="panel panel-danger">
+					<div class="panel panel-warning">
 						<p class="panel-title text-center negritas">Pensionados - Personas de la Comunidad</p>
 						{% if personas.stat_pensionados_p|length == 0 %} <p class="text-center">No se encontró alguno</p>{% endif %}
 						{% for object in personas.stat_pensionados_p %}
@@ -164,7 +164,7 @@
 							<div class="panel-body">
 								<h4 class="bottom-line">{{object.quienes|length}} Respondieron "{{ object.pensionados }}"</h4>
 								{% for p in object.quienes %}
-								<a class="label label-danger" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								<a class="label label-warning" target="_blank" href="{{ path('personas_show', {'id' : p.id }) }}">{{ p.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 							{% endif %}

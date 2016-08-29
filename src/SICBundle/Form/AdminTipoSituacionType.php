@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdminTipoSituacionExclusionType extends AbstractType
+class AdminTipoSituacionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,13 +15,7 @@ class AdminTipoSituacionExclusionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('situacion', 'entity', array(
-                'class'     => 'SICBundle:AdminTipoSituacion',
-                'label'     => 'Tipo Situación',
-                'placeholder'   => 'Seleccione una',
-                'attr'  =>  array(
-                    'class' => 'ui dropdown')))
-            ->add('cantidad')
+            ->add('situacion')
         ;
     }
     
@@ -31,7 +25,7 @@ class AdminTipoSituacionExclusionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SICBundle\Entity\AdminTipoSituacionExclusion'
+            'data_class' => 'SICBundle\Entity\AdminTipoSituacion'
         ));
     }
 }
