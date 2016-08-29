@@ -195,7 +195,7 @@
                     	<td><span class="text-uppercase negritas">Tipo de Techo:</span> {{ planilla.situacionVivienda.techo }}</td>
                     	<td><span class="text-uppercase negritas">Esta inscrita en el SIVIH:</span> {{ planilla.situacionVivienda.sivih }}</td>
                     	<td><span class="text-uppercase negritas">Cotiza Ley de Politica Habitacional:</span> {{ planilla.situacionVivienda.leypoliticahabitacional }}</td>
-                    	<td><span class="text-uppercase negritas">Enseres Vivienda:</span> {% for item in planilla.situacionVivienda.enseres %}{{ item }} {% endfor %}</td>
+                    	<td><span class="text-uppercase negritas">Enseres Vivienda:</span> {% for item in planilla.situacionVivienda.enseres %}{{ item }}. {% endfor %}</td>
                     	<td><span class="text-uppercase negritas">Condiciones de Salubridad:</span> {{ planilla.situacionVivienda.salubridad }}</td>
                     </tr>
                     <tr>
@@ -219,7 +219,7 @@
 
                     	<td style="width: 33.333%"><span class="text-uppercase negritas">¿Necesita usted de alguna ayuda especial para familiares enfermos en su hogar?</span> {% if planilla.situacionSalud.ayudaEspecial|length == 0 %}No especificó ninguno{% endif %}{% for item in planilla.situacionSalud.ayudaEspecial %}{{ item }} {% endfor %}</td>
 
-                    	<td style="width: 33.333%"><span class="text-uppercase negritas">Situación de Exclusión:</span><br>{% if planilla.situacionSalud.situacionExclusion|length == 0 %}No se ha registrado ninguna{% endif %}{% for item in planilla.situacionSalud.situacionExclusion %}{{ item }} {% endfor %}</td>
+                    	<td style="width: 33.333%"><span class="text-uppercase negritas">Situación de Exclusión:</span> {% if planilla.situacionSalud.situacionExclusion|length == 0 %}No se ha registrado ninguna{% endif %}{% for item in planilla.situacionSalud.situacionExclusion %}{{ item.situacion }} - Cant: {{ item.cantidad }}. {% endfor %}</td>
                     </tr>
                 </tbody>
             </table>
@@ -242,13 +242,13 @@
                 		</td>
                 	</tr>
                 	<tr>
-                		<td><span class="text-uppercase negritas">Telefonía: </span>{% if planilla.situacionServicios.telefonia|length == 0 %}No especificó alguno.{% endif %}{% for telefonia in planilla.situacionServicios.telefonia %}{{ telefonia.nombre }} {% endfor %}</td>
+                		<td><span class="text-uppercase negritas">Telefonía: </span>{% if planilla.situacionServicios.telefonia|length == 0 %}No especificó alguno.{% endif %}{% for telefonia in planilla.situacionServicios.telefonia %}{{ telefonia.nombre }}. {% endfor %}</td>
 
-                		<td><span class="text-uppercase negritas">Transporte: </span>{% if planilla.situacionServicios.transporte|length == 0 %}No especificó alguno.{% endif %}{% for transporte in planilla.situacionServicios.transporte %}{{ transporte.nombre }} {% endfor %}</td>
+                		<td><span class="text-uppercase negritas">Transporte: </span>{% if planilla.situacionServicios.transporte|length == 0 %}No especificó alguno.{% endif %}{% for transporte in planilla.situacionServicios.transporte %}{{ transporte.nombre }}. {% endfor %}</td>
 
-                		<td><span class="text-uppercase negritas">Mecanismos de Información: </span>{% if planilla.situacionServicios.mecanismoInformacion|length == 0 %}No especificó alguno.{% endif %}{% for mecanismoInformacion in planilla.situacionServicios.mecanismoInformacion %}{{ mecanismoInformacion.nombre }} {% endfor %}</td>
+                		<td><span class="text-uppercase negritas">Mecanismos de Información: </span>{% if planilla.situacionServicios.mecanismoInformacion|length == 0 %}No especificó alguno.{% endif %}{% for mecanismoInformacion in planilla.situacionServicios.mecanismoInformacion %}{{ mecanismoInformacion.nombre }}. {% endfor %}</td>
 
-                		<td><span class="text-uppercase negritas">Servicios Comunales: </span>{% if planilla.situacionServicios.serviciosComunales|length == 0 %}No especificó alguno.{% endif %}{% for serviciosComunales in planilla.situacionServicios.serviciosComunales %}{{ serviciosComunales.nombre }} {% endfor %}</td>
+                		<td><span class="text-uppercase negritas">Servicios Comunales: </span>{% if planilla.situacionServicios.serviciosComunales|length == 0 %}No especificó alguno.{% endif %}{% for serviciosComunales in planilla.situacionServicios.serviciosComunales %}{{ serviciosComunales.nombre }}. {% endfor %}</td>
                 	</tr>
                 </tbody>
             </table>
