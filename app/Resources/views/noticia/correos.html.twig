@@ -110,16 +110,19 @@
                         $.confirm({
                             title: "Desea enviar los Mensajes",
                             content: "Tenga paciencia, dependiendo de la cantidad de personas esta opción puede tardar.",
-                            theme: 'black',
-                            confirmButtonClass: 'btn-danger',
-                            cancelButtonClass: 'btn-info',
+                            theme: 'bootstrap',
+                            confirmButtonClass: 'btn-success',
+                            cancelButtonClass: 'btn-default',
+                            confirmButton: 'Enviar',
+                            cancelButton: 'Cancelar',
                             confirm: function(){
                                 $.confirm({
-                                    theme: 'black',
+                                    theme: 'bootstrap',
                                     title: false,
                                     content: 'Para enviarlos presione OKAY',
-                                    confirmButtonClass: 'btn-danger',
+                                    confirmButtonClass: 'btn-success',
                                     cancelButtonClass: 'btn-default',
+                                    cancelButton: 'Cancelar',
                                     confirm: function(){
                                         $('#modal-body').submit();
                                     }
@@ -140,10 +143,10 @@
                 title: 'Advertencia!',
                 content: 'Perderá lo que ha escrito si continua, ¿Desea continuar?',
                 onButton: 'Cerrar',
+                theme: 'bootstrap',
                 cancelButton: 'Continuar escribiendo',
                 confirmButtonClass: 'btn-danger',
-                cancelButtonClass: 'btn-info',
-                theme: 'black',
+                cancelButtonClass: 'btn-default',
                 confirm: function(){
                     html = "<div class='panel-body'><span id='modal-body'><div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr class='little'>Cargando el formulario</div></span></div>";
                     $('#body-modal').replaceWith(html)
