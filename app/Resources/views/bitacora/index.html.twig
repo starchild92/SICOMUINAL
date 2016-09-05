@@ -52,8 +52,8 @@
             <hr>
             <h2 class="text-center"><i class="fa fa-meh-o fa-fw"></i> No se encontrarón entradas en la bitácora para la fecha o rango que especificó.</h2>
         </div>
-    {% endif %}
-    {% set dia_actual = date('today') %}
+    {% else %}
+        {% set dia_actual = date('today') %}
         <div class="col-lg-12">
             <table id="dataTable" class="table table-bordered table-condensed">
                 <thead>
@@ -103,6 +103,7 @@
                 </tbody>
             </table>
         </div>
+    {% endif %}
     </div>
 </div>
 <div class="loader" id="loader"></div>
