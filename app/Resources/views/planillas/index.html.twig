@@ -24,7 +24,7 @@
                                 <p class="small marginless">{% if planilla.terminada != 100 %}Sin terminar</span>{% else %}Terminada</span>{% endif %}</p></td>
                             <td class="hidden-xs">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}"><i class="fa fa-link"></i></a><p class="small marginless">{{ planilla.empadronador.cedula }}</p></td>
                             <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombreyapellido }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula() }}</p> {% endif %}</td>
-                            <td class="hidden-xs text-center">{{ planilla.grupoFamiliar.cantidadMiembros }} personas</td>
+                            <td class="hidden-xs text-center">{% if planilla.terminada == 100 %}{{ planilla.grupoFamiliar.cantidadMiembros }} personas{% endif %}</td>
                             <td class="text-center">{{ planilla.fechaCron() }}</td>
                             <td class="hidden-xs hidden-sm text-center">{{ planilla.terminada }}%</td>
                             <td>
