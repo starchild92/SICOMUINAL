@@ -4,21 +4,21 @@ comites_index:
     methods:  GET
 
 comites_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:Comite:show" }
     methods:  GET
 
 comites_new:
-    path:     /new
+    path:     /nuevo
     defaults: { _controller: "SICBundle:Comite:new" }
     methods:  [GET, POST]
 
 comites_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:Comite:edit" }
     methods:  [GET, POST]
 
 comites_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:Comite:delete" }
     methods:  DELETE

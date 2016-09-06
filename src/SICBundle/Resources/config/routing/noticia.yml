@@ -4,22 +4,22 @@ noticia_index:
     methods:  GET
 
 noticia_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:Noticia:show" }
     methods:  GET
 
 noticia_new:
-    path:     /new
+    path:     /nuevo
     defaults: { _controller: "SICBundle:Noticia:new" }
     methods:  [GET, POST]
 
 noticia_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:Noticia:edit" }
     methods:  [GET, POST]
 
 noticia_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:Noticia:delete" }
     methods:  DELETE
 

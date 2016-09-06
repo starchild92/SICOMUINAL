@@ -4,7 +4,7 @@ personas_index:
     methods:  GET
 
 personas_show:
-    path:     /miembro/{id}/show
+    path:     /miembro/{id}/mostrar
     defaults: { _controller: "SICBundle:Persona:show" }
     methods:  GET
 
@@ -14,12 +14,12 @@ personas_new:
     methods:  [GET, POST]
 
 personas_edit:
-    path:     /miembro/{id}/edit
+    path:     /miembro/{id}/editar
     defaults: { _controller: "SICBundle:Persona:edit" }
     methods:  [GET, POST]
 
 personas_delete:
-    path:     /miembro/{id}/delete
+    path:     /miembro/{id}/eliminar
     defaults: { _controller: "SICBundle:Persona:delete" }
     methods:  DELETE
 

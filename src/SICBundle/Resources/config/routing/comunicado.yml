@@ -4,22 +4,22 @@ comunicado_index:
     methods:  GET
 
 comunicado_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:Comunicado:show" }
     methods:  GET
 
 comunicado_new:
-    path:     /new
+    path:     /nuevo
     defaults: { _controller: "SICBundle:Comunicado:new" }
     methods:  [GET, POST]
 
 comunicado_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:Comunicado:edit" }
     methods:  [GET, POST]
 
 comunicado_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:Comunicado:delete" }
     methods:  DELETE
 
