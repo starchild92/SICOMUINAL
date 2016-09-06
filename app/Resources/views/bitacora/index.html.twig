@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    {# <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> #}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/daterangepicker.css') }}" />
     <style type="text/css">
         #datefilter{ font-family: 'Open Sans', sans-serif; font-size: 14px; }
         .loader {
