@@ -79,7 +79,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="{{ path('sic_homepage') }}"><img src="{{ asset('images/logo.png') }}" alt="logo" class="img-responsive"></a>
+					<a title="Ir al Inicio" class="navbar-brand" href="{{ path('sic_homepage') }}"><img src="{{ asset('images/logo.png') }}" alt="logo" class="img-responsive"></a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 				
@@ -139,20 +139,20 @@
 							<li role="separator" class="divider"></li>
 
 							<li class="dropdown-header">{# <i class="fa fa-file"></i> #} Documentos</li>
-							<li><a href="{{ path('sic_documentos_cuaderno_votacion') }}"><i class="fa fa-file-text-o"></i> Cuaderno de Votación</a></li>
-							<li><a href="{{ path('sic_documentos_resumen_censo') }}"><i class="fa fa-file-text-o"></i> Resumen del Censo Demográfico</a></li>
-							<li><a href="{{ path('sic_documentos_registro_electoral') }}"><i class="fa fa-file-text-o"></i> Registro Electoral</a></li>
-							<li><a href="{{ path('sic_documentos_registro_preliminar') }}"><i class="fa fa-file-text-o"></i> Registro Preliminar</a></li>
+							<li><a title="Obtener documento PDF" href="{{ path('sic_documentos_cuaderno_votacion') }}"><i class="fa fa-file-text-o"></i> Cuaderno de Votación</a></li>
+							<li><a title="Obtener documento PDF" href="{{ path('sic_documentos_resumen_censo') }}"><i class="fa fa-file-text-o"></i> Resumen del Censo Demográfico</a></li>
+							<li><a title="Obtener documento PDF" href="{{ path('sic_documentos_registro_electoral') }}"><i class="fa fa-file-text-o"></i> Registro Electoral</a></li>
+							<li><a title="Obtener documento PDF" href="{{ path('sic_documentos_registro_preliminar') }}"><i class="fa fa-file-text-o"></i> Registro Preliminar</a></li>
 							
 							<li role="separator" class="divider"></li>
-							<li><a target="__NEW" href="{{ path('sic_todas_las_planillas') }}"><i class="fa fa-file-text-o"></i> Obtener todas las Planillas</a></li>
+							<li><a title="Obtenga todas las planillas del sistema en formato PDF" target="__NEW" href="{{ path('sic_todas_las_planillas') }}"><i class="fa fa-file-text-o"></i> Obtener todas las Planillas</a></li>
 							{# <li class="dropdown-header"><i class="fa fa-file"></i> Excel</li> #}
 							{# <li><a href="{{ path('sic_test_excel') }}"><i class="fa fa-file-text-o"></i> Obtener Excel</a></li> #}
 						</ul>
 					</li>
 
 					<li class="dropdown btn-primary">
-						<a href="#" style="color: #FFF;" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
+						<a href="#" style="color: #FFF;" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" title="Información Usuario" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
 						<ul class="dropdown-menu">
 							<li class="dropdown-header">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</li>
 							{# <li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li> #}

@@ -10,11 +10,9 @@
 
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-theme.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/estilo.css') }}">
-		{# <link rel="stylesheet" type="text/css" href="{{ asset('css/darkly-bootstrap.css') }}"> #}
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/estilos.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/ie10-viewport-bug-workaround.css') }}">
-    	{# <link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}"> #}
 		
 		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
 		<style>
@@ -45,9 +43,10 @@
 		             url('{{ asset("fonts/Open-Sans-italic/Open-Sans-italic.svg#OpenSans")}}') format('svg');
 		}
 		* { font-family: "Open Sans", sans-serif; }
+		body { background-color: #eee !important; }
 		</style>
 	</head>
-	<body style="background-color: #ggg !important;">
+	<body>
 		<div class="container">
 			{% block body %}{% endblock %}
 		</div>
