@@ -72,3 +72,8 @@ sic_test_excel:
     path:     /documento/excel
     defaults: { _controller: "SICBundle:Excel:index"}
     methods:  GET
+
+sic_todas_las_planillas:
+    path:     /documento/obtener/todas/las/planillas
+    defaults: { _controller: "SICBundle:Planillas:obtenerTodas"}
+    methods:  GET

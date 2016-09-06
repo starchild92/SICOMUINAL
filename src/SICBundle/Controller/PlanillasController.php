@@ -513,7 +513,7 @@ class PlanillasController extends Controller
 
                 // Or get the output to handle it yourself
                 $response = new Response();
-                $response->setContent($dompdf->stream("planilla.pdf", array("Attachment"=>0)));
+                $response->setContent($dompdf->stream("planilla".$planilla->getId().".pdf", array("Attachment"=>0)));
                 $response->setStatusCode(200);
                 $response->headers->set('Content-Type', 'application/pdf');
                 return $response;
@@ -522,4 +522,37 @@ class PlanillasController extends Controller
             
     }
 
+    public function obtenerTodasAction()
+    {
+        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
+            {
+                $em = $this->getDoctrine()->getManager();
+                $planillas = $em->getRepository('SICBundle:Planillas')->findAll();
+                $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+                $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+                $comunidad_info = $comunidad[0];
+                $cc = $consejo[0];
+
+                $dompdf = new \DOMPDF();
+                $dompdf->set_paper(array(0,0,612.00,1008.00), 'landscape');
+                $dompdf->load_html($this->renderView('pdfs/planilla-pdf-todas.html.twig',
+                    array(
+                        'planillas' => $planillas,
+                        'consejo' => $cc,
+                        'comunidad' => $comunidad_info)
+                ));
+                $dompdf->render();
+
+                $entrada = new Bitacora($this->getUser(),'generó','un PDF de TODAS las planillas terminadas en el sistema.');
+                $em->persist($entrada);
+                $em->flush();
+
+                // Or get the output to handle it yourself
+                $response = new Response();
+                $response->setContent($dompdf->stream("todas_las_planillas.pdf", array("Attachment"=>0)));
+                $response->setStatusCode(200);
+                $response->headers->set('Content-Type', 'application/pdf');
+                return $response;
+            }
+    }
 }
