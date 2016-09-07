@@ -4,33 +4,32 @@
     <h2 class="text-center">Unidades y Comités</h2>
     <hr>
     <div class="row">
-        
-            {% if comites|length == 0 %}
-                <p class="text-center text-info negritas">No hay comités creados.</p>
-            {% endif %}
-            {% for comite in comites %}
-                <div class="col-sm-4">
-                {% if comite.tipoUnidad != "Unidad Ejecutiva" %}
-                <div class="panel panel-info">
-                    <div class="panel-heading">{{ comite.tipoUnidad }}</div>
-                    <div class="panel-body">
-                        <p class="negritas"></p>
-                        <p>{{ comite.cantVoceros }} voceros, los cuales son: </p>
-                        {% for v in comite.voceros %}
-                            <p>{{ v.votosElecto }} votos - {{ v.persona }} - ({{ v.tipo }})</p>
-                        {% endfor %}
-                        <div class="btn-group">
-                            <button type="button" role="button" class="btn btn-info btn-block dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="{{ path('comites_show', { 'id': comite.id }) }}"><i class="fa fa-eye"></i> Ver</a></li>
-                                <li><a href="{{ path('comites_edit', { 'id': comite.id }) }}"><i class="fa fa-edit"></i> Modificar</a></li>
-                            </ul>
-                        </div>
+        {% if comites|length == 0 %}
+            <p class="text-center text-info negritas">No hay comités creados.</p>
+        {% endif %}
+        {% for comite in comites %}
+            <div class="col-sm-4">
+            {% if comite.tipoUnidad != "Unidad Ejecutiva" %}
+            <div class="panel panel-primary">
+                <div class="panel-heading">{{ comite.tipoUnidad }}</div>
+                <div class="panel-body">
+                    <p class="negritas"></p>
+                    <p>{{ comite.cantVoceros }} voceros, los cuales son: </p>
+                    {% for v in comite.voceros %}
+                        <p>{{ v.votosElecto }} votos - {{ v.persona }} - ({{ v.tipo }})</p>
+                    {% endfor %}
+                    <div class="btn-group pull-right">
+                        <button type="button" role="button" class="btn btn-primary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="{{ path('comites_show', { 'id': comite.id }) }}"><i class="fa fa-eye"></i> Ver</a></li>
+                            <li><a href="{{ path('comites_edit', { 'id': comite.id }) }}"><i class="fa fa-edit"></i> Modificar</a></li>
+                        </ul>
                     </div>
                 </div>
-                {% endif %}
-            </div>{% endfor %}
+            </div>
+            {% endif %}
+        </div>{% endfor %}
     </div>
 
     <hr>
