@@ -31,7 +31,7 @@ class UsuarioType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'label' => 'Fecha de Nacimiento',
-                'attr' => ['class' => 'js-datepicker'],
+                'attr' => ['class' => 'js-datepicker', 'placeholder' => 'AAAA-MM-DD'],
             ))
             ->add('telefono',
                     'collection',array(

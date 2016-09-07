@@ -9,12 +9,18 @@
         <div class="col-lg-6">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    {{ form_row(form.primerNombre) }}
-                    {{ form_row(form.segundoNombre) }}
-                    {{ form_row(form.primerApellido) }}
-                    {{ form_row(form.segundoApellido) }}
-                    {{ form_row(form.cedula, { 'label' : 'Cédula'}) }}
-                    {{ form_row(form.fechaNacimiento, { 'label' : 'Fecha de Nacimiento'}) }}
+                    <div class="row">
+                        <div class="col-sm-6">{{ form_row(form.primerNombre) }}</div>
+                        <div class="col-sm-6">{{ form_row(form.segundoNombre) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">{{ form_row(form.primerApellido) }}</div>
+                        <div class="col-sm-6">{{ form_row(form.segundoApellido) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">{{ form_row(form.cedula, { 'label' : 'Cédula'}) }}</div>
+                        <div class="col-sm-6">{{ form_row(form.fechaNacimiento, { 'label' : 'Fecha de Nacimiento'}) }}</div>
+                    </div>
                     {{ form_row(form.telefono) }}
                 </div>
             </div>     
@@ -24,10 +30,14 @@
                 <div class="panel-body">
                     {{ form_row(form.email, { 'label': 'Correo Electronico' }) }}
                     {{ form_row(form.username, { 'label': 'Nombre de Usuario' }) }}
-                    {{ form_row(form.plainPassword.first, { 'label' : 'Contraseña'}) }}
-                    {{ form_row(form.plainPassword.second, { 'label' : 'Repita Contraseña'}) }}
-                    {{ form_row(form.enabled) }}
-                    {{ form_row(form.roles) }}
+                    <div class="row">
+                        <div class="col-sm-6">{{ form_row(form.plainPassword.first, { 'label' : 'Contraseña'}) }}</div>
+                        <div class="col-sm-6">{{ form_row(form.plainPassword.second, { 'label' : 'Repita Contraseña'}) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">{{ form_row(form.enabled) }}</div>
+                        <div class="col-sm-6">{{ form_row(form.roles) }}</div>
+                    </div>
                 </div>
             </div>     
         </div>
