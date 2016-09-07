@@ -71,15 +71,11 @@
                 {% if comite.voceros|length == 0 %}<td></td><td></td>{% endif %}
                 <td>
                     <div class="btn-group">
-                        <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
+                        <button type="button" role="button" class="btn btn-primary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li>
-                                <a href="{{ path('comites_show', { 'id': comite.id }) }}"><i class="fa fa-eye"></i> Ver</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('comites_edit', { 'id': comite.id }) }}"><i class="fa fa-edit"></i> Modificar</a>
-                            </li>
+                            <li><a href="{{ path('comites_show', { 'id': comite.id }) }}"><i class="fa fa-eye"></i> Ver</a></li>
+                            <li><a href="{{ path('comites_edit', { 'id': comite.id }) }}"><i class="fa fa-edit"></i> Modificar</a></li>
                         </ul>
                     </div>
                 </td>
@@ -97,18 +93,18 @@
     <script>
         $(document).ready(function() {
             dataTable = $('.table').DataTable( {
-                    // "pageLength": 25,
-                    "bLengthChange": false,
-                    // "info": true,
-                    'stateSave': true,
-                    'pagingType': 'full_numbers',
-                    "language": {
-                        "url": "{{ asset('datatables/espanol.js') }}"
-                    },
-                    "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
-                            "<'row'<'col-sm-12'tr>>" +
-                            "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                });
+                // "pageLength": 25,
+                "bLengthChange": false,
+                // "info": true,
+                'stateSave': true,
+                'pagingType': 'full_numbers',
+                "language": {
+                    "url": "{{ asset('datatables/espanol.js') }}"
+                },
+                "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            });
         });
     </script>
 {% endblock %}
