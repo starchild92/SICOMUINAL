@@ -110,9 +110,8 @@
 									{{ vocero.votos }} votos
 								</p>
 							{% endfor %}
-							<a href="{{ path('comites_edit', { 'id': unidad.id }) }}" class="btn btn-info btn-block"><i class="fa fa-edit"></i> Modificar</a>
+							<a href="{{ path('comites_edit', { 'id': unidad.id }) }}" class="btn btn-info btn-block"><i class="fa fa-edit"></i> Modificar unidad</a>
 						</div>
-						
 					</div>
 				</div>
 			</div>
@@ -127,15 +126,16 @@
 					<div class="row">
 						{% for unidad in unidades_eje %}
 						<div class="col-sm-4">
-							<p class="bottom-line negritas text-info p-header">{{ unidad.nombre }}</p>
+							<p class="bottom-line negritas text-info p-header">{{ unidad.nombre }} <a href="{{ path('comites_edit', { 'id': unidad.id }) }}" class="btn btn-default btn-xs pull-right"><i class="fa fa-edit"></i> modificar</a></p>
 							{% if unidad.voceros|length == 0 %}
 								<p class="text-center negritas">No hay voceros asignados</p>
 							{% endif %}
 							{% for vocero in unidad.voceros %}
 								<p class="text-left">{{ vocero.vocero.nombreyapellido() }}<br>
-									<span class="negritas">{{ vocero.tipo }}</span>
+									<span class="negritas">{{ vocero.tipo }}</span><br>
+									{{ vocero.votos }} votos
 								</p>
-								<a href="{{ path('comites_edit', { 'id': unidad.id }) }}" class="btn btn-success btn-block btn-sm"><i class="fa fa-edit"></i> Modificar</a>
+								
 							{% endfor %}
 						</div>
 						{% endfor %}

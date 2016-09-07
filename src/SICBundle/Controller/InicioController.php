@@ -64,6 +64,7 @@ class InicioController extends Controller
 
                 array_push($personas, array(
                     "tipo" => $v->getTipo(),
+                    "votos" => $v->getVotosElecto(),
                     "vocero" => $voce,
                 ));
             }

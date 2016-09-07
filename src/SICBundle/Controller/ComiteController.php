@@ -70,12 +70,12 @@ class ComiteController extends Controller
         $em = $this->getDoctrine()->getManager();
         //En la entidad el atributo es unique, esto debe ser binario
         $vocero = $em->getRepository('SICBundle:Vocero')->findBy(array('persona' => $cedula));
+        
         if (sizeof($vocero) > 0) {
             $comites = $vocero[0]->getComite();
             foreach ($comites as $com) { if ($com->getId() == $comite) { return false; } }
             $persona = $this->getPersonaByCedula($cedula);
-            $this->get('session')->getFlashBag()
-            ->add('error', 'El usuario "'.$persona->nombreyapellido().'" ya es miembro de un comité.');
+            $this->get('session')->getFlashBag()->add('error', 'El usuario "'.$persona->nombreyapellido().'" ya es miembro de un comité.');
             return true;
         }else{
             return false;
@@ -218,12 +218,13 @@ class ComiteController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $voceros = $comite->getVoceros();
+
             /* En la cedulas solo se permiten numeros */
             foreach ($voceros as $vocero) {
                 $cedula = filter_var($vocero->getPersona(), FILTER_SANITIZE_NUMBER_INT);
-                // echo $cedula; die();
+                $vocero->setPersona($cedula);
+
                 if ($this->getPersonaByCedula($cedula) == NULL) {
-                    $vocero->setPersona($cedula);
                     $this->get('session')->getFlashBag()->add('danger', 'La cédula '.$cedula.' no existe en el sistema.');
                     return $this->render('comite/edit.html.twig', array(
                         'comite' => $comite,
