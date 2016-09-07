@@ -84,11 +84,12 @@ class InicioController extends Controller
                 $personas = array();
                 $voceros = $ue->getVoceros();
                 foreach ($voceros as $v) {
-                    $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $v->getPersona()));
+                    $cedula = filter_var($v->getPersona(), FILTER_SANITIZE_NUMBER_INT);
+                    $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
                     if (sizeof($r)>0) {
                         $voce = $r[0];
                     }else{
-                        $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $v->getPersona()));
+                        $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
                         if (sizeof($r)>0) {
                             $voce = $r[0];
                         }else{

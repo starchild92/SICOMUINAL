@@ -102,6 +102,8 @@
 							<li><a href="{{ path('planillas_index') }}"><i class="fa fa-file-o"></i> Listar Encuestas</a></li>
 							<li><a href="{{ path('planillas_new') }}"><i class="fa fa-clipboard"></i> Nueva Encuesta</a></li>
 							{# <li><a href="#"><i class="fa fa-edit"></i> Modificar Encuesta</a></li> #}
+							<li role="separator" class="divider"></li>
+							<li><a title="Obtenga todas las planillas del sistema en formato PDF" target="_new" href="{{ path('sic_todas_las_planillas') }}"><i class="fa fa-file-text-o"></i> Imprimir todas las Encuestas</a></li>
 						</ul>
 					</li>
 
@@ -143,8 +145,7 @@
 							<li><a title="Obtener documento PDF" href="{{ path('sic_documentos_registro_electoral') }}"><i class="fa fa-file-text-o"></i> Registro Electoral</a></li>
 							<li><a title="Obtener documento PDF" href="{{ path('sic_documentos_registro_preliminar') }}"><i class="fa fa-file-text-o"></i> Registro Preliminar</a></li>
 							
-							<li role="separator" class="divider"></li>
-							<li><a title="Obtenga todas las planillas del sistema en formato PDF" target="_new" href="{{ path('sic_todas_las_planillas') }}"><i class="fa fa-file-text-o"></i> Obtener todas las Planillas</a></li>
+							{# <li role="separator" class="divider"></li> #}
 							{# <li class="dropdown-header"><i class="fa fa-file"></i> Excel</li> #}
 							{# <li><a href="{{ path('sic_test_excel') }}"><i class="fa fa-file-text-o"></i> Obtener Excel</a></li> #}
 						</ul>
