@@ -70,9 +70,10 @@ class InicioController extends Controller
 
             array_push($unidades_eje, array(
                 "tipoUnidad" => $ue->getTipoUnidad(),
+                "id" => $ue->getId(),
                 "nombre" => $ue->getNombre(),
                 "voceros" => $personas,
-                ));
+            ));
         }
 
         $em->flush();
@@ -107,14 +108,14 @@ class InicioController extends Controller
                 }
 
                 array_push($unidades_restantes, array(
+                    "id" => $ue->getId(),
                     "tipoUnidad" => $ue->getTipoUnidad(),
                     "voceros" => $personas,
                 ));
             }
         }
+        
         $em->flush();
-
-        //die();
 
         // Solo una sola instancia de esta entidad
         if (count($comunidad) > 0) { $comunidad = $comunidad[0]; }
