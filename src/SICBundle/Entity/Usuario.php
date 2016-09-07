@@ -32,7 +32,7 @@ class Usuario extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="segundoNombre", type="string", length=255)
+     * @ORM\Column(name="segundoNombre", type="string", length=255, nullable=true)
      */
     private $segundoNombre;
 
@@ -46,7 +46,7 @@ class Usuario extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="segundoApellido", type="string", length=255)
+     * @ORM\Column(name="segundoApellido", type="string", length=255, nullable=true)
      */
     private $segundoApellido;
 

@@ -23,9 +23,15 @@ class UsuarioType extends AbstractType
         
         $builder
             ->add('primerNombre')
-            ->add('segundoNombre')
+            ->add('segundoNombre', 'text', array(
+                'label'     => 'Segundo Nombre',
+                'required'  => false,
+            ))
             ->add('primerApellido')
-            ->add('segundoApellido')
+            ->add('segundoApellido', 'text', array(
+                'label'     => 'Segundo Apellido',
+                'required'  => false,
+            ))
             ->add('cedula')
             ->add('fechaNacimiento', DateType::class, array(
                 'widget' => 'single_text',
