@@ -1,4 +1,4 @@
-Sistema de Información Comunal
+(Beta) Sistema de Información Comunal
 ===
 
 A Symfony project created on February 1, 2016, 1:06 pm.
