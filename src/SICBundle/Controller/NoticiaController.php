@@ -46,7 +46,7 @@ class NoticiaController extends Controller
             $noticium->setUsuario($this->getUser());
             $noticium->setFecha(new \DateTime('now'));
             $noticium->setFechaPub(new \DateTime('now'));
-            $this->get('session')->getFlashBag()->add('success', 'Se han agregado una noticia nueva');
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado una nueva noticia, titulada "'.$noticium->getTitulo().'"');
             $entrada = new Bitacora($this->getUser(),'agregó','una Noticia nueva, titulada: '.$noticium->getTitulo().'.');
             $em->persist($noticium);
             $em->persist($entrada);

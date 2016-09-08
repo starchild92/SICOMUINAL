@@ -1,18 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1 class="text-center">Crear Noticia</h1>
+    <h1 class="text-center"><i class="fa fa-plus"></i> Crear Noticia <a class="btn btn-primary pull-right" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver todas</a></h1>
     <hr>
     {{ form_start(form, {'id':'appbundle_correo'}) }}
         <div class="row">
-            <div class="col-sm-10">{{ form_row(form.titulo) }}</div>
-            <div class="col-sm-2">{{ form_widget(form.visibilidad) }}</div>
+            <div class="col-lg-10">{{ form_row(form.titulo) }}</div>
+            <div class="col-lg-2">{{ form_widget(form.visibilidad) }}</div>
         </div>
+        <label for="TypeHere">Cuerpo de la Noticia</label>
         {{ form_widget(form.cuerpo, {'id':'TypeHere'}) }}
         <hr class="little">
-        <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save fa-fw"></i> Actualizar Texto del Correo </button>
+        <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save fa-fw"></i> Agregar Nueva Noticia </button>
     {{ form_end(form) }}
-
+    <hr class="little">
+    <p>Estas noticias apareceran en la página pública del Consejo Comunal, si usted marca la casilla <span class="negritas">Hacer visible</span>, de los contrario no serán mostradas. </p>
 {% endblock %}
 {% block javascripts %}
     <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
