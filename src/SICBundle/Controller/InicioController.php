@@ -151,8 +151,12 @@ class InicioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+            
             $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
             $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
             $votantes = array();
@@ -162,6 +166,7 @@ class InicioController extends Controller
 
             return $this->render('inicio/cuaderno-votacion.html.twig',
                 array(
+                    'consejo' => $cc,
                     'votantes' => $votantes,
                     'comunidad' => $comunidad_info));
         }else{
@@ -173,8 +178,11 @@ class InicioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
 
             $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
             $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
@@ -188,6 +196,7 @@ class InicioController extends Controller
             $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
             $dompdf->load_html($this->renderView('pdfs/cuaderno-votacion-pdf.html.twig',
                 array(
+                    'consejo' => $cc,
                     'votantes' => $votantes,
                     'comunidad' => $comunidad_info))
             );
