@@ -70,10 +70,7 @@
                     {% if (entity.fecha|date('Y-m-d') != dia_actual|date('Y-m-d')) or (loop.index == 1) %}
                         {% set dia_actual = entity.fecha %}
                             <tr class="text-center">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="text-center">{{ entity.fechaF(dia_actual) }}</td>
+                                <td colspan="4" class="text-center negritas">{{ entity.fechaF(dia_actual) }}</td>
                             </tr>
                     {% endif %}
                     <tr class="{% if entity.accion == 'agregó' %}success{% elseif entity.accion == 'eliminó' %}danger{% elseif entity.accion == 'envió' %}warning{% else %}info{% endif %}">

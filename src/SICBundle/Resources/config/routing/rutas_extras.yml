@@ -77,3 +77,26 @@ sic_todas_las_planillas:
     path:     /documento/obtener/todas/las/planillas
     defaults: { _controller: "SICBundle:Planillas:obtenerTodas"}
     methods:  GET
+
+noticia_correo:
+    path:     /correos
+    defaults: { _controller: "SICBundle:Noticia:correos" }
+    methods:  GET
+
+noticia_correo_usuarios:
+    path:     /correos/usuarios
+    defaults: { _controller: "SICBundle:Noticia:correosUsuarios" }
+    methods:  GET
+
+noticia_toggle_correo:
+    path:     /{correo}/alternar/subscripcion
+    defaults: { _controller: "SICBundle:Noticia:alternarSubscripcion" }
+    methods:  GET
+
+
+# RUTAS PARA LA PARTE PUBLICA DEL SISTEMA
+# Noticias del Consejo Comunal
+noticia_newsletter:
+    path:     /publico/noticias
+    defaults: { _controller: "SICBundle:Noticia:newsletter" }
+    methods:  GET
