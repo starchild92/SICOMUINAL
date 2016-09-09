@@ -100,3 +100,8 @@ noticia_newsletter:
     path:     /publico/noticias
     defaults: { _controller: "SICBundle:Noticia:newsletter" }
     methods:  GET
+
+publico_vocerias:
+    path:     /publico/vocerias
+    defaults: { _controller: "SICBundle:Noticia:vocerias" }
+    methods:  GET

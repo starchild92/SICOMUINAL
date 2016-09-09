@@ -96,8 +96,6 @@ class InicioController extends Controller
                             $voce = $r[0];
                         }else{
                             $em->remove($v);
-                            // echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
-                            // die();
                         }
                     }
 
