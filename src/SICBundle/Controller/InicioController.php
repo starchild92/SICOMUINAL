@@ -34,6 +34,10 @@ class InicioController extends Controller
         return $this->redirect($this->generateUrl('fos_user_security_login'));
     }
 
+    public function cmpVotos($a, $b){
+        if ($a['votos'] == $b['votos']) { return 0; }
+        return ($a['votos'] > $b['votos']) ? -1 : 1;
+    }
     public function administrarEntidadesAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -67,6 +71,7 @@ class InicioController extends Controller
                     "votos" => $v->getVotosElecto(),
                     "vocero" => $voce,
                 ));
+                usort($personas, array($this, "cmpVotos"));
             }
 
             array_push($unidades_eje, array(
@@ -111,6 +116,7 @@ class InicioController extends Controller
                     "tipoUnidad" => $ue->getTipoUnidad(),
                     "voceros" => $personas,
                 ));
+                usort($personas, array($this, "cmpVotos"));
             }
         }
         

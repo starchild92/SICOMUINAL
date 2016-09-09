@@ -152,6 +152,10 @@ class NoticiaController extends Controller
         ));
     }
 
+    public function cmpVotos($a, $b){
+        if ($a['votos'] == $b['votos']) { return 0; }
+        return ($a['votos'] > $b['votos']) ? -1 : 1;
+    }
     public function voceriasAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -185,6 +189,7 @@ class NoticiaController extends Controller
                     "votos" => $v->getVotosElecto(),
                     "vocero" => $voce,
                 ));
+                usort($personas, array($this, "cmpVotos"));
             }
 
             array_push($unidades_eje, array(
@@ -222,6 +227,7 @@ class NoticiaController extends Controller
                         "votos" => $v->getVotosElecto(),
                         "vocero" => $voce,
                     ));
+                    usort($personas, array($this, "cmpVotos"));
                 }
 
                 array_push($unidades_restantes, array(
