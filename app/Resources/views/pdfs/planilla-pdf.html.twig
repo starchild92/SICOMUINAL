@@ -107,7 +107,8 @@
                     	<td>
                     		<span class="text-uppercase negritas">E-mail:</span> <br>{{ planilla.jefeGrupoFamiliar.emailPlanilla }}
                     	</td>
-                    	<td colspan="2"><span class="text-uppercase negritas">Clasificación del Ingreso Familiar:</span> <br>{{ planilla.jefeGrupoFamiliar.ingresoFamiliar }}</td>
+                    	<td><span class="text-uppercase negritas">Clasificación del Ingreso Familiar:</span> <br>{{ planilla.jefeGrupoFamiliar.ingresoFamiliar }}</td>
+                        <td><span class="text-uppercase negritas">¿Esta Embarazada?</span> <br>{{ planilla.jefeGrupoFamiliar.embarazada }}</td>
                     	<td><span class="text-uppercase negritas">Ingreso Mensual:</span> <br>{{ planilla.jefeGrupoFamiliar.ingresoMensual_fmt }} Bs.</td>
                     </tr>
                 </tbody>
@@ -228,26 +229,17 @@
                 <tbody>
                 	<tr>
                 		<td>
-                			<span class="text-uppercase negritas">Suministro de Aguas Blancas: </span>{{ planilla.situacionServicios.aguasBlancas }} <br><span class="text-uppercase negritas">Medidor de Consumo: </span>{{ planilla.situacionServicios.medidor }}<br><span class="text-uppercase negritas">Capacidad del Tanque: </span>{{ planilla.situacionServicios.ltsTanque }} lts
+                			<span class="text-uppercase negritas">Suministro de Aguas Blancas: </span>{{ planilla.situacionServicios.aguasBlancas }} <br><span class="text-uppercase negritas">Medidor de Consumo: </span>{{ planilla.situacionServicios.medidor }}<br><span class="text-uppercase negritas">Capacidad del Tanque: </span>{{ planilla.situacionServicios.ltsTanque }} lts <br><span class="text-uppercase negritas">Telefonía: </span>{% if planilla.situacionServicios.telefonia|length == 0 %}No especificó alguno.{% endif %}{% for telefonia in planilla.situacionServicios.telefonia %}{{ telefonia.nombre }}. {% endfor %}
                 		</td>
                 		<td>
-                			<span class="text-uppercase negritas">Cant. Pipotes: </span>{{ planilla.situacionServicios.cantPipotes }} pipotes <br><span class="text-uppercase negritas">Servicio de Aguas Servidas: </span>{{ planilla.situacionServicios.aguasServidas }}<br><span class="text-uppercase negritas">Suministro de Gas: </span>{{ planilla.situacionServicios.gas }}, {{ planilla.situacionServicios.cantBombonas }} bombonas de {% if planilla.situacionServicios.capacidadBombona != '' %}{{ planilla.situacionServicios.capacidadBombona }}{% else %}No especificó capacidad.{% endif %}
+                			<span class="text-uppercase negritas">Cant. Pipotes: </span>{{ planilla.situacionServicios.cantPipotes }} pipotes <br><span class="text-uppercase negritas">Servicio de Aguas Servidas: </span>{{ planilla.situacionServicios.aguasServidas }}<br><span class="text-uppercase negritas">Suministro de Gas: </span>{{ planilla.situacionServicios.gas }}, {{ planilla.situacionServicios.cantBombonas }} bombonas de {% if planilla.situacionServicios.capacidadBombona != '' %}{{ planilla.situacionServicios.capacidadBombona }}{% else %}No especificó capacidad.{% endif %}<br><span class="text-uppercase negritas">Transporte: </span>{% if planilla.situacionServicios.transporte|length == 0 %}No especificó alguno.{% endif %}{% for transporte in planilla.situacionServicios.transporte %}{{ transporte.nombre }}. {% endfor %}
                 		</td>
                 		<td>
-                			<span class="text-uppercase negritas">Duración y Precio Cilindro: </span>{{ planilla.situacionServicios.precioBombona }} Bs. durante: {% if planilla.situacionServicios.duracionBombona != '' %}{{ planilla.situacionServicios.duracionBombona }}{% else %}No especificó.{% endif %}<br><span class="text-uppercase negritas">Proveedor de Gas: </span>{% if planilla.situacionServicios.empresaGas == '' %}No aplica{% else %}{{ planilla.situacionServicios.empresaGas }}{% endif %}<br><span class="text-uppercase negritas">Suministro Eléctrico: </span>{{ planilla.situacionServicios.sistemaElectrico }}
+                			<span class="text-uppercase negritas">Duración y Precio Cilindro: </span>{{ planilla.situacionServicios.precioBombona }} Bs. durante: {% if planilla.situacionServicios.duracionBombona != '' %}{{ planilla.situacionServicios.duracionBombona }}{% else %}No especificó.{% endif %}<br><span class="text-uppercase negritas">Proveedor de Gas: </span>{% if planilla.situacionServicios.empresaGas == '' %}No aplica{% else %}{{ planilla.situacionServicios.empresaGas }}{% endif %}<br><span class="text-uppercase negritas">Suministro Eléctrico: </span>{{ planilla.situacionServicios.sistemaElectrico }}<br><span class="text-uppercase negritas">Mecanismos de Información: </span>{% if planilla.situacionServicios.mecanismoInformacion|length == 0 %}No especificó alguno.{% endif %}{% for mecanismoInformacion in planilla.situacionServicios.mecanismoInformacion %}{{ mecanismoInformacion.nombre }}. {% endfor %}
                 		</td>
                 		<td>
-                			<span class="text-uppercase negritas">Posee Medidor Electrico: </span>{{ planilla.situacionServicios.medidorElectrico }}<br><span class="text-uppercase negritas">Posee Bombillos Ahorradores de Energía: </span>{{ planilla.situacionServicios.bombillosAhorradores }}<br><span class="text-uppercase negritas">Recolección de Basura: </span>{% if planilla.situacionServicios.recoleccionBasura == '' %}No especificó ninguno{% endif %}{{ planilla.situacionServicios.recoleccionBasura }}
+                			<span class="text-uppercase negritas">Posee Medidor Electrico: </span>{{ planilla.situacionServicios.medidorElectrico }}<br><span class="text-uppercase negritas">Posee Bombillos Ahorradores de Energía: </span>{{ planilla.situacionServicios.bombillosAhorradores }}<br><span class="text-uppercase negritas">Recolección de Basura: </span>{% if planilla.situacionServicios.recoleccionBasura == '' %}No especificó ninguno{% endif %}{{ planilla.situacionServicios.recoleccionBasura }}<br><span class="text-uppercase negritas">Servicios Comunales: </span>{% if planilla.situacionServicios.serviciosComunales|length == 0 %}No especificó alguno.{% endif %}{% for serviciosComunales in planilla.situacionServicios.serviciosComunales %}{{ serviciosComunales.nombre }}. {% endfor %}
                 		</td>
-                	</tr>
-                	<tr>
-                		<td><span class="text-uppercase negritas">Telefonía: </span>{% if planilla.situacionServicios.telefonia|length == 0 %}No especificó alguno.{% endif %}{% for telefonia in planilla.situacionServicios.telefonia %}{{ telefonia.nombre }}. {% endfor %}</td>
-
-                		<td><span class="text-uppercase negritas">Transporte: </span>{% if planilla.situacionServicios.transporte|length == 0 %}No especificó alguno.{% endif %}{% for transporte in planilla.situacionServicios.transporte %}{{ transporte.nombre }}. {% endfor %}</td>
-
-                		<td><span class="text-uppercase negritas">Mecanismos de Información: </span>{% if planilla.situacionServicios.mecanismoInformacion|length == 0 %}No especificó alguno.{% endif %}{% for mecanismoInformacion in planilla.situacionServicios.mecanismoInformacion %}{{ mecanismoInformacion.nombre }}. {% endfor %}</td>
-
-                		<td><span class="text-uppercase negritas">Servicios Comunales: </span>{% if planilla.situacionServicios.serviciosComunales|length == 0 %}No especificó alguno.{% endif %}{% for serviciosComunales in planilla.situacionServicios.serviciosComunales %}{{ serviciosComunales.nombre }}. {% endfor %}</td>
                 	</tr>
                 </tbody>
             </table>

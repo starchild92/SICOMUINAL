@@ -98,11 +98,15 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 									<p class="bottom-line negritas text-info">Sexo</p>
 									<p>{{ planilla.jefeGrupoFamiliar.sexo }}</p>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-4">
+									<p class="bottom-line negritas text-info">¿Esta embarazada?</p>
+									<p>{{ planilla.jefeGrupoFamiliar.embarazada|title }}</p>
+								</div>
+								<div class="col-sm-4">
 									<p class="bottom-line negritas text-info">¿Posee alguna Discapacidad?</p>
 									<p>{{ planilla.jefeGrupoFamiliar.incapacitado|title }}</p>
 								</div>
@@ -163,7 +167,7 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Ingreso Mensual</p>
-									<p>{{ planilla.jefeGrupoFamiliar.ingresoMensual_fmt }}</p>
+									<p>{{ planilla.jefeGrupoFamiliar.ingresoMensual_fmt }} Bs</p>
 								</div>
 							</div>
 							{# <hr> #}
@@ -202,8 +206,7 @@
 									<p>{{ planilla.grupoFamiliar.numeroCasa }}</p>
 								</div>
 								<div class="col-sm-12">
-									<p class="bottom-line negritas text-info">Este Grupo está formado por</p>
-									<p>{{ planilla.grupoFamiliar.cantidadMiembros }} personas</p>
+									<p class="negritas text-info">Esta familia está conformada por un grupo de {{ planilla.grupoFamiliar.cantidadMiembros }} personas</p>
 								</div>
 							</div>
 							{# <div class="row">
@@ -219,14 +222,14 @@
 
 							<div class="row">
 								<div class="col-sm-12">
-									<p class="bottom-line negritas text-info text-center">Personas que conforman el Grupo Familiar</p>
+									{# <p class="bottom-line negritas text-info">Personas que conforman el Grupo Familiar</p> #}
 									{% if planilla.grupoFamiliar.miembros|length > 0 %}
 									<table class="table table-bordered table-condensed table-striped">
 										<thead>
 											<tr>
-												<th>Nombre, edad</th>
+												<th>Nombre, Edad</th>
 												<th>Cédula</th>
-												<th>Parentezo</th>
+												<th>Parentezco</th>
 												<th></th>
 											</tr>
 										</thead>
