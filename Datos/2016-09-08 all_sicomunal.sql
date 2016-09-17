@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sicomunal`
 --
-CREATE DATABASE IF NOT EXISTS `sicomunal` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `sicomunal`;
+-- CREATE DATABASE IF NOT EXISTS `sicomunal` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- USE `sicomunal`;
 
 -- --------------------------------------------------------
 

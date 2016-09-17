@@ -8,6 +8,7 @@ framework:
     profiler: { only_exceptions: false }
     session:
         cookie_lifetime: 0
+        # gc_maxlifetime: 10
 
 web_profiler:
     toolbar: true
