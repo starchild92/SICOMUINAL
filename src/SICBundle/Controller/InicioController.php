@@ -255,6 +255,7 @@ class InicioController extends Controller
                 // echo sizeof($grupos_del_sector);
                 $miembros = 0;
                 $entreQyD = 0;
+                $menores = 0;
                 $mayor_edad = 0;
                 $cne = 0;
                 $electores = 0;
@@ -263,6 +264,8 @@ class InicioController extends Controller
                     $miembros = sizeof($grupo->getMiembros()) + $miembros + 1;
                     $personas = $grupo->getMiembros();
                     foreach ($personas as $p) {
+                        if ($p->getEdad() < 15) { $menores++; }
+
                         if ($p->getEdad() >= 15 && $p->getEdad() <= 17) { $entreQyD++; }
                         if ($p->getEdad() >= 15) { $electores++; }
                         if ($p->getEdad() >= 18) { $mayor_edad++; }
@@ -271,6 +274,7 @@ class InicioController extends Controller
                     if ($grupo->getPlanilla() != null) {
                         $jfg = $grupo->getPlanilla()->getJefeGrupoFamiliar();
                         if ($jfg != null) {
+                            if ($jfg->getEdad() < 15) { $menores++; }
                             if ($jfg->getEdad() >= 15 && $jfg->getEdad() <= 17) { $entreQyD++; }
                             if ($jfg->getEdad() >= 15) { $electores++; }
                             if ($jfg->getEdad() >= 18) { $mayor_edad++; }
@@ -291,6 +295,7 @@ class InicioController extends Controller
                         'num_familias' => sizeof($grupos_del_sector),
                         'num_habitantes' => $habitantes_sector['cantidad'],
                         'mayoresde' => $entreQyD,
+                        'menores' => $menores,
                         'mayor_edad' => $mayor_edad,
                         'cne' => $cne,
                         'electores' => $electores));
@@ -324,6 +329,7 @@ class InicioController extends Controller
                 $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_avenida);
                 $miembros = 0;
                 $entreQyD = 0;
+                $menores = 0;
                 $mayor_edad = 0;
                 $cne = 0;
                 $electores = 0;
@@ -331,6 +337,7 @@ class InicioController extends Controller
                     $miembros = sizeof($grupo->getMiembros()) + $miembros + 1;
                     $personas = $grupo->getMiembros();
                     foreach ($personas as $p) {
+                        if ($p->getEdad() < 15) { $menores++; }
                         if ($p->getEdad() >= 15 && $p->getEdad() <= 17) { $entreQyD++; }
                         if ($p->getEdad() >= 15) { $electores++; }
                         if ($p->getEdad() >= 18) { $mayor_edad++; }
@@ -339,6 +346,7 @@ class InicioController extends Controller
                     if ($grupo->getPlanilla() != null) {
                         $jfg = $grupo->getPlanilla()->getJefeGrupoFamiliar();
                         if ($jfg != null) {
+                            if ($jfg->getEdad() < 15) { $menores++; }
                             if ($jfg->getEdad() >= 15 && $jfg->getEdad() <= 17) { $entreQyD++; }
                             if ($jfg->getEdad() >= 15) { $electores++; }
                             if ($jfg->getEdad() >= 18) { $mayor_edad++; }
@@ -352,13 +360,14 @@ class InicioController extends Controller
                     'num_familias' => sizeof($grupos_del_sector),
                     'num_habitantes' => $habitantes_sector['cantidad'],
                     'mayoresde' => $entreQyD,
+                    'menores' => $menores,
                     'mayor_edad' => $mayor_edad,
                     'cne' => $cne,
                     'electores' => $electores));
             }
 
             $dompdf = new \DOMPDF();
-            $dompdf->set_paper(array(0,0,612.00,792.00), 'portrait');
+            $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
             $dompdf->load_html($this->renderView('pdfs/resumen-censo-pdf.html.twig',
                 array(
                     'sectores' => $datos,

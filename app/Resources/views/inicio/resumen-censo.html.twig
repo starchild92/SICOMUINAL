@@ -35,6 +35,7 @@
 						<th>NRO. VIVIENDAS</th>
 						<th>NRO. FAMILIAS</th>
 						<th>NRO. HABITANTES</th>
+                        <th>MENORES DE 15</th>
 						<th>MAYORES DE 15 – 17 AÑOS</th>
 						<th>MAYORES DE 18 AÑOS</th>
 						<th>INSCRITOS EN C.N.E.</th>
@@ -47,6 +48,7 @@
                     {% set num_familias = 0 %}
                     {% set num_habitantes = 0 %}
                     {% set mayoresde = 0 %}
+                    {% set menores = 0 %}
                     {% set mayor_edad = 0 %}
                     {% set cne = 0 %}
                     {% set electores = 0 %}
@@ -54,20 +56,14 @@
 					{% for sector in sectores %}
 					<tr>
 						<td>{{ sector.sector }}</td>
-						<td>{{ sector.num_viviendas }}
-                            {% set num_viviendas = num_viviendas + sector.num_viviendas %}</td>
-						<td>{{ sector.num_familias }}
-                            {% set num_familias = num_familias + sector.num_familias %}</td>
-						<td>{{ sector.num_habitantes }}
-                            {% set num_habitantes = num_habitantes + sector.num_habitantes %}</td>
-						<td>{{ sector.mayoresde }}
-                            {% set mayoresde = mayoresde + sector.mayoresde %}</td>
-						<td>{{ sector.mayor_edad }}
-                            {% set mayor_edad = mayor_edad + sector.mayor_edad %}</td>
-                        <td>{{ sector.cne }}
-                            {% set cne = cne + sector.cne %}</td>
-						<td>{{ sector.electores }}
-                            {% set electores = electores + sector.electores %}</td>
+						<td>{{ sector.num_viviendas }}{% set num_viviendas = num_viviendas + sector.num_viviendas %}</td>
+						<td>{{ sector.num_familias }}{% set num_familias = num_familias + sector.num_familias %}</td>
+						<td>{{ sector.num_habitantes }}{% set num_habitantes = num_habitantes + sector.num_habitantes %}</td>
+                        <td>{{ sector.menores }}{% set menores = menores + sector.menores %}</td>
+						<td>{{ sector.mayoresde }}{% set mayoresde = mayoresde + sector.mayoresde %}</td>
+						<td>{{ sector.mayor_edad }}{% set mayor_edad = mayor_edad + sector.mayor_edad %}</td>
+                        <td>{{ sector.cne }}{% set cne = cne + sector.cne %}</td>
+						<td>{{ sector.electores }}{% set electores = electores + sector.electores %}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
@@ -77,6 +73,7 @@
                         <td class="negritas">{{ num_viviendas }}</td>
                         <td class="negritas">{{ num_familias }}</td>
                         <td class="negritas">{{ num_habitantes }}</td>
+                        <td class="negritas">{{ menores }}</td>
                         <td class="negritas">{{ mayoresde }}</td>
                         <td class="negritas">{{ mayor_edad }}</td>
                         <td class="negritas">{{ cne }}</td>
