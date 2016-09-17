@@ -74,8 +74,8 @@
                         <button type="button" role="button" class="btn btn-primary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="{{ path('comites_show', { 'id': comite.id }) }}"><i class="fa fa-eye"></i> Ver</a></li>
-                            <li><a href="{{ path('comites_edit', { 'id': comite.id }) }}"><i class="fa fa-edit"></i> Modificar</a></li>
+                            <li><a href="{{ path('comites_show', { 'id': comite.id }) }}"><i class="fa fa-eye"></i> Ver {{ comite.nombre }}</a></li>
+                            <li><a href="{{ path('comites_edit', { 'id': comite.id }) }}"><i class="fa fa-edit"></i> Modificar {{ comite.nombre }}</a></li>
                         </ul>
                     </div>
                 </td>

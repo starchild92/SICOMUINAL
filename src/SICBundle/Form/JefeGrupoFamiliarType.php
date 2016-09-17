@@ -30,6 +30,12 @@ class JefeGrupoFamiliarType extends AbstractType
 
             ->add('nombres')
             ->add('apellidos')
+            
+            ->add('embarazada', EntityType::class, array(
+                'class' => 'SICBundle:AdminRespCerrada',
+                'placeholder' => 'Seleccione',
+            ))
+
             ->add('cedula','text', array(
                 'label' => 'Cédula de Identidad'))
             
@@ -60,7 +66,8 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
             ))
-            ->add('tiempoEnComunidad')
+            ->add('tiempoEnComunidad', 'text', array(
+                'label' => 'Tiempo en la Comunidad'))
             ->add('sexo', GeneroType::class, array(
                 'placeholder' => 'Elija uno'))
 

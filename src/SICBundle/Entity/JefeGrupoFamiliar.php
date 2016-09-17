@@ -177,6 +177,12 @@ class JefeGrupoFamiliar
     private $planilla;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AdminRespCerrada", cascade={"persist"})
+     * @ORM\JoinColumn(name="embarazada", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $embarazada;
+
+    /**
      * @ORM\Column(name="recibir_correo", type="boolean")
      */
     private $recibir_correo;
@@ -818,5 +824,28 @@ class JefeGrupoFamiliar
         }else{
             return false;
         }
+    }
+
+    /**
+     * Set embarazada
+     *
+     * @param \SICBundle\Entity\AdminRespCerrada $embarazada
+     * @return JefeGrupoFamiliar
+     */
+    public function setEmbarazada(\SICBundle\Entity\AdminRespCerrada $embarazada = null)
+    {
+        $this->embarazada = $embarazada;
+
+        return $this;
+    }
+
+    /**
+     * Get embarazada
+     *
+     * @return \SICBundle\Entity\AdminRespCerrada 
+     */
+    public function getEmbarazada()
+    {
+        return $this->embarazada;
     }
 }
