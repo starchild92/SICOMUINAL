@@ -264,6 +264,30 @@
 			</div>
 		</div>
 
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">Embarazada</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered table-striped table-hover table-condensed highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-height="380">
+						<thead>
+							<tr>
+								<th>Resp</th>
+								<th>Cant.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for ins in stat_embarazada %}<tr>
+								<td>{{ins.resp}}</td>
+								<td>{{ins.cantidad}}</td>
+							</tr>{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	{% endblock %}
 	

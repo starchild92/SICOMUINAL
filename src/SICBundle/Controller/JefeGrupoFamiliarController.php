@@ -222,15 +222,11 @@ class JefeGrupoFamiliarController extends Controller
         $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
         $stat_cne = array();
         foreach ($resp_cerradas as $resp) {
-            array_push(
-                $stat_cne, 
-                array(
-                    'resp' => $resp->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-                                        array('cne' => $resp->getId())
-                                        ))
-                    )
-            );
+            array_push($stat_cne, array('resp' => $resp->getRespuesta(),'cantidad'=> sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cne' => $resp->getId())))));
+        }
+        $stat_embarazada = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_embarazada, array('resp' => $resp->getRespuesta(),'cantidad'=> sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('embarazada' => $resp->getId())))));
         }
         
         $stat_empleado = array();
@@ -319,18 +315,9 @@ class JefeGrupoFamiliarController extends Controller
         $ingresofam = $em->getRepository('SICBundle:AdminClasIngresoFamiliar')->findAll();
         $stat_ingresofam = array();
         foreach ($ingresofam as $elemento) {
-            array_push(
-                $stat_ingresofam, 
-                array(
-                    'ingresofam' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-                                        array('ingresoFamiliar' => $elemento->getId())
-                                        ))
-                    )
-            );
+            array_push($stat_ingresofam, array('ingresofam' => $elemento->getNombre(),'cantidad' => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('ingresoFamiliar' => $elemento->getId())))));
         }
 
-        
 
         return array(
             'total' => $total,
@@ -344,6 +331,7 @@ class JefeGrupoFamiliarController extends Controller
             'stat_incapacidades' => $stat_incapacidades,
             'stat_pensionados' => $stat_pensionados,
             'stat_ingresofam' => $stat_ingresofam,
+            'stat_embarazada' => $stat_embarazada,
             'base_dir' => $this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath(),
         );
     }
