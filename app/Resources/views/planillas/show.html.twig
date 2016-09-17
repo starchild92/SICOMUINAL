@@ -10,6 +10,7 @@
 {% block body %}
 	<h2>Registro # {{ planilla.id }}: "Estudio Demográfico y Socioeconómico"</h2>
 	<hr>
+	
 	<div class="row">
 		<div class="col-sm-3">
 			<div class="panel panel-default">
@@ -20,7 +21,7 @@
 						{% if planilla.jefeGrupoFamiliar != null %}
 							<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
 						{% endif %}
-							<p><span class="negritas">Fecha:</span> {{ planilla.fechayhora() }}</p>
+						<p><span class="negritas">Fecha:</span> {{ planilla.fechayhora() }}</p>
 					</div>
 			</div>
 			<hr class="little">
@@ -38,10 +39,13 @@
 		</div>
 		<div class="col-sm-9">
 			{% if planilla.terminada != 100 %}
-				<p class="well well-sm"><a class="btn btn-primary btn-block negritas" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Esta encuesta está sin terminar, haga click aqui para continuarla <i class="fa fa-arrow-right"></i></a></p>
+				<div class="alert alert-info text-center">
+					<strong>Disculpe!</strong> <a class="link" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Esta encuesta está sin terminar, haga click aqui para continuarla <i class="fa fa-arrow-right"></i></a>
+				</div>
+				<hr class="little">
 			{% endif %}
+
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-				
 				{% if planilla.jefeGrupoFamiliar != null %}
 				<div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingOne">
@@ -86,7 +90,7 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">CNE</p>
-									<p>{{ planilla.jefeGrupoFamiliar.cne }}, estoy inscrito en el Consejo Nacional Electoral</p>
+									<p>{{ planilla.jefeGrupoFamiliar.cne }} estoy inscrito en el Consejo Nacional Electoral</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Tiempo en la Comunidad</p>

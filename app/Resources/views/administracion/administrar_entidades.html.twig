@@ -2,8 +2,9 @@
 {% block stylesheets %}
 	<style>
 		.p-header {
-			padding: 3px;
+			padding: 6px;
     		background-color: beige;
+    		text-transform: uppercase;
 		}
 	</style>
 {% endblock %}
@@ -126,16 +127,16 @@
 					<div class="row">
 						{% for unidad in unidades_eje %}
 						<div class="col-sm-4">
-							<p class="bottom-line negritas text-info p-header">{{ unidad.nombre }} <a href="{{ path('comites_edit', { 'id': unidad.id }) }}" class="btn btn-default btn-xs pull-right"><i class="fa fa-edit"></i> modificar</a></p>
+							<p class="bottom-line negritas text-info p-header">{{ unidad.nombre }} </p>
 							{% if unidad.voceros|length == 0 %}
-								<p class="text-center negritas">No hay voceros asignados</p>
+								<p class="text-center">No hay voceros asignados</p>
+								<p><a href="{{ path('comites_edit', { 'id': unidad.id }) }}" class="link">Agregue vocero(s) haciendo clic aquí</a></p>
 							{% endif %}
 							{% for vocero in unidad.voceros %}
 								<p class="text-left">{{ vocero.vocero.nombreyapellido() }}<br>
 									<span class="negritas">{{ vocero.tipo }}</span><br>
 									{{ vocero.votos }} votos
 								</p>
-								
 							{% endfor %}
 						</div>
 						{% endfor %}
