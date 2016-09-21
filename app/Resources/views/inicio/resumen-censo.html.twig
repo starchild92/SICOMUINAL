@@ -5,8 +5,8 @@
     	<div class="col-sm-3">
             <h2>Resumen Censo Demográfico</h2>
             <p></p>
-            
-            <a href="{{ path('sic_documentos_resumen_censo_pdf') }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Obtener Resumen del Censo Demográfico</a>
+            <hr class="little">
+            <a data-url="{{ path('sic_documentos_resumen_censo_pdf') }}" class="confirm btn btn-primary btn-block"><i class="fa fa-print"></i> Obtener Resumen del Censo Demográfico</a>
         </div>
         <div class="col-sm-9">
         	<h3>Vista Preliminar de los Datos</h3>
@@ -100,6 +100,22 @@
                 "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
                 		"<'row'<'col-sm-12'tr>>" +
                 		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            });
+
+            $('a.confirm').confirm({
+                theme: 'bootstrap',
+                title: 'Continuar',
+                confirmButton: 'Descargar',
+                confirmButtonClass: 'btn-success',
+                cancelButton: 'Cancelar',
+                cancelButtonClass: 'btn-danger',
+                content: 'Por favor presione "Descargar" para obtener el documento en una pestaña nueva.',
+                confirm: function(){
+                    window.open($('a.confirm').data('url'), '_blank');
+                },
+                cancel: function(){
+                    $.alert('Se ha cancelado la generación del documento!')
+                }
             });
         });
     </script>

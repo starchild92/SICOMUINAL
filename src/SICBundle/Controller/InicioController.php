@@ -212,7 +212,7 @@ class InicioController extends Controller
 
             // Or get the output to handle it yourself
             $response = new Response();
-            $response->setContent($dompdf->stream("cuaderno-votacion.pdf", array("Attachment"=>1)));
+            $response->setContent($dompdf->stream("cuaderno-votacion.pdf", array("Attachment"=>0)));
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
@@ -381,7 +381,7 @@ class InicioController extends Controller
             $em->flush();
 
             $response = new Response();
-            $response->setContent($dompdf->stream("resumen-censo-demografico.pdf", array("Attachment"=>1)));
+            $response->setContent($dompdf->stream("resumen-censo-demografico.pdf", array("Attachment"=>0)));
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
@@ -451,7 +451,7 @@ class InicioController extends Controller
             $em->flush();
 
             $response = new Response();
-            $response->setContent($dompdf->stream("registro-electoral.pdf", array("Attachment"=>1)));
+            $response->setContent($dompdf->stream("registro-electoral.pdf", array("Attachment"=>0)));
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
@@ -540,7 +540,7 @@ class InicioController extends Controller
             $em->flush();
 
             $response = new Response();
-            $response->setContent($dompdf->stream("registro-electoral-preliminar.pdf", array("Attachment"=>1)));
+            $response->setContent($dompdf->stream("registro-electoral-preliminar.pdf", array("Attachment"=>0)));
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;

@@ -123,7 +123,7 @@
             $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
             $font = Font_Metrics::get_font("arial", "regular");
-            $pdf->page_text(20, 570, "Pagina {PAGE_NUM} de {PAGE_COUNT} - ".$dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y')." @ ".$fecha->format('H:i a'), $font, 10, array(0,0,0));
+            $pdf->page_text(20, 570, "Pagina {PAGE_NUM} de {PAGE_COUNT} - ".$dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y')." a las ".$fecha->format('H:i a'), $font, 10, array(0,0,0));
         }
     </script>
 {% endblock %}
