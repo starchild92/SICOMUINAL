@@ -95,6 +95,12 @@
 	<h2 class="text-center">Unidades y Comités</h2>
 	<hr>
 	<div class="row">
+		{% if unidades_restantes|length == 0 %}
+			<div class="col-sm-12">
+				<p class="text-center negritas">No hay voceros asignados</p>
+			</div>
+		{% endif %}
+
 		{% for unidad in unidades_restantes %}<div class="col-sm-4">
 			<div class="panel panel-primary">
 				<div class="panel-heading">{{ unidad.tipoUnidad }}</div>
@@ -118,14 +124,14 @@
 			</div>
 		</div>{% endfor %}
 	</div>
-
+	
+	{% for unidad in unidades_eje %}
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">Comité Ejecutivo</div>
 				<div class="panel-body">
 					<div class="row">
-						{% for unidad in unidades_eje %}
 						<div class="col-sm-4">
 							<p class="bottom-line negritas text-info p-header">{{ unidad.nombre }} </p>
 							{% if unidad.voceros|length == 0 %}
@@ -139,12 +145,12 @@
 								</p>
 							{% endfor %}
 						</div>
-						{% endfor %}
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	{% endfor %}
 
 	<!-- Modal -->
 	<div class="modal fade" id="modalCC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -72,7 +72,7 @@
 							</div>
 						</div>
 					{% else %}
-						<a id="btn-edit" href="#" data-action="{{ path('comunidades_new') }}" data-title="Datos de la Comunidad" class="btn btn-primary btn-block">Agregue los Datos de la Comunidad</a>
+						<p>Aun no se han cargado los datos del Consejo Comunal de esta comunidad.</p>
 					{% endif %}
 				</div>
 			</div>
@@ -110,6 +110,12 @@
 				<div class="panel-heading">Comité Ejecutivo</div>
 				<div class="panel-body">
 					<div class="row">
+						{% if unidades_eje|length == 0 %}
+							<div class="col-sm-12">
+								<p>No hay voceros asignados</p>
+							</div>
+						{% endif %}
+
 						{% for unidad in unidades_eje %}
 						<div class="col-sm-4">
 							<p class="bottom-line negritas text-info p-header">{{ loop.index }}.- {{ unidad.nombre }}</p>
