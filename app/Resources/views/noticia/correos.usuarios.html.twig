@@ -65,16 +65,20 @@
                 url = $(this).data('url');
                 if(url){
                     $.confirm({
-                        theme: 'black',
+                        theme: 'bootstrap',
                         title: 'Advertencia!',
                         content: 'Cambiar el estado de recibimiento de correos. Se modificará al estado opuesto',
-                        cancelButton: 'Cancelar',
+                        cancelButton: 'No, Cancelar',
+                        cancelButtonClass: 'btn-danger',
+                        confirmButton: 'Si, Continuar',
+                        confirmButtonClass: 'btn-success',
                         backgroundDismiss: false,
                         confirm: function(){
-                            $.confirm({
+                            $.alert({
                                 title: false,
-                                theme: 'black',
+                                theme: 'bootstrap',
                                 content: 'Aplicando cambios, espere...',
+                                confirmButton: false,
                             });
                             $.ajax({
                                 method: "GET",
@@ -87,10 +91,10 @@
                     });
                 }else{
                     $.alert({
-                        theme: 'black',
+                        theme: 'bootstrap',
                         title: 'Advertencia!',
                         content: 'El usuario no tiene correo electrónico, por lo que no se puede cambiar el estado de recibimiento, para poder hacerlo agregue un correo electrónico.',
-                        cancelButton: 'Cancelar',
+                        confirmButtonClass: 'btn-primary',
                         backgroundDismiss: false,
                     });
                 }
