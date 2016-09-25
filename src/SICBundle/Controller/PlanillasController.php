@@ -524,6 +524,7 @@ class PlanillasController extends Controller
 
     public function obtenerTodasAction()
     {
+        set_time_limit(0);
         if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
             {
                 $em = $this->getDoctrine()->getManager();

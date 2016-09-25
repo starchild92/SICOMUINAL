@@ -791,7 +791,7 @@ $(document).on('ready', function(){
 
 	$('#modalClose').on('click', function(){
 		$.confirm({
-			theme: 'black',
+			theme: 'bootstrap',
 			title: false, // hides the title.
 			cancelButton: false, // hides the cancel button.
 			confirmButton: false, // hides the confirm button.
@@ -819,7 +819,7 @@ $(document).on('ready', function(){
 			cancelButton: 'Continuar editando',
 			confirmButtonClass: 'btn-danger',
 			cancelButtonClass: 'btn-info',
-			theme: 'black',
+			theme: 'bootstrap',
 			confirm: function(){
 			},
 			cancel: function(){
@@ -833,12 +833,12 @@ $(document).on('ready', function(){
 		$.confirm({
 			title: "¿Desea Eliminarla?",
 			content: "Está a punto de eliminar una planilla con todos sus datos, tenga en mente que puede modificar cualquier sección.",
-			theme: 'black',
+			theme: 'bootstrap',
 			confirmButtonClass: 'btn-danger',
 			cancelButtonClass: 'btn-info',
 			confirm: function(){
 				$.confirm({
-					theme: 'black',
+					theme: 'bootstrap',
 					title: false,
 					content: 'Si desea continuar con la eliminación haga click en OKAY',
 					confirmButtonClass: 'btn-danger',
