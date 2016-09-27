@@ -125,18 +125,18 @@
 		</div>{% endfor %}
 	</div>
 	
-	{% for unidad in unidades_eje %}
 	<div class="row">
-		<div class="col-sm-12">
+	{% for unidad in unidades_eje %}
+		<div class="col-lg-6 col-sm-6">
 			<div class="panel panel-primary">
-				<div class="panel-heading">Comité Ejecutivo</div>
+				<div class="panel-heading">{{ unidad.nombre }}</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-sm-4">
-							<p class="bottom-line negritas text-info p-header">{{ unidad.nombre }} </p>
+						<div class="col-sm-12">
+							{# <p class="bottom-line negritas text-info p-header"> </p> #}
 							{% if unidad.voceros|length == 0 %}
 								<p class="text-center">No hay voceros asignados</p>
-								<p><a href="{{ path('comites_edit', { 'id': unidad.id }) }}" class="link">Agregue vocero(s) haciendo clic aquí</a></p>
+								<p class="text-center"><a href="{{ path('comites_edit', { 'id': unidad.id }) }}" class="link">Agregue vocero(s) haciendo clic aquí</a></p>
 							{% endif %}
 							{% for vocero in unidad.voceros %}
 								<p class="text-left">{{ vocero.vocero.nombreyapellido() }}<br>
@@ -149,8 +149,8 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	{% endfor %}
+	</div>
 
 	<!-- Modal -->
 	<div class="modal fade" id="modalCC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

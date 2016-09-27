@@ -581,4 +581,26 @@ class InicioController extends Controller
 
         return $this->render('inicio/resultados_busqueda.html.twig', array('cosas' => $cosas));
     }
+
+    public function ayudaSistemaAction(Request $request)
+    {
+        return $this->render('inicio/ayuda.html.twig');
+    }
+
+    public function descargarManualAction($tipo_manual)
+    {
+        $filename = "MANUAL DE USUARIO.pdf";
+        $request = $this->get('request');
+        $path = $this->get('kernel')->getRootDir(). "/../web/documentos/";
+        $content = file_get_contents($path.$filename);
+
+        $response = new Response();
+
+        //set headers
+        $response->headers->set('Content-Type', 'mime/type');
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+
+        $response->setContent($content);
+        return $response;
+    }
 }

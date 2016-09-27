@@ -93,6 +93,15 @@ noticia_toggle_correo:
     defaults: { _controller: "SICBundle:Noticia:alternarSubscripcion" }
     methods:  GET
 
+ayuda_del_sistema:
+    path:     /ayuda
+    defaults: { _controller: "SICBundle:Inicio:ayudaSistema" }
+    methods:  GET
+
+descargar_manual:
+    path:     /ayuda/descargar-manual/{tipo_manual}
+    defaults: { _controller: "SICBundle:Inicio:descargarManual" }
+    methods:  GET
 
 # RUTAS PARA LA PARTE PUBLICA DEL SISTEMA
 # Noticias del Consejo Comunal

@@ -161,6 +161,10 @@
 							{# <li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li> #}
 							<li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-eye"></i> Ver perfil</a></li>
 							<li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-edit"></i> Editar perfil</a></li>
+
+							<li role="separator" class="divider"></li>
+
+							<li><a href="{{ path('ayuda_del_sistema') }}"><i class="fa fa-info-circle"></i> Ayuda del Sistema</a></li>
 						</ul>
 					</li>
 
@@ -209,7 +213,7 @@
 
 		<footer class="footer">
 			<div class="container-fluid">
-				<p class="text-muted text-center negritas" style="margin-top: 10px; color: #6d4c41">T.E.G - Sistema de Información Comunal <br><small>Luis Pérez | UC - FACyT</small></p>
+				<p class="text-muted text-center negritas" style="margin-top: 10px; color: #6d4c41">T.E.G - Sistema de Información Comunal <br><small>Luis Pérez | UC - FACyT</small> | <a href="{{ path('ayuda_del_sistema') }}">Ayuda</a></p>
 			</div>
 		</footer>
 

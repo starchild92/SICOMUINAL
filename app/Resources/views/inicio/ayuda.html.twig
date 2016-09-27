@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<style>
+    hr {
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <h2><i class="fa fa-info-circle"></i> Ayuda</h2>
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">
+            <h3>Descripción</h3>
+            <p>Por usar el sistema, para mi es importante que amplie adquira destreza en el manejo de la aplicación y en general con cualquier tecnología.</p>
+            <p>Con el objetivo de ayudarle a llevar acabo cualquiera de las funcionalidades del sistema, se ha elaborado un manual que contiene en detalle los pasos que debe seguir.</p>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <h2><i class="fa fa-dowload"></i><a href="{{ path('descargar_manual', { 'tipo_manual' : 'usuario'}) }}" title="Manual Sistema de Información Comunal">Descargar Manual de Usuario de Sistema de Información Comunal</a></h2>
+        </div>
+    </div>
+    {# <hr class="little">
+    <hr class="little">
+    <a href="{{ path('sic_test_excel') }}" class="btn btn-info btn-block">Descargar Planilla en Formato XLS</a> #}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+     $(document).ready(function() {
+        // $('body').on('click', '#buscador', function(e) {
+        //     e.preventDefault();
+        //     $.confirm({
+        //         title: 'Buscador',
+        //         content: '<div class="input-group"><span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search"></i></span><input type="text" id="buscador_input" class="form-control" placeholder="Búsqueda" aria-describedby="sizing-addon2"></div><br>Tendrá mejores resultados si introduce la cédula de identidad.',
+        //         closeIcon: true,
+        //         closeIconClass: 'fa fa-close',
+        //         theme: 'bootstrap',
+        //         confirmButtonClass: 'btn-info',
+        //         cancelButtonClass: 'btn-danger',
+        //         confirmButton: 'Buscar',
+        //         cancelButton: 'Cancelar',
+        //         confirm: function(){
+        //             if ($('#buscador_input').val() == '') {
+        //                 $.dialog({
+        //                     title: 'Disculpe',
+        //                     content: '<i class="fa fa-exclamation"></i> Debe escribir algo en el cuadro de búsqueda.'
+        //                 })
+        //             }else{
+        //                 var d1 = $.dialog({
+        //                     title: 'Buscando ... ',
+        //                     content: 'Obteniendo resultado para "'+$('#buscador_input').val()+'"',
+        //                 });
+        //                 $.ajax({
+        //                     method: "POST",
+        //                     url: "{{ path('sic_buscador_inicio') }}",
+        //                     data: {
+        //                         cadena: $('#buscador_input').val()
+        //                     }
+        //                 })
+        //                 .done(function( msg ) {
+        //                     d1.close();
+        //                     $.dialog({
+        //                         title: false,
+        //                         columnClass: 'col-md-8 col-md-offset-2',
+        //                         content: msg
+        //                     });
+        //                 });
+        //             }
+        //         },
+        //     });
+
+        //     return false;
+        // });
+     });
+</script>
+{% endblock %}
