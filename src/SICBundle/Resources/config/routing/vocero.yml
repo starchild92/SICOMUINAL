@@ -4,21 +4,21 @@ vocero_index:
     methods:  GET
 
 vocero_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:Vocero:show" }
     methods:  GET
 
 vocero_new:
-    path:     /new
+    path:     /nuevo
     defaults: { _controller: "SICBundle:Vocero:new" }
     methods:  [GET, POST]
 
 vocero_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:Vocero:edit" }
     methods:  [GET, POST]
 
 vocero_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:Vocero:delete" }
     methods:  DELETE

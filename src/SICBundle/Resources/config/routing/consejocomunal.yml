@@ -4,21 +4,21 @@ consejocomunal_index:
     methods:  GET
 
 consejocomunal_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:ConsejoComunal:show" }
     methods:  GET
 
 consejocomunal_new:
-    path:     /new
+    path:     /nuevo
     defaults: { _controller: "SICBundle:ConsejoComunal:new" }
     methods:  [GET, POST]
 
 consejocomunal_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:ConsejoComunal:edit" }
     methods:  [GET, POST]
 
 consejocomunal_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:ConsejoComunal:delete" }
     methods:  DELETE

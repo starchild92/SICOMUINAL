@@ -4,7 +4,7 @@ situacionsalud_index:
     methods:  GET
 
 situacionsalud_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:SituacionSalud:show" }
     methods:  GET
 
@@ -14,11 +14,11 @@ situacionsalud_new:
     methods:  [GET, POST]
 
 situacionsalud_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:SituacionSalud:edit" }
     methods:  [GET, POST]
 
 situacionsalud_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:SituacionSalud:delete" }
     methods:  DELETE

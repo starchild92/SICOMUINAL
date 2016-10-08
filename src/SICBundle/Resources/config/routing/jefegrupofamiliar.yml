@@ -4,7 +4,7 @@ jefegrupofamiliar_index:
     methods:  GET
 
 jefegrupofamiliar_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:JefeGrupoFamiliar:show" }
     methods:  GET
 
@@ -14,12 +14,12 @@ jefegrupofamiliar_new:
     methods:  [GET, POST]
 
 jefegrupofamiliar_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:JefeGrupoFamiliar:edit" }
     methods:  [GET, POST]
 
 jefegrupofamiliar_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:JefeGrupoFamiliar:delete" }
     methods:  DELETE
 

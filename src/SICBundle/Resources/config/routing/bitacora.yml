@@ -4,22 +4,22 @@ bitacora_index:
     methods:  GET
 
 bitacora_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:Bitacora:show" }
     methods:  GET
 
 bitacora_new:
-    path:     /new
+    path:     /nueva
     defaults: { _controller: "SICBundle:Bitacora:new" }
     methods:  [GET, POST]
 
 bitacora_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:Bitacora:edit" }
     methods:  [GET, POST]
 
 bitacora_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:Bitacora:delete" }
     methods:  DELETE
 

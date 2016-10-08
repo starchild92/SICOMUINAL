@@ -4,7 +4,7 @@ usuarios_index:
     methods:  GET
 
 usuarios_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:Usuario:show" }
     methods:  GET
 
@@ -14,7 +14,7 @@ usuarios_new:
     methods:  [GET, POST]
 
 usuarios_edit:
-    path:     /{id}/editar
+    path:     /{id}/editarar
     defaults: { _controller: "SICBundle:Usuario:edit" }
     methods:  [GET, POST]
 

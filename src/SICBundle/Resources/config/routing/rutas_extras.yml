@@ -62,3 +62,55 @@ sic_documentos_registro_preliminar_pdf:
     path:     /documentos/registro-preliminar-pdf
     defaults: { _controller: "SICBundle:Inicio:registroPreliminarPDF"}
     methods:  GET
+
+sic_buscador_inicio:
+    path:     /sic_buscador_inicio
+    defaults: { _controller: "SICBundle:Inicio:buscador" }
+    methods:  POST
+
+sic_test_excel:
+    path:     /documento/excel
+    defaults: { _controller: "SICBundle:Excel:index"}
+    methods:  GET
+
+sic_todas_las_planillas:
+    path:     /documento/obtener/todas/las/planillas
+    defaults: { _controller: "SICBundle:Planillas:obtenerTodas"}
+    methods:  GET
+
+noticia_correo:
+    path:     /correos
+    defaults: { _controller: "SICBundle:Noticia:correos" }
+    methods:  GET
+
+noticia_correo_usuarios:
+    path:     /correos/usuarios
+    defaults: { _controller: "SICBundle:Noticia:correosUsuarios" }
+    methods:  GET
+
+noticia_toggle_correo:
+    path:     /{correo}/alternar/subscripcion
+    defaults: { _controller: "SICBundle:Noticia:alternarSubscripcion" }
+    methods:  GET
+
+ayuda_del_sistema:
+    path:     /ayuda
+    defaults: { _controller: "SICBundle:Inicio:ayudaSistema" }
+    methods:  GET
+
+descargar_manual:
+    path:     /ayuda/descargar-manual/{tipo_manual}
+    defaults: { _controller: "SICBundle:Inicio:descargarManual" }
+    methods:  GET
+
+# RUTAS PARA LA PARTE PUBLICA DEL SISTEMA
+# Noticias del Consejo Comunal
+noticia_newsletter:
+    path:     /publico/noticias
+    defaults: { _controller: "SICBundle:Noticia:newsletter" }
+    methods:  GET
+
+publico_vocerias:
+    path:     /publico/vocerias
+    defaults: { _controller: "SICBundle:Noticia:vocerias" }
+    methods:  GET

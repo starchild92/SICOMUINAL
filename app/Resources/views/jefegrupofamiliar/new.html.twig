@@ -31,7 +31,6 @@
                             <div class="col-sm-2">{{ form_row(form.edad) }}</div>
                             <div class="col-sm-6">{{ form_row(form.cne) }}</div>
                         </div>
-                        {{ form_row(form.edad) }}
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.tiempoEnComunidad) }}</div>
                             <div class="col-sm-6">{{ form_row(form.sexo) }}</div>
@@ -50,7 +49,10 @@
             <div class="col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        {{ form_row(form.estadoCivil) }}
+                        <div class="row">
+                            <div class="col-sm-6">{{ form_row(form.embarazada) }}</div>
+                            <div class="col-sm-6">{{ form_row(form.estadoCivil) }}</div>
+                        </div>
                         {{ form_row(form.nivelInstruccion) }}
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.profesion) }}</div>

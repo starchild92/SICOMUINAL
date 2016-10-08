@@ -1,0 +1,139 @@
+{% extends 'base_not_log.html.twig' %}
+{% block stylesheets %}<style>.p-header { padding: 3px; }</style>{% endblock %}
+
+{% block body %}
+	<h2 class="text-center">Identificación del Consejo Comunal</h2>
+	<hr>
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Datos del Consejo Comunal</div>
+				<div class="panel-body">
+					{% if consejo|length > 0 %}
+						<div class="row">
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">Nombre</p>
+								<p class="text-right">{{ consejo.nombre }}</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">Código</p>
+								<p class="text-right">{{ consejo.codigo }}</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">RIF</p>
+								<p class="text-right">{{ consejo.rif }}</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">Número Cuenta</p>
+								<p class="text-right">{{ consejo.numeroCuenta }}</p>
+							</div>
+						</div>
+					{% else %}
+						<p>Aun no se han cargado está información, le invitamos a volver en unos días.</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Datos de la Comunidad</div>
+				<div class="panel-body">
+					{% if comunidad|length > 0 %}
+						<div class="row">
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">Estado</p>
+								<p class="text-right">{{ comunidad.estado }}</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">Municipio</p>
+								<p class="text-right">{{ comunidad.municipio }}</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">Parroquía</p>
+								<p class="text-right">{{ comunidad.parroquia }}</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">Sector</p>
+								<p class="text-right">{{ comunidad.sector }}</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">Comunidad</p>
+								<p class="text-right">{{ comunidad.comunidad }}</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="bottom-line negritas text-info">Dirección</p>
+								<p class="text-right">{{ comunidad.direccion }}</p>
+							</div>
+						</div>
+					{% else %}
+						<p>Aun no se han cargado los datos del Consejo Comunal de esta comunidad.</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="text-center">Unidades y Comités</h2>
+	<hr>
+	<div class="row">
+		{% for unidad in unidades_restantes %}<div class="col-sm-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">{{ unidad.tipoUnidad }}</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-12">
+							{% if unidad.voceros|length == 0 %}
+								<p class="text-center negritas">No hay voceros asignados</p>
+							{% endif %}
+							{% for vocero in unidad.voceros %}
+								<p class="text-left">{{ vocero.vocero.nombreyapellido() }}<br>
+									<span class="negritas">{{ vocero.tipo }}</span><br>
+									{{ vocero.votos }} votos
+								</p>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>{% endfor %}
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Comité Ejecutivo</div>
+				<div class="panel-body">
+					<div class="row">
+						{% if unidades_eje|length == 0 %}
+							<div class="col-sm-12">
+								<p>No hay voceros asignados</p>
+							</div>
+						{% endif %}
+
+						{% for unidad in unidades_eje %}
+						<div class="col-sm-4">
+							<p class="bottom-line negritas text-info p-header">{{ loop.index }}.- {{ unidad.nombre }}</p>
+							{% if unidad.voceros|length == 0 %}
+								<p>No hay voceros asignados</p>
+							{% endif %}
+							{% for vocero in unidad.voceros %}
+								<p class="text-left">{{ vocero.vocero.nombreyapellido() }}<br>
+									<span class="negritas">{{ vocero.tipo }}</span><br>
+									{{ vocero.votos }} votos
+								</p>
+								
+							{% endfor %}
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

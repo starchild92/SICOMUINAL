@@ -9,7 +9,7 @@
 {% endblock %}
 {% block not_log_title %}<i class="fa fa-newspaper-o"></i> Noticias del Consejo Comunal{% endblock %}
 {% block body %}
-    <h2 class="text-center">Administración de Correos - Cuentas</h2>
+    <h2 class="text-center">Administración de Correos - Cuentas <i class="fa fa-user"></i></h2>
     <hr>
     <div class="row">
         <div class="col-sm-10">
@@ -30,7 +30,7 @@
                             <td><span class="label label-primary"> Jefe Grupo</span> {{ p.nombreyapellido() }}</td>
                             <td>{{ p.email }}</td>
                             <td>{% if p.recibir_correo %} <i class="fa fa-check text-success"></i> recibiendo {% else %} <i class="fa fa-times text-danger"></i> no recibe {% endif %}</td>
-                            <td class="text-center"><a href="#" id="toogle_mail" {% if p.email != '' %}data-url="{{ path('noticia_toggle_correo', {'correo': p.email}) }}"{% endif %} {% if p.recibir_correo %}class="btn-danger btn btn-xs"{% else %}class="btn-success btn btn-xs"{% endif %}><i class="fa fa-inbox"></i></a> <a class="btn btn-primary btn-xs" href="{{ path('jefegrupofamiliar_show', {'id' : p.id }) }}"><i class="fa fa-user"></i></a></td>
+                            <td class="text-center"><a title="Cambiar estado de recibimiento de correos" href="#" id="toogle_mail" {% if p.email != '' %}data-url="{{ path('noticia_toggle_correo', {'correo': p.email}) }}"{% endif %} {% if p.recibir_correo %}class="btn-danger btn btn-xs"{% else %}class="btn-success btn btn-xs"{% endif %}><i class="fa fa-inbox"></i></a> <a title="Información del Usuario" class="btn btn-primary btn-xs" href="{{ path('jefegrupofamiliar_show', {'id' : p.id }) }}"><i class="fa fa-user"></i></a></td>
                         </tr>
                         {% endfor %}
                         {% for p in persona %}
@@ -38,7 +38,7 @@
                             <td>{{ p.nombreyapellido() }}</td>
                             <td>{{ p.email }}</td>
                             <td>{% if p.recibir_correo %} <i class="fa fa-check text-success"></i> recibiendo{% else %} <i class="fa fa-times text-danger"></i> no recibe{% endif %}</td>
-                            <td class="text-center"><a href="#" id="toogle_mail" {% if p.email != '' %}data-url="{{ path('noticia_toggle_correo', {'correo': p.email}) }}"{% endif %} {% if p.recibir_correo %}class="btn-danger btn btn-xs"{% else %}class="btn-success btn btn-xs"{% endif %}><i class="fa fa-inbox"></i></a> <a class="btn btn-primary btn-xs" href="{{ path('personas_show', {'id' : p.id }) }}"><i class="fa fa-user"></i></a></td>
+                            <td class="text-center"><a title="Cambiar estado de recibimiento de correos" href="#" id="toogle_mail" {% if p.email != '' %}data-url="{{ path('noticia_toggle_correo', {'correo': p.email}) }}"{% endif %} {% if p.recibir_correo %}class="btn-danger btn btn-xs"{% else %}class="btn-success btn btn-xs"{% endif %}><i class="fa fa-inbox"></i></a> <a title="Información del Usuario" class="btn btn-primary btn-xs" href="{{ path('personas_show', {'id' : p.id }) }}"><i class="fa fa-user"></i></a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -65,16 +65,20 @@
                 url = $(this).data('url');
                 if(url){
                     $.confirm({
-                        theme: 'black',
+                        theme: 'bootstrap',
                         title: 'Advertencia!',
                         content: 'Cambiar el estado de recibimiento de correos. Se modificará al estado opuesto',
-                        cancelButton: 'Cancelar',
+                        cancelButton: 'No, Cancelar',
+                        cancelButtonClass: 'btn-danger',
+                        confirmButton: 'Si, Continuar',
+                        confirmButtonClass: 'btn-success',
                         backgroundDismiss: false,
                         confirm: function(){
-                            $.confirm({
+                            $.alert({
                                 title: false,
-                                theme: 'black',
+                                theme: 'bootstrap',
                                 content: 'Aplicando cambios, espere...',
+                                confirmButton: false,
                             });
                             $.ajax({
                                 method: "GET",
@@ -87,10 +91,10 @@
                     });
                 }else{
                     $.alert({
-                        theme: 'black',
+                        theme: 'bootstrap',
                         title: 'Advertencia!',
                         content: 'El usuario no tiene correo electrónico, por lo que no se puede cambiar el estado de recibimiento, para poder hacerlo agregue un correo electrónico.',
-                        cancelButton: 'Cancelar',
+                        confirmButtonClass: 'btn-primary',
                         backgroundDismiss: false,
                     });
                 }

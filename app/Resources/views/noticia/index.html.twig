@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="text-center"> <i class="fa fa-newspaper-o"></i> Noticias del Consejo Comunal</h1>
+    <h2 class="text-center"> <i class="fa fa-newspaper-o"></i> Noticias del Consejo Comunal</h2>
     <hr>
     <div class="row">
         <div class="col-sm-2">
-            <a target="__NEW" class="btn btn-default btn-block" href="{{ path('noticia_newsletter') }}"><i class="fa fa-newspaper-o"></i> Ver Página de Noticias</a>
+            <a target="__NEW" class="btn btn-success btn-block" href="{{ path('noticia_newsletter') }}"><i class="fa fa-newspaper-o"></i> Ver Página de Noticias</a>
             <a class="btn btn-primary btn-block" href="{{ path('noticia_new') }}"><i class="fa fa-plus"></i> Crear Noticia</a>
         </div>
         <div class="col-sm-10">
@@ -28,7 +28,7 @@
                 <tbody>
                 {% for noticium in noticias %}
                     <tr>
-                        <td class="col-sm-3">{{ noticium.titulo }}</td>
+                        <td class="col-sm-3"><a href="{{ path('noticia_show', { 'id': noticium.id }) }}" title="ir a la noticia">{{ noticium.titulo }}</a></td>
                         <td>{{ noticium.usuario.nombreyapellido() }}</td>
                         <td>{{ noticium.fechaOrden() }}</td>
                         <td>{% if noticium.fechaPub %}{{ noticium.fechaCron() }}{% endif %}</td>
@@ -65,6 +65,7 @@
                 // "pageLength": 25,
                 // "bLengthChange": false,
                 // "info": true,
+                "order": [[ 3, "desc" ]],
                 'stateSave': true,
                 'pagingType': 'full_numbers',
                 "language": {
@@ -86,11 +87,11 @@
                     cancelButton: 'No cambiar',
                     confirmButtonClass: 'btn-danger',
                     cancelButtonClass: 'btn-info',
-                    theme: 'black',
+                    theme: 'bootstrap',
                     confirm: function(){
                         $.confirm({
                             title: false,
-                            theme: 'black',
+                            theme: 'bootstrap',
                             content: 'Cambiando la visibilidad y recargando la página',
                             cancelButton: false, // hides the cancel button.
                             confirmButton: false, // hides the confirm button.

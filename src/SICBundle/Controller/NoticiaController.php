@@ -46,7 +46,7 @@ class NoticiaController extends Controller
             $noticium->setUsuario($this->getUser());
             $noticium->setFecha(new \DateTime('now'));
             $noticium->setFechaPub(new \DateTime('now'));
-            $this->get('session')->getFlashBag()->add('success', 'Se han agregado una noticia nueva');
+            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado una nueva noticia, titulada "'.$noticium->getTitulo().'"');
             $entrada = new Bitacora($this->getUser(),'agregó','una Noticia nueva, titulada: '.$noticium->getTitulo().'.');
             $em->persist($noticium);
             $em->persist($entrada);
@@ -150,6 +150,107 @@ class NoticiaController extends Controller
         return $this->render('noticia/newsletter.html.twig', array(
             'noticias' => $noticias,
         ));
+    }
+
+    public function cmpVotos($a, $b){
+        if ($a['votos'] == $b['votos']) { return 0; }
+        return ($a['votos'] > $b['votos']) ? -1 : 1;
+    }
+    public function voceriasAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $cc = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+
+        $unidades_eje = array();
+        $unidad_ejecutiva = $em->getRepository('SICBundle:Comite')->findBy(array('tipoUnidad' => 'Unidad Ejecutiva'));
+        foreach ($unidad_ejecutiva as $ue) {
+            $personas = array();
+            $voceros = $ue->getVoceros();
+
+            foreach ($voceros as $v) {
+                $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $v->getPersona()));
+                if (sizeof($r)>0) {
+                    $voce = $r[0];
+                }else{
+                    $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $v->getPersona()));
+                    if (sizeof($r)>0) {
+                        $voce = $r[0];
+                    }else{
+                        $em->remove($v);
+                        // print_r($v->getPersona());
+                        // echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
+                        // die();
+                    }
+                }
+
+                array_push($personas, array(
+                    "tipo" => $v->getTipo(),
+                    "votos" => $v->getVotosElecto(),
+                    "vocero" => $voce,
+                ));
+                usort($personas, array($this, "cmpVotos"));
+            }
+
+            array_push($unidades_eje, array(
+                "tipoUnidad" => $ue->getTipoUnidad(),
+                "id" => $ue->getId(),
+                "nombre" => $ue->getNombre(),
+                "voceros" => $personas,
+            ));
+        }
+
+        $em->flush();
+
+        $unidades_restantes = array();
+        $unid_res = $em->getRepository('SICBundle:Comite')->findAll();
+        foreach ($unid_res as $ue) {
+            if ($ue->getTipoUnidad() != 'Unidad Ejecutiva') {            
+                $personas = array();
+                $voceros = $ue->getVoceros();
+                foreach ($voceros as $v) {
+                    $cedula = filter_var($v->getPersona(), FILTER_SANITIZE_NUMBER_INT);
+                    $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
+                    if (sizeof($r)>0) {
+                        $voce = $r[0];
+                    }else{
+                        $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
+                        if (sizeof($r)>0) {
+                            $voce = $r[0];
+                        }else{
+                            $em->remove($v);
+                        }
+                    }
+
+                    array_push($personas, array(
+                        "tipo" => $v->getTipo(),
+                        "votos" => $v->getVotosElecto(),
+                        "vocero" => $voce,
+                    ));
+                    usort($personas, array($this, "cmpVotos"));
+                }
+
+                array_push($unidades_restantes, array(
+                    "id" => $ue->getId(),
+                    "tipoUnidad" => $ue->getTipoUnidad(),
+                    "voceros" => $personas,
+                ));
+            }
+        }
+        
+        $em->flush();
+
+        // Solo una sola instancia de esta entidad
+        if (count($comunidad) > 0) { $comunidad = $comunidad[0]; }
+        if (count($cc) > 0) { $cc = $cc[0]; }
+
+        return $this->render('noticia/vocerias.html.twig', 
+            array(
+                'comunidad' =>  $comunidad,
+                'consejo'   =>  $cc,
+                'unidades_eje'   =>  $unidades_eje,
+                'unidades_restantes'   =>  $unidades_restantes,
+            ));
     }
 
     /* cambia el estado de visto de una noticia*/

@@ -16,7 +16,7 @@ class AdminTipoSituacionExclusionType extends AbstractType
     {
         $builder
             ->add('situacion', 'entity', array(
-                'class'     => 'SICBundle:AdminTipoSituacionExclusion',
+                'class'     => 'SICBundle:AdminTipoSituacion',
                 'label'     => 'Tipo Situación',
                 'placeholder'   => 'Seleccione una',
                 'attr'  =>  array(

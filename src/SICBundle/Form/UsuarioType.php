@@ -23,15 +23,21 @@ class UsuarioType extends AbstractType
         
         $builder
             ->add('primerNombre')
-            ->add('segundoNombre')
+            ->add('segundoNombre', 'text', array(
+                'label'     => 'Segundo Nombre',
+                'required'  => false,
+            ))
             ->add('primerApellido')
-            ->add('segundoApellido')
+            ->add('segundoApellido', 'text', array(
+                'label'     => 'Segundo Apellido',
+                'required'  => false,
+            ))
             ->add('cedula')
             ->add('fechaNacimiento', DateType::class, array(
                 'widget' => 'single_text',
                 'html5' => false,
                 'label' => 'Fecha de Nacimiento',
-                'attr' => ['class' => 'js-datepicker'],
+                'attr' => ['class' => 'js-datepicker', 'placeholder' => 'AAAA-MM-DD'],
             ))
             ->add('telefono',
                     'collection',array(

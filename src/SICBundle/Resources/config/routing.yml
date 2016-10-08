@@ -8,7 +8,7 @@ sic_rutas_extras:
 
 sic_personas:
     resource: "@SICBundle/Resources/config/routing/persona.yml"
-    prefix:   /grupo/familiar
+    prefix:   /personas/grupo/familiar
 
 sic_estadisticas:
     resource: "@SICBundle/Resources/config/routing/estadisticas.yml"
@@ -24,7 +24,7 @@ sic_consejocomunal:
 
 sic_grupofamiliar:
     resource: "@SICBundle/Resources/config/routing/grupofamiliar.yml"
-    prefix:   /grupofamiliar
+    prefix:   /grupo/familiar
 
 sic_jefegrupofamiliar:
     resource: "@SICBundle/Resources/config/routing/jefegrupofamiliar.yml"
@@ -227,6 +227,10 @@ sic_admincapacidadbombona:
 sic_admintipocondicionterreno:
     resource: "@SICBundle/Resources/config/routing/Configurables/admintipocondicionterreno.yml"
     prefix:   /administrar/configurables/tipo/condiciones/terreno
+
+sic_admintiposituacion:
+    resource: "@SICBundle/Resources/config/routing/Configurables/admintiposituacion.yml"
+    prefix:   /administrar/configurables/tipo/situacion
 
 # --------------------------------------------------------------------
 

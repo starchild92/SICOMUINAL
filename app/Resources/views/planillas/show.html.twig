@@ -10,6 +10,7 @@
 {% block body %}
 	<h2>Registro # {{ planilla.id }}: "Estudio Demográfico y Socioeconómico"</h2>
 	<hr>
+	
 	<div class="row">
 		<div class="col-sm-3">
 			<div class="panel panel-default">
@@ -18,7 +19,7 @@
 						<p><a class="negritas" href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número #{{ planilla.id }}</a></p>
 						<p><span class="negritas">Empadronador: </span><a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}" title="ver información del empadronador">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }}</a></p>
 						{% if planilla.jefeGrupoFamiliar != null %}
-						<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
+							<p><span class="negritas">Encuestado:</span> {{ planilla.jefeGrupoFamiliar.nombres }} {{ planilla.jefeGrupoFamiliar.apellidos }}</p>
 						{% endif %}
 						<p><span class="negritas">Fecha:</span> {{ planilla.fechayhora() }}</p>
 					</div>
@@ -28,6 +29,9 @@
 			<a class="btn btn-primary btn-block" href="{{ path('planillas_index') }}"><i class="fa fa-eye"></i> Ver Todas las Encuestas</a>
 			{% if planilla.terminada != 100 %}
 				<a class="btn btn-primary btn-block" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}"><i class="fa fa-arrow-right"></i> Continuar Encuesta</a>
+			{% else %}
+				<hr class="little">
+				<a class="btn btn-primary btn-block" target="_blank" href="{{ path('planillas_imprimir', { 'id': planilla.id }) }}"><i class="fa fa-file-pdf-o"></i> Obtener PDF</a>
 			{% endif %}
 			<hr class="little">
 			{{ form_start(delete_form, {'attr': {'id': 'form_eliminar'}}) }}<button id="eliminarPlanilla" class="btn btn-block btn-danger" type="button"> <i class="fa fa-trash"></i> Eliminar esta Planilla</button>{{ form_end(delete_form) }}
@@ -35,10 +39,13 @@
 		</div>
 		<div class="col-sm-9">
 			{% if planilla.terminada != 100 %}
-				<p class="well well-sm"><a class="btn btn-primary btn-block negritas" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Esta encuesta está sin terminar, haga click aqui para continuarla <i class="fa fa-arrow-right"></i></a></p>
+				<div class="alert alert-info text-center">
+					<strong>Disculpe!</strong> <a class="link" href="{{ path('planillas_continuar_encuesta', { 'id_encuesta' : planilla.id }) }}">Esta encuesta está sin terminar, haga click aqui para continuarla <i class="fa fa-arrow-right"></i></a>
+				</div>
+				<hr class="little">
 			{% endif %}
+
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-				
 				{% if planilla.jefeGrupoFamiliar != null %}
 				<div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingOne">
@@ -83,7 +90,7 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">CNE</p>
-									<p>{{ planilla.jefeGrupoFamiliar.cne }}, estoy inscrito en el Consejo Nacional Electoral</p>
+									<p>{{ planilla.jefeGrupoFamiliar.cne }} estoy inscrito en el Consejo Nacional Electoral</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Tiempo en la Comunidad</p>
@@ -91,11 +98,15 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 									<p class="bottom-line negritas text-info">Sexo</p>
 									<p>{{ planilla.jefeGrupoFamiliar.sexo }}</p>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-4">
+									<p class="bottom-line negritas text-info">¿Esta embarazada?</p>
+									<p>{{ planilla.jefeGrupoFamiliar.embarazada|title }}</p>
+								</div>
+								<div class="col-sm-4">
 									<p class="bottom-line negritas text-info">¿Posee alguna Discapacidad?</p>
 									<p>{{ planilla.jefeGrupoFamiliar.incapacitado|title }}</p>
 								</div>
@@ -156,7 +167,7 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Ingreso Mensual</p>
-									<p>{{ planilla.jefeGrupoFamiliar.ingresoMensual_fmt }}</p>
+									<p>{{ planilla.jefeGrupoFamiliar.ingresoMensual_fmt }} Bs</p>
 								</div>
 							</div>
 							{# <hr> #}
@@ -195,8 +206,7 @@
 									<p>{{ planilla.grupoFamiliar.numeroCasa }}</p>
 								</div>
 								<div class="col-sm-12">
-									<p class="bottom-line negritas text-info">Este Grupo está formado por</p>
-									<p>{{ planilla.grupoFamiliar.cantidadMiembros }} personas</p>
+									<p class="negritas text-info">Esta familia está conformada por un grupo de {{ planilla.grupoFamiliar.cantidadMiembros }} personas</p>
 								</div>
 							</div>
 							{# <div class="row">
@@ -212,14 +222,14 @@
 
 							<div class="row">
 								<div class="col-sm-12">
-									<p class="bottom-line negritas text-info text-center">Personas que conforman el Grupo Familiar</p>
+									{# <p class="bottom-line negritas text-info">Personas que conforman el Grupo Familiar</p> #}
 									{% if planilla.grupoFamiliar.miembros|length > 0 %}
 									<table class="table table-bordered table-condensed table-striped">
 										<thead>
 											<tr>
-												<th>Nombre, edad</th>
+												<th>Nombre, Edad</th>
 												<th>Cédula</th>
-												<th>Parentezo</th>
+												<th>Parentezco</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -245,8 +255,10 @@
 									{% else %}
 									<p>No se han registrado miembros adiconales al Jefe del Grupo Familiar.</p>
 									{% endif %}
-									<a class="btn btn-success btn-block" href="{{path('personas_nuevo_miembro',{'id_planilla':planilla.id, 'id_grupofamiliar':planilla.grupoFamiliar.id})}}"><i class="fa fa-plus"></i> Agregar Miembro al Grupo Familiar</a>
-									
+									<div class="row">
+										<div class="col-lg-6"><a class="btn btn-success btn-block" href="{{path('personas_nuevo_miembro',{'id_planilla':planilla.id, 'id_grupofamiliar':planilla.grupoFamiliar.id})}}"><i class="fa fa-plus"></i> Agregar Miembro al Grupo Familiar</a></div>
+										<div class="col-lg-6"><button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> Ver todos los detalles del Grupo</button></div>
+									</div>
 								</div>
 							</div>
 							{# <hr> #}
@@ -324,13 +336,17 @@
 					<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-sm-6">
-									<p class="bottom-line negritas text-info">Tipo de Vivienda</p>
-									<p>{{ planilla.situacionVivienda.tipo }}</p>
+								<div class="col-sm-4">
+									<p class="bottom-line negritas text-info">Condiciones Terreno</p>
+									<p>{{ planilla.situacionVivienda.condicionesTerreno }}</p>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 									<p class="bottom-line negritas text-info">Tenencia</p>
 									<p>{{ planilla.situacionVivienda.tenencia }}</p>
+								</div>
+								<div class="col-sm-4">
+									<p class="bottom-line negritas text-info">Tipo de Vivienda</p>
+									<p>{{ planilla.situacionVivienda.tipo }}</p>
 								</div>
 							</div>
 							<div class="row">
@@ -351,7 +367,7 @@
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Cantidad de Habitaciones</p>
-									<p>{{ planilla.situacionVivienda.cantidadHabitaciones }}</p>
+									<p>{{ planilla.situacionVivienda.cantidadHabitaciones }} habitaciones</p>
 								</div>
 							</div>
 							<div class="row">
@@ -366,9 +382,23 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">¿Está inscrita en el SIVIH?</p>
+									<p>{{ planilla.situacionVivienda.sivih }}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">¿Cotiza Ley Política Habitacional?</p>
+									<p>{{ planilla.situacionVivienda.leypoliticahabitacional }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Enseres de la Vivienda</p>
+									{% if planilla.situacionVivienda.enseres|length == 0 %}
+										<p>No ha especificado alguno.</p>
+									{% else %}
 									<p>{% for enser in planilla.situacionVivienda.enseres %}
 										<span class="label label-default">{{ enser.nombre }}</span>{% endfor %}</p>
+									{% endif %}
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Salubridad</p>
@@ -378,8 +408,12 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Presencia de Insectos</p>
+									{% if planilla.situacionVivienda.presenciaInsectos|length == 0 %}
+										<p>No ha especificado alguno.</p>
+									{% else %}
 									<p>{% for insecto in planilla.situacionVivienda.presenciaInsectos %}
 										<span class="label label-default">{{ insecto.nombre }}</span>{% endfor %}</p>
+									{% endif %}
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Mascotas</p>
@@ -389,7 +423,6 @@
 										<p>{% for mascota in planilla.situacionVivienda.mascota %}
 										<span class="label label-default">{{ mascota.nombre }}</span>{% endfor %}</p>
 									{% endif %}
-									
 								</div>
 							</div>
 							{# <hr> #}
@@ -431,7 +464,7 @@
 									{% if planilla.situacionSalud.situacionExclusion|length == 0 %}
 									<p>No se ha registrado ninguna</p>
 									{% endif %}
-									<p>{% for situacionExclusion in planilla.situacionSalud.situacionExclusion %}<span class="label label-default">{{ situacionExclusion.situacion }}: {{ situacionExclusion.cantidad }}</span>{% endfor %}</p>
+									<p>{% for situacionExclusion in planilla.situacionSalud.situacionExclusion %}<span class="label label-default">{{ situacionExclusion.situacion }}: {{ situacionExclusion.cantidad }}</span> {% endfor %}</p>
 								</div>
 							</div>
 							{# <hr> #}
@@ -483,6 +516,10 @@
 									{% else %}
 										<p>{{ planilla.situacionServicios.empresaGas }}</p>
 									{% endif %}
+								</div>
+								<div class="col-sm-6">
+									<p class="bottom-line negritas text-info">Duración y Precio Cilindro</p>
+									<p>{{ planilla.situacionServicios.precioBombona }}Bs. durante: {{ planilla.situacionServicios.duracionBombona }}</p>
 								</div>
 								<div class="col-sm-6">
 									<p class="bottom-line negritas text-info">Suministro Eléctrico</p>
@@ -672,6 +709,79 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	  <div class="modal-dialog modal-xl" role="document">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Detalles de los Miembros del Grupo Familiar</h4>
+			</div>
+			{% if planilla.grupoFamiliar != NULL %}
+				{% if planilla.grupoFamiliar.miembros|length > 0 %}
+				<table class="table table-bordered table-condensed table-striped" style="font-size: .9em;">
+					<thead>
+						<tr>
+							<th>N°</th>
+							<th>Nombres y Apellidos</th>
+							<th>Sexo</th>
+							<th>Cédula</th>
+							<th>F/Nto.</th>
+							<th>Edad</th>
+							<th>Discapacidad</th>
+							<th>Embarazo Temprano</th>
+							<th>Parentesco</th>
+							<th>Grado de Instrucción</th>
+							<th>CNE</th>
+							<th>Profesión</th>
+							<th>Pensionado</th>
+							<th>Ingreso Mensual</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>{% for persona in planilla.grupoFamiliar.miembros %}
+						<tr>
+							<td>{{ loop.index }}</td>
+							<td>{{ persona.nombre }} {{ persona.apellido }}</td>
+							<td>{{ persona.sexoPlanilla }}</td>
+							<td>{{ persona.cedula }}</td>
+							<td>{{ persona.fechaNacimientoCorta() }}</td>
+							<td>{{ persona.edad }}</td>
+							<td>{{ persona.incapacitado|title }}{% if persona.incapacitadoTipo != '' %}, {{persona.incapacitadoTipo }}{% endif %}</td>
+							<td>{{ persona.embarazoTemprano|title }}</td>
+							<td>{{ persona.parentesco }}</td>
+							<td>{{ persona.gradoInstruccion }}</td>
+							<td>{{ persona.cne }}</td>
+							<td>{{ persona.profesion }}</td>
+							<td>{{ persona.pensionado|title }}</td>
+							<td>{{ persona.ingresoMensual_fmt }}</td>
+							<td>
+								<div class="btn-group">
+									<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-cogs"></i></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="{{ path('personas_show', {'id': persona.id })}}"><i class="fa fa-user"></i> Ver persona</a></li>
+									<li><a href="{{ path('personas_edit', {'id': persona.id })}}"><i class="fa fa-edit"></i> Editar persona</a></li>
+								</ul>
+								</div>
+								</td>
+						</tr>{% endfor %}
+					</tbody>
+				</table>
+				{% else %}
+				<p>No se han registrado miembros adiconales al Jefe del Grupo Familiar.</p>
+				{% endif %}
+			{% else %}
+				<p>No se han registrado Grupo Familiar.</p>
+			{% endif %}
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			</div>
+	    </div>
+	  </div>
+	</div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -681,7 +791,7 @@ $(document).on('ready', function(){
 
 	$('#modalClose').on('click', function(){
 		$.confirm({
-			theme: 'black',
+			theme: 'bootstrap',
 			title: false, // hides the title.
 			cancelButton: false, // hides the cancel button.
 			confirmButton: false, // hides the confirm button.
@@ -709,7 +819,7 @@ $(document).on('ready', function(){
 			cancelButton: 'Continuar editando',
 			confirmButtonClass: 'btn-danger',
 			cancelButtonClass: 'btn-info',
-			theme: 'black',
+			theme: 'bootstrap',
 			confirm: function(){
 			},
 			cancel: function(){
@@ -723,12 +833,12 @@ $(document).on('ready', function(){
 		$.confirm({
 			title: "¿Desea Eliminarla?",
 			content: "Está a punto de eliminar una planilla con todos sus datos, tenga en mente que puede modificar cualquier sección.",
-			theme: 'black',
+			theme: 'bootstrap',
 			confirmButtonClass: 'btn-danger',
 			cancelButtonClass: 'btn-info',
 			confirm: function(){
 				$.confirm({
-					theme: 'black',
+					theme: 'bootstrap',
 					title: false,
 					content: 'Si desea continuar con la eliminación haga click en OKAY',
 					confirmButtonClass: 'btn-danger',
@@ -741,7 +851,6 @@ $(document).on('ready', function(){
 			cancel: function(e){ $('#form_eliminar').submit(function(e){ e.preventDefault(); }); }
 		})
 	});
-	
 })
 </script>
 {% endblock %}

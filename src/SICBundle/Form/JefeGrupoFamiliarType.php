@@ -23,8 +23,19 @@ class JefeGrupoFamiliarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->addEventListener(
+                FormEvents::PRE_SUBMIT,
+                array($this, 'onPreSubmit')
+            )
+
             ->add('nombres')
             ->add('apellidos')
+            
+            ->add('embarazada', EntityType::class, array(
+                'class' => 'SICBundle:AdminRespCerrada',
+                'placeholder' => 'Seleccione',
+            ))
+
             ->add('cedula','text', array(
                 'label' => 'Cédula de Identidad'))
             
@@ -42,7 +53,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'label' => 'Fecha de Nacimiento',
-                'attr' => ['class' => 'js-datepicker'],
+                'attr' => ['class' => 'js-datepicker', 'placeholder' => 'AAAA-MM-DD'],
             ))
 
             ->add('edad','text',array(
@@ -55,7 +66,8 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
             ))
-            ->add('tiempoEnComunidad')
+            ->add('tiempoEnComunidad', 'text', array(
+                'label' => 'Tiempo en la Comunidad'))
             ->add('sexo', GeneroType::class, array(
                 'placeholder' => 'Elija uno'))
 
@@ -69,6 +81,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 ),
                 'choices_as_values' => true,
             ))
+            
             ->add('incapacitadoTipo', EntityType::class, array(
                 'label' => '¿Cúal es la discapacidad que padece?',
                 'class' => 'SICBundle:AdminIncapacidades',
@@ -79,6 +92,7 @@ class JefeGrupoFamiliarType extends AbstractType
                     // 'class' => 'ui fluid search dropdown'
                     )
             ))
+            
             ->add('pensionado', ChoiceType::class, array(
                 'label' => '¿Es pensionado?',
                 'choices'  => array(
@@ -89,6 +103,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 ),
                 'choices_as_values' => true,
             ))
+            
             ->add('pensionadoInstitucion', EntityType::class, array(
                 'class' => 'SICBundle:AdminPensionadoInstitucion',
                 'label' => 'Institución Pensionado',
@@ -98,6 +113,7 @@ class JefeGrupoFamiliarType extends AbstractType
                     // 'class' => 'ui dropdown',
                     'required'  => false)
             ))
+            
             ->add('estadoCivil', EntityType::class, array(
                 'class' => 'SICBundle:AdminEstadoCivil',
                 'label' => 'Estado Civil',
@@ -106,6 +122,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'attr'      => array(
                     'class' => 'ui dropdown',)
             ))
+            
             ->add('nivelInstruccion', EntityType::class, array(
                 'label' => '¿Cúal es el Nivel de Instrucción?',
                 'class' => 'SICBundle:AdminNivelInstruccion',
@@ -114,6 +131,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'attr' => array(
                     'class' => 'ui dropdown')
             ))
+            
             ->add('profesion', EntityType::class, array(
                 'class' => 'SICBundle:AdminProfesion',
                 'label' => 'Profesión',
@@ -123,27 +141,30 @@ class JefeGrupoFamiliarType extends AbstractType
                     'required'  => false,
                     'class' => 'ui fluid search dropdown')
             ))
+            
             ->add('trabajaActualmente', EntityType::class, array(
                 'class' => 'SICBundle:AdminRespCerrada',
                 'label' => '¿Trabaja actualmente?',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
             ))
-            ->add('telefono','collection',array(
-                    'required' => false,
-                    'type' => new TelefonoType(),
-                    'cascade_validation' => true,
-                    'attr' => array('class' => 'telefonos'),
-                    'allow_add'=>'true',
-                    'by_reference'=>'false',
-                    'allow_delete' =>'true',
-                    'data_class' => null,
-                    'label' => 'Número(s) teléfonicos',
-                    ))
 
-            ->add('email','text',array(
+            ->add('telefono','collection', array(
+                'required' => false,
+                'type' => new TelefonoType(),
+                'cascade_validation' => true,
+                'attr' => array('class' => 'telefonos'),
+                'allow_add'=>'true',
+                'by_reference'=>'false',
+                'allow_delete' =>'true',
+                'data_class' => null,
+                'label' => 'Número(s) teléfonicos',
+            ))
+
+            ->add('email', 'text', array(
                 'label'     => 'Correo Electrónico',
-                'required'  => false,))
+                'required'  => false,
+            ))
 
             ->add('ingresoFamiliar', EntityType::class, array(
                 'label' => 'Clasificación del Ingreso Familiar',
@@ -158,6 +179,17 @@ class JefeGrupoFamiliarType extends AbstractType
                     'value' => 0)
                 ))
         ;
+    }
+
+    public function onPreSubmit(\Symfony\Component\Form\FormEvent $event)
+    {
+        $jgf = $event->getData();
+        // $form = $event->getForm();
+
+        $jgf['tiempoEnComunidad'] = filter_var($jgf['tiempoEnComunidad'], FILTER_SANITIZE_NUMBER_INT);
+        $jgf['cedula'] = filter_var($jgf['cedula'], FILTER_SANITIZE_NUMBER_INT);
+        
+        $event->setData($jgf); //Para guardar los cambios
     }
     
     /**
