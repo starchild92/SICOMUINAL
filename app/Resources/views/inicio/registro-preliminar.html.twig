@@ -9,7 +9,7 @@
             {# <hr>
             <p></p>
             <hr> #}
-            <a href="{{ path('sic_documentos_registro_preliminar_pdf') }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Obtener Registro Electoral Preliminar</a>
+            <a data-url="{{ path('sic_documentos_registro_preliminar_pdf') }}" class="confirm btn btn-primary btn-block"><i class="fa fa-print"></i> Obtener Registro Electoral Preliminar</a>
         </div>
         <div class="col-sm-9">
             <h3>Vista Preliminar de los Datos</h3>
@@ -34,9 +34,9 @@
             		<tr>
             			<td class="text-left text-uppercase"><span class="negritas">Parroquía:</span> {{ comunidad.parroquia }}</td>
             		</tr>
-            		<tr>
+            		{# <tr>
             			<td class="text-left text-uppercase"><span class="negritas">Nombre De La Instancía Del Poder Popular: Equipo Promotor Provisional </span> {{ consejo.nombre }}</td>
-            		</tr>
+            		</tr> #}
             	</tbody>
             </table>
             <table class="dataTable table table-bordered table-condensed table-hover">
@@ -105,6 +105,22 @@
                     		"<'row'<'col-sm-12'tr>>" +
                     		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 });
+
+            $('a.confirm').confirm({
+                theme: 'bootstrap',
+                title: 'Continuar',
+                confirmButton: 'Descargar',
+                confirmButtonClass: 'btn-success',
+                cancelButton: 'Cancelar',
+                cancelButtonClass: 'btn-danger',
+                content: 'Por favor presione "Descargar" para obtener el documento en una pestaña nueva.',
+                confirm: function(){
+                    window.open($('a.confirm').data('url'), '_blank');
+                },
+                cancel: function(){
+                    $.alert('Se ha cancelado la generación del documento!')
+                }
+            });
         });
     </script>
 {% endblock %}

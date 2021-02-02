@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1><i class="fa fa-edit"></i> Modificar Noticia <a class="btn btn-primary pull-right" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver todas</a></h1>
+    <h2 class="text-center"><i class="fa fa-edit"></i> Modificar Noticia <a class="btn btn-primary pull-right" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver todas</a></h2>
     <hr>
+    
     {{ form_start(edit_form, {'id':'appbundle_correo'}) }}
         <div class="row">
-            <div class="col-sm-10">{{ form_row(edit_form.titulo) }}</div>
-            <div class="col-sm-2">{{ form_widget(edit_form.visibilidad) }}</div>
+            <div class="col-lg-10">{{ form_row(edit_form.titulo) }}</div>
+            <div class="col-lg-2">{{ form_widget(edit_form.visibilidad) }}</div>
         </div>
+        
+        <label for="TypeHere">Cuerpo de la Noticia</label>
         {{ form_widget(edit_form.cuerpo, {'id':'TypeHere'}) }}
         <hr class="little">
         <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save fa-fw"></i> Guardar cambios en la noticia </button>

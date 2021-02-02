@@ -1,0 +1,28 @@
+{# app/Resources/TwigBundle/views/Exception/error.html.twig #}
+{% extends 'base_not_log.html.twig' %}
+{% block title %}Error{% endblock %}
+{% block body %}
+	<div class="page-header">
+    	<h1>Ha ocurrido un suceso inesperado ... </h1>
+    </div>
+
+    {# example security usage, see below #}
+    <!-- {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+        {# ... #}
+    {% endif %} -->
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-3 col-xs-3">
+            <img src="{{ asset('images/missing.png') }}" style="width:100%; border-radius: 5px;" class="img-responsive pull-right">
+        </div>
+
+        <div class="col-lg-9 col-sm-9 col-xs-9">
+            <div class="jumbotron">
+                <p>
+                    Ha ocurrido un error, tal vez sea solo algo temporal, intente otra vez, si el problema persiste comuniquese con el administrador del sistema o <a href="{{ path('sic_homepage_login') }}">regrese a la página de inicio</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

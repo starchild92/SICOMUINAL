@@ -15,7 +15,8 @@ class NoticiaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titulo')
+            ->add('titulo', 'text', array(
+                'label' => 'Título de la Noticia'))
             ->add('cuerpo', 'textarea', array(
                 'required' => false))
             // ->add('usuario')

@@ -15,7 +15,7 @@
                 <th>Cédula</th>
                 <th>Profesión</th>
                 <th>Edad</th>
-                <th>Dirección</th>
+                <th class="hidden-xs">Dirección</th>
                 <th><i class="fa fa-cogs"></i></th>
             </tr>
         </thead>
@@ -29,11 +29,10 @@
                 <td>{{item.cedula}}</td>
                 <td>{{item.profesion}}</td>
                 <td>{{item.edad_fmt}} años</td>
-                <td>{{item.direccion}}</td>
+                <td class="hidden-xs">{{item.direccion}}</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cogs"></i> Opciones <span class="caret"></span>
+                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i><spam class="hidden-sm hidden-xs">Opciones</spam> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             {% if item.isJGF() %}
@@ -70,7 +69,7 @@
                 "language": {
                     "url": "{{ asset('datatables/espanol.js') }}"
                 },
-                "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                "dom": "<'row'<'col-sm-6 hidden-xs'l><'col-sm-6'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             });

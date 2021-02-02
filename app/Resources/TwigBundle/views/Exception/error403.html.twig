@@ -1,0 +1,19 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+{% extends 'base_not_log.html.twig' %}
+{% block title %}Permisos Insuficientes{% endblock %}
+
+{% block body %}
+	<div class="page-header"></div>
+    
+        <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="jumbotron" style="margin-top: 20px;">
+                <h1>Disculpa, {{ app.user.nombreyapellido }}</h1>
+                <p>
+                    No tienes permisos suficientes para acceder al recurso, si necesitas permisos comunicate con el administrador. <br>
+                    <a style="margin-top: 20px;" class="btn btn-gpsc" href="{{ path('sic_homepage') }}">Ir al inicio</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

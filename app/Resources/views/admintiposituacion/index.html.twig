@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tipo Situación</div>
+        <table class="table table-stripped table-bordered">
+            <thead>
+                <tr>
+                    <th>Situación</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for adminTipoSituacion in adminTipoSituacions %}
+                <tr>
+                    <td>{{ adminTipoSituacion.situacion }}</td>
+                    <td><a id="forModalEdit" href="{{ path('admintiposituacion_edit', { 'id': adminTipoSituacion.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        
+
+    <a class="btn btn-primary" href="{{ path('admintiposituacion_new') }}" id="forModal"><i class="fa fa-plus"></i> Agregar Nueva</a>
+{% endblock %}
+

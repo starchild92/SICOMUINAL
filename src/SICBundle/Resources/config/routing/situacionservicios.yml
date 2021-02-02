@@ -4,7 +4,7 @@ situacionservicios_index:
     methods:  GET
 
 situacionservicios_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:SituacionServicios:show" }
     methods:  GET
 
@@ -14,11 +14,11 @@ situacionservicios_new:
     methods:  [GET, POST]
 
 situacionservicios_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:SituacionServicios:edit" }
     methods:  [GET, POST]
 
 situacionservicios_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:SituacionServicios:delete" }
     methods:  DELETE

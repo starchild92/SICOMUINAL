@@ -65,6 +65,8 @@ class SituacionEconomica
      */
     private $planilla;
 
+    public function ingresoFamiliar_fmt(){ return number_format($this->ingresoFamiliar, 2, ',', '.'); }
+
     /**
      * Constructor
      */

@@ -4,7 +4,7 @@ grupofamiliar_index:
     methods:  GET
 
 grupofamiliar_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:GrupoFamiliar:show" }
     methods:  GET
 
@@ -14,11 +14,11 @@ grupofamiliar_new:
     methods:  [GET, POST]
 
 grupofamiliar_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:GrupoFamiliar:edit" }
     methods:  [GET, POST]
 
 grupofamiliar_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:GrupoFamiliar:delete" }
     methods:  DELETE

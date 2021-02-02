@@ -5,6 +5,7 @@ namespace SICBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Slik\DompdfBundle\DomPDF;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use SICBundle\Entity\Bitacora;
 
 class InicioController extends Controller
@@ -12,7 +13,18 @@ class InicioController extends Controller
     public function inicioAction(){
         if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
         {
-            return $this->render('inicio/inicio.html.twig');
+            $em = $this->getDoctrine()->getManager();
+            $cant_usuarios = sizeof($em->getRepository('SICBundle:Usuario')->findAll());
+            $cant_jgf = sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll());
+            $cant_planillas = sizeof($em->getRepository('SICBundle:Planillas')->findAll());
+            $cant_personas = sizeof($em->getRepository('SICBundle:Persona')->findAll());
+
+            return $this->render('inicio/inicio.html.twig', array(
+                'cant_usuarios' => $cant_usuarios,
+                'cant_jgf' => $cant_jgf,
+                'cant_personas' => $cant_personas,
+                'cant_planillas' => $cant_planillas,
+                ));
         }else{
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }    
@@ -22,6 +34,10 @@ class InicioController extends Controller
         return $this->redirect($this->generateUrl('fos_user_security_login'));
     }
 
+    public function cmpVotos($a, $b){
+        if ($a['votos'] == $b['votos']) { return 0; }
+        return ($a['votos'] > $b['votos']) ? -1 : 1;
+    }
     public function administrarEntidadesAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -52,15 +68,18 @@ class InicioController extends Controller
 
                 array_push($personas, array(
                     "tipo" => $v->getTipo(),
+                    "votos" => $v->getVotosElecto(),
                     "vocero" => $voce,
                 ));
+                usort($personas, array($this, "cmpVotos"));
             }
 
             array_push($unidades_eje, array(
                 "tipoUnidad" => $ue->getTipoUnidad(),
+                "id" => $ue->getId(),
                 "nombre" => $ue->getNombre(),
                 "voceros" => $personas,
-                ));
+            ));
         }
 
         $em->flush();
@@ -72,17 +91,16 @@ class InicioController extends Controller
                 $personas = array();
                 $voceros = $ue->getVoceros();
                 foreach ($voceros as $v) {
-                    $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $v->getPersona()));
+                    $cedula = filter_var($v->getPersona(), FILTER_SANITIZE_NUMBER_INT);
+                    $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
                     if (sizeof($r)>0) {
                         $voce = $r[0];
                     }else{
-                        $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $v->getPersona()));
+                        $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
                         if (sizeof($r)>0) {
                             $voce = $r[0];
                         }else{
                             $em->remove($v);
-                            // echo "La cédula no se encotró para el JefeGrupoFamiliar, despues de buscar en Personas";
-                            // die();
                         }
                     }
 
@@ -94,14 +112,15 @@ class InicioController extends Controller
                 }
 
                 array_push($unidades_restantes, array(
+                    "id" => $ue->getId(),
                     "tipoUnidad" => $ue->getTipoUnidad(),
                     "voceros" => $personas,
                 ));
+                usort($personas, array($this, "cmpVotos"));
             }
         }
+        
         $em->flush();
-
-        //die();
 
         // Solo una sola instancia de esta entidad
         if (count($comunidad) > 0) { $comunidad = $comunidad[0]; }
@@ -136,18 +155,22 @@ class InicioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
+            
             $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
             $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
-
             usort($votantes, array($this, "cmp"));
 
             return $this->render('inicio/cuaderno-votacion.html.twig',
                 array(
+                    'consejo' => $cc,
                     'votantes' => $votantes,
                     'comunidad' => $comunidad_info));
         }else{
@@ -159,8 +182,11 @@ class InicioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
+            $cc = $consejo[0];
 
             $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
             $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
@@ -172,8 +198,9 @@ class InicioController extends Controller
             // Genero el PDF Aqui
             $dompdf = new \DOMPDF();
             $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
-            $dompdf->load_html($this->renderView('inicio/cuaderno-votacion-pdf.html.twig',
+            $dompdf->load_html($this->renderView('pdfs/cuaderno-votacion-pdf.html.twig',
                 array(
+                    'consejo' => $cc,
                     'votantes' => $votantes,
                     'comunidad' => $comunidad_info))
             );
@@ -185,7 +212,7 @@ class InicioController extends Controller
 
             // Or get the output to handle it yourself
             $response = new Response();
-            $response->setContent($dompdf->stream("cuaderno-votacion.pdf", array("Attachment"=>1)));
+            $response->setContent($dompdf->stream("cuaderno-votacion.pdf", array("Attachment"=>0)));
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
@@ -196,6 +223,7 @@ class InicioController extends Controller
     }
 
     // public function cmpsector($a, $b){ return strcmp($a->getAvenida(), $b->getAvenida()); }
+    /* Estas funciones son identicas, difieren en el response, si cambias las contultas de una, debes cambiar las consultas de la otra. Obviamente el response se mantiene. */
     public function cmpdireccion($a, $b){ return strcmp($a->getAvenidaCalle(), $b->getAvenidaCalle()); }
     public function resumenCensoAction()
     {
@@ -227,6 +255,7 @@ class InicioController extends Controller
                 // echo sizeof($grupos_del_sector);
                 $miembros = 0;
                 $entreQyD = 0;
+                $menores = 0;
                 $mayor_edad = 0;
                 $cne = 0;
                 $electores = 0;
@@ -235,6 +264,8 @@ class InicioController extends Controller
                     $miembros = sizeof($grupo->getMiembros()) + $miembros + 1;
                     $personas = $grupo->getMiembros();
                     foreach ($personas as $p) {
+                        if ($p->getEdad() < 15) { $menores++; }
+
                         if ($p->getEdad() >= 15 && $p->getEdad() <= 17) { $entreQyD++; }
                         if ($p->getEdad() >= 15) { $electores++; }
                         if ($p->getEdad() >= 18) { $mayor_edad++; }
@@ -243,6 +274,7 @@ class InicioController extends Controller
                     if ($grupo->getPlanilla() != null) {
                         $jfg = $grupo->getPlanilla()->getJefeGrupoFamiliar();
                         if ($jfg != null) {
+                            if ($jfg->getEdad() < 15) { $menores++; }
                             if ($jfg->getEdad() >= 15 && $jfg->getEdad() <= 17) { $entreQyD++; }
                             if ($jfg->getEdad() >= 15) { $electores++; }
                             if ($jfg->getEdad() >= 18) { $mayor_edad++; }
@@ -263,6 +295,7 @@ class InicioController extends Controller
                         'num_familias' => sizeof($grupos_del_sector),
                         'num_habitantes' => $habitantes_sector['cantidad'],
                         'mayoresde' => $entreQyD,
+                        'menores' => $menores,
                         'mayor_edad' => $mayor_edad,
                         'cne' => $cne,
                         'electores' => $electores));
@@ -296,6 +329,7 @@ class InicioController extends Controller
                 $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_avenida);
                 $miembros = 0;
                 $entreQyD = 0;
+                $menores = 0;
                 $mayor_edad = 0;
                 $cne = 0;
                 $electores = 0;
@@ -303,6 +337,7 @@ class InicioController extends Controller
                     $miembros = sizeof($grupo->getMiembros()) + $miembros + 1;
                     $personas = $grupo->getMiembros();
                     foreach ($personas as $p) {
+                        if ($p->getEdad() < 15) { $menores++; }
                         if ($p->getEdad() >= 15 && $p->getEdad() <= 17) { $entreQyD++; }
                         if ($p->getEdad() >= 15) { $electores++; }
                         if ($p->getEdad() >= 18) { $mayor_edad++; }
@@ -311,6 +346,7 @@ class InicioController extends Controller
                     if ($grupo->getPlanilla() != null) {
                         $jfg = $grupo->getPlanilla()->getJefeGrupoFamiliar();
                         if ($jfg != null) {
+                            if ($jfg->getEdad() < 15) { $menores++; }
                             if ($jfg->getEdad() >= 15 && $jfg->getEdad() <= 17) { $entreQyD++; }
                             if ($jfg->getEdad() >= 15) { $electores++; }
                             if ($jfg->getEdad() >= 18) { $mayor_edad++; }
@@ -324,14 +360,15 @@ class InicioController extends Controller
                     'num_familias' => sizeof($grupos_del_sector),
                     'num_habitantes' => $habitantes_sector['cantidad'],
                     'mayoresde' => $entreQyD,
+                    'menores' => $menores,
                     'mayor_edad' => $mayor_edad,
                     'cne' => $cne,
                     'electores' => $electores));
             }
 
             $dompdf = new \DOMPDF();
-            $dompdf->set_paper(array(0,0,612.00,792.00), 'portrait');
-            $dompdf->load_html($this->renderView('inicio/resumen-censo-pdf.html.twig',
+            $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
+            $dompdf->load_html($this->renderView('pdfs/resumen-censo-pdf.html.twig',
                 array(
                     'sectores' => $datos,
                     'comunidad' => $comunidad_info,
@@ -344,7 +381,7 @@ class InicioController extends Controller
             $em->flush();
 
             $response = new Response();
-            $response->setContent($dompdf->stream("resumen-censo-demografico.pdf", array("Attachment"=>1)));
+            $response->setContent($dompdf->stream("resumen-censo-demografico.pdf", array("Attachment"=>0)));
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
@@ -354,7 +391,7 @@ class InicioController extends Controller
         }
     }
 
-    /**/
+    /* Estas funciones son identicas, difieren en el response, si cambias las contultas de una, debes cambiar las consultas de la otra. Obviamente el response se mantiene. */
     public function registroElectoralAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -401,7 +438,7 @@ class InicioController extends Controller
 
             $dompdf = new \DOMPDF();
             $dompdf->set_paper(array(0,0,612.00,792.00), 'portrait');
-            $dompdf->load_html($this->renderView('inicio/registro-electoral-pdf.html.twig',
+            $dompdf->load_html($this->renderView('pdfs/registro-electoral-pdf.html.twig',
                 array(
                     'votantes' => $votantes,
                     'comunidad' => $comunidad_info,
@@ -414,7 +451,7 @@ class InicioController extends Controller
             $em->flush();
 
             $response = new Response();
-            $response->setContent($dompdf->stream("registro-electoral.pdf", array("Attachment"=>1)));
+            $response->setContent($dompdf->stream("registro-electoral.pdf", array("Attachment"=>0)));
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
@@ -425,7 +462,7 @@ class InicioController extends Controller
         }
     }
 
-    /**/
+    /* Estas funciones son identicas, difieren en el response, si cambias las contultas de una, debes cambiar las consultas de la otra. Obviamente el response se mantiene. */
     public function registroPreliminarAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -489,7 +526,7 @@ class InicioController extends Controller
 
             $dompdf = new \DOMPDF();
             $dompdf->set_paper(array(0,0,612.00,792.00), 'landscape');
-            $dompdf->load_html($this->renderView('inicio/registro-preliminar-pdf.html.twig',
+            $dompdf->load_html($this->renderView('pdfs/registro-preliminar-pdf.html.twig',
                 array(
                     'votantesV' => $votantesV,
                     'votantesE' => $votantesE,
@@ -503,7 +540,7 @@ class InicioController extends Controller
             $em->flush();
 
             $response = new Response();
-            $response->setContent($dompdf->stream("registro-electoral-preliminar.pdf", array("Attachment"=>1)));
+            $response->setContent($dompdf->stream("registro-electoral-preliminar.pdf", array("Attachment"=>0)));
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
@@ -512,5 +549,58 @@ class InicioController extends Controller
             $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
+    }
+
+    /* Funcion de busqueda del inicio de la app */
+    public function buscadorAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $request->get('cadena');
+        $cosas = array('query' => $query);
+
+        /* Buscando en las tablas */
+        $qb = $em->createQueryBuilder();
+
+        $personas = $qb->select('p')->from('SICBundle:Persona', 'p')
+          ->where( $qb->expr()->like('p.cedula', $qb->expr()->literal('%' . $query . '%')) )
+          ->orWhere( $qb->expr()->like('p.nombre', $qb->expr()->literal('%' . $query . '%')) )
+          ->orWhere( $qb->expr()->like('p.apellido', $qb->expr()->literal('%' . $query . '%')) )
+          ->getQuery()->getResult();
+
+        // if (sizeof($personas) > 0) { $cosas['personas'] = $personas; }
+        $cosas['personas'] = $personas;
+
+        $jgf = $qb->select('j')->from('SICBundle:JefeGrupoFamiliar', 'j')
+          ->where( $qb->expr()->like('j.cedula', $qb->expr()->literal('%' . $query . '%')) )
+          ->orWhere( $qb->expr()->like('j.nombres', $qb->expr()->literal('%' . $query . '%')) )
+          ->orWhere( $qb->expr()->like('j.apellidos', $qb->expr()->literal('%' . $query . '%')) )
+          ->getQuery()->getResult();
+
+        // if (sizeof($jgf) > 0) { $cosas['jgf'] = $jgf; }
+        $cosas['personas'] = $cosas['personas'] + $jgf;
+
+        return $this->render('inicio/resultados_busqueda.html.twig', array('cosas' => $cosas));
+    }
+
+    public function ayudaSistemaAction(Request $request)
+    {
+        return $this->render('inicio/ayuda.html.twig');
+    }
+
+    public function descargarManualAction($tipo_manual)
+    {
+        $filename = "MANUAL DE USUARIO.pdf";
+        $request = $this->get('request');
+        $path = $this->get('kernel')->getRootDir(). "/../web/documentos/";
+        $content = file_get_contents($path.$filename);
+
+        $response = new Response();
+
+        //set headers
+        $response->headers->set('Content-Type', 'mime/type');
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+
+        $response->setContent($content);
+        return $response;
     }
 }

@@ -1,0 +1,32 @@
+{% embed 'estadisticas/base-estadisticas-generales.html.twig' %}
+	
+	{% block body %}
+	<div class="row">
+		{% include 'estadisticas/menu-opciones-estadisticas-generales.html.twig' %}
+		<script>var menu_element = document.getElementById('participacion_comunitaria').className = 'list-group-item active';</script>
+		<div class="col-lg-9 col-sm-9">
+			<h3 class="text-center text-info">Estadísticas Generales - Participación Comunitaria <i class="fa fa-bar-chart fa-sm pull-left"></i></h3>
+			<hr>
+			<div class="row grid">
+				{% for item in situacion %}
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<div class="panel panel-primary">
+							<p class="panel-title text-center negritas">{{ item.title }}</p>
+							{% for object in item.array %}
+								{% if object.situacion|length > 0 %}
+								<div class="panel-body">
+									<h4 class="bottom-line">{{ object.elemento }}</h4>
+									{% for situacion in object.situacion %}
+									<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+									{% endfor %}
+								</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+{% endembed %}

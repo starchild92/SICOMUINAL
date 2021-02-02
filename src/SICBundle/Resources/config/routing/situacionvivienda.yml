@@ -4,7 +4,7 @@ situacionvivienda_index:
     methods:  GET
 
 situacionvivienda_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:SituacionVivienda:show" }
     methods:  GET
 
@@ -14,11 +14,11 @@ situacionvivienda_new:
     methods:  [GET, POST]
 
 situacionvivienda_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:SituacionVivienda:edit" }
     methods:  [GET, POST]
 
 situacionvivienda_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:SituacionVivienda:delete" }
     methods:  DELETE

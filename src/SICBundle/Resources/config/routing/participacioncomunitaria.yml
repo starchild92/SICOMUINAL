@@ -4,7 +4,7 @@ participacioncomunitaria_index:
     methods:  GET
 
 participacioncomunitaria_show:
-    path:     /{id}/show
+    path:     /{id}/mostrar
     defaults: { _controller: "SICBundle:ParticipacionComunitaria:show" }
     methods:  GET
 
@@ -14,11 +14,11 @@ participacioncomunitaria_new:
     methods:  [GET, POST]
 
 participacioncomunitaria_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "SICBundle:ParticipacionComunitaria:edit" }
     methods:  [GET, POST]
 
 participacioncomunitaria_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "SICBundle:ParticipacionComunitaria:delete" }
     methods:  DELETE

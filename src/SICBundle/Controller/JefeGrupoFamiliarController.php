@@ -83,7 +83,7 @@ class JefeGrupoFamiliarController extends Controller
 	            return $this->redirectToRoute('grupofamiliar_new', array('id_planilla' => $id_planilla, 'id_grupofamiliar' => 0));
         	}else{
         		$this->get('session')->getFlashBag()
-                    ->add('error', 'Ya existe una persona con este número de cédula, verifica sus datos en la Agenda de la Comunidad.');
+                    ->add('error', 'Ya existe una persona con este número de cédula, verifica sus datos en la Agenda de la Comunidad. Para poder agregarlo como Jefe de Grupo Familiar debe eliminarlo como miembro de Grupo Familiar.');
         	}
         }
 
@@ -129,7 +129,7 @@ class JefeGrupoFamiliarController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se han guardado los cambios de '.$jefegrupofamiliar->nombreyapellido().' Jefe de Grupo Familiar');
+            $this->get('session')->getFlashBag()->add('success', 'Se han guardado los cambios de Jefe de Grupo Familiar');
 
             return $this->redirectToRoute('planillas_show', array('id' => $jefeGrupoFamiliar->getPlanilla()->getId()));
         }
@@ -222,15 +222,11 @@ class JefeGrupoFamiliarController extends Controller
         $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
         $stat_cne = array();
         foreach ($resp_cerradas as $resp) {
-            array_push(
-                $stat_cne, 
-                array(
-                    'resp' => $resp->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
-                                        array('cne' => $resp->getId())
-                                        ))
-                    )
-            );
+            array_push($stat_cne, array('resp' => $resp->getRespuesta(),'cantidad'=> sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cne' => $resp->getId())))));
+        }
+        $stat_embarazada = array();
+        foreach ($resp_cerradas as $resp) {
+            array_push($stat_embarazada, array('resp' => $resp->getRespuesta(),'cantidad'=> sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('embarazada' => $resp->getId())))));
         }
         
         $stat_empleado = array();
@@ -316,6 +312,13 @@ class JefeGrupoFamiliarController extends Controller
             );
         }
 
+        $ingresofam = $em->getRepository('SICBundle:AdminClasIngresoFamiliar')->findAll();
+        $stat_ingresofam = array();
+        foreach ($ingresofam as $elemento) {
+            array_push($stat_ingresofam, array('ingresofam' => $elemento->getNombre(),'cantidad' => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('ingresoFamiliar' => $elemento->getId())))));
+        }
+
+
         return array(
             'total' => $total,
             'stat_nacionalidad' => $stat_nacionalidad,
@@ -327,6 +330,8 @@ class JefeGrupoFamiliarController extends Controller
             'stat_empleado' => $stat_empleado,
             'stat_incapacidades' => $stat_incapacidades,
             'stat_pensionados' => $stat_pensionados,
+            'stat_ingresofam' => $stat_ingresofam,
+            'stat_embarazada' => $stat_embarazada,
             'base_dir' => $this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath(),
         );
     }
